@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+.bg-primary-color{
+    background-color: #FFDA00 !important;
+    }
+.primary-color{
+        color: #FFDA00 !important;
+}
+.bg-color-D1D1D1{
+    background-color: #D1D1D1 !important;
+}

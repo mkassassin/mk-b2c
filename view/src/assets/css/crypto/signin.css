@@ -1,0 +1,57 @@
+.bg-primary-color{
+background-color: #FFDA00 !important;
+}
+.primary-color{
+    color: #FFDA00 !important;
+ }
+.text-color{
+    color: #666666
+}
+.bg-white{
+    background-color: #ffffff !important;
+}
+
+/* Index Page Header Design  */
+
+.logoDesign-1{
+    height: 50px;
+    margin-top: -5px;
+}
+.logoTextDesign-1{
+    margin-top: 12px;
+}
+.TextDesign-1{
+    position: absolute;
+    top: -4px;
+    font-size: 16px;
+    margin: 0px;
+    font-weight: 600;
+    line-height: 23px;
+}
+.TextDesign-2{
+    font-size: 21px;
+    margin: 0px;
+    font-weight: 800;
+    line-height: 28px;
+    margin-left: 10px;
+}
+.TextDesign-3{
+    font-size: 21px;
+    margin: 0px;
+    font-weight: 800;
+    line-height: 28px;
+}
+.linkStyle-1{
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 20px;
+    border: 1px solid #FFDA00;
+    padding: 2px 12px;
+    letter-spacing: 1px;
+}
+.linkStyle-1:hover,
+.linkStyle-1:active,
+.linkStyle-1:focus{
+    background-color: #FFDA00;
+    color: #ffffff;
+}

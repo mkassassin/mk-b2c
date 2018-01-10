@@ -1,0 +1,32 @@
+.styled-icons li a.facebook-hover:hover,
+.styled-icons li a.facebook-hover:active,
+.styled-icons li a.facebook-hover:focus{
+ background-color: rgb(59, 89, 152) !important;
+}
+.styled-icons li a.twitter-hover:hover,
+.styled-icons li a.twitter-hover:active,
+.styled-icons li a.twitter-hover:focus{
+ background-color: rgb(2, 176, 232) !important;
+}
+.styled-icons li a.googleplus-hover:hover,
+.styled-icons li a.googleplus-hover:active,
+.styled-icons li a.googleplus-hover:focus{
+ background-color: rgb(161, 19, 18) !important;
+}
+.styled-icons li a.instagram-hover:hover,
+.styled-icons li a.instagram-hover:active,
+.styled-icons li a.instagram-hover:focus{
+    background: #d6249f !important;
+    background: radial-gradient(circle at -20% 180%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%) !important;
+}
+.styled-icons li a.linkedin-hover:hover,
+.styled-icons li a.linkedin-hover:active,
+.styled-icons li a.linkedin-hover:focus{
+ background-color: #2CAAE1 !important;
+}
+.styled-icons li a.skype-hover:hover,
+.styled-icons li a.skype-hover:active,
+.styled-icons li a.skype-hover:focus{
+ background-color: rgb(5, 167, 227) !important;
+}
+
