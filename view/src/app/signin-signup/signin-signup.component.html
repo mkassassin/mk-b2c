@@ -1,205 +1,221 @@
 <div class="SignInSignUp">
 
-  <div class="container-fluid mb-20 bg-primary-color height-60" fxLayout="row" fxLayoutAlign="space-evenly"
-    fxLayoutGap="10px" fxLayoutGap.xs="0">
-    <div fxFlex="200px" routerLink="/" style="cursor:pointer">
-      <div class="row" style="padding:10px 0px;" >
-        <div class="col-sm-12" style="display:inline-flex;">
-          <img class="logoDesign-1" src="./../assets/images/logo.png" alt="" >
-          <span class="logoTextDesign-1" routerLink="/" style="cursor:pointer">
-            <sup class="TextDesign-1"> The </sup>
-            <span class="TextDesign-2"> Crypto </span>
-            <span class="TextDesign-3"> Network </span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
-  <div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-evenly" fxLayoutGap="10px" fxLayoutGap.sm="0">
+  <div class="" fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center" fxLayoutGap="5%" fxLayoutGap.sm="0">
 
-     <!-- Right Bar -->
-    <div class="bg-primary-color" fxFlex="35%">
-      <!-- action Tabs  -->
-      <div class="mb-10" fxLayout="row" fxLayoutAlign="space-evenly">
-        <div fxFlex="40%" class="text-right" (click)="onclick()" style="cursor:pointer" >
-          <h4 class="form-header" [ngClass]="{ 'inActive': !SingUpActive }" > Sign Up </h4>
-        </div>
-        <div fxFlex="10%" class="text-center">
-          <h4 class="form-header"> | </h4>
-        </div>
-        <div fxFlex="40%" class="text-left" (click)="onclick()" style="cursor:pointer">
-          <h4 class="form-header " [ngClass]="{ 'inActive': !SingInActive }" > Sign In </h4>
+
+    <!-- Left Bar -->
+    <div fxFlex="45%" class="">
+
+
+      <div class="mb-20 height-60" fxLayout="row" fxLayoutAlign="start" style="margin-left:-13%" >
+        <div fxFlex="250px" routerLink="/" style="cursor:pointer">
+          <div class="row" style="padding:15px 0px;" >
+            <div class="col-sm-12" style="display:inline-flex;">
+              <img class="logoDesign-1 mr-5" src="./../assets/images/logos/logo3mini62.png" alt="" >
+              <span class="logoTextDesign-1" routerLink="/" style="cursor:pointer">
+                <sup class="TextDesign-1"> The </sup>
+                <span class="TextDesign-2"> Crypto </span>
+                <span class="TextDesign-3"> Network </span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div *ngIf="SingUpActive">
-          <!-- input Name -->
-          <div class="text-center">
-            <input type="text" class="inputStyle-1" placeholder="Name">
-          </div>
 
-          <!-- input Email -->
-          <div class="text-center">
-            <input type="email" class="inputStyle-1 bg-color-D1D1D1" placeholder="Enterdmail@mail.com" readonly>
-          </div>
 
-          <!-- input Password -->
-          <div class="text-center">
-            <input type="password" class="inputStyle-1" placeholder="Password">
-          </div>
+      <div style="height:500px" fxLayout="column" fxLayoutAlign="space-evenly center" >
 
-          <!-- Topic Selection -->
-          <div class="mt-10 mb-30" fxLayout fxLayoutAlign="space-evenly">
-            <div class="cat-img-item selected">
-              <img src="./../../assets/images/speaker.png" alt="">
-              <span> Media </span>
-            </div>
-            <div class="cat-img-item">
-              <img src="./../../assets/images/investing.png" alt="">
-              <span> Invester </span>
-            </div>
-            <div class="cat-img-item">
-              <img src="./../../assets/images/userpin.png" alt="">
-              <span> Enthusiast </span>
-            </div>
-            <div class="cat-img-item">
-              <img src="./../../assets/images/building.png" alt="">
-              <span> Company </span>
-            </div>
-            <div class="cat-img-item">
-              <img src="./../../assets/images/expert.png" alt="">
-              <span> Expert </span>
-            </div>
-            <div class="cat-img-item">
-              <img src="./../../assets/images/programmer.png" alt="">
-              <span> Blogger </span>
-            </div>
-          </div>
-
-          <!-- Input Company And Professioin -->
-          <div class="mt-40 mb-10" fxLayout fxLayoutAlign="space-evenly">
-            <div fxFlex="47%">
-              <input type="text" class="inputStyle-2" placeholder="Company">
-            </div>
-            <div fxFlex="47%">
-              <input type="text" class="inputStyle-2" placeholder="Profession">
-            </div>
-          </div>
-
-          <!-- Input Date oF Birth And Gender -->
-          <div class="mt-10 mb-10" fxLayout fxLayoutAlign="space-evenly">
-            <div fxFlex="47%">
-              <input type="text" class="inputStyle-2" placeholder="Date Of Birth">
-            </div>
-            <div fxFlex="47%">
-              <div class="gender-select">
-                <div class="tick ml-10" (click)="genderSelect()" style="cursor:pointer">
-                  <img  [ngClass]="{ 'p-13': !MaleActive }" src="./../../assets/images/tick.png" alt=""> Male </div>
-                <div class="tick ml-20" (click)="genderSelect()" style="cursor:pointer">
-                  <img class="p-13" [ngClass]="{ 'p-13': !FemaleActive }" src="./../../assets/images/tick.png" alt=""> Female </div>
+          <div class="right-part mb-30" fxLayout fxLayoutAlign="center" >
+              <div fxFlex="140px" class="text-center">
+                <img class="imgStyle-2" src="../../assets/images/Picture7.png" alt="">
               </div>
-            </div>
+              <div>
+                <h4 class="textStyle-2"> SHARE stories, opinions and news about crypto currencies and markets </h4>
+              </div>
           </div>
-
-          <!-- Input Country State And City -->
-          <div class="mt-10 mb-10" fxLayout fxLayoutAlign="space-evenly">
-            <div fxFlex="31%">
-              <input type="text" class="inputStyle-2" placeholder="Country">
-            </div>
-            <div fxFlex="31%">
-              <input type="text" class="inputStyle-2" placeholder="State">
-            </div>
-            <div fxFlex="30%">
-              <input type="text" class="inputStyle-2" placeholder="City">
-            </div>
+          <div class="right-part mb-30" fxLayout fxLayoutAlign="center">
+              <div fxFlex="140px" class="text-center">
+                <img class="imgStyle-2" src="../../assets/images/Picture8.png" alt="">
+              </div>
+              <div>
+                <h4 class="textStyle-2"> CONNECT with experts and ask any questions related to the topic </h4>
+              </div>
           </div>
-
-          <!--  Submi Button -->
-          <div class="text-center mt-10 mb-10">
-            <button class="btn-flat btn btn-cutom"> Register </button>
+          <div class="right-part"  fxLayout fxLayoutAlign="center">
+              <div fxFlex="140px" class="text-center">
+                <img class="imgStyle-2" src="../../assets/images/Picture9.png" alt="">
+              </div >
+              <div>
+                <h4 class="textStyle-2"> CHECK the current rates and be up-to-date with the trends  </h4>
+              </div>
           </div>
-
+        
       </div>
-      
-      <div *ngIf="SingInActive" style="height:85%">
-          <div fxLayout="column" fxLayoutAlign="start" style="height:100%">
 
-              <!-- input Email -->
-              <div class="text-center mt-10" >
-                <input type="email" class="inputStyle-1 bg-color-D1D1D1 mb-20" placeholder="Enterdmail@mail.com" readonly>
-              </div>
-
-              <!-- input Password -->
-              <div class="text-center">
-                <input type="password" class="inputStyle-1" placeholder="Password">
-              </div>
-
-              <!--  Submi Button -->
-              <div class="text-center mt-10 mb-10">
-                  <button class="btn-flat btn btn-cutom"> Sign In </button>
-              </div>
-
-              <div class="col-sm-12 text-center">
-                  <p class="textStyle-1"> Forgot Password !!  </p>
-              </div>
-
-
-              <div class="row mt-40 mb-30">
-                  <div class="col-sm-12 text-center">
-                          <p class="textStyle-1 mb-0"> <small>  Or Sign In Using </small> </p>
-                      <div style="display:inline-flex">
-                          <a href="#" class="linkStyle-4 facebook">
-                              <i class="fa fa-facebook" aria-hidden="true"></i>
-                          </a>
-                          <a href="#" class="linkStyle-4 twitter">
-                              <i class="fa fa-twitter" aria-hidden="true"></i>
-                          </a>
-                          <a href="#" class="linkStyle-4 googlePlus">
-                              <i class="fa fa-google-plus" aria-hidden="true"></i>
-                          </a>
-                          <a href="#" class="linkStyle-4 linkedin">
-                              <i class="fa fa-linkedin" aria-hidden="true"></i>
-                          </a>
-                      </div>
-                  </div>
-              </div>
-
-          </div>
-      </div>
 
     </div>
+
 
 
     <!-- Right Bar -->
-    <div fxFlex="55%">
-      <div class="right-part mb-30">
-          <div class="text-center">
-            <img class="imgStyle-2" src="../../assets/images/Picture7.png" alt="">
-          </div>
-          <div fxLayout fxLayoutAlign="space-evenly">
-            <h4 class="textStyle-2"> SHARE stories, opinions and news about crypto currencies and markets </h4>
-          </div>
-      </div>
-      <div class="right-part mb-30">
-          <div class="text-center">
-            <img class="imgStyle-2" src="../../assets/images/Picture8.png" alt="">
-          </div>
-          <div fxLayout fxLayoutAlign="space-evenly">
-            <h4 class="textStyle-2"> CONNECT with experts and ask any questions related to the topic </h4>
-          </div>
-      </div>
-      <div class="right-part">
-          <div class="text-center">
-            <img class="imgStyle-2" src="../../assets/images/Picture9.png" alt="">
-          </div >
-          <div fxLayout fxLayoutAlign="space-evenly">
-            <h4 class="textStyle-2"> CHECK the current rates and be up-to-date with the trends  </h4>
-          </div>
-      </div>
+    <div class="mt-50" fxFlex="34%">
 
+
+        <!-- action Tabs  -->
+        <div class="pb-10 bg-primary-color" fxLayout="row" fxLayoutAlign="space-evenly">
+          <div fxFlex="40%" class="text-right" (click)="onclick()" style="cursor:pointer" >
+            <h4 class="form-header" [ngClass]="{ 'inActive': !SingUpActive }" > Sign Up </h4>
+          </div>
+          <div fxFlex="10%" class="text-center">
+            <h4 class="form-header"> | </h4>
+          </div>
+          <div fxFlex="40%" class="text-left" (click)="onclick()" style="cursor:pointer">
+            <h4 class="form-header " [ngClass]="{ 'inActive': !SingInActive }" > Sign In </h4>
+          </div>
+        </div>
+  
+        <div class="bg-primary-color" *ngIf="SingUpActive">
+            <!-- input Name -->
+            <div class="text-center">
+              <input type="text" class="inputStyle-1" placeholder="Name">
+            </div>
+  
+            <!-- input Email -->
+            <div class="text-center">
+              <input type="email" class="inputStyle-1 bg-color-D1D1D1" placeholder="Samplemail@mail.com" readonly>
+            </div>
+  
+            <!-- input Password -->
+            <div class="text-center">
+              <input type="password" class="inputStyle-1" placeholder="Password">
+            </div>
+  
+            <!-- Topic Selection -->
+            <div class="mt-10 mb-30" fxLayout fxLayoutAlign="space-between" style="width:84%;margin-left:8%">
+              <div class="cat-img-item selected">
+                <img src="./../../assets/images/speaker.png" alt="">
+                <span> Media </span>
+              </div>
+              <div class="cat-img-item">
+                <img src="./../../assets/images/investing.png" alt="">
+                <span> Invester </span>
+              </div>
+              <div class="cat-img-item">
+                <img src="./../../assets/images/userpin.png" alt="">
+                <span> Enthusiast </span>
+              </div>
+              <div class="cat-img-item">
+                <img src="./../../assets/images/building.png" alt="">
+                <span> Company </span>
+              </div>
+              <div class="cat-img-item">
+                <img src="./../../assets/images/expert.png" alt="">
+                <span> Expert </span>
+              </div>
+              <div class="cat-img-item">
+                <img src="./../../assets/images/programmer.png" alt="">
+                <span> Blogger </span>
+              </div>
+            </div>
+  
+            <!-- Input Company And Professioin -->
+            <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+              <div fxFlex="41%">
+                <input type="text" class="inputStyle-2" placeholder="Company">
+              </div>
+              <div fxFlex="41%">
+                <input type="text" class="inputStyle-2" placeholder="Profession">
+              </div>
+            </div>
+  
+            <!-- Input Date oF Birth And Gender -->
+            <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+              <div fxFlex="41%">
+                <input type="text" class="inputStyle-2" placeholder="Date Of Birth">
+              </div>
+              <div fxFlex="41%">
+                <div class="gender-select">
+                  <div class="tick ml-10" (click)="genderSelect()" style="cursor:pointer">
+                    <img  [ngClass]="{ 'p-13': !MaleActive }" src="./../../assets/images/tick.png" alt=""> Male </div>
+                  <div class="tick ml-20" (click)="genderSelect()" style="cursor:pointer">
+                    <img class="p-13" [ngClass]="{ 'p-13': !FemaleActive }" src="./../../assets/images/tick.png" alt=""> Female </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Input Country State And City -->
+            <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="5px">
+              <div fxFlex="28%">
+                <input type="text" class="inputStyle-2" placeholder="Country">
+              </div>
+              <div fxFlex="27%">
+                <input type="text" class="inputStyle-2" placeholder="State">
+              </div>
+              <div fxFlex="27%">
+                <input type="text" class="inputStyle-2" placeholder="City">
+              </div>
+            </div>
+  
+            <!--  Submi Button -->
+            <div class="text-center mt-10 pb-10">
+              <button routerLink="/Feeds" class="btn-flat btn btn-cutom"> Register </button>
+            </div>
+  
+        </div>
+        
+        <div class="bg-primary-color" *ngIf="SingInActive">
+            <div fxLayout="column" fxLayoutAlign="start" style="height:100%">
+  
+                <!-- input Email -->
+                <div class="text-center mt-10" >
+                  <input type="email" class="inputStyle-1 bg-color-D1D1D1 mb-20" placeholder="Enterdmail@mail.com" readonly>
+                </div>
+  
+                <!-- input Password -->
+                <div class="text-center">
+                  <input type="password" class="inputStyle-1" placeholder="Password">
+                </div>
+  
+                <!--  Submi Button -->
+                <div class="text-center mt-10 mb-10">
+                    <button routerLink="/Feeds" class="btn-flat btn btn-cutom"> Sign In </button>
+                </div>
+  
+                <div class="col-sm-12 text-center">
+                    <p class="textStyle-1"> Forgot Password !!  </p>
+                </div>
+  
+  
+                <div class="row mt-40 mb-30">
+                    <div class="col-sm-12 text-center">
+                            <p class="textStyle-1 mb-0"> <small>  Or Sign In Using </small> </p>
+                        <div style="display:inline-flex">
+                            <a href="#" class="linkStyle-4 facebook">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="linkStyle-4 twitter">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="linkStyle-4 googlePlus">
+                                <i class="fa fa-google-plus" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="linkStyle-4 linkedin">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+  
+            </div>
+        </div>
+  
     </div>
+
+
+
 
   </div>
 
