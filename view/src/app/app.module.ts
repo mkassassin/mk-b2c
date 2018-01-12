@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app.routing.module';
 
 //Feture Module
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { TabViewModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
@@ -20,6 +21,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { FeedsMainComponent } from './feeds-main/feeds-main.component';
 import { FeedsLeftBarComponent } from './feeds-left-bar/feeds-left-bar.component';
 import { FeedsRightBarComponent } from './feeds-right-bar/feeds-right-bar.component';
+import { FeedsCenterComponent } from './feeds-center/feeds-center.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { FeedsRightBarComponent } from './feeds-right-bar/feeds-right-bar.compon
     WelcomeComponent,
     FeedsMainComponent,
     FeedsLeftBarComponent,
-    FeedsRightBarComponent
+    FeedsRightBarComponent,
+    FeedsCenterComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +44,8 @@ import { FeedsRightBarComponent } from './feeds-right-bar/feeds-right-bar.compon
     ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    TabViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]
