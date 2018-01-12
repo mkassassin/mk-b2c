@@ -1,24 +1,31 @@
 
+.feedsRightBar .userdiv{
+    background-color: #e9eef3;
+    margin: 7px;
+    padding: 7px;
+}
+
 .feedsRightBar .userimg{
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
+    border-radius: 100px;
 }
 .feedsRightBar .username{
     font-size: 17px;
     font-weight: 700;
     color: #777777;
     margin: 0px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 .feedsRightBar .userfollowers{
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #999999;
     margin: 0px;
     line-height: 20px;
 }
 .feedsRightBar .userfollowing{
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #999999;
     margin: 0px;
@@ -28,11 +35,12 @@
 
 .feedsRightBar .headerstyle{
     text-align: left;
-    font-size: 14px;
+    font-size: 15px;
     padding: 4px 10px;
-    font-weight: 700;
-    background-color: #ffda0069;
+    font-weight: 600;
+    background-color: #e9eef3;
     margin-bottom: 10px;
+    color: #9c9a9a;
 }
 
 

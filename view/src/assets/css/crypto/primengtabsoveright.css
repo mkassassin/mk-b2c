@@ -1,1 +1,61 @@
 
+
+/* tab div */
+.tabStyleOne .ui-tabview{
+    padding: 0px !important;
+    border-radius: 0px;
+}
+
+/* tab ul */
+.tabStyleOne .ui-tabview.ui-tabview-top>.ui-tabview-nav{
+    padding: 0px !important;
+    border-radius: 0px;
+}
+
+/* tab li */
+.tabStyleOne .ui-tabview.ui-tabview-top>.ui-tabview-nav li{
+    top: 0px !important;
+    border-radius: 0px !important;
+    margin: 0px;
+    border: 0px;
+    width: 33.33%;
+}
+
+/* tab li bg color */
+.tabStyleOne .ui-tabview .ui-tabview-nav > li.ui-state-default{
+    background: #e9eef3 !important;
+}
+
+/* tab li  a*/
+.tabStyleOne .ui-tabview .ui-tabview-nav li a{
+    padding:0px !important;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #9c9a9a;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+}
+
+/* Tab Active li */
+.tabStyleOne .ui-tabview .ui-tabview-nav > li.ui-state-active{
+    background: #e9eef3 !important
+}
+
+/* Tab Active a */
+.tabStyleOne .ui-tabview .ui-tabview-nav li.ui-tabview-selected a{
+border-bottom: 3px solid #ffda00 !important;
+}
+
+/* Tab hover a */
+.tabStyleOne .ui-tabview .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover a{
+    color: #888888;
+    border-bottom: 1px solid #999999
+}
+
+.tabStyleOne .ui-tabview .ui-tabview-panel{
+    padding: 10px 0px;
+    background-color: #f5f6f7;
+}

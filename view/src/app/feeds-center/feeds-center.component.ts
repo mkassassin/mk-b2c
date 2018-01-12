@@ -7,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedsCenterComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+    scrollHeight;
+    screenHeight:number;
+    anotherHeight:number;
+  
+    constructor() { }
+  
+    ngOnInit() {
+      this.screenHeight = window.screen.height - 305;
+      this.scrollHeight = this.screenHeight + "px";
+    }
 
   onTabChange(event) {
     console.log(event);

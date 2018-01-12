@@ -1,9 +1,10 @@
 .feedsLefBar .topicheader{
-    text-align: center;
     font-size: 16px;
-    padding: 10px 0px;
-    font-weight: 800;
-    background-color: #ffda0069;
+    padding: 5px 0px;
+    font-weight: 600;
+    background-color: #e9eef3;
+    padding-left: 10px;
+    color: #9c9a9a;
 }
 .feedsLefBar .topicPart{
     min-height: 100px;
@@ -50,11 +51,11 @@
 .feedsLefBar .moretopics{
     font-size: 12px;
     margin: 0px;
-    font-weight: 700;
-    color: #b9b28b;
+    font-weight: 600;
+    color: #66666670;
     position: absolute;
     right: 3px;
-    top: -29px;
+    top: -30px;
     letter-spacing: 0.3px;
     cursor: pointer;
 }
@@ -70,11 +71,13 @@
 
 
 .feedsLefBar .followheader{
-    text-align: center;
     font-size: 16px;
-    padding: 10px 0px;
-    font-weight: 800;
-    background-color: #ffda0069;
+    padding: 5px 0px;
+    font-weight: 600;
+    background-color: #e9eef3;
+    padding-left: 10px;
+    color: #9c9a9a;
+    margin-top: 20px;
 }
 .feedsLefBar .followPart{
     height: 70px;
