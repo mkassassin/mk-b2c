@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing.module';
 //Feture Module
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { TabViewModule } from 'primeng/primeng';
+import { MatDialogModule, MatButtonModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
@@ -22,6 +23,7 @@ import { FeedsMainComponent } from './feeds-main/feeds-main.component';
 import { FeedsLeftBarComponent } from './feeds-left-bar/feeds-left-bar.component';
 import { FeedsRightBarComponent } from './feeds-right-bar/feeds-right-bar.component';
 import { FeedsCenterComponent } from './feeds-center/feeds-center.component';
+import { PostOneComponent } from './popups/post-one/post-one.component';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { FeedsCenterComponent } from './feeds-center/feeds-center.component';
     FeedsMainComponent,
     FeedsLeftBarComponent,
     FeedsRightBarComponent,
-    FeedsCenterComponent
+    FeedsCenterComponent,
+    PostOneComponent
   ],
   imports: [
     CommonModule,
@@ -45,9 +48,12 @@ import { FeedsCenterComponent } from './feeds-center/feeds-center.component';
     RouterModule,
     AppRoutingModule,
     FlexLayoutModule,
-    TabViewModule
+    TabViewModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[PostOneComponent]
 })
 export class AppModule { }
