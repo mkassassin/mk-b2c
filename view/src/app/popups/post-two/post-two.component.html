@@ -1,0 +1,71 @@
+<div class="postTwo">
+    <div class="postheader" fxLayout="row" fxLayoutAlign="start" >
+      <div fxFlex="65px" class="text-center">
+        <img class="userimg" src="./../../assets/images/sample/img7.jpg" alt="">
+      </div>
+      <div fxFlex class="text-left">
+        <h5 class="m-0 posttype"> Ask a Question </h5>
+      </div>
+      <div fxFlex class="text-left">
+          <h5 class="m-0 posttype text-right" >
+            <span style="cursor:pointer" (click)="close()"> X </span>
+          </h5>
+        </div>
+    </div>
+  
+    <hr style="margin-top:10px;">
+  
+    <mat-dialog-content class="postbody">
+  
+      <textarea class="posttext" placeholder="Ask Your Question ..."></textarea>
+  
+      <div class="postaddon mt-5" fxLayout="row" fxLayoutAlign="start" >
+        <div fxFlex="50px" class="text-center postaddon_icon">
+            <i class="material-icons">burst_mode</i>
+        </div>
+        <div fxFlex="50px" class="text-center postaddon_icon">
+            <i class="material-icons" style="transform:rotate(90deg)">local_movies</i>
+        </div>
+        <div fxFlex="50px" class="text-center postaddon_icon">
+            <i class="material-icons">insert_link</i>
+        </div>
+      </div>
+  
+      <input class="postinput" type="text" placeholder="Which topic best suits this question (text box) or choose below ">
+  
+      <div fxLayout fxLayoutAlign="space-between">
+        <div fxFlex="85%">
+            <div class="mt-10" fxLayout fxLayoutAlign="start">
+              <div class="cat-img-item selected">
+                <img src="./../../../assets/images/speaker.png" alt="">
+                <span> Story </span>
+              </div>
+              <div class="cat-img-item">
+                  <img src="./../../../assets/images/investing.png" alt="">
+                <span> News </span>
+              </div>
+              <div class="cat-img-item">
+                  <img src="./../../../assets/images/userpin.png" alt="">
+                <span> Trend </span>
+              </div>
+              <div class="cat-img-item">
+                  <img src="./../../../assets/images/building.png" alt="">
+                <span> Blog </span>
+              </div>
+              <div class="cat-img-item">
+                  <img src="./../../../assets/images/expert.png" alt="">
+                <span> Opinion </span>
+              </div>
+              <div class="cat-img-item">
+                  <img src="./../../../assets/images/programmer.png" alt="">
+                <span> Idea </span>
+              </div>
+            </div>
+        </div>
+        <div fxFlex="15%" style="line-height:75px;">
+            <button type="button" mat-raised-button (click)="close()" color="primary"> Post </button>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+  </div>

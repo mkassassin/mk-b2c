@@ -24,6 +24,10 @@ import { FeedsLeftBarComponent } from './feeds-left-bar/feeds-left-bar.component
 import { FeedsRightBarComponent } from './feeds-right-bar/feeds-right-bar.component';
 import { FeedsCenterComponent } from './feeds-center/feeds-center.component';
 import { PostOneComponent } from './popups/post-one/post-one.component';
+import { PostTwoComponent } from './popups/post-two/post-two.component';
+import { FeedsHighlightsComponent } from './feeds/feeds-highlights/feeds-highlights.component';
+import { FeedsQuestionsComponent } from './feeds/feeds-questions/feeds-questions.component';
+import { FeedsTrendsComponent } from './feeds/feeds-trends/feeds-trends.component';
 
 
 @NgModule({
@@ -35,7 +39,11 @@ import { PostOneComponent } from './popups/post-one/post-one.component';
     FeedsLeftBarComponent,
     FeedsRightBarComponent,
     FeedsCenterComponent,
-    PostOneComponent
+    PostOneComponent,
+    PostTwoComponent,
+    FeedsHighlightsComponent,
+    FeedsQuestionsComponent,
+    FeedsTrendsComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +62,6 @@ import { PostOneComponent } from './popups/post-one/post-one.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[PostOneComponent]
+  entryComponents:[PostOneComponent, PostTwoComponent]
 })
 export class AppModule { }
