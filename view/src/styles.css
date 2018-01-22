@@ -18,3 +18,43 @@
 .bg-color-D1D1D1{
     background-color: #D1D1D1 !important;
 }
+
+
+.customscroll_1.ui-corner-all{
+    border-radius: 0px !important;
+}
+.customscroll_1.ui-widget-content{
+    border:0px;
+    background: transparent;
+}
+.customscroll_1 .ui-scrollpanel-content{
+    width: 100% !important;
+}
+
+.customscroll_1 .ui-scrollpanel-wrapper {
+    border-right: 0px solid #f4f4f4; 
+}
+
+.customscroll_1 .ui-scrollpanel-bar {
+    background-color: #66666661; 
+    width: 5px;
+}
+
+.customscroll_1 .ui-scrollpanel-bar:hover {
+    background-color: #666666b3;
+}
+
+
+
+.MatMenuNotification{
+    max-width: 320px !important;
+    overflow: initial !important;
+}
+
+.MatMenuUserView{
+    max-width: 320px !important;
+    overflow: initial !important;
+}
+.MatMenuUserView .mat-menu-content{
+    padding: 0px !important;
+}

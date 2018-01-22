@@ -13,21 +13,27 @@ import { AppRoutingModule } from './app.routing.module';
 
 //Feture Module
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { TabViewModule } from 'primeng/primeng';
-import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { TabViewModule } from "primeng/tabview";
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { MatDialogModule, MatButtonModule, MatMenuModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FeedsMainComponent } from './feeds-main/feeds-main.component';
-import { FeedsLeftBarComponent } from './feeds-left-bar/feeds-left-bar.component';
-import { FeedsRightBarComponent } from './feeds-right-bar/feeds-right-bar.component';
-import { FeedsCenterComponent } from './feeds-center/feeds-center.component';
+import { FeedsLeftBarComponent } from './feeds/feeds-left-bar/feeds-left-bar.component';
+import { FeedsRightBarComponent } from './feeds/feeds-right-bar/feeds-right-bar.component';
+import { FeedsCenterComponent } from './feeds/feeds-center/feeds-center.component';
 import { PostOneComponent } from './popups/post-one/post-one.component';
 import { PostTwoComponent } from './popups/post-two/post-two.component';
 import { FeedsHighlightsComponent } from './feeds/feeds-highlights/feeds-highlights.component';
 import { FeedsQuestionsComponent } from './feeds/feeds-questions/feeds-questions.component';
 import { FeedsTrendsComponent } from './feeds/feeds-trends/feeds-trends.component';
+import { FeedsHeaderComponent } from './feeds/feeds-header/feeds-header.component';
+import { ProfileMainComponent } from './profile-main/profile-main.component';
+import { ProfileLeftBarComponent } from './profile/profile-left-bar/profile-left-bar.component';
+import { ProfileRightBarComponent } from './profile/profile-right-bar/profile-right-bar.component';
 
 
 @NgModule({
@@ -43,7 +49,11 @@ import { FeedsTrendsComponent } from './feeds/feeds-trends/feeds-trends.componen
     PostTwoComponent,
     FeedsHighlightsComponent,
     FeedsQuestionsComponent,
-    FeedsTrendsComponent
+    FeedsTrendsComponent,
+    FeedsHeaderComponent,
+    ProfileMainComponent,
+    ProfileLeftBarComponent,
+    ProfileRightBarComponent
   ],
   imports: [
     CommonModule,
@@ -57,8 +67,11 @@ import { FeedsTrendsComponent } from './feeds/feeds-trends/feeds-trends.componen
     AppRoutingModule,
     FlexLayoutModule,
     TabViewModule,
+    ScrollPanelModule,
+    OverlayPanelModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent],

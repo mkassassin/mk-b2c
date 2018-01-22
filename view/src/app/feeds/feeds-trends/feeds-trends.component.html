@@ -1,7 +1,7 @@
 <div class="Trends">
   <div fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex="30%">
-        <div class="scrolldiv" [ngStyle]="{'height': scrollHeight}">
+        <p-scrollPanel  [style]="{width: '100%', height: scrollHeight }" styleClass="customscroll_1">
 
             <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
                 <div fxFlex="45px">
@@ -112,17 +112,164 @@
                 </div>
             </div>
 
-        </div>
+        </p-scrollPanel>
     </div>
     <div fxFlex="70%">
         <div class="tabStyleTwo">
             <p-tabView (onChange)="onTabChange($event)">
         
-                <p-tabPanel header="Highlights">
+                <p-tabPanel header="Charts & Trends"  leftIcon="fa-line-chart">
                     <img src="../../../assets/images/bitcoin_chart.png" alt="">
                 </p-tabPanel>
         
-                <p-tabPanel header="Questions">
+                <p-tabPanel header="Write impression" leftIcon="fa-pencil">
+
+                    <div class="impression">
+
+                        <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
+                            <div fxFlex (click)="OpenModel()">
+                                <div class="leftArea">
+                                        <i class="fa fa-file-text" aria-hidden="true"></i>  Write Impression
+                                </div>
+                            </div>
+                        </div>
+
+                        <p-scrollPanel style="width:100%;"  [style]="{width: '100%', height: impresionsHeight }" styleClass="customscroll_1">
+                            <div class="impressionPost">
+                                <div class="impressionbody">
+                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                                </div>
+                                <hr class="m-0">
+                                <div class="impressioninfo">
+                                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                                <div fxFlex>
+                                                    <div class="leftSide">
+                                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                            <div fxFlex="45px">
+                                                                <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                                            </div>
+                                                            <div class="mt-10" fxFlex>
+                                                                <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                                <p class="postuserfollowers"> 20 Followers </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div fxFlex="25%">
+                                                    <div class="rightSide">
+                                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                            <div class="text-right" fxFlex>
+                                                                <p class="postaction"> ... </p>
+                                                                <p class="postdate"> 2 Months Ago </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                            <div class="impressionPost">
+                                <div class="impressionbody">
+                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                                </div>
+                                <hr class="m-0">
+                                <div class="impressioninfo">
+                                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                        <div fxFlex>
+                                            <div class="leftSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                    <div fxFlex="45px">
+                                                        <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                                    </div>
+                                                    <div class="mt-10" fxFlex>
+                                                        <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                        <p class="postuserfollowers"> 20 Followers </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="25%">
+                                            <div class="rightSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                    <div class="text-right" fxFlex>
+                                                        <p class="postaction"> ... </p>
+                                                        <p class="postdate"> 2 Months Ago </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="impressionPost">
+                                <div class="impressionbody">
+                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                                </div>
+                                <hr class="m-0">
+                                <div class="impressioninfo">
+                                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                        <div fxFlex>
+                                            <div class="leftSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                    <div fxFlex="45px">
+                                                        <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                                    </div>
+                                                    <div class="mt-10" fxFlex>
+                                                        <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                        <p class="postuserfollowers"> 20 Followers </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="25%">
+                                            <div class="rightSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                    <div class="text-right" fxFlex>
+                                                        <p class="postaction"> ... </p>
+                                                        <p class="postdate"> 2 Months Ago </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="impressionPost">
+                                <div class="impressionbody">
+                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                                </div>
+                                <hr class="m-0">
+                                <div class="impressioninfo">
+                                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                        <div fxFlex>
+                                            <div class="leftSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                    <div fxFlex="45px">
+                                                        <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                                    </div>
+                                                    <div class="mt-10" fxFlex>
+                                                        <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                        <p class="postuserfollowers"> 20 Followers </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="25%">
+                                            <div class="rightSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                    <div class="text-right" fxFlex>
+                                                        <p class="postaction"> ... </p>
+                                                        <p class="postdate"> 2 Months Ago </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-scrollPanel>
+                    </div>
+                        
                 </p-tabPanel>
         
             </p-tabView>

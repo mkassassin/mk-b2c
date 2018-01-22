@@ -57,9 +57,9 @@
     width: 45px;
     height: 45px;
     margin: 0px 10px;
-    background-color: #66666630;
-    padding: 1px;
-    border-radius: 55px;
+    /* background-color: #66666630; */
+    padding: 3px;
+    /* border-radius: 55px; */
 }
 
 .feedsRightBar .followname{

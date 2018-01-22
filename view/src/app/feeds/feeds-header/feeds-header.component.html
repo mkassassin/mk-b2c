@@ -1,0 +1,129 @@
+ <div class="feedsHeader container-fluid bg-primary-color">
+      <div class="" fxLayout="row" fxLayoutAlign="space-evenly center" >
+          <div fxFlex="19%">
+              <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <div routerLink="/" style="cursor:pointer">
+                      <img class="headerLogo" src="./../../assets/images/logos/logo3mini62.png" alt="">
+                  </div>
+                  <div>
+                      <button class="btn-flat btn btn-cutom"> Post </button>
+                  </div>
+              </div>  
+          </div><!-- header left -->
+
+          <div fxFlex="52%">
+              <div>
+                  <input class="SearchStyle" type="text" placeholder="Search...">
+                  <span class="searchIncon"> <img class="icon" src="./../../assets/images/icons/search.png" alt=""> </span>
+              </div>
+          </div><!-- header center -->
+
+          <div fxFlex="22%">
+              <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <div >
+                      <img class="headericon" src="./../../assets/images/icons/Picture1.png" alt="">
+                  </div>
+                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:50px">
+                      <img  class="headericon" src="./../../assets/images/icons/Picture2.png" alt="">
+                  </div>
+                  <div class="text-center" [matMenuTriggerFor]="userView" style="line-height:50px">
+                      <img class="headeruserimg" src="./../../assets/images/sample/img7.jpg" alt="">
+                      <span class="username">  User Name </span>
+                  </div>
+              </div> 
+          </div><!-- header right -->
+
+      </div>
+  </div> <!-- feedsHeader -->
+
+    <mat-menu #notifictionList="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuNotification" >
+        
+        <div class="notifyheader">
+            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex>
+                    <p class="notifyheadertext"> Notifications</p>
+                    <div class="arrow"></div>
+                </div>
+            </div>
+        </div>
+        <hr class="m-0">
+        <p-scrollPanel style="width:100%;" [style]="{height: '250px' }" styleClass="customscroll_1">
+            <div class="notifylist">
+                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex="45px">
+                        <img class="userImg" src="./../../assets/images/icons/user.png" alt="">
+                    </div>
+                    <div class="mt-10" fxFlex>
+                        <p class="notifycategory"> <span class="username"> User Name,  </span> Invester Software De... </p>
+                        <p class="notifydate"> 2 Months Ago  </p>
+                    </div>
+                </div>
+                <hr class="m-0">
+            </div>
+            <div class="notifylist">
+                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex="45px">
+                        <img class="userImg" src="./../../assets/images/icons/user.png" alt="">
+                    </div>
+                    <div class="mt-10" fxFlex>
+                        <p class="notifycategory"> <span class="username"> User Name,  </span> Invester Software De... </p>
+                        <p class="notifydate"> 2 Months Ago  </p>
+                    </div>
+                </div>
+                <hr class="m-0">
+            </div>
+            <div class="notifylist">
+                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex="45px">
+                        <img class="userImg" src="./../../assets/images/icons/user.png" alt="">
+                    </div>
+                    <div class="mt-10" fxFlex>
+                        <p class="notifycategory"> <span class="username"> User Name,  </span> Invester Software De... </p>
+                        <p class="notifydate"> 2 Months Ago  </p>
+                    </div>
+                </div>
+                <hr class="m-0">
+            </div>
+        </p-scrollPanel>
+        <div class="notifyfooter">
+            <hr class="m-0">
+            <div class="" fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div fxFlex="100%" class="text-center">
+                    <p class="notifyfootertext"> See All... </p>
+                </div>
+            </div>
+            <hr class="m-0">
+        </div>
+    </mat-menu>
+
+
+
+    <mat-menu #userView="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuUserView" >   
+        <div class="userdropd" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="userdropd_icon" fxFlex="40px">
+                <i class="material-icons">portrait</i>
+            </div>
+            <div fxFlex>
+                <p routerLink="/Profile" style="cursor:pointer" class="userdropd_text"> View Profile </p>
+            </div>
+        </div>
+        <div class="userdropdarrow"></div>
+        <hr class="m-0">
+        <div class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
+            <div class="userdropd_icon" fxFlex="40px">
+                <i class="material-icons">settings</i>
+            </div>
+            <div fxFlex>
+                <p class="userdropd_text"> Settings </p>
+            </div>
+        </div>
+        <hr class="m-0">
+        <div class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
+            <div class="userdropd_icon" fxFlex="40px">
+                <i class="material-icons">power_settings_new</i>
+            </div>
+            <div fxFlex>
+                <p class="userdropd_text"> Log Out </p>
+            </div>
+        </div>
+    </mat-menu>

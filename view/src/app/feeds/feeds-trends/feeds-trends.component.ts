@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class FeedsTrendsComponent implements OnInit {
 
   scrollHeight;
+  impresionsHeight;
   screenHeight:number;
+  impresionscreenHeight:number;
   anotherHeight:number;
 
   constructor(
@@ -17,7 +19,9 @@ export class FeedsTrendsComponent implements OnInit {
 
   ngOnInit() {
     this.screenHeight = window.screen.height - 270;
+    this.impresionscreenHeight = window.screen.height - 380;
     this.scrollHeight = this.screenHeight + "px";
+    this.impresionsHeight = this.impresionscreenHeight + "px";
   }
 
   onTabChange(event) {

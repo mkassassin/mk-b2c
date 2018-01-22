@@ -1,0 +1,171 @@
+.feedsHeader .headerLogo{
+    height: 40px;
+    margin: 5px;
+}
+
+.feedsHeader .btn-cutom{
+    color: #ffffff;
+    background-color: #666666;
+    border-color: #666666;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    font-size: 16px;
+    outline: transparent;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+.feedsHeader .btn-cutom:hover{
+    color: #fff;
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+}
+.feedsHeader .headericon{
+    height: 30px;
+}
+
+.feedsHeader .SearchStyle{
+    width: 95%;
+    height: 34px;
+    background-color: transparent;
+    outline: transparent;
+    border: none;
+    border-bottom: 1px solid #999999b0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #666666 !important;
+    letter-spacing: 1px
+}
+.feedsHeader .SearchStyle::-webkit-input-placeholder {
+    color: #6666665c !important;
+    letter-spacing: 1px;
+}
+     
+.feedsHeader .SearchStyle:-moz-placeholder { /* Firefox 18- */
+    color: #6666665c !important;
+    letter-spacing: 1px;
+}
+     
+.feedsHeader .SearchStyle::-moz-placeholder {  /* Firefox 19+ */
+    color: #6666665c !important;
+    letter-spacing: 1px; 
+}
+     
+.feedsHeader .SearchStyle:-ms-input-placeholder {  
+    color: #6666665c !important;
+    letter-spacing: 1px;  
+}
+
+.feedsHeader  .searchIncon{
+    position: absolute;
+    margin-left: -30px;
+    top: 13px;
+}
+.feedsHeader  .searchIncon .icon{
+    height: 25px;
+}
+
+.feedsHeader .headeruserimg{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+}
+
+.feedsHeader .username{
+    font-size: 15px;
+    font-weight: 700;
+    color: #676767ba;
+    letter-spacing: 0.3px;
+}
+
+
+
+
+.notifylist{
+    padding: 2px 5px;
+    width: 320px;
+}
+.notifyheader .notifyheadertext {
+    margin: -8px 0px 0px 0px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    line-height: 40px;
+    padding: 0px 10px;
+    background-color: #e9eef3
+}
+.notifyheader .arrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #e9eef3;
+    top: -1px;
+    right: 25px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}
+.notifyfooter .notifyfootertext {
+    margin: 0px 0px -9px 0px;
+    font-size: 16px;
+    font-weight: 700;
+    word-spacing: 2.5px;
+    line-height: 40px;
+    background-color: #e9eef3;
+    color: #0c5ac1;
+}
+.notifylist .userImg{
+    height: 35px;
+    width: 35px;
+    border-radius: 35px;
+}
+.notifylist .username{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.notifylist .notifycategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+.notifylist .notifydate{
+    margin: 0px;
+    line-height: 17px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}
+
+
+.userdropd{
+    width: 200px;
+    padding: 3px 10px;
+}
+
+.userdropd .userdropd_text{
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #666666a3;
+    line-height: 40px;
+    margin: 0px;
+}
+
+.userdropd .userdropd_icon i{
+    color: #666666a3;
+    font-size: 26px;
+    margin-top: 8px;
+}
+.userdropdarrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    top: -3px;
+    right: 25px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}

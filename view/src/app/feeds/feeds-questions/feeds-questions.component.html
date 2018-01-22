@@ -14,7 +14,19 @@
     </div>
     <!-- Question Header Post Div  END-->
 
-    <div class="scrolldiv" [ngStyle]="{'height': scrollHeight}">
+    <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
+
+
+
+
+
+
+
+
+
+
+
+        
         <!-- Question Post Div -->
         <div class="QuestionPost mt-15">
             <!-- Question Post Info Header Div -->
@@ -140,7 +152,7 @@
                     <div class="like"> <i class="material-icons">star_border</i> <p class="count"> 300 </p> </div>
                 </div>
                 <div fxFlex class="text-center" >
-                    <div class="chat"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
+                    <div class="chat" (click)="clicked = !clicked"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
                 </div>
                 <div fxFlex class="text-right">
                     <div class="share"> <i class="material-icons">share</i> <p class="count"> 100 </p> </div>
@@ -162,8 +174,90 @@
             </div>
             <!-- Question Post Share Like And More  END-->
 
+
+            <!-- Question Post Comments -->
+            <div *ngIf="clicked" class="Comments">
+                <div class="commentPost">
+                    <div class="commentinfo">
+                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                            <div fxFlex>
+                                <div class="leftSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                        <div fxFlex="45px">
+                                            <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                        </div>
+                                        <div class="mt-10" fxFlex>
+                                            <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                            <p class="postuserfollowers"> 20 Followers </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="25%">
+                                <div class="rightSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                        <div class="text-right" fxFlex>
+                                            <p class="postaction"> ... </p>
+                                            <p class="postdate"> 2 Months Ago </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="commentbody">
+                        <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                    </div> 
+                </div>
+                <div class="commentPost">
+                    <div class="commentinfo">
+                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                            <div fxFlex>
+                                <div class="leftSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                        <div fxFlex="45px">
+                                            <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                        </div>
+                                        <div class="mt-10" fxFlex>
+                                            <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                            <p class="postuserfollowers"> 20 Followers </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="25%">
+                                <div class="rightSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                        <div class="text-right" fxFlex>
+                                            <p class="postaction"> ... </p>
+                                            <p class="postdate"> 2 Months Ago </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="commentbody">
+                        <p class="commenttext"> Lorem ipsum dolor</p>
+                    </div> 
+                </div>
+            </div>
+            <!-- Question Post Comments END-->
+
+
         </div>
         <!-- Question Post Div END -->
+
+
+
+
+
+
+
+
+
 
 
         <!-- Question Post Div -->
@@ -251,7 +345,7 @@
                   <div class="like"> <i class="material-icons">star_border</i> <p class="count"> 300 </p> </div>
               </div>
               <div fxFlex class="text-center" >
-                  <div class="chat"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
+                  <div class="chat" (click)="clicked2 = !clicked2"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
               </div>
               <div fxFlex class="text-right">
                   <div class="share"> <i class="material-icons">share</i> <p class="count"> 100 </p> </div>
@@ -273,7 +367,91 @@
           </div>
           <!-- Question Post Share Like And More  END-->
 
-      </div>
-      <!-- Question Post Div END -->
-  </div>
+
+            <!-- Question Post Comments -->
+            <div *ngIf="clicked2" class="Comments">
+                <div class="commentPost">
+                    <div class="commentinfo">
+                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                            <div fxFlex>
+                                <div class="leftSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                        <div fxFlex="45px">
+                                            <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                        </div>
+                                        <div class="mt-10" fxFlex>
+                                            <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                            <p class="postuserfollowers"> 20 Followers </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="25%">
+                                <div class="rightSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                        <div class="text-right" fxFlex>
+                                            <p class="postaction"> ... </p>
+                                            <p class="postdate"> 2 Months Ago </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="commentbody">
+                        <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                    </div> 
+                </div>
+                <div class="commentPost">
+                    <div class="commentinfo">
+                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                            <div fxFlex>
+                                <div class="leftSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                        <div fxFlex="45px">
+                                            <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                        </div>
+                                        <div class="mt-10" fxFlex>
+                                            <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                            <p class="postuserfollowers"> 20 Followers </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="25%">
+                                <div class="rightSide">
+                                    <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                        <div class="text-right" fxFlex>
+                                            <p class="postaction"> ... </p>
+                                            <p class="postdate"> 2 Months Ago </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="commentbody">
+                        <p class="commenttext"> Lorem ipsum dolor</p>
+                    </div> 
+                </div>
+            </div>
+            <!-- Question Post Comments END-->
+
+        </div>
+        <!-- Question Post Div END -->
+
+
+
+
+
+
+
+
+
+
+
+
+  </p-scrollPanel>
 </div>

@@ -40,3 +40,88 @@
     margin-top: 7px;
     margin-right: 5px;
 }
+
+
+
+
+
+
+
+
+
+
+
+.Trends .impression .headerPost{
+    background-color: #f2f2f2;
+    margin: 0px 10px 10px 10px;
+}
+.Trends .impression .headerPost .leftArea{    
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #9c9a9a;
+}
+.Trends .impression .headerPost .leftArea i{    
+    font-size: 19px;
+    padding: 0px 10px;
+}
+
+.Trends .impressionPost{
+    background-color: #e9eef378;
+    box-shadow: 0px 0px 3px 1px #607d8b63;
+    margin:4px 4px 15px 4px;
+    padding: 4px;
+}
+
+.Trends .impressionPost .impressionbody .impressiontext{
+    font-size: 15px;
+    color: gray;
+    margin: 2px 10px;
+    word-spacing: 2.5px;
+    line-height: 20px;
+}
+.Trends .impressionPost .PostHeader{
+    padding: 0px 2px;
+}
+.Trends .impressionPost .leftSide .postuserImg{
+    height: 35px;
+    width: 35px;
+    border-radius: 35px;
+}
+.Trends .impressionPost .leftSide .postusername{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.Trends .impressionPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+.Trends .impressionPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+
+.Trends .impressionPost .rightSide .postaction{
+    line-height: 10px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Trends .impressionPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 18px;
+    margin-top: 5px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}
+

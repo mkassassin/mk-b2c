@@ -1,0 +1,17 @@
+<div class="tabStyleOne FeedsCenter">
+    <p-tabView (onChange)="onTabChange($event)">
+
+        <p-tabPanel header="Timeline">
+            <app-feeds-highlights></app-feeds-highlights>
+        </p-tabPanel>
+
+        <p-tabPanel header="Followers">
+            <app-feeds-questions></app-feeds-questions>
+        </p-tabPanel>
+
+        <p-tabPanel header="Followeing">
+                <app-feeds-trends></app-feeds-trends>
+        </p-tabPanel>
+
+      </p-tabView>
+</div>

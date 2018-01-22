@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FeedsMainComponent } from './feeds-main/feeds-main.component';
+import { ProfileMainComponent } from './profile-main/profile-main.component';
 
 const appRoutes: Routes = [
     { path: '',  
@@ -24,6 +25,12 @@ const appRoutes: Routes = [
         component: FeedsMainComponent,  
         data: { 
             animation: { value: 'Feeds', } 
+        } 
+    },
+    { path: 'Profile',  
+        component: ProfileMainComponent,  
+        data: { 
+            animation: { value: 'Profile', } 
         } 
     }
   ];
