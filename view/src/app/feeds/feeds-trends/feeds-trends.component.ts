@@ -16,9 +16,12 @@ export class FeedsTrendsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.screenHeight = window.screen.height - 305;
+    this.screenHeight = window.screen.height - 270;
     this.scrollHeight = this.screenHeight + "px";
   }
 
+  onTabChange(event) {
+    console.log(event);
+  }
 
 }

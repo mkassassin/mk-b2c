@@ -2,19 +2,131 @@
   <div fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex="30%">
         <div class="scrolldiv" [ngStyle]="{'height': scrollHeight}">
-          <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
-              <div fxFlex="45px">
-                  <img class="postansuserImg" src="./../../assets/images/icons/user.png" alt="">
-              </div>
-              <div class="mt-10" fxFlex>
-                  <p class="postansusername"> Currency Name </p>
-                  <p class="postansfollowes"> $ 100000 </p>
-              </div>
-          </div>
+
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin1.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin2.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin3.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin4.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin5.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin6.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin1.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin2.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin3.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin4.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin5.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="45px">
+                    <img class="coinlistImg" src="./../../assets/images/coins/coin6.png" alt="">
+                </div>
+                <div class="mt-10" fxFlex>
+                    <p class="coinlistname"> Currency Name </p>
+                    <p class="coinlistamt"> $ 100000 </p>
+                </div>
+            </div>
+
         </div>
     </div>
     <div fxFlex="70%">
-
+        <div class="tabStyleTwo">
+            <p-tabView (onChange)="onTabChange($event)">
+        
+                <p-tabPanel header="Highlights">
+                    <img src="../../../assets/images/bitcoin_chart.png" alt="">
+                </p-tabPanel>
+        
+                <p-tabPanel header="Questions">
+                </p-tabPanel>
+        
+            </p-tabView>
+        </div>
     </div>
   </div>
 </div>
