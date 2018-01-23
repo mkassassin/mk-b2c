@@ -34,6 +34,7 @@ import { FeedsHeaderComponent } from './feeds/feeds-header/feeds-header.componen
 import { ProfileMainComponent } from './profile-main/profile-main.component';
 import { ProfileLeftBarComponent } from './profile/profile-left-bar/profile-left-bar.component';
 import { ProfileRightBarComponent } from './profile/profile-right-bar/profile-right-bar.component';
+import { ProfileTimelineComponent } from './profile/profile-timeline/profile-timeline.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ProfileRightBarComponent } from './profile/profile-right-bar/profile-ri
     FeedsHeaderComponent,
     ProfileMainComponent,
     ProfileLeftBarComponent,
-    ProfileRightBarComponent
+    ProfileRightBarComponent,
+    ProfileTimelineComponent
   ],
   imports: [
     CommonModule,
