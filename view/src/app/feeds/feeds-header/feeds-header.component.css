@@ -1,5 +1,5 @@
 .feedsHeader .headerLogo{
-    height: 40px;
+    height: 35px;
     margin: 5px;
 }
 
@@ -11,8 +11,8 @@
     letter-spacing: 1.8px;
     font-size: 16px;
     outline: transparent;
-    padding: 5px 20px;
-    border-radius: 5px;
+    padding: 4px 18px;
+    border-radius: 4px;
 }
 .feedsHeader .btn-cutom:hover{
     color: #fff;
@@ -58,15 +58,15 @@
 .feedsHeader  .searchIncon{
     position: absolute;
     margin-left: -30px;
-    top: 13px;
+    top: 10px;
 }
 .feedsHeader  .searchIncon .icon{
     height: 25px;
 }
 
 .feedsHeader .headeruserimg{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 40px;
 }
 

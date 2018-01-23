@@ -1,4 +1,4 @@
-<div class="tabStyleOne FeedsCenter">
+<div class="tabStyleThree FeedsCenter">
     <p-tabView (onChange)="onTabChange($event)">
 
         <p-tabPanel header="Timeline">
@@ -6,11 +6,15 @@
         </p-tabPanel>
 
         <p-tabPanel header="Followers">
-            <app-feeds-questions></app-feeds-questions>
+            <app-profile-followers></app-profile-followers>
         </p-tabPanel>
 
-        <p-tabPanel header="Followeing">
-                <app-feeds-trends></app-feeds-trends>
+        <p-tabPanel header="Following">
+                <app-profile-following></app-profile-following>
+        </p-tabPanel>
+
+        <p-tabPanel header="Settings">
+                <app-profile-settings></app-profile-settings>
         </p-tabPanel>
 
       </p-tabView>

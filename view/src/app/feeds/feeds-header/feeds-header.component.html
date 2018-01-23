@@ -1,5 +1,5 @@
- <div class="feedsHeader container-fluid bg-primary-color">
-      <div class="" fxLayout="row" fxLayoutAlign="space-evenly center" >
+ <div style="height:45px" class="feedsHeader container-fluid bg-primary-color">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center" >
           <div fxFlex="19%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                   <div routerLink="/" style="cursor:pointer">
@@ -20,10 +20,10 @@
 
           <div fxFlex="22%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                  <div >
-                      <img class="headericon" src="./../../assets/images/icons/Picture1.png" alt="">
+                  <div>
+                      <img routerLink="/Feeds" style="cursor:pointer" class="headericon" src="./../../assets/images/icons/Picture1.png" alt="">
                   </div>
-                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:50px">
+                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:45px">
                       <img  class="headericon" src="./../../assets/images/icons/Picture2.png" alt="">
                   </div>
                   <div class="text-center" [matMenuTriggerFor]="userView" style="line-height:50px">
@@ -99,17 +99,17 @@
 
 
     <mat-menu #userView="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuUserView" >   
-        <div class="userdropd" fxLayout="row" fxLayoutAlign="space-between center">
+        <div routerLink="/Profile" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between center">
             <div class="userdropd_icon" fxFlex="40px">
                 <i class="material-icons">portrait</i>
             </div>
             <div fxFlex>
-                <p routerLink="/Profile" style="cursor:pointer" class="userdropd_text"> View Profile </p>
+                <p class="userdropd_text"> View Profile </p>
             </div>
         </div>
         <div class="userdropdarrow"></div>
         <hr class="m-0">
-        <div class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
+        <div routerLink="/Profile" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
             <div class="userdropd_icon" fxFlex="40px">
                 <i class="material-icons">settings</i>
             </div>
@@ -118,7 +118,7 @@
             </div>
         </div>
         <hr class="m-0">
-        <div class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
+        <div routerLink="/" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
             <div class="userdropd_icon" fxFlex="40px">
                 <i class="material-icons">power_settings_new</i>
             </div>

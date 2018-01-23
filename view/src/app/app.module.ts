@@ -16,7 +16,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { TabViewModule } from "primeng/tabview";
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { MatDialogModule, MatButtonModule, MatMenuModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
@@ -35,6 +35,9 @@ import { ProfileMainComponent } from './profile-main/profile-main.component';
 import { ProfileLeftBarComponent } from './profile/profile-left-bar/profile-left-bar.component';
 import { ProfileRightBarComponent } from './profile/profile-right-bar/profile-right-bar.component';
 import { ProfileTimelineComponent } from './profile/profile-timeline/profile-timeline.component';
+import { ProfileFollowersComponent } from './profile/profile-followers/profile-followers.component';
+import { ProfileFollowingComponent } from './profile/profile-following/profile-following.component';
+import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
 
 
 @NgModule({
@@ -55,7 +58,10 @@ import { ProfileTimelineComponent } from './profile/profile-timeline/profile-tim
     ProfileMainComponent,
     ProfileLeftBarComponent,
     ProfileRightBarComponent,
-    ProfileTimelineComponent
+    ProfileTimelineComponent,
+    ProfileFollowersComponent,
+    ProfileFollowingComponent,
+    ProfileSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +79,8 @@ import { ProfileTimelineComponent } from './profile/profile-timeline/profile-tim
     OverlayPanelModule,
     MatDialogModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent],

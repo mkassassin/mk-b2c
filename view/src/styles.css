@@ -58,3 +58,44 @@
 .MatMenuUserView .mat-menu-content{
     padding: 0px !important;
 }
+.followersAction {
+    overflow: initial !important;
+}
+.followersAction .mat-menu-content{
+    padding: 0px !important;
+}
+.followingAction{
+    overflow: initial !important;
+}
+.followingAction .mat-menu-content{
+    padding: 0px !important;
+}
+.followingTopicAction {
+    overflow: initial !important;
+}
+.followingTopicAction .mat-menu-content{
+    padding: 0px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
+    color: rgb(73, 73, 73);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.7px;
+    background-color: #ffda00;
+}

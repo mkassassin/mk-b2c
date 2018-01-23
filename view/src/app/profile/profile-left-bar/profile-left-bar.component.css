@@ -3,81 +3,62 @@
     background-color: #e9eef3;
     margin: 7px;
     padding: 7px;
+    border: 1px solid #dee4ea;
+    border-bottom: 2px solid #dee4ea;
 }
 
 .profileRightBar .userimg{
-    width: 95px;
-    height: 95px;
+    width: 90px;
+    height: 90px;
     border-radius: 100px;
 }
 .profileRightBar .username{
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 19px;
+    font-weight: 900;
     color: #777777;
-    margin: 0px;
+    margin: -5px 0px 0px 0px;
     letter-spacing: 0.5px;
+    word-spacing: 4px;
 }
-.profileRightBar .userfollowers{
-    font-size: 13px;
-    font-weight: 600;
-    color: #999999;
-    margin: 0px;
-    line-height: 20px;
-}
-.profileRightBar .userfollowing{
-    font-size: 13px;
-    font-weight: 600;
-    color: #999999;
-    margin: 0px;
-    line-height: 20px;
-}
-
-
-.profileRightBar .headerstyle{
-    text-align: left;
-    font-size: 15px;
-    padding: 4px 10px;
-    font-weight: 600;
-    background-color: #e9eef3;
-    margin-bottom: 10px;
-    color: #9c9a9a;
-}
-
-
-
-
-
-
-.profileRightBar .followPart{
-    height: 65px;
+.profileRightBar .follow{
     text-align: center;
-    padding-left: 0px;
-}
-.profileRightBar .followimg{
-    width: 45px;
-    height: 45px;
-    margin: 0px 10px;
-    /* background-color: #66666630; */
-    padding: 3px;
-    /* border-radius: 55px; */
-}
-
-.profileRightBar .followname{
-    font-size: 11px;
-    margin: 0px;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    color: #666666;
-}
-
-
-
-.profileRightBar .moreusers{
     font-size: 13px;
-    margin: 0px;
+    padding: 0px;
     font-weight: 600;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    line-height: 30px;
-    color: #999999;
+    margin-bottom: 0px;
+    color: #9c9a9a;
+    margin: 0px;
+    line-height: 21px;
 }
+.textLine{
+    display: inline-flex;
+    min-height: 40px;
+    /* background-color: #e9eef3; */
+    margin: 3px 5px;
+    width: 96%;
+    border: 1px solid #dee4ea;
+    border-bottom: 2px solid #dee4ea;
+}
+.textTitle{
+    margin: 0px 0px 0px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: #66666687;
+    line-height: 39px;
+}
+.textCount{
+    margin: 0px 0px 0px 5px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    color: #666666f0;
+    line-height: 22px;
+    margin-top: 6px;
+    zoom: 110%;
+}
+
+
+
+
+

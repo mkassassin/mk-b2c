@@ -1,60 +1,345 @@
-<div class="Timeline" style="background-color:#ffffff; box-shadow:#66666678 0px 1px 8px 0px">
+<div class="Timeline">
   <p-scrollPanel style="width:90%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
     <ul class="cbp_tmtimeline">
       <li>
-          <time class="cbp_tmtime" datetime="2013-04-10 18:30"><span>4/10/13</span> <span>18:30</span></time>
-          <div class="cbp_tmicon cbp_tmicon-phone"></div>
+          <time class="cbp_tmtime"><span>23/01/2018</span> <span>06:30 AM</span></time>
+          <div class="cbp_tmicon"><i class="material-icons">visibility</i></div>
           <div class="cbp_tmlabel">
-              <h2>Ricebean black-eyed pea</h2>
-              <p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress. Pea sprouts wattle seed rutabaga okra yarrow cress avocado grape radish bush tomato ricebean black-eyed pea maize eggplant. Cabbage lentil cucumber chickpea sorrel gram garbanzo plantain lotus root bok choy squash cress potato summer purslane salsify fennel horseradish dulse. Winter purslane garbanzo artichoke broccoli lentil corn okra silver beet celery quandong. Plantain salad beetroot bunya nuts black-eyed pea collard greens radish water spinach gourd chicory prairie turnip avocado sierra leone bologi.</p>
+            <div class="HighlightsPost mt-15">
+                <!-- Highlights Post Info Header Div -->
+                <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                    <div fxFlex>
+                        <div class="leftSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                <div class="mt-10" fxFlex>
+                                    <p class="postusername"> Higlights Post</p>
+                                    <p class="postusercategory"> Topic Name </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="35%">
+                        <div class="rightSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                <div fxFlex class="text-right">
+                                    <img class="postcategoryicon" src="./../../assets/images/icons/caticon1.png" alt="">
+                                </div>
+                                <div class="text-right" fxFlex="150px">
+                                    <p class="postaction"> ... </p>
+                                    <p class="postdate"> 2 Months Ago </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Highlights Post Info Header Div End -->
+                <hr class="m-5">
+                <!-- Highlights Post -->
+                <div class="postmain" fxLayout="row">
+                    <div fxFlex class="text-center">
+                        <img src="./../../assets/images/sample/img4.jpg" alt="">
+                        <img src="./../../assets/images/sample/img3.jpg" alt="">
+                    </div>
+                </div>
+                <!-- Highlights Post END -->
+                <hr class="m-5">
+                <!-- Highlights Post Share Like And More -->
+                <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxFlex class="text-left">
+                        <div class="like"> <i class="material-icons">star_border</i> <p class="count"> 300 </p> </div>
+                    </div>
+                    <div fxFlex class="text-center" >
+                        <div class="chat" (click)="clicked = !clicked"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
+                    </div>
+                    <div fxFlex class="text-right">
+                        <div class="share"> <i class="material-icons">share</i> <p class="count"> 100 </p> </div>
+                    </div>
+                </div>
+                <!-- Highlights Post Share Like And More  END-->
+      
+      
+                <!-- Highlights Post Comments-->
+                  <div *ngIf="clicked" class="Comments">
+                      <div class="commentPost">
+                              <div class="commentinfo">
+                                  <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                      <div fxFlex>
+                                          <div class="leftSide">
+                                              <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                  <div fxFlex="45px">
+                                                      <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                                  </div>
+                                                  <div class="mt-10" fxFlex>
+                                                      <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                      <p class="postuserfollowers"> 20 Followers </p>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div fxFlex="25%">
+                                          <div class="rightSide">
+                                              <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                  <div class="text-right" fxFlex>
+                                                      <p class="postaction"> ... </p>
+                                                      <p class="postdate"> 2 Months Ago </p>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr class="m-0">
+                              <div class="commentbody">
+                                  <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                              </div> 
+                      </div>
+                      <div class="commentPost">
+                          <div class="commentinfo">
+                              <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                  <div fxFlex>
+                                      <div class="leftSide">
+                                          <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                              <div fxFlex="45px">
+                                                  <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                              </div>
+                                              <div class="mt-10" fxFlex>
+                                                  <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                  <p class="postuserfollowers"> 20 Followers </p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div fxFlex="25%">
+                                      <div class="rightSide">
+                                          <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                              <div class="text-right" fxFlex>
+                                                  <p class="postaction"> ... </p>
+                                                  <p class="postdate"> 2 Months Ago </p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr class="m-0">
+                          <div class="commentbody">
+                              <p class="commenttext"> Lorem ipsum dolor</p>
+                          </div> 
+                      </div>
+                  </div>
+                  <!-- Highlights Post Comments END-->
+      
+      
+            </div>
+            <!-- Highlights Post Div END -->
           </div>
       </li>
       <li>
-          <time class="cbp_tmtime" datetime="2013-04-11T12:04"><span>4/11/13</span> <span>12:04</span></time>
-          <div class="cbp_tmicon cbp_tmicon-screen"></div>
+          <time class="cbp_tmtime"><span>23/01/2018</span> <span>07:30 PM</span></time>
+          <div class="cbp_tmicon"><i class="material-icons">help_outline</i></div>
           <div class="cbp_tmlabel">
-              <h2>Greens radish arugula</h2>
-              <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
-          </div>
-      </li>
-      <li>
-          <time class="cbp_tmtime" datetime="2013-04-13 05:36"><span>4/13/13</span> <span>05:36</span></time>
-          <div class="cbp_tmicon cbp_tmicon-mail"></div>
-          <div class="cbp_tmlabel">
-              <h2>Sprout garlic kohlrabi</h2>
-              <p>Parsnip lotus root celery yarrow seakale tomato collard greens tigernut epazote ricebean melon tomatillo soybean chicory broccoli beet greens peanut salad. Lotus root burdock bell pepper chickweed shallot groundnut pea sprouts welsh onion wattle seed pea salsify turnip scallion peanut arugula bamboo shoot onion swiss chard. Avocado tomato peanut soko amaranth grape fennel chickweed mung bean soybean endive squash beet greens carrot chicory green bean. Tigernut dandelion sea lettuce garlic daikon courgette celery maize parsley komatsuna black-eyed pea bell pepper aubergine cauliflower zucchini. Quandong pea chickweed tomatillo quandong cauliflower spinach water spinach.</p>
-          </div>
-      </li>
-      <li>
-          <time class="cbp_tmtime" datetime="2013-04-15 13:15"><span>4/15/13</span> <span>13:15</span></time>
-          <div class="cbp_tmicon cbp_tmicon-phone"></div>
-          <div class="cbp_tmlabel">
-              <h2>Watercress ricebean</h2>
-              <p>Peanut gourd nori welsh onion rock melon mustard jícama. Desert raisin amaranth kombu aubergine kale seakale brussels sprout pea. Black-eyed pea celtuce bamboo shoot salad kohlrabi leek squash prairie turnip catsear rock melon chard taro broccoli turnip greens. Fennel quandong potato watercress ricebean swiss chard garbanzo. Endive daikon brussels sprout lotus root silver beet epazote melon shallot.</p>
-          </div>
-      </li>
-      <li>
-          <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>4/16/13</span> <span>21:30</span></time>
-          <div class="cbp_tmicon cbp_tmicon-earth"></div>
-          <div class="cbp_tmlabel">
-              <h2>Courgette daikon</h2>
-              <p>Parsley amaranth tigernut silver beet maize fennel spinach. Ricebean black-eyed pea maize scallion green bean spinach cabbage jícama bell pepper carrot onion corn plantain garbanzo. Sierra leone bologi komatsuna celery peanut swiss chard silver beet squash dandelion maize chicory burdock tatsoi dulse radish wakame beetroot.</p>
-          </div>
-      </li>
-      <li>
-          <time class="cbp_tmtime" datetime="2013-04-17 12:11"><span>4/17/13</span> <span>12:11</span></time>
-          <div class="cbp_tmicon cbp_tmicon-screen"></div>
-          <div class="cbp_tmlabel">
-              <h2>Greens radish arugula</h2>
-              <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
-          </div>
-      </li>
-      <li>
-          <time class="cbp_tmtime" datetime="2013-04-18 09:56"><span>4/18/13</span> <span>09:56</span></time>
-          <div class="cbp_tmicon cbp_tmicon-phone"></div>
-          <div class="cbp_tmlabel">
-              <h2>Sprout garlic kohlrabi</h2>
-              <p>Parsnip lotus root celery yarrow seakale tomato collard greens tigernut epazote ricebean melon tomatillo soybean chicory broccoli beet greens peanut salad. Lotus root burdock bell pepper chickweed shallot groundnut pea sprouts welsh onion wattle seed pea salsify turnip scallion peanut arugula bamboo shoot onion swiss chard. Avocado tomato peanut soko amaranth grape fennel chickweed mung bean soybean endive squash beet greens carrot chicory green bean. Tigernut dandelion sea lettuce garlic daikon courgette celery maize parsley komatsuna black-eyed pea bell pepper aubergine cauliflower zucchini. Quandong pea chickweed tomatillo quandong cauliflower spinach water spinach.</p>
+             <!-- Question Post Div -->
+            <div class="QuestionPost mt-15">
+                <!-- Question Post Info Header Div -->
+                <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                    <div fxFlex>
+                        <div class="leftSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                <div class="mt-10" fxFlex>
+                                    <p class="postusername"> Questions Post </p>
+                                    <p class="postusercategory"> Topic Name </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="35%">
+                        <div class="rightSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                <div fxFlex>
+                                </div>
+                                <div class="text-right" fxFlex="150px">
+                                    <p class="postaction"> ... </p>
+                                    <p class="postdate"> 2 Months Ago </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Question Post Info Header Div End -->
+                <hr class="m-5">
+                <!-- Question Post -->
+                <div class="postmain" fxLayout="row">
+                    <div fxFlex class="text-left">
+                        <h5 class="postquestion"> What is Blockchain Technology?  </h5>
+                        <div class="postAnswer">
+                            <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postansuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postansusername"> User Name </p>
+                                                <p class="postansfollowes"> 20 followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="35%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div fxFlex>
+                                            </div>
+                                            <div class="text-right" fxFlex="150px">
+                                                <p class="postansaction"> ... </p>
+                                                <p class="postansdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-0" style="border-color: #77778729;">
+                            <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                                <div fxFlex>
+                                    <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions
+                                                that can be programmed to record not just financial transactions but virtually everything of value.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="postAnswer">
+                            <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postansuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postansusername"> User Name </p>
+                                                <p class="postansfollowes"> 20 followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="35%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div fxFlex>
+                                            </div>
+                                            <div class="text-right" fxFlex="150px">
+                                                <p class="postansaction"> ... </p>
+                                                <p class="postansdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-0" style="border-color: #77778729;">
+                            <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                                <div fxFlex>
+                                    <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions
+                                                that can be programmed to record not just financial transactions but virtually everything of value.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-right">
+                            <p class="readmore">Read More...</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Question Post END -->
+                <hr class="m-5">
+                <!-- Question Post Share Like And More -->
+                <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxFlex class="text-left">
+                        <div class="like"> <i class="material-icons">star_border</i> <p class="count"> 300 </p> </div>
+                    </div>
+                    <div fxFlex class="text-center" >
+                        <div class="chat" (click)="clicked2 = !clicked2"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
+                    </div>
+                    <div fxFlex class="text-right">
+                        <div class="share"> <i class="material-icons">share</i> <p class="count"> 100 </p> </div>
+                    </div>
+                </div>
+                <!-- Question Post Share Like And More  END-->
+                <hr class="m-5">
+
+                <!-- Question Post Comments -->
+                <div *ngIf="clicked2" class="Comments">
+                    <div class="commentPost">
+                        <div class="commentinfo">
+                            <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                <p class="postuserfollowers"> 20 Followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div class="text-right" fxFlex>
+                                                <p class="postaction"> ... </p>
+                                                <p class="postdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="commentbody">
+                            <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                        </div> 
+                    </div>
+                    <div class="commentPost">
+                        <div class="commentinfo">
+                            <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                <p class="postuserfollowers"> 20 Followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div class="text-right" fxFlex>
+                                                <p class="postaction"> ... </p>
+                                                <p class="postdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="commentbody">
+                            <p class="commenttext"> Lorem ipsum dolor</p>
+                        </div> 
+                    </div>
+                </div>
+                <!-- Question Post Comments END-->
+
+            </div>
+            <!-- Question Post Div END -->
           </div>
       </li>
     </ul>

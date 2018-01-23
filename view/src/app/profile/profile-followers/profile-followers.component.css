@@ -1,0 +1,82 @@
+.followers{
+    background-color: #ffffff;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    padding: 5px;
+}
+
+.userdiv{
+    background-color: #e9eef3;
+    padding: 5px;
+    margin: 8px;
+    box-shadow: rgba(0, 0, 0, 0.36) 2px 2px 2px 0px;
+    min-height: 100px;
+}
+
+.userimg{
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+}
+.username{
+    font-size: 17px;
+    font-weight: 700;
+    color: #777777;
+    margin: 0px;
+    letter-spacing: 0.5px;
+}
+.userfollowers{
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    margin: 0px;
+    line-height: 20px;
+}
+.userfollowing{
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    margin: 0px;
+    line-height: 20px;
+}
+.Action{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    color: #6666664d;
+    cursor: pointer;
+}
+.Action i{
+    line-height: 30px;
+
+}
+
+
+.arrow{
+    height: 17px;
+    width: 30px;
+    position: absolute;
+    background-color: white;
+    z-index: -1;
+    transform: rotate(45DEG);
+    left: 5px;
+    top: -1px;
+}
+.followuserdd_icon{
+    text-align: center;
+}
+.followuserdd_icon i{
+    font-size: 28px;
+    margin-top: 4px;
+    color: #666666b3;
+}
+.followuserdd_text{
+    font-size: 15px;
+    margin: 0px;
+    line-height: 35px;
+    width: 175px;
+    font-weight: 700;
+    color: #666666b3;
+}
