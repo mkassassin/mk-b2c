@@ -9,6 +9,8 @@ import { PostTwoComponent } from './../../popups/post-two/post-two.component';
   styleUrls: ['./feeds-questions.component.css']
 })
 export class FeedsQuestionsComponent implements OnInit {
+  clicked:boolean = false;
+  clicked2:boolean =false;
   scrollHeight;
   screenHeight:number;
   anotherHeight:number;

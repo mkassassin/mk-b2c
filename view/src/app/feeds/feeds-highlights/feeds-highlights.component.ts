@@ -11,6 +11,8 @@ import { PostOneComponent } from './../../popups/post-one/post-one.component';
   styleUrls: ['./feeds-highlights.component.css']
 })
 export class FeedsHighlightsComponent implements OnInit {
+  clicked:boolean = false;
+  clicked2:boolean =false;
   scrollHeight;
   screenHeight:number;
   anotherHeight:number;
