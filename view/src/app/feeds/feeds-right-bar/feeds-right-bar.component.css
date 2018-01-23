@@ -1,0 +1,83 @@
+
+.feedsRightBar .userdiv{
+    background-color: #e9eef3;
+    margin: 7px;
+    padding: 7px;
+}
+
+.feedsRightBar .userimg{
+    width: 95px;
+    height: 95px;
+    border-radius: 100px;
+}
+.feedsRightBar .username{
+    font-size: 17px;
+    font-weight: 700;
+    color: #777777;
+    margin: 0px;
+    letter-spacing: 0.5px;
+}
+.feedsRightBar .userfollowers{
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    margin: 0px;
+    line-height: 20px;
+}
+.feedsRightBar .userfollowing{
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    margin: 0px;
+    line-height: 20px;
+}
+
+
+.feedsRightBar .headerstyle{
+    text-align: left;
+    font-size: 15px;
+    padding: 4px 10px;
+    font-weight: 600;
+    background-color: #e9eef3;
+    margin-bottom: 10px;
+    color: #9c9a9a;
+}
+
+
+
+
+
+
+.feedsRightBar .followPart{
+    height: 65px;
+    text-align: center;
+    padding-left: 0px;
+}
+.feedsRightBar .followimg{
+    width: 45px;
+    height: 45px;
+    margin: 0px 10px;
+    /* background-color: #66666630; */
+    padding: 3px;
+    /* border-radius: 55px; */
+}
+
+.feedsRightBar .followname{
+    font-size: 11px;
+    margin: 0px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #666666;
+}
+
+
+
+.feedsRightBar .moreusers{
+    font-size: 13px;
+    margin: 0px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    line-height: 30px;
+    color: #999999;
+}

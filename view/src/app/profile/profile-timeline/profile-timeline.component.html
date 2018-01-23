@@ -1,0 +1,347 @@
+<div class="Timeline">
+  <p-scrollPanel style="width:90%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
+    <ul class="cbp_tmtimeline">
+      <li>
+          <time class="cbp_tmtime"><span>23/01/2018</span> <span>06:30 AM</span></time>
+          <div class="cbp_tmicon"><i class="material-icons">visibility</i></div>
+          <div class="cbp_tmlabel">
+            <div class="HighlightsPost mt-15">
+                <!-- Highlights Post Info Header Div -->
+                <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                    <div fxFlex>
+                        <div class="leftSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                <div class="mt-10" fxFlex>
+                                    <p class="postusername"> Higlights Post</p>
+                                    <p class="postusercategory"> Topic Name </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="35%">
+                        <div class="rightSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                <div fxFlex class="text-right">
+                                    <img class="postcategoryicon" src="./../../assets/images/icons/caticon1.png" alt="">
+                                </div>
+                                <div class="text-right" fxFlex="150px">
+                                    <p class="postaction"> ... </p>
+                                    <p class="postdate"> 2 Months Ago </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Highlights Post Info Header Div End -->
+                <hr class="m-5">
+                <!-- Highlights Post -->
+                <div class="postmain" fxLayout="row">
+                    <div fxFlex class="text-center">
+                        <img src="./../../assets/images/sample/img4.jpg" alt="">
+                        <img src="./../../assets/images/sample/img3.jpg" alt="">
+                    </div>
+                </div>
+                <!-- Highlights Post END -->
+                <hr class="m-5">
+                <!-- Highlights Post Share Like And More -->
+                <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxFlex class="text-left">
+                        <div class="like"> <i class="material-icons">star_border</i> <p class="count"> 300 </p> </div>
+                    </div>
+                    <div fxFlex class="text-center" >
+                        <div class="chat" (click)="clicked = !clicked"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
+                    </div>
+                    <div fxFlex class="text-right">
+                        <div class="share"> <i class="material-icons">share</i> <p class="count"> 100 </p> </div>
+                    </div>
+                </div>
+                <!-- Highlights Post Share Like And More  END-->
+      
+      
+                <!-- Highlights Post Comments-->
+                  <div *ngIf="clicked" class="Comments">
+                      <div class="commentPost">
+                              <div class="commentinfo">
+                                  <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                      <div fxFlex>
+                                          <div class="leftSide">
+                                              <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                  <div fxFlex="45px">
+                                                      <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                                  </div>
+                                                  <div class="mt-10" fxFlex>
+                                                      <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                      <p class="postuserfollowers"> 20 Followers </p>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div fxFlex="25%">
+                                          <div class="rightSide">
+                                              <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                  <div class="text-right" fxFlex>
+                                                      <p class="postaction"> ... </p>
+                                                      <p class="postdate"> 2 Months Ago </p>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <hr class="m-0">
+                              <div class="commentbody">
+                                  <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                              </div> 
+                      </div>
+                      <div class="commentPost">
+                          <div class="commentinfo">
+                              <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                  <div fxFlex>
+                                      <div class="leftSide">
+                                          <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                              <div fxFlex="45px">
+                                                  <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                              </div>
+                                              <div class="mt-10" fxFlex>
+                                                  <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                  <p class="postuserfollowers"> 20 Followers </p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div fxFlex="25%">
+                                      <div class="rightSide">
+                                          <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                              <div class="text-right" fxFlex>
+                                                  <p class="postaction"> ... </p>
+                                                  <p class="postdate"> 2 Months Ago </p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr class="m-0">
+                          <div class="commentbody">
+                              <p class="commenttext"> Lorem ipsum dolor</p>
+                          </div> 
+                      </div>
+                  </div>
+                  <!-- Highlights Post Comments END-->
+      
+      
+            </div>
+            <!-- Highlights Post Div END -->
+          </div>
+      </li>
+      <li>
+          <time class="cbp_tmtime"><span>23/01/2018</span> <span>07:30 PM</span></time>
+          <div class="cbp_tmicon"><i class="material-icons">help_outline</i></div>
+          <div class="cbp_tmlabel">
+             <!-- Question Post Div -->
+            <div class="QuestionPost mt-15">
+                <!-- Question Post Info Header Div -->
+                <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                    <div fxFlex>
+                        <div class="leftSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                <div class="mt-10" fxFlex>
+                                    <p class="postusername"> Questions Post </p>
+                                    <p class="postusercategory"> Topic Name </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="35%">
+                        <div class="rightSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                <div fxFlex>
+                                </div>
+                                <div class="text-right" fxFlex="150px">
+                                    <p class="postaction"> ... </p>
+                                    <p class="postdate"> 2 Months Ago </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Question Post Info Header Div End -->
+                <hr class="m-5">
+                <!-- Question Post -->
+                <div class="postmain" fxLayout="row">
+                    <div fxFlex class="text-left">
+                        <h5 class="postquestion"> What is Blockchain Technology?  </h5>
+                        <div class="postAnswer">
+                            <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postansuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postansusername"> User Name </p>
+                                                <p class="postansfollowes"> 20 followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="35%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div fxFlex>
+                                            </div>
+                                            <div class="text-right" fxFlex="150px">
+                                                <p class="postansaction"> ... </p>
+                                                <p class="postansdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-0" style="border-color: #77778729;">
+                            <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                                <div fxFlex>
+                                    <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions
+                                                that can be programmed to record not just financial transactions but virtually everything of value.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="postAnswer">
+                            <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postansuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postansusername"> User Name </p>
+                                                <p class="postansfollowes"> 20 followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="35%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div fxFlex>
+                                            </div>
+                                            <div class="text-right" fxFlex="150px">
+                                                <p class="postansaction"> ... </p>
+                                                <p class="postansdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-0" style="border-color: #77778729;">
+                            <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                                <div fxFlex>
+                                    <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions
+                                                that can be programmed to record not just financial transactions but virtually everything of value.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-right">
+                            <p class="readmore">Read More...</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Question Post END -->
+                <hr class="m-5">
+                <!-- Question Post Share Like And More -->
+                <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxFlex class="text-left">
+                        <div class="like"> <i class="material-icons">star_border</i> <p class="count"> 300 </p> </div>
+                    </div>
+                    <div fxFlex class="text-center" >
+                        <div class="chat" (click)="clicked2 = !clicked2"> <i class="material-icons">chat</i> <p class="count"> 200 </p> </div>
+                    </div>
+                    <div fxFlex class="text-right">
+                        <div class="share"> <i class="material-icons">share</i> <p class="count"> 100 </p> </div>
+                    </div>
+                </div>
+                <!-- Question Post Share Like And More  END-->
+                <hr class="m-5">
+
+                <!-- Question Post Comments -->
+                <div *ngIf="clicked2" class="Comments">
+                    <div class="commentPost">
+                        <div class="commentinfo">
+                            <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                <p class="postuserfollowers"> 20 Followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div class="text-right" fxFlex>
+                                                <p class="postaction"> ... </p>
+                                                <p class="postdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="commentbody">
+                            <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                        </div> 
+                    </div>
+                    <div class="commentPost">
+                        <div class="commentinfo">
+                            <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postuserImg" src="./../../assets/images/icons/user.png" alt="">
+                                            </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
+                                                <p class="postuserfollowers"> 20 Followers </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div class="text-right" fxFlex>
+                                                <p class="postaction"> ... </p>
+                                                <p class="postdate"> 2 Months Ago </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="commentbody">
+                            <p class="commenttext"> Lorem ipsum dolor</p>
+                        </div> 
+                    </div>
+                </div>
+                <!-- Question Post Comments END-->
+
+            </div>
+            <!-- Question Post Div END -->
+          </div>
+      </li>
+    </ul>
+  </p-scrollPanel>
+</div>

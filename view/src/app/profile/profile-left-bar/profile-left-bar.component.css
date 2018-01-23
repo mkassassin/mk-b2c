@@ -1,0 +1,64 @@
+
+.profileRightBar .userdiv{
+    background-color: #e9eef3;
+    margin: 7px;
+    padding: 7px;
+    border: 1px solid #dee4ea;
+    border-bottom: 2px solid #dee4ea;
+}
+
+.profileRightBar .userimg{
+    width: 90px;
+    height: 90px;
+    border-radius: 100px;
+}
+.profileRightBar .username{
+    font-size: 19px;
+    font-weight: 900;
+    color: #777777;
+    margin: -5px 0px 0px 0px;
+    letter-spacing: 0.5px;
+    word-spacing: 4px;
+}
+.profileRightBar .follow{
+    text-align: center;
+    font-size: 13px;
+    padding: 0px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    color: #9c9a9a;
+    margin: 0px;
+    line-height: 21px;
+}
+.textLine{
+    display: inline-flex;
+    min-height: 40px;
+    /* background-color: #e9eef3; */
+    margin: 3px 5px;
+    width: 96%;
+    border: 1px solid #dee4ea;
+    border-bottom: 2px solid #dee4ea;
+}
+.textTitle{
+    margin: 0px 0px 0px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: #66666687;
+    line-height: 39px;
+}
+.textCount{
+    margin: 0px 0px 0px 5px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    color: #666666f0;
+    line-height: 22px;
+    margin-top: 6px;
+    zoom: 110%;
+}
+
+
+
+
+

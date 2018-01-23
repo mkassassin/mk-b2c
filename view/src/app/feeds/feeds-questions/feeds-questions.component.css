@@ -1,0 +1,325 @@
+.Questions .headerPost{
+    height: 40px;
+    background-color: #e6e6e6;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #e6e6e6;
+}
+.Questions .headerPost .leftArea{    
+    padding: 0px 10px;
+    line-height: 40px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #9c9a9a;
+}
+.Questions .headerPost .leftArea i{    
+    font-size: 19px;
+    padding: 0px 10px;
+}
+.Questions .headerPost .rightArea{    
+    background-color: #cecece;
+    height: 38px;
+    text-align: center;
+}
+.Questions .headerPost .rightArea i{    
+    font-size: 33px;
+    line-height: 39px;
+    color: #e9eef3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.Questions .QuestionPost{
+    background-color:#ffffff;
+    box-shadow: 0px 0px 5px 1px #607d8b63;
+    margin: 3px;
+}
+
+
+.Questions .QuestionPost .PostHeader{
+    padding: 0px 10px;
+}
+.Questions .QuestionPost .leftSide .postuserImg{
+    height: 50px;
+    width: 50px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.Questions .QuestionPost .leftSide .postusername{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.Questions .QuestionPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 14px;
+    color: #9c9a9a;
+}
+.Questions .QuestionPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    color: #9c9a9a;
+}
+
+
+
+.Questions .QuestionPost .rightSide .postcategoryicon{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.Questions .QuestionPost .rightSide .postaction{
+    line-height: 18px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Questions .QuestionPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 18px;
+    margin-top: 5px;
+    color: #9c9a9a;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+}
+.Questions .QuestionPost .rightSide .posttopic{
+    margin: 0px;
+    line-height: 18px;
+    font-weight: 600;
+    color: #9c9a9a;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+
+.Questions .QuestionPost .postquestion{
+    margin: 0px;
+    margin-left: 10px;
+    color: #666666e6;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    word-spacing: 2px;
+}
+.Questions .QuestionPost .postLikes .like{
+    display: inline-flex;
+    cursor: pointer;
+}
+.Questions .QuestionPost .postLikes {
+    padding: 0px 15px;
+}
+.Questions .QuestionPost .postLikes .like i{
+    font-size: 32px;
+    color: #ffda00;
+}
+.Questions .QuestionPost .postLikes .like .count{
+    line-height: 35px;
+    font-size: 15px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Questions .QuestionPost .postLikes .chat{
+    display: inline-flex;
+    cursor: pointer;
+}
+.Questions .QuestionPost .postLikes .chat i{
+    font-size: 32px;
+    color: #1d6d04;
+}
+.Questions .QuestionPost .postLikes .chat .count{
+    line-height: 30px;
+    font-size: 15px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Questions .QuestionPost .postLikes .share{
+    display: inline-flex;
+    cursor: pointer;
+}
+.Questions .QuestionPost .postLikes .share i{
+    font-size: 30px;
+    color: #088eb7;
+}
+.Questions .QuestionPost .postLikes .share .count{
+    line-height: 35px;
+    font-size: 15px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+
+.Questions .QuestionPost .postchat {
+    padding: 5px 15px;
+}
+
+.Questions .QuestionPost .postchat .chatUserImg img{
+    width: 40px;
+    height: 40px
+}
+
+.Questions .QuestionPost .postchat .chatInput input{
+    width: 97%;
+    height: 38px;
+    outline: transparent;
+    border: 1px solid #333f4f3b;
+    padding: 0px 10px;
+    font-size: 15px;
+}
+
+.Questions .QuestionPost .postchat .chatsend i{
+    font-size: 32px;
+    color: #38769f;
+    transform: rotate(-35deg);
+}
+
+
+
+
+.scrolldiv{
+    overflow-Y: auto;
+    overflow-x: hidden;
+}
+
+.Questions .postmain .postquestion {
+    margin: 5px 0px 10px 5px
+}
+.Questions .postAnswer {
+    margin: 0px 0px 10px 5%;
+    background-color: #e6e6e67a;
+}
+.Questions .PostAnsHeader .postansuserImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+}
+.Questions .PostAnsHeader .postansusername{
+    font-size: 15px;
+    font-weight: 600;
+    color: #666666ab;
+    letter-spacing: 0.4px;
+    margin: 0px;
+}
+.Questions .PostAnsHeader .postansaction{
+    font-size: 20px;
+    line-height: 10px;
+    margin-right: 10px;
+    color: #666666;
+    margin-bottom: 4px;
+}
+.Questions .PostAnsHeader .postansdate{
+    margin: 0px 10px 0px 0px;
+    font-size: 12px;
+    color: darkgray;
+}
+.Questions .PostAnsHeader .postansfollowes{
+    font-size: 12px;
+    color: darkgray;
+}
+.Questions .PostAnsHeader .postansuserinfo{
+    height: 45px;
+    margin: 5px 0px 5px 5px;
+}
+.Questions .postAnswer .postAns{
+    padding: 5px 5px 0px 10px;
+}
+.Questions .postAnswer .postAns .postAnsText{
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    word-spacing: 2.5px;
+    color: #9c9a9a;
+    line-height: 20px;
+}
+.Questions .postmain .readmore{    
+    font-size: 13px;
+    margin: 0px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    line-height: 30px;
+    color: #999999;
+}
+
+
+
+
+
+
+
+
+.Questions .commentPost{
+    background-color: #e9eef378;
+    box-shadow: 0px 0px 3px 1px #607d8b63;
+    margin:4px 10px 15px 10px;
+    padding: 4px;
+}
+
+.Questions .commentPost .commentbody .commenttext{
+    font-size: 15px;
+    color: gray;
+    margin: 2px 10px;
+    word-spacing: 2.5px;
+    line-height: 20px;
+}
+.Questions .commentPost .PostHeader{
+    padding: 0px 2px;
+}
+.Questions .commentPost .leftSide .postuserImg{
+    height: 35px;
+    width: 35px;
+    border-radius: 35px;
+}
+.Questions .commentPost .leftSide .postusername{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.Questions .commentPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+.Questions .commentPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+
+.Questions .commentPost .rightSide .postaction{
+    line-height: 10px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Questions .commentPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 18px;
+    margin-top: 5px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}

@@ -1,0 +1,101 @@
+/* You can add global styles to this file, and also import other style files */
+@import './../node_modules/primeng/resources/themes/omega/theme.css';
+@import './../node_modules/primeng/resources/primeng.min.css';
+
+@import "./assets/Themes/CustomeTheme.css";
+
+@import " ./../assets/css/crypto/materialcssoveright.css";
+
+
+@import './assets/css/crypto/primengtabsoveright.css';
+
+.bg-primary-color{
+    background-color: #FFDA00 !important;
+    }
+.primary-color{
+        color: #FFDA00 !important;
+}
+.bg-color-D1D1D1{
+    background-color: #D1D1D1 !important;
+}
+
+
+.customscroll_1.ui-corner-all{
+    border-radius: 0px !important;
+}
+.customscroll_1.ui-widget-content{
+    border:0px;
+    background: transparent;
+}
+.customscroll_1 .ui-scrollpanel-content{
+    width: 100% !important;
+}
+
+.customscroll_1 .ui-scrollpanel-wrapper {
+    border-right: 0px solid #f4f4f4; 
+}
+
+.customscroll_1 .ui-scrollpanel-bar {
+    background-color: #66666661; 
+    width: 5px;
+}
+
+.customscroll_1 .ui-scrollpanel-bar:hover {
+    background-color: #666666b3;
+}
+
+
+
+.MatMenuNotification{
+    max-width: 320px !important;
+    overflow: initial !important;
+}
+
+.MatMenuUserView{
+    max-width: 320px !important;
+    overflow: initial !important;
+}
+.MatMenuUserView .mat-menu-content{
+    padding: 0px !important;
+}
+.followersAction {
+    overflow: initial !important;
+}
+.followersAction .mat-menu-content{
+    padding: 0px !important;
+}
+.followingAction{
+    overflow: initial !important;
+}
+.followingAction .mat-menu-content{
+    padding: 0px !important;
+}
+.followingTopicAction {
+    overflow: initial !important;
+}
+.followingTopicAction .mat-menu-content{
+    padding: 0px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
+    color: rgb(73, 73, 73);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.7px;
+    background-color: #ffda00;
+}

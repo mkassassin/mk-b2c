@@ -1,0 +1,46 @@
+.profileSettings{
+    padding: 0px 15px;
+}
+.settingsdiv{
+    padding: 0px;
+    height: 180px;
+}
+.settingsBox{
+    background-color: white;
+    height: 160px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    cursor: pointer
+}
+
+.settingsBox .boxIcon{
+    text-align: center;
+    margin: 0px;
+}
+
+.settingsBox .boxIcon i{
+    color: #666666;
+    font-size: 45px;
+}
+
+.settingsBox .boxHeading{
+    margin: 0px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    word-spacing: 4px;
+    color: #666666bf;
+}
+
+.settingsBox .boxDescription{
+    margin: 0px;
+    text-align: center;
+    line-height: 20px;
+    margin-top: 15px;
+    font-size: 15px;
+    color: #66666673;
+    letter-spacing: 0.3px;
+    word-spacing: 2px;
+}
