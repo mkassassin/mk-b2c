@@ -1,0 +1,32 @@
+{
+  "name": "b2c",
+  "version": "1.0.0",
+  "description": "Blockchain 2 Crypto Network",
+  "main": "server",
+  "scripts": {
+    "test": "gulp test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kathiraashi/Crypto.git"
+  },
+  "keywords": [
+    "crypto-coin",
+    "blockchain"
+  ],
+  "author": "kathiravan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kathiraashi/Crypto/issues"
+  },
+  "homepage": "https://github.com/kathiraashi/Crypto#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "2.4.3",
+    "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "4.16.2",
+    "mongoose": "5.0.1"
+  }
+}
