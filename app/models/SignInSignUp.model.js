@@ -1,26 +1,27 @@
 var mongoose = require('mongoose');
 
-var NoteSchema = mongoose.Schema({
-    title: String,
-    content: String,
-    author: String
+var UserTypeSchema = mongoose.Schema({
+    UserName: { type : String , unique : true, required : true, dropDups: true, lowercase: true },
+    UserEmail:{ type : String , unique : true, required : true, dropDups: true, lowercase: true },
+    UserPassword: { type : String , required : true},
+    UserCategoryId:{ type : String , required : true},
+    UserCategoryName:{ type : String , required : true},
+    UserImage:String,
+    UserCompany:String,
+    UserProfession:String,
+    UserDateOfBirth:String,
+    UserGender:String,
+    UserCountry:String,
+    UserState:String,
+    UserCity:String
     }, 
     { timestamps: true }
 );
 
-var NewNoteSchema = mongoose.Schema({
-    newtitle: String,
-    newcontent: String,
-    newauthor: String
-    }, 
-    { timestamps: true }
-);
 
-var varNote = mongoose.model('Note', NoteSchema, 'user');
+var varUserType = mongoose.model('UserType', UserTypeSchema, 'Users');
 
-var varNewNote = mongoose.model('NewNote', NewNoteSchema, 'newuser');
 
 module.exports = {
-    Note : varNote,
-    NewNote : varNewNote
+    UserType : varUserType
 };

@@ -1,78 +1,123 @@
-var model = require('../models/SignInSignUp.model.js');
+var UserModel = require('../models/SignInSignUp.model.js');
 
-exports.create = function(req, res) {
-    // Create and Save a new Note
-        if(!req.body.content) {
-            res.status(400).send({message: "Note can not be empty"});
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'kathiraashi@gmail.com',
+      pass: 'kathiraashi123'
+    }
+  });
+  
+
+
+exports.Register = function(req, res) {
+    if(!req.body.UserName) {
+        res.status(400).send({status:"False", message: " Name can not be Empty! "});
+    }
+    if(!req.body.UserEmail){
+        res.status(400).send({status:"False", message: " E-mail can not be Empty! "});
+    }
+    if(!req.body.UserPassword){
+        res.status(400).send({status:"False", message: " Password can not be Empty! "});
+    }
+    if(!req.body.UserCategoryId && !req.body.UserCategoryName ){
+        res.status(400).send({status:"False", message: " Select Any One Category "});
+    }
+
+    var varUserType = new UserModel.UserType({
+            UserName:  req.body.UserName,
+            UserEmail: req.body.UserEmail,
+            UserPassword: req.body.UserPassword,
+            UserCategoryId:req.body.UserCategoryId,
+            UserCategoryName:req.body.UserCategoryName,
+            UserImage:req.body.UserImage || "userImage.png",
+            UserCompany:req.body.UserCompany || "",
+            UserProfession:req.body.UserProfession || "",
+            UserDateOfBirth:req.body.UserDateOfBirth || "",
+            UserGender:req.body.UserGender || "",
+            UserCountry:req.body.UserCountry || "",
+            UserState:req.body.UserState || "",
+            UserCity:req.body.UserCity || ""
+    });
+
+    varUserType.save(function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while creating the Account."});
+        } else {
+            res.send({status:"True", data: result });
         }
-        var note = new model.NewNote({
-            newtitle: req.body.title || "Untitled Note", 
-            newcontent: req.body.content,
-            newauthor: req.body.author || "Kathiravan"
-        });
-
-        note.save(function(err, data) {
-            if(err) {
-                console.log(err);
-                res.status(500).send({message: "Some error occurred while creating the Note."});
-            } else {
-                res.send(data);
-            }
-        });
-
+    });
 };
 
-exports.findAll = function(req, res) {
-    // Retrieve and return all notes from the database.
-        model.NewNote.find(function(err, notes){
+
+exports.NameValidate = function(req, res) {
+        UserModel.UserType.findOne({'UserName': req.params.name.toLowerCase()}, function(err, data) {
             if(err) {
-                res.status(500).send({message: "Some error occurred while retrieving notes."});
+                res.status(500).send({status:"False", message: "Some error occurred while Validate The Name."});
             } else {
-                res.send(notes);
+                if(data === null){
+                    res.send({ status:"True", available: "True", message: "( " + req.params.name + " ) This Name is Available." });
+                }else{
+                    res.send({ status:"False", available: "False", message: "( " + req.params.name + " ) This Name is Already Exist. " });
+                } 
             }
         });
 };
 
-exports.findOne = function(req, res) {
-    // Find a single note with a noteId
-        model.NewNote.findById(req.params.noteId, function(err, data) {
-            if(err) {
-                res.status(500).send({message: "Could not retrieve note with id " + req.params.noteId});
-            } else {
-                res.send(data);
-            }
-        });
 
+exports.EmailValidate = function(req, res) {
+    UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Validate The E-mail."});
+        } else {
+            if(data === null){
+                res.send({ status:"True", available: "True", message: "( " + req.params.email + " ) This E-mail is Available." });
+            }else{
+                res.send({ status:"False", available: "False", message: "( " + req.params.email + " ) This E-mail is Already Exist. " });
+            } 
+        }
+    });
 };
 
-exports.update = function(req, res) {
-    // Update a note identified by the noteId in the request
-        model.NewNote.findById(req.params.noteId, function(err, note) {
-            if(err) {
-                res.status(500).send({message: "Could not find a note with id " + req.params.noteId});
-            }
 
-            note.newtitle = req.body.title;
-            note.newcontent = req.body.content;
-            note.newauthor = req.body.author;
+exports.UserValidate = function(req, res) {
+    UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase(), 'UserPassword': req.params.password}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null){
+                UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, result) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while Validate The E-mail."});
+                    } else {
+                        if(result !== null){
 
-            note.save(function(err, data){
-                if(err) {
-                    res.status(500).send({message: "Could not update note with id " + req.params.noteId});
-                } else {
-                    res.send(data);
-                }
-            });
-        });
-};
+                            console.log(result.UserEmail);
+                            var toMailAddr = result.UserEmail;
+                            var mailOptions = {
+                                from: 'kathiraashi@gmail.com',
+                                to: toMailAddr,
+                                subject: 'Sending Email using Node.js',
+                                text: 'That was easy!'
+                              };
+                              transporter.sendMail(mailOptions, function(error, info){
+                                if (error) {
+                                  console.log(error);
+                                } else {
+                                  console.log('Email sent: ' + info.response);
+                                }
+                              }); 
 
-exports.delete = function(req, res) {
-    // Delete a note with the specified noteId in the request
-        model.NewNote.remove({_id: req.params.noteId}, function(err, data) {
-            if(err) {
-                res.status(500).send({message: "Could not delete note with id " + req.params.id});
-            } else {
-                res.send({message: "Note deleted successfully!"})
-            }
-        });
+                            res.send({ status:"False", message: " Email and Password Not Match! " });
+                        }else{
+                            res.send({ status:"False", message: " Invalid Username and Password  " });
+                        } 
+                    }
+                });
+            }else{
+                res.send({ status:"True", message: "Sign In Successfully", data:data });
+            } 
+        }
+    });
 };

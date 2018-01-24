@@ -1,19 +1,14 @@
 module.exports = function(app) {
 
-    var notes = require('../controllers/SignInSignUp.controller.js');
+    var user = require('../controllers/SignInSignUp.controller.js');
 
-    // Create a new Note
-    app.post('/notes', notes.create);
 
-    // Retrieve all Notes
-    app.get('/notes', notes.findAll);
+    app.post('/API/Register', user.Register);
 
-    // Retrieve a single Note with noteId
-    app.get('/notes/:noteId', notes.findOne);
+    app.get('/API/NameValidate/:name', user.NameValidate);
 
-    // Update a Note with noteId
-    app.put('/notes/:noteId', notes.update);
+    app.get('/API/EmailValidate/:email', user.EmailValidate);
 
-    // Delete a Note with noteId
-    app.delete('/notes/:noteId', notes.delete);
+    app.get('/API/UserValidate/:email/:password', user.UserValidate);
+
 }
