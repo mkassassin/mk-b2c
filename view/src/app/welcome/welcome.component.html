@@ -1,86 +1,95 @@
-
-
-    <div class="welcome">
-        <!-- Start main-content -->
-        <div class="main-content">
-          <!-- Section: home -->
-          <section id="home" class="divider parallax">
+<div class="welcome">
+    <!-- Start main-content -->
+    <div class="main-content">
+        <!-- Section: home -->
+        <section id="home" class="divider parallax">
             <div class="display-table">
-              <div class="display-table-cell">
-                  <div class="row" style="padding:15px 20px;">
-                      <div class="col-sm-6" style="display:inline-flex;">
-                          <img class="logoDesign-1 mr-5" src="assets/images/logos/logo3mini62.png" alt=""> 
-                          <span class="logoTextDesign-1"> 
-                              <sup class="TextDesign-1"> The </sup>
-                              <span class="TextDesign-2"> Crypto </span>
-                              <span class="TextDesign-3"> Network </span> 
-                          </span>
-                      </div>
-                      <div class="col-sm-6 text-right" >
-                          <div style="display:inline-flex;"> 
-                              <a routerLink="/SignInSignUp" class="linkStyle-1"> Sign Up</a>
-                              <a routerLink="/SignInSignUp" class="linkStyle-1"> Sign In</a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm-12 mt-40 mb-40">
-                          <h2 class="text-center text-color">
-                              Join the world’s first social network dedicated to crypto currencies
-                          </h2>
-                          <h1 class="text-center text-white"> 
-                              ASK, CONNECT AND ENGAGE
-                          </h1>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm-12 mt-10 text-center">
-                          <div class="index-style-1" style="display:inline-flex"> 
-                              <input class="input-style-1" type="text" placeholder="Enter Your E-mail Address">
-                              <div class="linkStyle-2"> <a href="#">  <i class="material-icons iconStyle-1">person_outline</i> </a> </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-12 text-center">
-                          <p class="textStyle-1"> Already have an Account? &nbsp; <a href="#" class="linkStyle-3"> Sign In </a> </p>
-                      </div>
-                  </div>
-      
-                  <div class="row mt-40 mb-30">
-                      <div class="col-sm-12 text-center">
-                              <p class="textStyle-1 mb-0"> <small>  Or Sign In Using </small> </p>
-                          <div style="display:inline-flex">
-                              <a href="#" class="linkStyle-4 facebook">
-                                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                              </a>
-                              <a href="#" class="linkStyle-4 twitter">
-                                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                              </a>
-                              <a href="#" class="linkStyle-4 googlePlus">
-                                  <i class="fa fa-google-plus" aria-hidden="true"></i>
-                              </a>
-                              <a href="#" class="linkStyle-4 linkedin">
-                                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-      
-                  <div class="row fixed-row">
-                      <div class="col-sm-12 menudiv">
-                          <div style="display:inline-flex">
-                              <a href="#" class="linkStyle-5"> About Us </a>
-                              <a href="#" class="linkStyle-5"> Career </a>
-                              <a href="#" class="linkStyle-5"> Terms </a>
-                              <a href="#" class="linkStyle-5"> Privacy </a>
-                              <a href="#" class="linkStyle-5"> Advertise </a>
-                              <a href="#" class="linkStyle-5"> Contact </a>
-                          </div>
-                      </div>
-                  </div>
-      
-              </div>
+                <div class="display-table-cell">
+                    <div [ngStyle]="{height: scrollHeight }"  fxLayout="column" fxLayoutAlign="space-between">
+                        <div fxflex>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%">
+                                    <div class="logodiv">
+                                        <img class="logoDesign-1" src="assets/images/logo1.png" alt="">
+                                    </div>
+                                </div>
+                                <div fxFlex="50%">
+                                    <div class="routingdiv text-right">
+                                        <a (click)="gotoSignUp()" class="linkStyle-1"> Sign Up</a>
+                                        <a (click)="gotoSignIn()" class="linkStyle-1"> Sign In</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-20 mb-40">
+                                <h2 class="TextDesign-1">
+                                    Join the world’s first social network dedicated to Blockchain and Crypto Currencies
+                                </h2>
+                                <h2 class="TextDesign-2">
+                                    Ask, Connect and Engage With Enthusiasts, Investors, Experts, Bloggers, Media and Companies
+                                </h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-10 text-center">
+                                    <div class="index-style-1" style="display:inline-flex">
+                                        <input class="input-style-1" [(ngModel)]="email" type="text" placeholder="Enter Your E-mail Address">
+                                        <div class="linkStyle-2">
+                                            <img (click)="gotoNext(email)" src="assets/images/icons/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="text-center warningmsg" *ngIf="ShowEmailAlert">
+                                        <p class="warningtext"> Please Enter a Valid E-mail Address. </p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                <p class="textStyle-1">Already have an Account? &nbsp;
+                                    <a (click)="gotoSignIn()" class="linkStyle-3"> Sign In </a>
+                                </p>
+                                </div>
+                            </div>
+                            <div class="row mt-40 mb-30">
+                                <div class="col-sm-12 text-center">
+                                <p class="textStyle-1 mb-0">
+                                    <small> Or Sign In Using </small>
+                                </p>
+                                <div style="display:inline-flex">
+                                    <a href="#" class="linkStyle-4 facebook">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="linkStyle-4 twitter">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="linkStyle-4 googlePlus">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="linkStyle-4 linkedin">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="45px" class="menudiv">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%"> </div>
+                                <div FxFlex="60%" style="width:100%" >
+                                    <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+                                        <a href="#" class="linkStyle-5"> About Us </a>
+                                        <a href="#" class="linkStyle-5"> Career </a>
+                                        <a href="#" class="linkStyle-5"> Terms </a>
+                                        <a href="#" class="linkStyle-5"> Privacy </a>
+                                        <a href="#" class="linkStyle-5"> Advertise </a>
+                                        <a href="#" class="linkStyle-5"> Contact </a>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </section> 
-        </div>  
-      <!-- end main-content -->
+        </section>
     </div>
+    <!-- end main-content -->
+</div>

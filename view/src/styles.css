@@ -9,6 +9,12 @@
 
 @import './assets/css/crypto/primengtabsoveright.css';
 
+html, body {
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+  }
+  
 .bg-primary-color{
     background-color: #FFDA00 !important;
     }

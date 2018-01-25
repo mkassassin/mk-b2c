@@ -35,24 +35,12 @@
     color: #666666 !important;
     letter-spacing: 1px
 }
-.feedsHeader .SearchStyle::-webkit-input-placeholder {
-    color: #6666665c !important;
+.feedsHeader .SearchStyle:-ms-input-placeholder ,
+.feedsHeader .SearchStyle::-webkit-input-placeholder,
+.feedsHeader .SearchStyle::-moz-placeholder,
+.feedsHeader .SearchStyle:-moz-placeholder  {
+    color: #123123 !important;
     letter-spacing: 1px;
-}
-     
-.feedsHeader .SearchStyle:-moz-placeholder { /* Firefox 18- */
-    color: #6666665c !important;
-    letter-spacing: 1px;
-}
-     
-.feedsHeader .SearchStyle::-moz-placeholder {  /* Firefox 19+ */
-    color: #6666665c !important;
-    letter-spacing: 1px; 
-}
-     
-.feedsHeader .SearchStyle:-ms-input-placeholder {  
-    color: #6666665c !important;
-    letter-spacing: 1px;  
 }
 
 .feedsHeader  .searchIncon{

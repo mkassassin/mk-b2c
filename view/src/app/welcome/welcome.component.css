@@ -2,102 +2,145 @@
     background-color: #FFDA00 !important;
 }
 .welcome .text-color{
-        color: #666666;
-    }
+    color: #666666;
+}
     
     /* Index Page Header Design  */
     
 .welcome .logoDesign-1{
-        height: 50px;
-        margin-top: -5px;
-    }
-.welcome .logoTextDesign-1{
-        margin-top: 12px;
-    }
+    height: 55px;
+    margin: 3px 20px;
+    cursor: pointer;
+}
 .welcome .TextDesign-1{
-        position: absolute;
-        top: -4px;
-        font-size: 18px;
-        margin: 0px;
-        font-weight: 600;
-        line-height: 23px;
-    }
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
+    word-spacing: 1px;
+    font-weight: 400;
+}
 .welcome .TextDesign-2{
-        font-size: 25px;
-        margin: 0px;
-        font-weight: 800;
-        line-height: 40px;
-        margin-left: 10px;
-    }
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+    word-spacing: 3px;
+    font-weight: 900;
+    zoom: 112%;
+    text-transform: uppercase;
+    margin: 0% 10%;
+    margin-top: 20px;
+}
 .welcome .TextDesign-3{
-        font-size: 25px;
-        margin: 0px;
-        font-weight: 800;
-        line-height: 40px;
-    }
+    font-size: 25px;
+    margin: 0px;
+    font-weight: 800;
+    line-height: 40px;
+}
 .welcome .linkStyle-1{
-        font-weight: 700;
-        font-size: 16px;
-        margin-right: 20px;
-        border: 1px solid white;
-        padding: 2px 12px;
-        letter-spacing: 1px;
-        color: #ffffff;
-    }
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 25px;
+    border: 1px solid #333333;
+    padding: 5px 15px 6px 15px;
+    letter-spacing: 1px;
+    color: #333333;
+}
 .welcome .linkStyle-1:hover,
 .welcome .linkStyle-1:active,
 .welcome .linkStyle-1:focus{
-        background-color: #ffffff;
-        color: #FFDA00;
-    }
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
 .welcome .index-style-1{
-        max-width: 550px;
-        margin-bottom: 10px;
-        width: 74%;
-        background-color: gray;
-        padding: 10px;
-        box-shadow: 3px 3px 3px #6b5d5da1;
-    }
+    max-width: 550px;
+    margin-bottom: 10px;
+    background-color: #333333;
+    width: 100%;
+    padding: 10px;
+    box-shadow: 3px 3px 3px #6b5d5da1;
+}
 .welcome .input-style-1{
-        height: 45px;
-        width: 85%;
-        border: none;
-        box-shadow: 0px 3px 3px #383636b5;
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        padding-left: 10px;
-    }
-    
+    height: 40px;
+    width: 88%;
+    border: none;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding-left: 10px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    padding-bottom: 0px;
+}
+
+.welcome .input-style-1::-webkit-input-placeholder {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+    text-transform: unset !important;
+}   
+.welcome .input-style-1:-moz-placeholder { /* Firefox 18- */
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+    text-transform: unset !important;
+} 
+.welcome .input-style-1::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important; 
+    text-transform: unset !important;
+}    
+.welcome .input-style-1:-ms-input-placeholder {  
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+    text-transform: unset !important;
+}
+
+.welcome .warningmsg{
+    margin-top: -5px;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+    font-size: 15px;
+    word-spacing: 3px;
+}
+.welcome .warningmsg .warningtext{
+    color:red;
+    margin: 0px;
+}
+
 .welcome .linkStyle-2{
-        width: 15%;
-        text-align: center;
-    }
-.welcome .linkStyle-2 a{
-       text-decoration: none;
-    }
-.welcome .iconStyle-1{
-        font-size: 39px !important; 
-        width: 47px;
-        height: 47px;
-        line-height: 42px !important;
-        background-color: #ffda00;
-        color: #808080;
-        border-radius: 50px;
-    }
-    
+    width: 10%;
+    margin-left: 10px;
+    text-align: center;
+}
+.welcome .linkStyle-2 img{
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    margin-top: 3px;
+}
 .welcome .textStyle-1{
-        font-size: 15px;
-        font-weight: 600;
-        color: gray;
-    }
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
 .welcome .linkStyle-3{
-        text-decoration: none;
-        color: #666666;
-        font-size: 16px;
-        font-weight: 800;
-        letter-spacing: 1px;
-    }
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    font-family: 'Ubuntu', sans-serif;
+}
 .welcome .linkStyle-4{
         margin: 5px;
         width: 45px;
@@ -143,12 +186,12 @@
         border-color: #DC4437 !important;
     }
     
-.welcome .fixed-row{
+/* .welcome .fixed-row{
         position: fixed;
         top: 93%;
         width: 102%;
-    }
-.welcome .fixed-row .menudiv{
+    } */
+.welcome .menudiv{
         height: 45px;
         line-height: 45px;
         background-color: #ffffff;

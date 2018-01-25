@@ -1,40 +1,16 @@
 
 .SignInSignUp .text-color{
-        color: #666666
-    }
+    color: #333333
+}
+
+.SignInSignUp{
+    color: #666666
+}
     
     /* Index Page Header Design  */
     
 .SignInSignUp .logoDesign-1{
-        height: 50px;
-        margin-top: -5px;
-    }
-.SignInSignUp .logoTextDesign-1{
-        margin-top: 12px;
-    }
-.SignInSignUp .TextDesign-1{
-        position: absolute;
-        top: -4px;
-        font-size: 18px;
-        margin: 0px;
-        font-weight: 600;
-        line-height: 23px;
-        /* color: #FFDA00; */
-    }
-.SignInSignUp .TextDesign-2{
-        font-size: 25px;
-        margin: 0px;
-        font-weight: 800;
-        line-height: 40px;
-        margin-left: 10px;
-        /* color: #FFDA00; */
-    }
-.SignInSignUp .TextDesign-3{
-        font-size: 25px;
-        margin: 0px;
-        font-weight: 800;
-        line-height: 40px;
-        /* color: #FFDA00; */
+        height: 40px;;
     }
 .SignInSignUp .linkStyle-1{
         font-weight: 700;
@@ -71,35 +47,66 @@
     box-shadow: 0px 2px 4px #383636b5;
     font-size: 16px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.4px;
     padding-left: 10px;
+    color: #333333;
+}
+.SignInSignUp .inputStyle-1::-webkit-input-placeholder {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}   
+.SignInSignUp .inputStyle-1:-moz-placeholder { /* Firefox 18- */
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+} 
+.SignInSignUp .inputStyle-1::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important; 
+}    
+.SignInSignUp .inputStyle-1:-ms-input-placeholder {  
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
 }
 
 .SignInSignUp .cat-img-item img{
-    width: 35px;
-    height: 35px;
-    margin-top: 6px;
+    width: 45px;
+    height: 45px;
+    margin-bottom: 0px;
+    border-radius: 50px;
 }
-.SignInSignUp .cat-img-item span{
+.SignInSignUp .cat-img-item .catName{
     font-size: 12px;
     font-weight: 600;
+    margin-top: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #333333;
+    letter-spacing: 0.2px;
+}
+.SignInSignUp .cat-img-item .catSelect{
+    right: -5px;
+    position: absolute;
+    top: -5px;
 }
 .SignInSignUp .cat-img-item{
-    width: 50px;
-    height: 50px;
+    position: relative;
+    width: 45px;
+    height: 45px;
     text-align: center;
     background-color: #c1bb9640;
-    line-height: 40px;
+    line-height: 20px;
     border-radius: 50px;
 }
 
-.SignInSignUp .cat-img-item.selected{
-    background-color: #ffffff;
-}
-.SignInSignUp .cat-img-item.selected span{
-    color: #666666;
-    font-size: 13px;
-    font-weight: 700;
+.SignInSignUp .cat-img-item.selected img{
+    border: 5px double #333333;
 }
 
 .SignInSignUp .inputStyle-2{
@@ -110,10 +117,34 @@
     box-shadow: 0px 2px 4px #383636b5;
     font-size: 14px;
     font-weight: 600;
-    letter-spacing: 1px;
     padding-left: 10px;
+    letter-spacing: 0.4px;
+    color: #333333;
 }
-
+.SignInSignUp .inputStyle-2::-webkit-input-placeholder {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}   
+.SignInSignUp .inputStyle-2:-moz-placeholder { /* Firefox 18- */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+} 
+.SignInSignUp .inputStyle-2::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important; 
+}    
+.SignInSignUp .inputStyle-2:-ms-input-placeholder {  
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}
 .SignInSignUp .gender-select{
     display: inline-flex;
     margin-top: 7px;
@@ -154,18 +185,18 @@
 
 
 .SignInSignUp .textStyle-2{
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
-    color: #777777;
+    color: #333333;
     word-spacing: 2px;
-    margin-top: 10px;
-    font-family: unset;
+    margin-top: 30px;
     text-align: justify;
-    -moz-text-align-last: center;
     text-align-last: center;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
 }
 .SignInSignUp .imgStyle-2{
-    width: 90px;
+    width: 80px;
 }
 
 

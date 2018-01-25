@@ -21,7 +21,7 @@ exports.Register = function(req, res) {
     if(!req.body.UserPassword){
         res.status(400).send({status:"False", message: " Password can not be Empty! "});
     }
-    if(!req.body.UserCategoryId && !req.body.UserCategoryName ){
+    if(!req.body.UserCategoryId || !req.body.UserCategoryName ){
         res.status(400).send({status:"False", message: " Select Any One Category "});
     }
 
@@ -44,6 +44,7 @@ exports.Register = function(req, res) {
     varUserType.save(function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while creating the Account."});
+            
         } else {
             res.send({status:"True", data: result });
         }

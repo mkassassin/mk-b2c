@@ -38,6 +38,8 @@ import { ProfileTimelineComponent } from './profile/profile-timeline/profile-tim
 import { ProfileFollowersComponent } from './profile/profile-followers/profile-followers.component';
 import { ProfileFollowingComponent } from './profile/profile-following/profile-following.component';
 import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
+import { SigninSignupServiceService } from './service/signin-signup-service/signin-signup-service.service';
+import { DataSharedVarServiceService } from './service/data-shared-var-service/data-shared-var-service.service';
 
 
 @NgModule({
@@ -82,7 +84,7 @@ import { ProfileSettingsComponent } from './profile/profile-settings/profile-set
     MatMenuModule,
     MatExpansionModule
   ],
-  providers: [],
+  providers: [SigninSignupServiceService, DataSharedVarServiceService],
   bootstrap: [AppComponent],
   entryComponents:[PostOneComponent, PostTwoComponent]
 })

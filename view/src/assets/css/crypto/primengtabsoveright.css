@@ -242,6 +242,72 @@ border-bottom: 3px solid #ffda00 !important;
 
 
 
+.tabStyleSignUpPage .ui-tabview{
+    background-color: #ffda00;
+}
+/* tab div */
+.tabStyleSignUpPage .ui-tabview{
+    padding: 0px !important;
+    border-radius: 0px;
+}
+
+/* tab ul */
+.tabStyleSignUpPage .ui-tabview.ui-tabview-top>.ui-tabview-nav{
+    padding: 0px !important;
+    border-radius: 0px;
+    border-bottom: 1px solid #daba03;
+}
+
+/* tab li */
+.tabStyleSignUpPage .ui-tabview.ui-tabview-top>.ui-tabview-nav li{
+    top: 0px !important;
+    border-radius: 0px !important;
+    margin: 0px;
+    border: 0px;
+    width: 49.99%;
+}
+
+/* tab li bg color */
+.tabStyleSignUpPage .ui-tabview .ui-tabview-nav > li.ui-state-default{
+    background: #ffda00 !important;
+}
+
+/* tab li  a*/
+.tabStyleSignUpPage .ui-tabview .ui-tabview-nav li a{
+    padding: 0px !important;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #333333;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 18px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Tab Active li */
+.tabStyleSignUpPage .ui-tabview .ui-tabview-nav > li.ui-state-active{
+    background:#ffda00 !important;
+}
+
+/* Tab Active a */
+.tabStyleSignUpPage .ui-tabview .ui-tabview-nav li.ui-tabview-selected a{
+    border-bottom: 3px solid #ffffff !important;
+    color: #ffffff
+}
+
+.tabStyleSignUpPage .ui-tabview .ui-tabview-panel{
+    padding: 25px 0px 0px 0px;
+    background-color:transparent;
+}
+
+
+
+
+
+
+
 
 
 
