@@ -16,6 +16,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { TabViewModule } from "primeng/tabview";
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { AutoCompleteModule} from 'primeng/autocomplete';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -79,6 +81,8 @@ import { DataSharedVarServiceService } from './service/data-shared-var-service/d
     TabViewModule,
     ScrollPanelModule,
     OverlayPanelModule,
+    AutoCompleteModule,
+    BsDatepickerModule.forRoot(),
     MatDialogModule,
     MatButtonModule,
     MatMenuModule,

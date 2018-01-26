@@ -1674,25 +1674,7 @@ section > .container-fluid {
 label {
   font-weight: normal;
 }
-.form-control:focus,
-form input[type="text"]:focus,
-form input[type="email"]:focus,
-form input[type="number"]:focus,
-form input[type="url"]:focus,
-form input[type="search"]:focus,
-form input[type="tel"]:focus,
-form input[type="password"]:focus,
-form input[type="date"]:focus,
-form input[type="color"]:focus,
-form select:focus,
-form textarea:focus {
-  color: #404040;
-  border-color: rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  outline: none;
-}
+
 .form-transparent .form-control {
   background: transparent;
   color: #f7f7f7;

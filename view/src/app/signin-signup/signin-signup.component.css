@@ -1,4 +1,3 @@
-
 .SignInSignUp .text-color{
     color: #333333
 }
@@ -153,7 +152,7 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.6px;
-    color: #888888;
+    color: #333333;
 }
 .SignInSignUp .gender-select .tick img{
     width: 26px;
@@ -208,6 +207,7 @@
     border: 3px solid royalblue;
     border-radius: 40px;
     background-color: #fff;
+    text-align: center;
 }
 .SignInSignUp .linkStyle-4 i{
     background-color: royalblue;
@@ -259,4 +259,39 @@
     font-size: 15px;
     font-weight: 600;
     color: gray;
+}
+.SignInSignUp .textStyle-3{
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.textgreen{
+    color: green;
+}
+.alertStyle-1{
+    text-align: left;
+    font-size: 13px;
+    margin-left: 8% !important;
+    margin-bottom: 0px;
+    margin-top: -5px;
 }

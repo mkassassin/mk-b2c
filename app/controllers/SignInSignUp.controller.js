@@ -41,6 +41,7 @@ exports.Register = function(req, res) {
             UserCity:req.body.UserCity || ""
     });
 
+     
     varUserType.save(function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while creating the Account."});
@@ -93,23 +94,6 @@ exports.UserValidate = function(req, res) {
                         res.status(500).send({status:"False", message: "Some error occurred while Validate The E-mail."});
                     } else {
                         if(result !== null){
-
-                            console.log(result.UserEmail);
-                            var toMailAddr = result.UserEmail;
-                            var mailOptions = {
-                                from: 'kathiraashi@gmail.com',
-                                to: toMailAddr,
-                                subject: 'Sending Email using Node.js',
-                                text: 'That was easy!'
-                              };
-                              transporter.sendMail(mailOptions, function(error, info){
-                                if (error) {
-                                  console.log(error);
-                                } else {
-                                  console.log('Email sent: ' + info.response);
-                                }
-                              }); 
-
                             res.send({ status:"False", message: " Email and Password Not Match! " });
                         }else{
                             res.send({ status:"False", message: " Invalid Username and Password  " });

@@ -27,7 +27,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   gotoNext(email:string){
-    console.log(email.length);
     if(email.length >= 6 ){
       this.Service.EmailValidate(email).subscribe( datas => { this.gotoAnalyze(datas); } );
     }else{
@@ -37,9 +36,14 @@ export class WelcomeComponent implements OnInit {
   }
 
   gotoAnalyze(datas:any){
-    if(datas.available === "False"){
-      this.ShareingService.SetActiveSinInsignUpTab('SingIn',this.email);
-      this.router.navigate(['SignInSignUp']);
+    if(datas.status === "True"){
+      if(datas.available === "False"){
+        this.ShareingService.SetActiveSinInsignUpTab('SingIn',this.email);
+        this.router.navigate(['SignInSignUp']);
+      }else{
+        this.ShareingService.SetActiveSinInsignUpTab('SignUp',this.email);
+        this.router.navigate(['SignInSignUp']);
+      }
     }else{
       this.ShareingService.SetActiveSinInsignUpTab('SignUp');
       this.router.navigate(['SignInSignUp']);

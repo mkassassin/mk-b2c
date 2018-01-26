@@ -1,0 +1,65 @@
+.ui-autocomplete .ui-autocomplete-input{
+    padding: 0px;
+    margin-bottom: 5px;
+    height: 38px;
+    width: 100%;
+    border: none;
+    box-shadow: 0px 2px 4px #383636b5;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+    letter-spacing: 0.4px;
+    color: #333333;
+    border-radius: 0px;
+    background: #fff;
+}
+.ui-autocomplete .ui-autocomplete-input::-webkit-input-placeholder {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}   
+.ui-autocomplete .ui-autocomplete-input:-moz-placeholder { /* Firefox 18- */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+} 
+.ui-autocomplete .ui-autocomplete-input::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important; 
+}    
+.ui-autocomplete .ui-autocomplete-input:-ms-input-placeholder {  
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}
+
+
+.ui-autocomplete .ui-autocomplete-panel{
+    min-width: 100%;
+    box-shadow: 0px 2px 4px #383636b5;
+    border-radius: 0px;
+    background-color: #fff;
+    margin-top: 1px;
+}
+.ui-autocomplete-panel .ui-autocomplete-list{
+    padding: 0px;
+}
+.ui-autocomplete-panel .ui-autocomplete-list-item{
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    color: #333333;
+    margin: 0px;
+    border-bottom: 1px solid #d1cfcf;
+    border-radius: 0px;
+    padding: 5px 0px 5px 5px;
+}
+.ui-autocomplete-panel .ui-autocomplete-list-item.ui-state-highlight{
+    background: #333333;
+    color: #ffffff !important;
+}

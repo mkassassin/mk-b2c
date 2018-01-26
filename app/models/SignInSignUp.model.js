@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var UserTypeSchema = mongoose.Schema({
-    UserName: { type : String , unique : true, required : true, dropDups: true, lowercase: true },
-    UserEmail:{ type : String , unique : true, required : true, dropDups: true, lowercase: true },
+    UserName: { type : String , required : true, },
+    UserEmail:{ type : String , unique : true, required : true,  },
     UserPassword: { type : String , required : true},
     UserCategoryId:{ type : String , required : true},
     UserCategoryName:{ type : String , required : true},
@@ -11,9 +11,9 @@ var UserTypeSchema = mongoose.Schema({
     UserProfession:String,
     UserDateOfBirth:String,
     UserGender:String,
-    UserCountry:String,
-    UserState:String,
-    UserCity:String
+    UserCountry:Array,
+    UserState:Array,
+    UserCity:Array
     }, 
     { timestamps: true }
 );

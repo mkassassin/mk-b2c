@@ -10,7 +10,7 @@
       <div class="mb-20 height-60" style="margin-left:-10%" >
         <div class="row" style="padding:15px 0px;" >
           <div class="col-sm-12">
-            <img class="logoDesign-1 mr-5" src="assets/images/logo1.png" alt="" >
+            <img class="logoDesign-1 mr-5" routerLink="/" style="cursor:pointer" src="assets/images/logo1.png" alt="" >
           </div>
         </div>
       </div>
@@ -61,19 +61,28 @@
         
                 <p-tabPanel header="Sign Up">
                     <div class="bg-primary-color">
+                    <form [formGroup]="RegisterForm" (ngSubmit)="submit()">
                         <!-- input Name -->
                         <div class="text-center">
-                          <input type="text" class="inputStyle-1" placeholder="Name">
+                          <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.controls.UserName.dirty &&  RegisterForm.value.UserName =='' "> Name Is Required </p>
+                          <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Name is Not Availabel </p>
+                          <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Name is Availabel </p>
+                          <input type="text" formControlName="UserName" class="inputStyle-1" (blur)="ChekUserNameAvailabel()" placeholder="Name">
                         </div>
               
                         <!-- input Email -->
                         <div class="text-center">
-                          <input type="email" class="inputStyle-1" placeholder="Sample.mail@mail.com">
+                          <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserEmail.dirty &&  RegisterForm.value.UserEmail =='' "> E-mail Is Required </p>
+                          <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel"> E-mail is Not Availabel </p>
+                          <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel"> E-mail is Availabel </p>
+                          <input type="email" formControlName="UserEmail" class="inputStyle-1" (blur)="ChekUserEmailAvailabel()" placeholder="E-mail Address">
                         </div>
               
                         <!-- input Password -->
                         <div class="text-center">
-                          <input type="password" class="inputStyle-1" placeholder="Password">
+                          <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserPassword.dirty &&  RegisterForm.value.UserPassword =='' "> Password Is Required </p>
+                          <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserPassword.dirty &&  RegisterForm.value.UserPassword !='' &&  RegisterForm.value.UserPassword.length <= '5' "> Password Length Minimum 6 Characters  </p>
+                          <input type="password" formControlName="UserPassword" class="inputStyle-1" placeholder="Password">
                         </div>
               
                         <!-- Topic Selection -->
@@ -109,24 +118,24 @@
                             <!-- Input Company And Professioin -->
                             <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
                               <div fxFlex="41%">
-                                <input type="text" class="inputStyle-2" placeholder="Company">
+                                <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Company">
                               </div>
                               <div fxFlex="41%">
-                                <input type="text" class="inputStyle-2" placeholder="Profession">
+                                <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession">
                               </div>
                             </div>
                   
                             <!-- Input Date oF Birth And Gender -->
                             <div *ngIf="SelectedCategory != 'Company' && SelectedCategory != 'Media'" class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
                               <div fxFlex="41%">
-                                <input type="text" class="inputStyle-2" placeholder="Date Of Birth">
+                                <input type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" formControlName="UserDateOfBirth" class="inputStyle-2" placeholder="Date Of Birth">
                               </div>
                               <div fxFlex="41%">
                                 <div class="gender-select">
-                                  <div class="tick ml-10" (click)="genderSelect()" style="cursor:pointer">
-                                    <img  [ngClass]="{ 'p-13': !MaleActive }" src="assets/images/tick.png" alt=""> Male </div>
-                                  <div class="tick ml-20" (click)="genderSelect()" style="cursor:pointer">
-                                    <img class="p-13" [ngClass]="{ 'p-13': !FemaleActive }" src="assets/images/tick.png" alt=""> Female </div>
+                                  <div class="tick ml-10" (click)="genderSelect('Male')" style="cursor:pointer">
+                                    <img  [ngClass]="{ 'p-13': ActiveGender != 'Male' }" src="assets/images/tick.png" alt=""> Male </div>
+                                  <div class="tick ml-20" (click)="genderSelect('Female')" style="cursor:pointer">
+                                    <img class="p-13" [ngClass]="{ 'p-13': ActiveGender != 'Female' }" src="assets/images/tick.png" alt=""> Female </div>
                                 </div>
                               </div>
                             </div>
@@ -134,22 +143,57 @@
                             <!-- Input Country State And City -->
                             <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="5px">
                               <div fxFlex="28%">
-                                <input type="text" class="inputStyle-2" placeholder="Country">
+                                  <p-autoComplete (onSelect)="setCountry($event)" [suggestions]="filteredcountries" (completeMethod)="filterCountries($event)" [field]="'name'" [minLength]="1" placeholder="Country" formControlName="UserCountry">
+                                        <ng-template let-filteredcountries pTemplate="item">
+                                                <div>{{filteredcountries['name']}}</div>
+                                         </ng-template>    
+                                </p-autoComplete>
                               </div>
                               <div fxFlex="27%">
-                                <input type="text" class="inputStyle-2" placeholder="State">
+                                  <p-autoComplete (onSelect)="setState($event)" [suggestions]="filteredstates" (completeMethod)="filterStates($event)" [field]="'name'" [minLength]="1" placeholder="State" formControlName="UserState">
+                                      <ng-template let-filteredstates pTemplate="item">
+                                             <div> {{filteredstates['name']}} </div>
+                                      </ng-template>
+                                  </p-autoComplete>
                               </div>
                               <div fxFlex="27%">
-                                <input type="text" class="inputStyle-2" placeholder="City">
+                                  <p-autoComplete (onSelect)="setCity($event)" [suggestions]="filteredcities" (completeMethod)="filtercities($event)" [field]="'name'" [minLength]="1" placeholder="City" formControlName="UserCity">
+                                      <ng-template let-filteredcities pTemplate="item">
+                                             <div>{{filteredcities['name']}}</div>
+                                      </ng-template>
+                                  </p-autoComplete>
                               </div>
                             </div>
                         </div>
               
-                        <!--  Submi Button -->
+                        <!--  Submit Button -->
                         <div class="text-center mt-10 pb-10">
-                          <button routerLink="/Feeds" class="btn-flat btn btn-cutom"> Register </button>
+                            <p class="textStyle-3 mb-0"> <small> By signing up, you agree to the terms and privacy policy. </small> </p>
+                          <button [disabled]="!formValid" type="submit" class="btn-flat btn btn-cutom"> Register </button>
                         </div>
-              
+
+
+                        <div *ngIf="SelectedCategory == ''" class="row mb-30">
+                            <div class="col-sm-12 text-center">
+                                    <p class="textStyle-1 mb-0"> <small>  Or Sign Up Using </small> </p>
+                                <div style="display:inline-flex">
+                                    <a href="#" class="linkStyle-4 facebook">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="linkStyle-4 twitter">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="linkStyle-4 googlePlus">
+                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="linkStyle-4 linkedin">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
                     </div>
                 </p-tabPanel>
 
