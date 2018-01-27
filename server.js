@@ -40,6 +40,8 @@ app.get('/', function(req, res){
 
 require('./app/routes/SignInSignUp.routes.js')(app);
 
+require('./app/routes/Follow.routes.js')(app);
+
 
 app.listen(3000, function(){
     console.log("Server is listening on port 3000");
