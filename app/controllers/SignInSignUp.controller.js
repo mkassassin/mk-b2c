@@ -61,7 +61,7 @@ exports.NameValidate = function(req, res) {
                 if(data === null){
                     res.send({ status:"True", available: "True", message: "( " + req.params.name + " ) This Name is Available." });
                 }else{
-                    res.send({ status:"False", available: "False", message: "( " + req.params.name + " ) This Name is Already Exist. " });
+                    res.send({ status:"True", available: "False", message: "( " + req.params.name + " ) This Name is Already Exist. " });
                 } 
             }
         });
@@ -76,7 +76,7 @@ exports.EmailValidate = function(req, res) {
             if(data === null){
                 res.send({ status:"True", available: "True", message: "( " + req.params.email + " ) This E-mail is Available." });
             }else{
-                res.send({ status:"False", available: "False", message: "( " + req.params.email + " ) This E-mail is Already Exist. " });
+                res.send({ status:"True", available: "False", message: "( " + req.params.email + " ) This E-mail is Already Exist. " });
             } 
         }
     });

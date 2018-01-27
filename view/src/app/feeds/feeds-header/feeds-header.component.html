@@ -1,9 +1,9 @@
- <div style="height:45px" class="feedsHeader container-fluid bg-primary-color">
+ <div style="height:40px" class="feedsHeader container-fluid bg-primary-color">
       <div fxLayout="row" fxLayoutAlign="space-evenly center" >
-          <div fxFlex="19%">
+          <div fxFlex="21%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                   <div routerLink="/" style="cursor:pointer">
-                      <img class="headerLogo" src="assets/images/logos/logo3mini62.png" alt="">
+                      <img class="headerLogo" src="assets/images/logo1.png" alt="">
                   </div>
                   <div>
                       <button class="btn-flat btn btn-cutom"> Post </button>
@@ -11,24 +11,23 @@
               </div>  
           </div><!-- header left -->
 
-          <div fxFlex="52%">
-              <div>
+          <div fxFlex="51%">
+              <div style="position:relative">
                   <input class="SearchStyle" type="text" placeholder="Search...">
                   <span class="searchIncon"> <img class="icon" src="assets/images/icons/search.png" alt=""> </span>
               </div>
           </div><!-- header center -->
 
-          <div fxFlex="22%">
+          <div fxFlex="21%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                  <div>
+                  <div fxFlex="30%" class="text-center">
                       <img routerLink="/Feeds" style="cursor:pointer" class="headericon" src="assets/images/icons/Picture1.png" alt="">
                   </div>
-                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:45px">
+                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
                       <img  class="headericon" src="assets/images/icons/Picture2.png" alt="">
                   </div>
-                  <div class="text-center" [matMenuTriggerFor]="userView" style="line-height:50px">
+                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
                       <img class="headeruserimg" src="assets/images/sample/img7.jpg" alt="">
-                      <span class="username">  User Name </span>
                   </div>
               </div> 
           </div><!-- header right -->

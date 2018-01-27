@@ -25,6 +25,7 @@ export class SigninSignupComponent implements OnInit {
   UserEmailAvailabel:boolean = false;
   UserEmailNotAvailabel:boolean = false;
   formValid:boolean = false;
+  LoginformValid:boolean = false;
 
   countries:any[]= [{"name":"Country One", "code":"01"},
                     {"name":"Country Two", "code":"02"}];
@@ -54,6 +55,7 @@ export class SigninSignupComponent implements OnInit {
   city:string;
 
   RegisterForm: FormGroup;
+  SignInForm: FormGroup;
 
   bsConfig: Partial<BsDatepickerConfig>;
 
@@ -84,10 +86,15 @@ export class SigninSignupComponent implements OnInit {
       UserCity: new FormControl('')
     });
 
+    this.SignInForm = new FormGroup({
+      LoginUserEmail: new FormControl('', Validators.required),
+      LoginUserPassword: new FormControl('',  Validators.required)
+    });
+
     if(this.ActiveTab['ActiveTab'] === "SingIn"){
       this.ActiveTabIndex = 1; 
       if(this.ActiveTab['Email'] !== ""){ 
-        // this.RegisterForm.controls['UserEmail'].setValue(this.ActiveTab['Email']);  
+      this.SignInForm.controls['LoginUserEmail'].setValue(this.ActiveTab['Email']);  
       }
     }else{ 
       this.ActiveTabIndex = 0;
@@ -137,10 +144,12 @@ export class SigninSignupComponent implements OnInit {
   }
 
   CategorySelect(name:string, id:number){
+    this.RegisterForm.controls['UserGender'].setValue('Male');
     if(this.SelectedCategory == name){
       this.SelectedCategory = '';
       this.RegisterForm.controls['UserCategoryName'].setValue('');
       this.RegisterForm.controls['UserCategoryId'].setValue('');
+      this.checkFormValidation();
     }else{ 
       this.SelectedCategory = name;
       this.RegisterForm.controls['UserCategoryName'].setValue(name);
@@ -153,6 +162,7 @@ export class SigninSignupComponent implements OnInit {
   genderSelect(Gender){
     this.ActiveGender = Gender;
     this.RegisterForm.controls['UserGender'].setValue(Gender);
+    this.checkFormValidation();
   }
 
   filterCountries(event) {
@@ -175,6 +185,7 @@ export class SigninSignupComponent implements OnInit {
             this.countryrRelatedStates.push(valueIndex);
         }
       }
+      this.checkFormValidation();
   }
 
   filterStates(event) {
@@ -198,6 +209,7 @@ export class SigninSignupComponent implements OnInit {
             this.stateRelatedCities.push(valueIndex);
         }
       }
+      this.checkFormValidation();
   }
 
   filtercities(event) {
@@ -213,6 +225,7 @@ export class SigninSignupComponent implements OnInit {
 
   setCity(event){
     this.city = event.name;
+    this.checkFormValidation();
   }
 
   checkFormValidation(){
@@ -226,16 +239,34 @@ export class SigninSignupComponent implements OnInit {
     }else{
       this.formValid = false;
     }
-
   }
+
   submit(){
     this.checkFormValidation();
     if(this.formValid){
+      this.formValid = true;
       this.Service.Register(this.RegisterForm.value).subscribe( datas => { this.FormSubmitStatus(datas); } );
     }
   }
 
   FormSubmitStatus(data){
-    console.log(data);
+    if(data.status == 'True'){
+      this.ActiveTabIndex = 1
+      this.SignInForm.controls['UserEmail'].setValue(data.UserEmail);
+    }
   }
+
+  LoginFormsubmit(){
+    this.Service.UserValidate(this.SignInForm.value.LoginUserEmail, this.SignInForm.value.LoginUserPassword).subscribe( datas => { this.LoginFormSubmitStatus(datas); } );
+  }
+
+  LoginFormSubmitStatus(data){
+    console.log(data);
+    if(data.status == 'True'){
+      this.router.navigate(['Feeds']);
+    }
+
+  }
+
+
 }

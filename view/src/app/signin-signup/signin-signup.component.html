@@ -82,7 +82,7 @@
                         <div class="text-center">
                           <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserPassword.dirty &&  RegisterForm.value.UserPassword =='' "> Password Is Required </p>
                           <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserPassword.dirty &&  RegisterForm.value.UserPassword !='' &&  RegisterForm.value.UserPassword.length <= '5' "> Password Length Minimum 6 Characters  </p>
-                          <input type="password" formControlName="UserPassword" class="inputStyle-1" placeholder="Password">
+                          <input type="password" formControlName="UserPassword" class="inputStyle-1" (blur)="checkFormValidation()" placeholder="Password">
                         </div>
               
                         <!-- Topic Selection -->
@@ -169,7 +169,7 @@
                         <!--  Submit Button -->
                         <div class="text-center mt-10 pb-10">
                             <p class="textStyle-3 mb-0"> <small> By signing up, you agree to the terms and privacy policy. </small> </p>
-                          <button [disabled]="!formValid" type="submit" class="btn-flat btn btn-cutom"> Register </button>
+                          <button [disabled]="!formValid" type="submit" [ngClass]="{'disabled': !formValid}" class="btn-flat btn btn-cutom"> Register </button>
                         </div>
 
 
@@ -200,26 +200,29 @@
                 <p-tabPanel header="Sign In">
                     <div class="bg-primary-color">
                         <div fxLayout="column" fxLayoutAlign="start" style="height:100%">
-              
-                            <!-- input Email -->
-                            <div class="text-center mt-10" >
-                              <input type="email" class="inputStyle-1 bg-color-D1D1D1 mb-20" placeholder="Sample.mail@mail.com" readonly>
+                            <form [formGroup]="SignInForm" (ngSubmit)="LoginFormsubmit()">
+                              <!-- input Email -->
+                            <div class="text-center">
+                              <p class="error alertStyle-1" *ngIf="SignInForm.controls.LoginUserEmail.dirty &&  SignInForm.value.LoginUserEmail =='' "> E-mail Is Required </p>
+                              <input type="email" formControlName="LoginUserEmail" class="inputStyle-1" placeholder="E-mail Address">
                             </div>
-              
+                  
                             <!-- input Password -->
                             <div class="text-center">
-                              <input type="password" class="inputStyle-1" placeholder="Password">
+                              <p class="error alertStyle-1" *ngIf="SignInForm.controls.LoginUserPassword.dirty && SignInForm.value.LoginUserPassword =='' "> Password Is Required </p>
+                              <input type="password" formControlName="LoginUserPassword" class="inputStyle-1" placeholder="Password">
                             </div>
               
                             <!--  Submi Button -->
                             <div class="text-center mt-10 mb-10">
-                                <button routerLink="/Feeds" class="btn-flat btn btn-cutom"> Sign In </button>
+                                <button  [disabled]="SignInForm.value.LoginUserEmail =='' || SignInForm.value.LoginUserPassword ==''" type="submit" [ngClass]="{'disabled': SignInForm.value.LoginUserEmail =='' || SignInForm.value.LoginUserPassword =='' }" class="btn-flat btn btn-cutom"> Sign In </button>
                             </div>
               
                             <div class="col-sm-12 text-center">
-                                <p class="textStyle-1"> Forgot Password !!  </p>
+                                <p class="textStyle-1 text-white"> Forgot Password !!  </p>
                             </div>
-              
+                          
+                            </form>
               
                             <div class="row mt-40 mb-30">
                                 <div class="col-sm-12 text-center">
