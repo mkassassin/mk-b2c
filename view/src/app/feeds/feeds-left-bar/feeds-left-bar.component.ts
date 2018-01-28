@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedsLeftBarComponent implements OnInit {
 
-  constructor() { }
+  scrollHeight;
+  screenHeight:number;
+
+  constructor( ) { }
 
   ngOnInit() {
+    this.screenHeight = window.innerHeight - 70;
+    this.scrollHeight = this.screenHeight + "px";
   }
 
 }

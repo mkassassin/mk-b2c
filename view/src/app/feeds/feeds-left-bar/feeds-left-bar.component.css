@@ -1,45 +1,58 @@
+.box-1{
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    margin: 3px;
+    background-color: #ffffff;
+}
 .feedsLefBar .topicheader{
+    text-align: center;
     font-size: 16px;
-    padding: 5px 0px;
+    padding: 4px 0px;
     font-weight: 600;
-    background-color: #e9eef3;
     padding-left: 10px;
-    color: #9c9a9a;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    font-family: 'Ubuntu', sans-serif;
 }
 .feedsLefBar .topicPart{
-    min-height: 100px;
-    max-height: 100px;
+    min-height: 85px;
+    max-height: 85px;
     text-align: center;
     padding-left: 0px;
+    padding-right: 0px
 }
 .feedsLefBar .topicimg{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin: 0px 10px;
-    background-color: #66666630;
-    padding: 3px;
+    background-color: #6666661f;
     border-radius: 55px;
 }
 
 .feedsLefBar .topicname{
     font-size: 12px;
     margin: 0px;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    color: #666666;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.feedsLefBar .topicname span{
+    cursor: pointer;
 }
 
 .feedsLefBar .topicfollowers{
     font-size: 11px;
     margin: 0px;
     font-weight: 600;
+    letter-spacing: 0.3px;
     color: #999999;
+    margin-top: -4px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .feedsLefBar .topicAddIcon{
     position: absolute;
-    top: -2px;
-    right: 10px;
+    top: -5px;
+    right: 12px;
 }
 
 .feedsLefBar .topicAddIcon i{
@@ -48,16 +61,18 @@
     font-size: 22px;
 }
 
-.feedsLefBar .moretopics{
-    font-size: 12px;
+.feedsLefBar .viewall{
     margin: 0px;
+    font-size: 13px;
     font-weight: 600;
-    color: #66666670;
-    position: absolute;
-    right: 3px;
-    top: -30px;
-    letter-spacing: 0.3px;
-    cursor: pointer;
+    color: #999999;
+    letter-spacing: 0.6px;
+    margin-right: 5px;
+    padding-bottom: 3px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.feedsLefBar .viewall span{
+   cursor: pointer;
 }
 
 
@@ -68,16 +83,22 @@
 
 
 
-
-
-.feedsLefBar .followheader{
-    font-size: 16px;
-    padding: 5px 0px;
-    font-weight: 600;
-    background-color: #e9eef3;
-    padding-left: 10px;
-    color: #9c9a9a;
+.box-2{
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    margin: 3px;
     margin-top: 20px;
+    background-color: #ffffff;
+}
+.feedsLefBar .followheader{
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 0px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .feedsLefBar .followPart{
     height: 70px;
@@ -85,20 +106,25 @@
     padding-left: 0px;
 }
 .feedsLefBar .followimg{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin: 0px 10px;
     background-color: #66666630;
-    padding: 3px;
+    padding: 0px;
     border-radius: 55px;
+    cursor: pointer;
 }
 
 .feedsLefBar .followname{
     font-size: 12px;
     margin: 0px;
     font-weight: 700;
-    letter-spacing: 0.2px;
-    color: #666666;
+    letter-spacing: 0.3px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.feedsLefBar .followname span{
+    cursor: pointer;
 }
 
 
@@ -112,35 +138,47 @@
 
 
 .feedsLefBar .userlistImg{
-    height: 50px;
+    height: 40px;
+    width: 40px;
     padding: 0px;
     background-color: #e2e2e2;
     border-radius: 50px;
-    margin: 0px 10px 0px 5px;
+    margin: 0px;
+    cursor: pointer;
 }
 .feedsLefBar .userlistname {
     margin: 0px;
     font-size: 14px;
-    font-weight: 700;
-    line-height: 18px;
-    color: #666666;
+    font-weight: 600;
+    line-height: 13px;
+    color: #333333;
     letter-spacing: 0.5px;
+    margin-top: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.feedsLefBar .userlistname span{
+    cursor: pointer;
 }
 
 .feedsLefBar .userlistcategory {
     margin: 0px;
     font-size: 12px;
     font-weight: 600;
-    line-height: 18px;
+    line-height: 13px;
+    letter-spacing: 0.4px;
     color: #666666;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .feedsLefBar .userlistfollowers {
     margin: 0px;
     font-size: 11px;
     font-weight: 600;
-    line-height: 15px;
+    line-height: 14px;
     color: #999999;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.3px;
 }
 .feedsLefBar .userAddIcon {
     margin: 0px;
@@ -148,14 +186,7 @@
 .feedsLefBar .userAddIcon i{
     font-size: 30px;
     color: #99999991;
-    line-height: 45px;;
-}
-.feedsLefBar .moreusers{
-    font-size: 13px;
-    margin: 0px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    line-height: 40px;
+    width: 40px;
     cursor: pointer;
-    line-height: 30px;
-    color: #999999;
 }

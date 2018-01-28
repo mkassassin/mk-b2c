@@ -1,36 +1,29 @@
+
 .Questions .headerPost{
-    height: 40px;
-    background-color: #e6e6e6;
-    border-top: 1px solid #dedede;
-    border-bottom: 1px solid #e6e6e6;
+    height: 50px;
+    background-color: #ffffff;
+    margin: 0px 3px 5px 3px;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
 }
+
 .Questions .headerPost .leftArea{    
     padding: 0px 10px;
-    line-height: 40px;
+    line-height: 50px;
     font-size: 17px;
-    font-weight: 500;
-    color: #9c9a9a;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .headerPost .leftArea i{    
     font-size: 19px;
     padding: 0px 10px;
 }
-.Questions .headerPost .rightArea{    
-    background-color: #cecece;
-    height: 38px;
-    text-align: center;
+
+
+.postScroll{
+    margin-bottom: 30px;
 }
-.Questions .headerPost .rightArea i{    
-    font-size: 33px;
-    line-height: 39px;
-    color: #e9eef3;
-}
-
-
-
-
-
-
 
 
 
@@ -41,6 +34,7 @@
     background-color:#ffffff;
     box-shadow: 0px 0px 5px 1px #607d8b63;
     margin: 3px;
+    padding-bottom: 5px;
 }
 
 
@@ -48,62 +42,68 @@
     padding: 0px 10px;
 }
 .Questions .QuestionPost .leftSide .postuserImg{
-    height: 50px;
-    width: 50px;
-    margin-top: 5px;
+    height: 40px;
+    width: 40px;
+    margin-top: 3px;
     cursor: pointer;
+    border-radius: 60px;
 }
 .Questions .QuestionPost .leftSide .postusername{
-    margin: 0px;
-    line-height: 17px;
+    line-height: 14px;
     font-size: 15px;
-    font-weight: 600;
-    color: #827f7f;
     letter-spacing: 0.5px;
+    margin: 0px;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .QuestionPost .leftSide .postusercategory{
     margin: 0px;
-    line-height: 17px;
-    font-size: 14px;
+    line-height: 15px;
+    font-size: 13px;
     color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .QuestionPost .leftSide .postuserfollowers{
     margin: 0px;
-    line-height: 17px;
+    line-height: 14px;
     font-size: 13px;
     color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
 
-.Questions .QuestionPost .rightSide .postcategoryicon{
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-}
 .Questions .QuestionPost .rightSide .postaction{
-    line-height: 18px;
+    line-height: 10px;
     font-size: 24px;
     margin: 0px;
     color: gray;
 }
 .Questions .QuestionPost .rightSide .postdate{
     margin: 0px;
-    line-height: 18px;
-    margin-top: 5px;
+    line-height: 16px;
+    margin-top: 6px;
     color: #9c9a9a;
     font-size: 12px;
     letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .QuestionPost .rightSide .posttopic{
     margin: 0px;
-    line-height: 18px;
+    line-height: 14px;
     font-weight: 600;
     color: #9c9a9a;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
     font-size: 13px;
+    font-family: 'Ubuntu', sans-serif;
 }
+
+
+
+
+
+
 
 
 .Questions .QuestionPost .postquestion{
@@ -112,19 +112,28 @@
     color: #666666e6;
     font-size: 16px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: 0px;
     word-spacing: 2px;
+    font-family: 'Ubuntu', sans-serif;
 }
+
+
+
+
+
+
+
 .Questions .QuestionPost .postLikes .like{
     display: inline-flex;
     cursor: pointer;
+    margin-top: 5px;
 }
 .Questions .QuestionPost .postLikes {
     padding: 0px 15px;
 }
-.Questions .QuestionPost .postLikes .like i{
-    font-size: 32px;
-    color: #ffda00;
+.Questions .QuestionPost .postLikes .like img{
+    width: 30px;
+    height: 30px;
 }
 .Questions .QuestionPost .postLikes .like .count{
     line-height: 35px;
@@ -137,10 +146,11 @@
 .Questions .QuestionPost .postLikes .chat{
     display: inline-flex;
     cursor: pointer;
+    margin-top: 5px;
 }
-.Questions .QuestionPost .postLikes .chat i{
-    font-size: 32px;
-    color: #1d6d04;
+.Questions .QuestionPost .postLikes .chat img{
+    width: 30px;
+    height: 30px;
 }
 .Questions .QuestionPost .postLikes .chat .count{
     line-height: 30px;
@@ -153,10 +163,11 @@
 .Questions .QuestionPost .postLikes .share{
     display: inline-flex;
     cursor: pointer;
+    margin-top: 5px;
 }
-.Questions .QuestionPost .postLikes .share i{
-    font-size: 30px;
-    color: #088eb7;
+.Questions .QuestionPost .postLikes .share img{
+    width: 30px;
+    height: 30px;
 }
 .Questions .QuestionPost .postLikes .share .count{
     line-height: 35px;
@@ -168,28 +179,35 @@
 }
 
 .Questions .QuestionPost .postchat {
-    padding: 5px 15px;
+    padding: 5px;
 }
 
 .Questions .QuestionPost .postchat .chatUserImg img{
     width: 40px;
-    height: 40px
+    height: 40px;
+    border-radius: 50px;
 }
 
 .Questions .QuestionPost .postchat .chatInput input{
-    width: 97%;
-    height: 38px;
+    width: 98%;
+    height: 35px;
     outline: transparent;
     border: 1px solid #333f4f3b;
     padding: 0px 10px;
-    font-size: 15px;
+    font-size: 14px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #333333;
 }
 
 .Questions .QuestionPost .postchat .chatsend i{
     font-size: 32px;
-    color: #38769f;
+    color: #333333;
     transform: rotate(-35deg);
 }
+
+
 
 
 
@@ -203,8 +221,12 @@
     margin: 5px 0px 10px 5px
 }
 .Questions .postAnswer {
-    margin: 0px 0px 10px 5%;
-    background-color: #e6e6e67a;
+    margin: 0px 10px 10px 5%;
+    background-color: #ffffff;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+}
+.Questions .PostAnsHeader{
+    height: 45px;
 }
 .Questions .PostAnsHeader .postansuserImg{
     width: 40px;
@@ -212,11 +234,13 @@
     border-radius: 40px;
 }
 .Questions .PostAnsHeader .postansusername{
+    line-height: 14px;
     font-size: 15px;
-    font-weight: 600;
-    color: #666666ab;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
     margin: 0px;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .PostAnsHeader .postansaction{
     font-size: 20px;
@@ -226,17 +250,23 @@
     margin-bottom: 4px;
 }
 .Questions .PostAnsHeader .postansdate{
-    margin: 0px 10px 0px 0px;
+    margin: 0px;
+    line-height: 18px;
+    color: #9c9a9a;
     font-size: 12px;
-    color: darkgray;
+    letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .PostAnsHeader .postansfollowes{
-    font-size: 12px;
-    color: darkgray;
+    margin: 0px;
+    line-height: 16px;
+    font-size: 13px;
+    color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .PostAnsHeader .postansuserinfo{
     height: 45px;
-    margin: 5px 0px 5px 5px;
+    margin: 0px 0px 0px 5px;
 }
 .Questions .postAnswer .postAns{
     padding: 5px 5px 0px 10px;
@@ -322,4 +352,17 @@
     color: #9c9a9a;
     font-size: 11px;
     letter-spacing: 0.4px;
+}
+
+
+
+.viewAll{
+    margin: 0px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    letter-spacing: 0.6px;
+    margin-right: 5px;
+    padding-bottom: 3px;
+    font-family: 'Ubuntu', sans-serif;
 }

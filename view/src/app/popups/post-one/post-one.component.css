@@ -11,8 +11,9 @@
     line-height: 45px;
     font-size: 19px;
     font-weight: 700;
-    color: #666666;
+    color: #333333;
     letter-spacing: 0.7px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .postOne .posttext{
@@ -21,25 +22,30 @@
     min-height: 100px;
     padding: 5px;
     border-color: #dedede;
-    color: #a1a1a1;
+    color: #333333;
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.7px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .postOne .postaddon_icon i{
     font-size: 30px;
-    color: #808080;
+    color: #333333;
 }
 
 
 .postOne .cat-img-item img{
     width: 40px;
     height: 40px;
+    border-radius: 50px;
 }
-.postOne .cat-img-item span{
+.postOne .cat-img-item p{
     font-size: 12px;
     font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+    margin: 0px
 }
 .postOne .cat-img-item{
     width: 40px;
@@ -47,14 +53,14 @@
     text-align: center;
     border-radius: 50px;
     margin-right: 15px;
-    opacity: 0.6;
 }
 
 .postOne .cat-img-item.selected{
-    opacity: 1;
+    width: 45px;
+    height: 45px;
 }
-.postOne .cat-img-item.selected span{
-    color: #666666;
-    font-size: 13px;
-    font-weight: 700;
+.postOne .cat-img-item.selected img{
+    width: 42px;
+    height: 42px;
+    border:5px double #333333;
 }

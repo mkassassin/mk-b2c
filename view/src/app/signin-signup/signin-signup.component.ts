@@ -91,6 +91,7 @@ export class SigninSignupComponent implements OnInit {
       LoginUserPassword: new FormControl('',  Validators.required)
     });
 
+    console.log(this.ActiveTab)
     if(this.ActiveTab['ActiveTab'] === "SingIn"){
       this.ActiveTabIndex = 1; 
       if(this.ActiveTab['Email'] !== ""){ 
@@ -99,7 +100,7 @@ export class SigninSignupComponent implements OnInit {
     }else{ 
       this.ActiveTabIndex = 0;
       if(this.ActiveTab['Email'] !== ""){
-        this.UserEmailAvailabel = true;
+        this.UserEmailAvailabel = false;
         this.RegisterForm.controls['UserEmail'].setValue(this.ActiveTab['Email']);
       }
     }   

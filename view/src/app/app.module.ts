@@ -42,6 +42,7 @@ import { ProfileFollowingComponent } from './profile/profile-following/profile-f
 import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
 import { SigninSignupServiceService } from './service/signin-signup-service/signin-signup-service.service';
 import { DataSharedVarServiceService } from './service/data-shared-var-service/data-shared-var-service.service';
+import { PostThreeComponent } from './popups/post-three/post-three.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { DataSharedVarServiceService } from './service/data-shared-var-service/d
     ProfileTimelineComponent,
     ProfileFollowersComponent,
     ProfileFollowingComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    PostThreeComponent
   ],
   imports: [
     CommonModule,
@@ -90,6 +92,6 @@ import { DataSharedVarServiceService } from './service/data-shared-var-service/d
   ],
   providers: [SigninSignupServiceService, DataSharedVarServiceService],
   bootstrap: [AppComponent],
-  entryComponents:[PostOneComponent, PostTwoComponent]
+  entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
 })
 export class AppModule { }

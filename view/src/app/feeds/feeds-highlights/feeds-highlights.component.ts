@@ -25,7 +25,7 @@ export class FeedsHighlightsComponent implements OnInit {
   PostOneDialogRef: MatDialogRef<PostOneComponent>;
 
   ngOnInit() {
-    this.screenHeight = window.screen.height - 305;
+    this.screenHeight = window.innerHeight - 165;
     this.scrollHeight = this.screenHeight + "px";
   }
 

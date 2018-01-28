@@ -22,6 +22,7 @@ export class WelcomeComponent implements OnInit {
               ) {}
 
   ngOnInit() {
+    this.ShareingService.SetActiveSinInsignUpTab('','');
     this.screenHeight = window.innerHeight;
     this.scrollHeight = this.screenHeight + "px";
   }

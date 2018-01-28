@@ -18,23 +18,31 @@
 .Trends .coinlistname{
     font-size: 15px;
     font-weight: 600;
-    color: #666666ab;
+    color:#333333;
     letter-spacing: 0.4px;
     margin: 0px;
 }
 
 .Trends .coinlistamt{
     font-size: 14px;
-    color: darkgray;
+    color: #333333;
+    margin-bottom: 15px;
+    line-height: 14px;
 }
 .Trends .coinlistitem{
     height: 50px;
     margin: 7px 0px 7px 7px;
-    background-color: #e2e2e275;
     padding: 3px;
-    border: 1px solid #e2e2e2bd;
 }
-
+.Trends .coinlistitem.selected{
+    background-color: #ffda00;
+}
+.Trends .coinlistitem.selected .coinlistname{
+    color: #ffffff;
+}
+.Trends .coinlistitem.selected .coinlistamt{
+    color: #ffffff;
+}
 
 .Trends .tabStyleTwo{
     margin-left: 10px;
@@ -53,15 +61,18 @@
 
 
 .Trends .impression .headerPost{
-    background-color: #f2f2f2;
-    margin: 0px 10px 10px 10px;
+    background-color: #ffffff;
+    margin: 10px 3px ;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
 }
 .Trends .impression .headerPost .leftArea{    
-    text-align: center;
     line-height: 35px;
     font-size: 16px;
-    font-weight: 500;
-    color: #9c9a9a;
+    padding: 0px 10px;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Trends .impression .headerPost .leftArea i{    
     font-size: 19px;
@@ -69,7 +80,7 @@
 }
 
 .Trends .impressionPost{
-    background-color: #e9eef378;
+    background-color: #ffffff;
     box-shadow: 0px 0px 3px 1px #607d8b63;
     margin:4px 4px 15px 4px;
     padding: 4px;
@@ -86,29 +97,32 @@
     padding: 0px 2px;
 }
 .Trends .impressionPost .leftSide .postuserImg{
-    height: 35px;
-    width: 35px;
-    border-radius: 35px;
+    height: 40px;
+    width: 40px;
+    border-radius: 45px;
 }
 .Trends .impressionPost .leftSide .postusername{
-    margin: 0px;
-    line-height: 17px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #827f7f;
+    line-height: 14px;
+    font-size: 15px;
     letter-spacing: 0.5px;
+    margin: 0px;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Trends .impressionPost .leftSide .postusercategory{
     margin: 0px;
-    line-height: 17px;
-    font-size: 12px;
+    line-height: 15px;
+    font-size: 13px;
     color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Trends .impressionPost .leftSide .postuserfollowers{
     margin: 0px;
-    line-height: 17px;
-    font-size: 12px;
+    line-height: 16px;
+    font-size: 13px;
     color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .Trends .impressionPost .rightSide .postaction{
@@ -119,10 +133,11 @@
 }
 .Trends .impressionPost .rightSide .postdate{
     margin: 0px;
-    line-height: 18px;
-    margin-top: 5px;
+    line-height: 16px;
+    margin-top: 6px;
     color: #9c9a9a;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
 }
 

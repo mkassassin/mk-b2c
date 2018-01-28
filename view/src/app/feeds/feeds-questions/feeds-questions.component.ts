@@ -23,7 +23,7 @@ export class FeedsQuestionsComponent implements OnInit {
   PostTwoDialogRef: MatDialogRef<PostTwoComponent>;
 
   ngOnInit() {
-    this.screenHeight = window.screen.height - 305;
+    this.screenHeight = window.innerHeight - 165;
     this.scrollHeight = this.screenHeight + "px";
   }
 

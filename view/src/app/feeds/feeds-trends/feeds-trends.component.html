@@ -3,7 +3,7 @@
       <div fxFlex="30%">
         <p-scrollPanel  [style]="{width: '100%', height: scrollHeight }" styleClass="customscroll_1">
 
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+            <div class="coinlistitem selected" fxLayout="row" fxLayoutAlign="start center">
                 <div fxFlex="45px">
                     <img class="coinlistImg" src="assets/images/coins/coin1.png" alt="">
                 </div>
@@ -116,20 +116,17 @@
     </div>
     <div fxFlex="70%">
         <div class="tabStyleTwo">
-            <p-tabView (onChange)="onTabChange($event)">
-        
-                <p-tabPanel header="Charts & Trends"  leftIcon="fa-line-chart">
-                    <img src="assets/images/bitcoin_chart.png" alt="">
-                </p-tabPanel>
-        
-                <p-tabPanel header="Write impression" leftIcon="fa-pencil">
+            <div class="text-center">
+                    <img style="max-height:220px;" src="assets/images/bitcoin_chart.png" alt="">
+            </div>
+                
 
                     <div class="impression">
 
-                        <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
-                            <div fxFlex >
+                        <div class="headerPost mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
+                            <div fxFlex (click)="OpenModel()">
                                 <div class="leftArea">
-                                        <i class="fa fa-file-text" aria-hidden="true"></i>  Write Impression
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>  Write Impression...
                                 </div>
                             </div>
                         </div>
@@ -270,9 +267,6 @@
                         </p-scrollPanel>
                     </div>
                         
-                </p-tabPanel>
-        
-            </p-tabView>
         </div>
     </div>
   </div>

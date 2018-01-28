@@ -1,33 +1,28 @@
 .Highlights .headerPost{
-    height: 40px;
-    background-color: #e6e6e6;
-    border-top: 1px solid #dedede;
-    border-bottom: 1px solid #e6e6e6;
+    height: 50px;
+    background-color: #ffffff;
+    margin: 0px 3px 5px 3px;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
 }
+
 .Highlights .headerPost .leftArea{    
     padding: 0px 10px;
-    line-height: 40px;
+    line-height: 50px;
     font-size: 17px;
-    font-weight: 500;
-    color: #9c9a9a;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Highlights .headerPost .leftArea i{    
     font-size: 19px;
     padding: 0px 10px;
 }
-.Highlights .headerPost .rightArea{    
-    background-color: #cecece;
-    height: 38px;
-    text-align: center;
+
+
+.postScroll{
+    margin-bottom: 30px;
 }
-.Highlights .headerPost .rightArea i{    
-    font-size: 33px;
-    line-height: 39px;
-    color: #e9eef3;
-}
-
-
-
 
 
 
@@ -43,74 +38,75 @@
     padding: 0px 10px;
 }
 .Highlights .HighlightsPost .leftSide .postuserImg{
-    height: 50px;
-    width: 50px;
-    margin-top: 5px;
+    height: 40px;
+    width: 40px;
+    margin-top: 3px;
     cursor: pointer;
+    border-radius: 60px;
 }
 .Highlights .HighlightsPost .leftSide .postusername{
-    margin: 0px;
-    line-height: 17px;
+    line-height: 14px;
     font-size: 15px;
-    font-weight: 600;
-    color: #827f7f;
     letter-spacing: 0.5px;
+    margin: 0px;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Highlights .HighlightsPost .leftSide .postusercategory{
     margin: 0px;
-    line-height: 17px;
-    font-size: 14px;
+    line-height: 15px;
+    font-size: 13px;
     color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Highlights .HighlightsPost .leftSide .postuserfollowers{
     margin: 0px;
-    line-height: 17px;
+    line-height: 14px;
     font-size: 13px;
     color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
 
-.Highlights .HighlightsPost .rightSide .postcategoryicon{
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-}
 .Highlights .HighlightsPost .rightSide .postaction{
-    line-height: 18px;
+    line-height: 10px;
     font-size: 24px;
     margin: 0px;
     color: gray;
 }
 .Highlights .HighlightsPost .rightSide .postdate{
     margin: 0px;
-    line-height: 18px;
-    margin-top: 5px;
+    line-height: 16px;
+    margin-top: 6px;
     color: #9c9a9a;
     font-size: 12px;
     letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .Highlights .HighlightsPost .rightSide .posttopic{
     margin: 0px;
-    line-height: 18px;
+    line-height: 14px;
     font-weight: 600;
     color: #9c9a9a;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
     font-size: 13px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 
 .Highlights .HighlightsPost .postLikes .like{
     display: inline-flex;
     cursor: pointer;
+    margin-top: 5px;
 }
 .Highlights .HighlightsPost .postLikes {
     padding: 0px 15px;
 }
-.Highlights .HighlightsPost .postLikes .like i{
-    font-size: 32px;
-    color: #ffda00;
+.Highlights .HighlightsPost .postLikes .like img{
+    width: 30px;
+    height: 30px;
 }
 .Highlights .HighlightsPost .postLikes .like .count{
     line-height: 35px;
@@ -123,10 +119,11 @@
 .Highlights .HighlightsPost .postLikes .chat{
     display: inline-flex;
     cursor: pointer;
+    margin-top: 5px;
 }
-.Highlights .HighlightsPost .postLikes .chat i{
-    font-size: 32px;
-    color: #1d6d04;
+.Highlights .HighlightsPost .postLikes .chat img{
+    width: 30px;
+    height: 30px;
 }
 .Highlights .HighlightsPost .postLikes .chat .count{
     line-height: 30px;
@@ -139,10 +136,11 @@
 .Highlights .HighlightsPost .postLikes .share{
     display: inline-flex;
     cursor: pointer;
+    margin-top: 5px;
 }
-.Highlights .HighlightsPost .postLikes .share i{
-    font-size: 30px;
-    color: #088eb7;
+.Highlights .HighlightsPost .postLikes .share img{
+    width: 30px;
+    height: 30px;
 }
 .Highlights .HighlightsPost .postLikes .share .count{
     line-height: 35px;
@@ -159,21 +157,26 @@
 
 .Highlights .HighlightsPost .postchat .chatUserImg img{
     width: 40px;
-    height: 40px
+    height: 40px;
+    border-radius: 50px;
 }
 
 .Highlights .HighlightsPost .postchat .chatInput input{
-    width: 97%;
-    height: 38px;
+    width: 98%;
+    height: 35px;
     outline: transparent;
     border: 1px solid #333f4f3b;
     padding: 0px 10px;
-    font-size: 15px;
+    font-size: 14px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #333333;
 }
 
 .Highlights .HighlightsPost .postchat .chatsend i{
     font-size: 32px;
-    color: #38769f;
+    color: #333333;
     transform: rotate(-35deg);
 }
 
@@ -187,7 +190,7 @@
 
 
 .Highlights .commentPost{
-    background-color: #e9eef378;
+    background-color: #ffffff;
     box-shadow: 0px 0px 3px 1px #607d8b63;
     margin:4px 10px 15px 10px;
     padding: 4px;
@@ -242,4 +245,18 @@
     color: #9c9a9a;
     font-size: 11px;
     letter-spacing: 0.4px;
+}
+
+
+
+
+.viewAll{
+    margin: 0px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    letter-spacing: 0.6px;
+    margin-right: 5px;
+    padding-bottom: 3px;
+    font-family: 'Ubuntu', sans-serif;
 }
