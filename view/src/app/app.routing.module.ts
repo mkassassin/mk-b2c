@@ -1,6 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
+import { AuthGuard } from './guard/auth.guard';
+import { NotAuthGuard } from './guard/not-auth.guard';
 
 import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
@@ -13,25 +15,29 @@ const appRoutes: Routes = [
         component: WelcomeComponent,  
         data: { 
             animation: { value: 'welcome', } 
-        } 
+        },
+        canActivate: [NotAuthGuard]
     },
     { path: 'SignInSignUp',  
         component: SigninSignupComponent,  
         data: { 
             animation: { value: 'SignInSignUp', } 
-        } 
+        },
+        canActivate: [NotAuthGuard]
     },
     { path: 'Feeds',  
-        component: FeedsMainComponent,  
+        component: FeedsMainComponent,
         data: { 
             animation: { value: 'Feeds', } 
-        } 
+        },
+        canActivate: [AuthGuard]
     },
     { path: 'Profile',  
         component: ProfileMainComponent,  
         data: { 
             animation: { value: 'Profile', } 
-        } 
+        },
+        canActivate: [AuthGuard] 
     }
   ];
   

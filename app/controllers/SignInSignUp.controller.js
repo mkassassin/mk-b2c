@@ -84,7 +84,7 @@ exports.EmailValidate = function(req, res) {
 
 
 exports.UserValidate = function(req, res) {
-    UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase(), 'UserPassword': req.params.password}, function(err, data) {
+    UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase(), 'UserPassword': req.params.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
         } else {

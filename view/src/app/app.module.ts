@@ -20,6 +20,10 @@ import { AutoCompleteModule} from 'primeng/autocomplete';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 
+
+import { AuthGuard } from './guard/auth.guard';
+import { NotAuthGuard } from './guard/not-auth.guard';
+
 import { AppComponent } from './app.component';
 import { SigninSignupComponent } from './signin-signup/signin-signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -43,6 +47,7 @@ import { ProfileSettingsComponent } from './profile/profile-settings/profile-set
 import { SigninSignupServiceService } from './service/signin-signup-service/signin-signup-service.service';
 import { DataSharedVarServiceService } from './service/data-shared-var-service/data-shared-var-service.service';
 import { PostThreeComponent } from './popups/post-three/post-three.component';
+import { FollowServiceService } from './service/follow-service/follow-service.service';
 
 
 @NgModule({
@@ -90,7 +95,7 @@ import { PostThreeComponent } from './popups/post-three/post-three.component';
     MatMenuModule,
     MatExpansionModule
   ],
-  providers: [SigninSignupServiceService, DataSharedVarServiceService],
+  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService],
   bootstrap: [AppComponent],
   entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
 })

@@ -30,8 +30,17 @@ export class SigninSignupServiceService {
 
     public UserValidate(email: any,password: any): Observable<any[]>  {
         return this.http .get(API_URL + 'UserValidate/' + email + "/" + password)
-        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+        .map(response => { 
+                        const result = response.json();
+                            if (result.status == "True" && result.data._id) {
+                                localStorage.setItem('currentUser', JSON.stringify(result));
+                            }else{
+                                localStorage.removeItem('currentUser');
+                            }
+                        return result; 
+                    }) .catch(this.handleError);
     }
+
 
     public Register(data: any) {
         return this.http .post(API_URL + 'Register' , data)

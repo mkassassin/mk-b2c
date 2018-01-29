@@ -21,7 +21,7 @@ app.use(cors({
 }));
 
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 
@@ -42,6 +42,7 @@ require('./app/routes/SignInSignUp.routes.js')(app);
 
 require('./app/routes/Follow.routes.js')(app);
 
+require('./app/routes/Topics.routes.js')(app);
 
 app.listen(3000, function(){
     console.log("Server is listening on port 3000");

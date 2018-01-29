@@ -14,8 +14,10 @@ module.exports = function(app) {
     app.get('/API/Follow/FollowingUsers/:UserId', controller.FollowingUsers);
 
     app.get('/API/Follow/UnFollowingUsers/:UserId', controller.UnFollowingUsers);
-    
-    // app.get('/API/Follow/FollowingTopics/:userId', controller.FollowingTopics);
 
-    // app.get('/API/Follow/UnFollowingTopics/:userId', controller.UnFollowingTopics);
+    app.get('/API/Follow/UserFollowingUsers/:UserId', controller.UserFollowingUsers);
+    
+    app.get('/API/Follow/FollowingTopics/:UserId', controller.FollowingTopics);
+
+    app.get('/API/Follow/UnFollowingTopics/:UserId', controller.UnFollowingTopics);
 }

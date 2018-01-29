@@ -7,140 +7,83 @@
           <p class="topicheader"> Explore </p>
         </div>
 
-        <div class="col-sm-4 topicPart ">
-          <img class="topicimg" src="assets/images/coins/coin1.png" alt="">
-          <p class="topicname"> <span> Topic Name </span> </p>
-          <p class="topicfollowers"> 100 Followers</p>
+        <div class="col-sm-4 topicPart" *ngFor="let Topic of (UnFollowingTopics ? UnFollowingTopics.slice(0,6): []); let i=index">
+          <img class="topicimg" src="assets/images/topics/{{Topic.TopicImage}}" alt="">
+          <p class="topicname">
+            <span> {{Topic.TopicName | slice:0:15 }}{{ Topic.TopicName?.length > 15 ? '...' : ' ' }} </span>
+          </p>
+          <p class="topicfollowers"> {{Topic.Followers}} Followers</p>
           <span class="topicAddIcon">
             <i class="material-icons">add_circle</i>
           </span>
         </div>
-        <div class="col-sm-4 topicPart">
-          <img class="topicimg" src="assets/images/coins/coin2.png" alt="">
-          <p class="topicname"> <span> Topic Name </span> </p>
-          <p class="topicfollowers"> 100 Followers</p>
-          <span class="topicAddIcon">
-            <i class="material-icons">add_circle</i>
-          </span>
-        </div>
-        <div class="col-sm-4 topicPart ">
-          <img class="topicimg" src="assets/images/coins/coin3.png" alt="">
-          <p class="topicname"> <span> Topic Name </span> </p>
-          <p class="topicfollowers"> 100 Followers</p>
-          <span class="topicAddIcon">
-            <i class="material-icons">add_circle</i>
-          </span>
-        </div>
-        <div class="col-sm-4 topicPart ">
-          <img class="topicimg" src="assets/images/coins/coin4.png" alt="">
-          <p class="topicname"><span> Topic Name </span> </p>
-          <p class="topicfollowers"> 100 Followers</p>
-          <span class="topicAddIcon">
-            <i class="material-icons">add_circle</i>
-          </span>
-        </div>
-        <div class="col-sm-4 topicPart">
-          <img class="topicimg" src="assets/images/coins/coin5.png" alt="">
-          <p class="topicname"> <span> Topic Name </span> </p>
-          <p class="topicfollowers"> 100 Followers</p>
-          <span class="topicAddIcon">
-            <i class="material-icons">add_circle</i>
-          </span>
-        </div>
-        <div class="col-sm-4 topicPart">
-          <img class="topicimg" src="assets/images/coins/coin6.png" alt="">
-          <p class="topicname"> <span> Topic Name </span> </p>
-          <p class="topicfollowers"> 100 Followers</p>
-          <span class="topicAddIcon">
-            <i class="material-icons">add_circle</i>
-          </span>
-        </div>
-        <div class="col-sm-12 text-right p-0">
-            <p class="viewall"> <span> View All... </span> </p>
+        <div *ngIf="UnFollowingTopics?.length > 6" class="col-sm-12 text-right p-0">
+          <p class="viewall">
+            <span> View All... </span>
+          </p>
         </div>
 
       </div>
-      </div>
+    </div>
 
-      <!-- topic End -->
+    <!-- topic End -->
 
-      <div class="box-2">
-        <div class="row m-0">
-            <div class="col-sm-12 p-0">
-                <p class="followheader"> Connect </p>
-            </div>
-            <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
-                <div class="text-center" fxFlex="33.3%">
-                    <img class="followimg" src="assets/images/icons/category1-color.png" alt="">
-                    <p class="followname"> <span> Enthusiast </span> </p>
-                </div>
-                <div class="text-center" fxFlex="33.3%">
-                    <img class="followimg" src="assets/images/icons/category2-color.png" alt="">
-                    <p class="followname"> <span> Investor </span> </p>
-                </div>
-                <div class="text-center" fxFlex="33.3%">
-                    <img class="followimg" src="assets/images/icons/category3-color.png" alt="">
-                    <p class="followname"> <span> Expert </span> </p>
-                </div>
-            </div>
-                <!-- follow people End  -->
+    <div class="box-2">
+      <div class="row m-0">
+        <div class="col-sm-12 p-0">
+          <p class="followheader"> Connect </p>
         </div>
+        <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
+          <div class="text-center" fxFlex="33.3%">
+            <img class="followimg" src="assets/images/icons/category1-color.png" alt="">
+            <p class="followname">
+              <span> Enthusiast </span>
+            </p>
+          </div>
+          <div class="text-center" fxFlex="33.3%">
+            <img class="followimg" src="assets/images/icons/category2-color.png" alt="">
+            <p class="followname">
+              <span> Investor </span>
+            </p>
+          </div>
+          <div class="text-center" fxFlex="33.3%">
+            <img class="followimg" src="assets/images/icons/category3-color.png" alt="">
+            <p class="followname">
+              <span> Expert </span>
+            </p>
+          </div>
+        </div>
+        <!-- follow people End  -->
+      </div>
 
       <hr class="m-5">
 
       <!-- follow peoples List  -->
-      <div class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
+      <div *ngFor="let user of (UnfollowingUsers ? UnfollowingUsers.slice(0,3): []); let j=index"  class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
         <div fxFlex="55px" class="text-center">
-          <img class="userlistImg" src="assets/images/icons/user.png" alt="">
+          <img class="userlistImg" src="assets/images/users/{{user.UserImage}}" alt="">
         </div>
         <div fxFlex>
-          <p class="userlistname"> <span> User Name </span>  </p>
-          <p class="userlistcategory"> Invester &nbsp; | &nbsp; Software De... </p>
-          <p class="userlistfollowers"> 20 Followers </p>
+          <p class="userlistname">
+            <span> {{user.UserName }} </span>
+          </p>
+          <p class="userlistcategory"> {{user.UserProfession + " @ " + user.UserCompany  | slice:0:20 }}{{ (user.UserProfession + " @ " + user.UserCompany)?.length > 20 ? '...' : ' ' }} </p>
+          <p class="userlistfollowers"> {{user.Followers }} Followers </p>
         </div>
-        <div fxFlex="45px" class="text-center" >
-          <span class="userAddIcon">
-            <i class="material-icons">person_add</i>
-          </span>
-        </div>
-      </div>
-      <div class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
-        <div fxFlex="55px" class="text-center">
-          <img class="userlistImg" src="assets/images/icons/user.png" alt="">
-        </div>
-        <div fxFlex>
-          <p class="userlistname"><span> User Name </span></p>
-          <p class="userlistcategory"> Invester &nbsp; | &nbsp; Software De... </p>
-          <p class="userlistfollowers"> 20 Followers </p>
-        </div>
-        <div fxFlex="45px" class="text-center" >
+        <div fxFlex="45px" class="text-center">
           <span class="userAddIcon">
             <i class="material-icons">person_add</i>
           </span>
         </div>
       </div>
 
-      <div class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
-            <div fxFlex="55px" class="text-center">
-              <img class="userlistImg" src="assets/images/icons/user.png" alt="">
-            </div>
-            <div fxFlex>
-              <p class="userlistname"> <span> User Name </span> </p>
-              <p class="userlistcategory"> Invester &nbsp; | &nbsp; Software De... </p>
-              <p class="userlistfollowers"> 20 Followers </p>
-            </div>
-            <div fxFlex="45px" class="text-center">
-              <span class="userAddIcon">
-                <i class="material-icons">person_add</i>
-              </span>
-            </div>
-        </div>
-
-      <div class="col-sm-12 text-right p-0">
-        <p class="viewall"> <span> View All... </span></p>
+      <div *ngIf="UnfollowingUsers?.length > 3" class="col-sm-12 text-right p-0">
+        <p class="viewall"> 
+          <span> View All... </span>
+        </p>
       </div>
 
-      </div>
-      <!-- follow people  -->
+    </div>
+    <!-- follow people  -->
   </p-scrollPanel>
 </div>

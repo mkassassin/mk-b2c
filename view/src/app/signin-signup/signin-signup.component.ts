@@ -262,9 +262,10 @@ export class SigninSignupComponent implements OnInit {
   }
 
   LoginFormSubmitStatus(data){
-    console.log(data);
     if(data.status == 'True'){
       this.router.navigate(['Feeds']);
+    }else{
+      alert(data.message);
     }
 
   }
