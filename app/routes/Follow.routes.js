@@ -13,7 +13,7 @@ module.exports = function(app) {
 
     app.get('/API/Follow/FollowingUsers/:UserId', controller.FollowingUsers);
 
-    app.get('/API/Follow/UnFollowingUsers/:UserId', controller.UnFollowingUsers);
+    app.get('/API/Follow/UnFollowingUsers/:UserId/:UserCategoryId', controller.UnFollowingUsers);
 
     app.get('/API/Follow/UserFollowingUsers/:UserId', controller.UserFollowingUsers);
     

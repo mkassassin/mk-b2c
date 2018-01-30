@@ -12,7 +12,20 @@ export class AuthGuard implements CanActivate {
         this.ShareingService.SetReturnUrl('','');
         this.ShareingService.SetActiveSinInsignUpTab('','');
         if (localStorage.getItem('currentUser')) {
-            return true;
+            let LoginDate = new Date(atob(localStorage.getItem('UserToken'))).getTime();
+            let NewDate = new Date().getTime();
+            let time = NewDate - LoginDate;
+            let diffInHours: number = time / 1000 / 60 / 60;
+            if(diffInHours < 2){
+                return true;
+            }else{
+                this.ShareingService.SetActiveSinInsignUpTab('SingIn', JSON.parse(localStorage.getItem('currentUser')).data.UserEmail);
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('UserToken');
+                this.router.navigate(['SignInSignUp']);
+                return false;
+            }
+           
         }else{
             this.ShareingService.SetActiveSinInsignUpTab('SingIn');
             this.ShareingService.SetReturnUrl(state.url);

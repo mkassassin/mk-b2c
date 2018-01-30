@@ -48,6 +48,7 @@ import { SigninSignupServiceService } from './service/signin-signup-service/sign
 import { DataSharedVarServiceService } from './service/data-shared-var-service/data-shared-var-service.service';
 import { PostThreeComponent } from './popups/post-three/post-three.component';
 import { FollowServiceService } from './service/follow-service/follow-service.service';
+import { PostServiceService } from './service/post-service/post-service.service';
 
 
 @NgModule({
@@ -95,7 +96,7 @@ import { FollowServiceService } from './service/follow-service/follow-service.se
     MatMenuModule,
     MatExpansionModule
   ],
-  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService],
+  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService],
   bootstrap: [AppComponent],
   entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
 })

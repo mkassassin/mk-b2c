@@ -16,8 +16,8 @@ export class FollowServiceService {
       return Observable.throw(error);
   }
 
-    public UnFollowingUsers(Id: any): Observable<any[]>  {
-        return this.http.get(API_URL + 'UnFollowingUsers/' + Id)
+    public UnFollowingUsers(Id: any, catId: any): Observable<any[]>  {
+        return this.http.get(API_URL + 'UnFollowingUsers/' + Id + "/" + catId)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 
@@ -47,7 +47,7 @@ export class FollowServiceService {
     }
 
     public FollowTopic(data: any) {
-      return this.http.post(API_URL + 'FollowUser' , data)
+      return this.http.post(API_URL + 'FollowTopic' , data)
       .map(response => { const datas = response.json(); return datas; }).catch(this.handleError);
     }
 

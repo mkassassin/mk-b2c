@@ -13,7 +13,7 @@
 
     <div class="postScroll">
       <!-- Highlights Post Div -->
-      <div class="HighlightsPost mt-15">
+      <div *ngFor="let Post of PostsList" class="HighlightsPost mt-15 ">
         <!-- Highlights Post Info Header Div -->
         <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
           <div fxFlex>
@@ -23,9 +23,9 @@
                   <img class="postuserImg" src="assets/images/icons/user.png" alt="">
                 </div>
                 <div class="mt-5" fxFlex>
-                  <p class="postusername"> User Name </p>
-                  <p class="postusercategory"> Invester &nbsp; | &nbsp; Software De... </p>
-                  <p class="postuserfollowers"> 20 Followers </p>
+                  <p class="postusername"> {{Post.UserName}} </p>
+                  <p class="postusercategory">  {{Post.UserCategoryName}} &nbsp; | &nbsp;  {{Post.UserProfession}} </p>
+                  <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                 </div>
               </div>
             </div>
@@ -35,8 +35,8 @@
               <div class="" fxLayout="row" fxLayoutAlign="end center">
                 <div class="text-right" fxFill>
                   <p class="postaction"> ... </p>
-                  <p class="postdate"> 2 Months Ago </p>
-                  <p class="posttopic"> Story </p>
+                  <p class="postdate"> {{Post.PostDate | date }} </p>
+                  <p class="posttopic"> {{Post.PostType}}  </p>
                 </div>
               </div>
             </div>
@@ -47,8 +47,7 @@
         <!-- Highlights Post -->
         <div class="postmain" fxLayout="row">
           <div fxFlex class="text-center">
-            <img src="assets/images/sample/img4.jpg" alt="">
-            <img src="assets/images/sample/img3.jpg" alt="">
+            <h5>  {{Post.PostText}} </h5>
           </div>
         </div>
         <!-- Highlights Post END -->
@@ -97,173 +96,6 @@
 
         <!-- Highlights Post Comments-->
         <div *ngIf="clicked" class="Comments">
-          <div class="commentPost">
-            <div class="commentinfo mb-2">
-              <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                <div fxFlex>
-                  <div class="leftSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="start center">
-                      <div fxFlex="45px">
-                        <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                      </div>
-                      <div fxFlex>
-                        <p class="postusercategory">
-                          <span class="postusername"> User Name, </span> Invester &nbsp; | &nbsp; Software De... </p>
-                        <p class="postuserfollowers"> 20 Followers </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="25%">
-                  <div class="rightSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="end center">
-                      <div class="text-right" fxFlex>
-                        <p class="postaction"> ... </p>
-                        <p class="postdate"> 2 Months Ago </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="m-0">
-            <div class="commentbody">
-              <p class="commenttext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
-            </div>
-          </div>
-          <div class="commentPost">
-            <div class="commentinfo mb-2">
-              <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                <div fxFlex>
-                  <div class="leftSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="start center">
-                      <div fxFlex="45px">
-                        <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                      </div>
-                      <div fxFlex>
-                        <p class="postusercategory">
-                          <span class="postusername"> User Name, </span> Invester &nbsp; | &nbsp; Software De... </p>
-                        <p class="postuserfollowers"> 20 Followers </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="25%">
-                  <div class="rightSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="end center">
-                      <div class="text-right" fxFlex>
-                        <p class="postaction"> ... </p>
-                        <p class="postdate"> 2 Months Ago </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="m-0">
-            <div class="commentbody">
-              <p class="commenttext"> Lorem ipsum dolor</p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12">
-              <p class="viewAll text-right"> View All...</p>
-            </div>
-          </div>
-        </div>
-        <!-- Highlights Post Comments END-->
-
-
-      </div>
-      <!-- Highlights Post Div END -->
-
-
-      <!-- Highlights Post Div -->
-      <div class="HighlightsPost mt-15">
-        <!-- Highlights Post Info Header Div -->
-        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex>
-            <div class="leftSide">
-              <div class="" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="50px">
-                  <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                </div>
-                <div class="mt-5" fxFlex>
-                  <p class="postusername"> User Name </p>
-                  <p class="postusercategory"> Invester &nbsp; | &nbsp; Software De... </p>
-                  <p class="postuserfollowers"> 20 Followers </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div fxFlex="35%">
-            <div class="rightSide">
-              <div class="" fxLayout="row" fxLayoutAlign="end center">
-                <div class="text-right" fxFill>
-                  <p class="postaction"> ... </p>
-                  <p class="postdate"> 2 Months Ago </p>
-                  <p class="posttopic"> Story </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Highlights Post Info Header Div End -->
-        <hr class="m-5">
-        <!-- Highlights Post -->
-        <div class="postmain" fxLayout="row">
-          <div fxFlex class="text-center">
-            <img src="assets/images/sample/img4.jpg" alt="">
-            <img src="assets/images/sample/img3.jpg" alt="">
-          </div>
-        </div>
-        <!-- Highlights Post END -->
-        <hr class="m-5 mb-0">
-        <!-- Highlights Post Share Like And More -->
-        <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex class="text-left">
-            <div class="like">
-              <img src="assets/images/icons/like.png" alt="">
-              <p class="count"> 300 </p>
-            </div>
-          </div>
-          <div fxFlex class="text-center">
-            <div class="chat" (click)="clicked2 = !clicked2">
-              <img src="assets/images/icons/comment.png" alt="">
-              <p class="count"> 200 </p>
-            </div>
-          </div>
-          <div fxFlex class="text-right">
-            <div class="share">
-              <img src="assets/images/icons/share.png" alt="">
-              <p class="count"> 100 </p>
-            </div>
-          </div>
-        </div>
-        <!-- Highlights Post Share Like And More  END-->
-        <hr class="m-5 mt-0">
-        <!-- Highlights Post Share Like And More -->
-        <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="50px" class="text-left">
-            <div class="chatUserImg text-center">
-              <img src="assets/images/icons/user.png" alt=""> </div>
-          </div>
-          <div fxFlex class="text-center">
-            <div class="chatInput">
-              <input type="text" placeholder="Post Your Comment..."> </div>
-          </div>
-          <div fxFlex="60px" class="text-right">
-            <div class="chatsend text-center">
-              <i class="material-icons">send</i>
-            </div>
-          </div>
-        </div>
-        <!-- Highlights Post Share Like And More  END-->
-
-
-        <!-- Highlights Post Comments-->
-        <div *ngIf="clicked2" class="Comments">
           <div class="commentPost">
             <div class="commentinfo mb-2">
               <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">

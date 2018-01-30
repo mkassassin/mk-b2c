@@ -124,7 +124,7 @@ exports.FollowingUsers = function(req, res) {
 };
 
 exports.UnFollowingUsers = function(req, res) {
-    UserModel.UserType.find({'_id': { $ne: req.params.UserId } }, usersProjection, function(err, result) {
+    UserModel.UserType.find({'_id': { $ne: req.params.UserId }, 'UserCategoryId':req.params.UserCategoryId }, usersProjection, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Following Users."});
         } else {
@@ -265,7 +265,7 @@ exports.FollowTopic = function(req, res) {
             res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Follow The Topic "});
         } else {
             if(result.length > 0 ){
-                res.send({ status:"True", message: "This Topic Already Followed By User."})
+                res.send({ status:"False", message: "This Topic Already Followed By User."})
             }else{
                 varFollowTopicType.save(function(err, data) {
                     if(err) {

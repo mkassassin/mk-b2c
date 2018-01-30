@@ -16,6 +16,20 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+.postOne .postlink{
+    border: none;
+    border-radius: 5px;
+    width: 90%;
+    height: 40px;
+    padding: 5px;
+    color: #333333;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    font-family: 'Ubuntu', sans-serif;
+    border: 1px solid #dedede;
+}
+
 .postOne .posttext{
     border-radius: 5px;
     width: 100%;
@@ -32,6 +46,7 @@
 .postOne .postaddon_icon i{
     font-size: 30px;
     color: #333333;
+    cursor: pointer;
 }
 
 
@@ -39,6 +54,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50px;
+    cursor: pointer;
 }
 .postOne .cat-img-item p{
     font-size: 12px;

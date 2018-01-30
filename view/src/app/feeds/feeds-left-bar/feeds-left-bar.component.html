@@ -6,6 +6,25 @@
         <div class="col-sm-12 p-0">
           <p class="topicheader"> Explore </p>
         </div>
+        
+        <div *ngIf="UnFollowingTopics?.length <= 0 && TimeOut" class="col-sm-12" >
+          <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+              <div fxFlex>
+                  <div class="preloader-orbit-loading">
+                    <div class="cssload-inner cssload-one"></div>
+                    <div class="cssload-inner cssload-two"></div>
+                    <div class="cssload-inner cssload-three"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div *ngIf="UnFollowingTopics?.length <= 0 && !TimeOut" class="col-sm-12" >
+          <br><br>
+            <h5 class="userlistname"> You Will Follow All The Topics !</h5>
+          <br><br>
+        </div>
+
 
         <div class="col-sm-4 topicPart" *ngFor="let Topic of (UnFollowingTopics ? UnFollowingTopics.slice(0,6): []); let i=index">
           <img class="topicimg" src="assets/images/topics/{{Topic.TopicImage}}" alt="">
@@ -14,7 +33,7 @@
           </p>
           <p class="topicfollowers"> {{Topic.Followers}} Followers</p>
           <span class="topicAddIcon">
-            <i class="material-icons">add_circle</i>
+            <i class="material-icons" (click)="followTopic(Topic._id)">add_circle</i>
           </span>
         </div>
         <div *ngIf="UnFollowingTopics?.length > 6" class="col-sm-12 text-right p-0">
@@ -35,21 +54,42 @@
         </div>
         <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
           <div class="text-center" fxFlex="33.3%">
-            <img class="followimg" src="assets/images/icons/category1-color.png" alt="">
+            <img [ngClass]="{'selected': ActiveCategory == '01'}"  (click)="ActiveCategorySelect('01')" class="followimg" src="assets/images/icons/category1-color.png" alt="">
             <p class="followname">
-              <span> Enthusiast </span>
+              <span (click)="ActiveCategorySelect('01')"> Enthusiast </span>
             </p>
           </div>
           <div class="text-center" fxFlex="33.3%">
-            <img class="followimg" src="assets/images/icons/category2-color.png" alt="">
+            <img [ngClass]="{'selected': ActiveCategory == '02'}" (click)="ActiveCategorySelect('02')" class="followimg" src="assets/images/icons/category2-color.png" alt="">
             <p class="followname">
-              <span> Investor </span>
+              <span (click)="ActiveCategorySelect('02')"> Investor </span>
             </p>
           </div>
           <div class="text-center" fxFlex="33.3%">
-            <img class="followimg" src="assets/images/icons/category3-color.png" alt="">
+            <img [ngClass]="{'selected': ActiveCategory == '03'}" (click)="ActiveCategorySelect('03')" class="followimg" src="assets/images/icons/category3-color.png" alt="">
             <p class="followname">
-              <span> Expert </span>
+              <span (click)="ActiveCategorySelect('03')"> Expert </span>
+            </p>
+          </div>
+        </div>
+
+        <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
+          <div class="text-center" fxFlex="33.3%">
+            <img [ngClass]="{'selected': ActiveCategory == '04'}"  (click)="ActiveCategorySelect('04')" class="followimg" src="assets/images/icons/category4-color.png" alt="">
+            <p class="followname">
+              <span (click)="ActiveCategorySelect('04')"> Media </span>
+            </p>
+          </div>
+          <div class="text-center" fxFlex="33.3%">
+            <img [ngClass]="{'selected': ActiveCategory == '05'}" (click)="ActiveCategorySelect('05')" class="followimg" src="assets/images/icons/category5-color.png" alt="">
+            <p class="followname">
+              <span (click)="ActiveCategorySelect('05')"> Blogger </span>
+            </p>
+          </div>
+          <div class="text-center" fxFlex="33.3%">
+            <img [ngClass]="{'selected': ActiveCategory == '06'}" (click)="ActiveCategorySelect('06')" class="followimg" src="assets/images/icons/category6-color.png" alt="">
+            <p class="followname">
+              <span (click)="ActiveCategorySelect('06')"> Company </span>
             </p>
           </div>
         </div>
@@ -57,6 +97,24 @@
       </div>
 
       <hr class="m-5">
+
+      <div *ngIf="UnfollowingUsers?.length <= 0 && UserTimeOut" class="col-sm-12" >
+        <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+            <div fxFlex>
+                <div class="preloader-orbit-loading">
+                  <div class="cssload-inner cssload-one"></div>
+                  <div class="cssload-inner cssload-two"></div>
+                  <div class="cssload-inner cssload-three"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div *ngIf="UnfollowingUsers?.length <= 0 && !UserTimeOut" class="col-sm-12" >
+        <br><br>
+          <h5 class="userlistname"> You Will Follow All The Users In This Category !</h5>
+        <br><br>
+      </div>
 
       <!-- follow peoples List  -->
       <div *ngFor="let user of (UnfollowingUsers ? UnfollowingUsers.slice(0,3): []); let j=index"  class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
@@ -72,7 +130,7 @@
         </div>
         <div fxFlex="45px" class="text-center">
           <span class="userAddIcon">
-            <i class="material-icons">person_add</i>
+            <i (click)="followUser(user._id)" class="material-icons">person_add</i>
           </span>
         </div>
       </div>

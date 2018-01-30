@@ -10,20 +10,42 @@ import { FollowServiceService } from "./../../service/follow-service/follow-serv
 export class FeedsRightBarComponent implements OnInit {
 
   UserInfo:any;
-  FollowingUsers:any;
-  FollowingTopics:any;
-  UserFollowingUsers:any;
+  FollowingUsers:any[];
+  FollowingTopics:any[];
+  UserFollowingUsers:any[];
 
   constructor(private FollowService: FollowServiceService) {
                 this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
-                this.FollowService.FollowingTopics(this.UserInfo.data._id).subscribe( topicdatas => this.FollowingTopics = topicdatas );
-                this.FollowService.FollowingUsers(this.UserInfo.data._id).subscribe( userdatas => this.FollowingUsers = userdatas );
-                this.FollowService.UserFollowingUsers(this.UserInfo.data._id).subscribe( userFollowdatas => this.UserFollowingUsers = userFollowdatas );
+
+                this.FollowService.FollowingTopics(this.UserInfo.data._id)
+                .subscribe( topicdatas => {  
+                    if(topicdatas['status'] == "True"){
+                      this.FollowingTopics = topicdatas['data'];
+                    }else{
+                      console.log(topicdatas);
+                    }
+                });
+
+                this.FollowService.FollowingUsers(this.UserInfo.data._id)
+                .subscribe( userdatas => {  
+                    if(userdatas['status'] == "True"){
+                      this.FollowingUsers = userdatas['data'];
+                    }else{
+                      console.log(userdatas);
+                    }
+                });
+
+                this.FollowService.UserFollowingUsers(this.UserInfo.data._id)
+                .subscribe( userFollowdatas => {  
+                    if(userFollowdatas['status'] == "True"){
+                      this.UserFollowingUsers = userFollowdatas['data'];
+                    }else{
+                      console.log(userFollowdatas);
+                    }
+                });
    }
 
   ngOnInit() {
-    console.log(this.FollowingUsers);
-
   }
 
 }

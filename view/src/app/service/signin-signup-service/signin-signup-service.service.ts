@@ -33,6 +33,8 @@ export class SigninSignupServiceService {
         .map(response => { 
                         const result = response.json();
                             if (result.status == "True" && result.data._id) {
+                                let encodedata = btoa(Date());
+                                localStorage.setItem('UserToken', btoa(Date()));
                                 localStorage.setItem('currentUser', JSON.stringify(result));
                             }else{
                                 localStorage.removeItem('currentUser');

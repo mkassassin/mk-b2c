@@ -4,7 +4,7 @@
       <img class="userimg" src="assets/images/sample/img7.jpg" alt="">
     </div>
     <div fxFlex class="text-left">
-      <h5 class="m-0 posttype"> Write a Post </h5>
+      <h5 class="m-0 posttype"> Write a Post <small> ( {{ActiveCategory}})</small></h5>
     </div>
     <div fxFlex class="text-left">
         <h5 class="m-0 posttype text-right" >
@@ -16,55 +16,59 @@
   <hr style="margin-top:10px;">
 
   <mat-dialog-content class="postbody">
+    <form [formGroup]="PostForm" (ngSubmit)="submit()">
+        <textarea class="posttext" formControlName="PostText" placeholder="Write Something...."></textarea>
 
-    <textarea class="posttext" placeholder="Write Something...."></textarea>
+        <input *ngIf="LinkInoutActive" class="postlink" formControlName="PostLink" placeholder="Enter Link...">
 
-    <div class="postaddon mt-5" fxLayout="row" fxLayoutAlign="start" >
-      <div fxFlex="50px" class="text-center postaddon_icon">
-          <i class="material-icons">burst_mode</i>
-      </div>
-      <div fxFlex="50px" class="text-center postaddon_icon">
-          <i class="material-icons" style="transform:rotate(90deg)">local_movies</i>
-      </div>
-      <div fxFlex="50px" class="text-center postaddon_icon">
-          <i class="material-icons">insert_link</i>
-      </div>
-    </div>
-
-
-    <div fxLayout fxLayoutAlign="space-between">
-      <div fxFlex="85%">
-          <div class="mt-10" fxLayout fxLayoutAlign="start">
-            <div class="cat-img-item selected">
-              <img src="assets/images/icons/posttype1.png" alt="">
-              <p> Story </p>
-            </div>
-            <div class="cat-img-item">
-                <img src="assets/images/icons/posttype2.png" alt="">
-              <p> News </p>
-            </div>
-            <div class="cat-img-item">
-                <img src="assets/images/icons/posttype3.png" alt="">
-              <p> Trend </p>
-            </div>
-            <div class="cat-img-item">
-                <img src="assets/images/icons/posttype4.png" alt="">
-              <p> Blog </p>
-            </div>
-            <div class="cat-img-item">
-                <img src="assets/images/icons/posttype5.png" alt="">
-              <p> Opinion </p>
-            </div>
-            <div class="cat-img-item">
-                <img src="assets/images/icons/posttype6.png" alt="">
-              <p> Idea </p>
-            </div>
+        <div class="postaddon mt-5" fxLayout="row" fxLayoutAlign="start" >
+          <div fxFlex="50px" class="text-center postaddon_icon">
+              <i class="material-icons">burst_mode</i>
           </div>
-      </div>
-      <div fxFlex="15%" style="line-height:75px;">
-          <button type="button" mat-raised-button (click)="close()" color="primary"> Post </button>
-      </div>
-    </div>
+          <div fxFlex="50px" class="text-center postaddon_icon">
+              <i class="material-icons" style="transform:rotate(90deg)">local_movies</i>
+          </div>
+          <div fxFlex="50px" class="text-center postaddon_icon">
+              <i (click)="LinkInoutActiveToggle()" class="material-icons">insert_link</i>
+          </div>
+        </div>
+
+
+        <div fxLayout fxLayoutAlign="space-between">
+          <div fxFlex="85%">
+              <div class="mt-10" fxLayout fxLayoutAlign="start">
+                <div class="cat-img-item" [ngClass]="{'selected': ActiveCategory == 'Story'}">
+                  <img (click)="ActiveCategorySelect('Story')" src="assets/images/icons/posttype1.png" alt="">
+                  <p> Story </p>
+                </div>
+                <div class="cat-img-item" [ngClass]="{'selected': ActiveCategory == 'News'}">
+                    <img (click)="ActiveCategorySelect('News')" src="assets/images/icons/posttype2.png" alt="">
+                  <p> News </p>
+                </div>
+                <div class="cat-img-item" [ngClass]="{'selected': ActiveCategory == 'Trend'}">
+                    <img (click)="ActiveCategorySelect('Trend')" src="assets/images/icons/posttype3.png" alt="">
+                  <p> Trend </p>
+                </div>
+                <div class="cat-img-item" [ngClass]="{'selected': ActiveCategory == 'Blog'}">
+                    <img (click)="ActiveCategorySelect('Blog')" src="assets/images/icons/posttype4.png" alt="">
+                  <p> Blog </p>
+                </div>
+                <div class="cat-img-item" [ngClass]="{'selected': ActiveCategory == 'Opinion'}">
+                    <img (click)="ActiveCategorySelect('Opinion')" src="assets/images/icons/posttype5.png" alt="">
+                  <p> Opinion </p>
+                </div>
+                <div class="cat-img-item" [ngClass]="{'selected': ActiveCategory == 'Idea'}">
+                    <img (click)="ActiveCategorySelect('Idea')" src="assets/images/icons/posttype6.png" alt="">
+                  <p> Idea </p>
+                </div>
+              </div>
+          </div>
+          <div fxFlex="15%" style="line-height:75px;">
+              <button type="submit" mat-raised-button color="primary"> Post </button>
+          </div>
+        </div>
+
+    </form>
 
   </mat-dialog-content>
 </div>

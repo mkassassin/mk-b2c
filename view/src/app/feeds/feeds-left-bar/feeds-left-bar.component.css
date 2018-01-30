@@ -114,7 +114,9 @@
     border-radius: 55px;
     cursor: pointer;
 }
-
+.feedsLefBar .followimg.selected{
+    border:5px double #333333;
+}
 .feedsLefBar .followname{
     font-size: 12px;
     margin: 0px;

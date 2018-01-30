@@ -20,6 +20,7 @@ export class FeedsHeaderComponent implements OnInit {
     let localData = JSON.parse(localDataString);
     this.ShareingService.SetActiveSinInsignUpTab('SingIn',localData.data.UserEmail);
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('UserToken');
     this.router.navigate(['SignInSignUp']);
   }
 }

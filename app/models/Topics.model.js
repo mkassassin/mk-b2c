@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var TopicsTypeSchema = mongoose.Schema({
-    TopicName: { type : String , unique : true, required : true, },
+    TopicName: { type : String , unique : true, required : true },
     TopicDescription:{ type : String},
     TopicImage:String,
     }, 
