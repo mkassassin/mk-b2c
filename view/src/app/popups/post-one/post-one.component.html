@@ -16,20 +16,78 @@
   <hr style="margin-top:10px;">
 
   <mat-dialog-content class="postbody">
-    <form [formGroup]="PostForm" (ngSubmit)="submit()">
+    <form [formGroup]="PostForm" (ngSubmit)="submit()" enctype="multipart/form-data">
         <textarea class="posttext" formControlName="PostText" placeholder="Write Something...."></textarea>
 
-        <input *ngIf="LinkInoutActive" class="postlink" formControlName="PostLink" placeholder="Enter Link...">
+        <input *ngIf="LinkInputActive" class="postlink mb-20" formControlName="PostLink" placeholder="Enter Link...">
+
+        <div *ngIf="ImageInputActive" class="imgUpload mb-20" id="hide">
+          <div style="display:inline-flex;">
+            <label for="imguploadinput">
+                <input id="imguploadinput" *ngIf="ImageInputActive" type="file" multiple ng2FileSelect [uploader]='Imageuploader'>
+                <span> <i class="material-icons">add</i>  <span> Select Image </span> </span>
+            </label>
+            <ul class="ImgselectedList">
+              <li *ngFor="let item of Imageuploader.queue">
+                <div class="selectedImg">
+                  <img src="" imgPreview [image]="item?._file" />
+                  <div class="imgname"> {{item.file.rawFile.name}} </div>
+                  <div class="imgprog"> {{item.progress}}% </div>
+                  <div *ngIf="!item.isUploaded" (click)="item.remove()" class="clearbutton"> <i class="material-icons">clear</i> </div>
+                  <div *ngIf="item.isUploaded && item.progress == 100" class="donebutton" (click)="checking(item)" > <i class="material-icons">done</i> </div>
+                  <button *ngIf="!item.isUploaded" class="upload" [disabled]="item.isUploaded && item.progress != 100" type="button" (click)="item.upload()"> 
+                      <span *ngIf="item.isUploaded && item.progress != 100" > Uploading... </span>
+                      <span *ngIf="!item.isUploaded && item.progress == 0" > Upload </span>
+                   </button> 
+                  <button *ngIf="item.isUploaded && item.progress == 100" class="remove" type="button" (click)="item.remove()"> Remove </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div *ngIf="VideoInputActive" class="vidUpload" id="hide">
+        <div style="display:inline-flex;">
+          <label for="viduploadinput">
+              <input id="viduploadinput" type="file" multiple ng2FileSelect [uploader]='Videouploader'>
+              <span><i class="material-icons">add</i> <span> Select Video </span></span>
+          </label>
+          <ul class="vidselectedList">
+            <li *ngFor="let item of Videouploader.queue">
+              <div class="selectedvid">
+                  <video width="210px" height="130px" src="" videoPreview [video]="item?._file"></video>
+                  <div class="vidname"> {{item.file.rawFile.name}} </div>
+                  <div class="vidprog"> {{item.progress}}% </div>
+                  <div *ngIf="!item.isUploaded" (click)="item.remove()" class="clearbutton"> <i class="material-icons">clear</i> </div>
+                  <div *ngIf="item.isUploaded && item.progress == 100" class="donebutton" (click)="checking(item)" > <i class="material-icons">done</i> </div>
+                  <button *ngIf="!item.isUploaded" class="upload" [disabled]="item.isUploaded && item.progress != 100" type="button" (click)="item.upload()"> 
+                      <span *ngIf="item.isUploaded && item.progress != 100" > Uploading... </span>
+                      <span *ngIf="!item.isUploaded && item.progress == 0" > Upload </span>
+                   </button> 
+                  <button *ngIf="item.isUploaded && item.progress == 100" class="remove" type="button" (click)="item.remove()"> Remove </button>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+        
+
+        
+
+
+
+
 
         <div class="postaddon mt-5" fxLayout="row" fxLayoutAlign="start" >
           <div fxFlex="50px" class="text-center postaddon_icon">
-              <i class="material-icons">burst_mode</i>
+              <i (click)="ImageInputActiveToggle()" class="material-icons">burst_mode</i>
           </div>
           <div fxFlex="50px" class="text-center postaddon_icon">
-              <i class="material-icons" style="transform:rotate(90deg)">local_movies</i>
+              <i (click)="VideoInputActiveToggle()" class="material-icons" style="transform:rotate(90deg)">local_movies</i>
           </div>
           <div fxFlex="50px" class="text-center postaddon_icon">
-              <i (click)="LinkInoutActiveToggle()" class="material-icons">insert_link</i>
+              <i (click)="LinkInputActiveToggle()" class="material-icons">insert_link</i>
           </div>
         </div>
 

@@ -3,11 +3,11 @@
     <!-- UserDetails -->
     <div class="userdiv" fxLayout="column" fxLayoutAlign="start center">
         <div fxFlex="120px" class="text-center">
-            <img class="userimg" src="assets/images/sample/img7.jpg" alt="">
+            <img class="userimg" src="assets/images/users/{{UserInfo.data.UserImage}}" alt="">
         </div>
         <div fxFlex="60px">
-            <p class="username"> User Name </p>
-            <p class="userfollowers"> Blogger &nbsp; | &nbsp; Developer </p>
+            <p class="username"> {{UserInfo.data.UserName}} </p>
+            <p class="userfollowers"> {{UserInfo.data.UserCategoryName}} &nbsp; | &nbsp; {{UserInfo.data.UserProfession}} </p>
         </div>
     </div>
     <!-- UserDetails End -->
@@ -20,24 +20,32 @@
           <p class="headerstyle"> Following </p>
       </div>
       <div class="col-sm-12 listFlexDiv">
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin1.png" alt="">
-              <p class="followname"> User Na... </p>
-          </div>
-          <div class="col-sm-3 followPart">
-              <img class="followimg" src="assets/images/coins/coin2.png" alt="">
-              <p class="followname"> User Na... </p>
-          </div>
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin3.png" alt="">
-              <p class="followname"> User Na...</p>
-          </div>
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin4.png" alt="">
-              <p class="followname"> User Na... </p>
+
+        <div *ngIf="UserFollowingUsers?.length <= 0 && TimeOut" class="col-sm-12" >
+            <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div fxFlex>
+                    <div class="preloader-orbit-loading">
+                        <div class="cssload-inner cssload-one"></div>
+                        <div class="cssload-inner cssload-two"></div>
+                        <div class="cssload-inner cssload-three"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div *ngIf="UserFollowingUsers?.length <= 0 && !TimeOut" class="col-sm-12" >
+            <br>
+                <h5 class="userlistname"> Following Users Not Found!</h5>
+            <br>
+        </div>
+
+
+          <div *ngFor="let user of (UserFollowingUsers ? UserFollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
+              <img class="followimg" src="assets/images/users/{{user.UserImage}}" alt="">
+              <p class="followname"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </p>
           </div>
       </div>
-      <div class="col-sm-12 text-right">
+      <div *ngIf="UserFollowingUsers?.length > 4" class="col-sm-12 text-right">
           <p class="viewAll"> <span> View All... </span> </p>
       </div>
     </div>
@@ -51,24 +59,31 @@
           <p class="headerstyle"> Followed By </p>
       </div>
       <div class="col-sm-12 listFlexDiv">
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin5.png" alt="">
-              <p class="followname"> User Na... </p>
-          </div>
-          <div class="col-sm-3 followPart">
-              <img class="followimg" src="assets/images/coins/coin6.png" alt="">
-              <p class="followname"> User Na... </p>
-          </div>
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin7.png" alt="">
-              <p class="followname"> User Na...</p>
-          </div>
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin8.png" alt="">
-              <p class="followname"> User Na... </p>
+
+            <div *ngIf="FollowingUsers?.length <= 0 && TimeOut" class="col-sm-12" >
+                <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div *ngIf="FollowingUsers?.length <= 0 && !TimeOut" class="col-sm-12" >
+                <br>
+                    <h5 class="userlistname"> Followed Users Not Found!</h5>
+                <br>
+            </div>
+
+          <div *ngFor="let user of (FollowingUsers ? FollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
+              <img class="followimg" src="assets/images/users/{{user.UserImage}}" alt="">
+              <p class="followname"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </p>
           </div>
       </div>
-      <div class="col-sm-12 text-right">
+      <div *ngIf="FollowingUsers?.length > 4" class="col-sm-12 text-right">
           <p class="viewAll"> <span> View All... </span>  </p>
       </div>
     </div>
@@ -83,24 +98,32 @@
           <p class="headerstyle"> Topics </p>
       </div>
       <div class="col-sm-12 listFlexDiv">
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin9.png" alt="">
-              <p class="followname"> User Na... </p>
+
+            <div *ngIf="FollowingTopics?.length <= 0 && TimeOut" class="col-sm-12" >
+                <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div *ngIf="FollowingTopics?.length <= 0 && !TimeOut" class="col-sm-12" >
+                <br>
+                    <h5 class="userlistname"> Followed Topic Not Found!</h5>
+                <br>
+            </div>
+
+          <div *ngFor="let Topic of (FollowingTopics ? FollowingTopics.slice(0,4): []);" class="col-sm-3 followPart ">
+              <img class="followimg" src="assets/images/topics/{{Topic.TopicImage}}" alt="">
+              <p class="followname"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </p>
           </div>
-          <div class="col-sm-3 followPart">
-              <img class="followimg" src="assets/images/coins/coin1.png" alt="">
-              <p class="followname"> User Na... </p>
-          </div>
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin2.png" alt="">
-              <p class="followname"> User Na...</p>
-          </div>
-          <div class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/coins/coin3.png" alt="">
-              <p class="followname"> User Na... </p>
-          </div>
+        
       </div>
-      <div class="col-sm-12 text-right">
+      <div *ngIf="FollowingTopics?.length > 4" class="col-sm-12 text-right">
           <p class="viewAll"> <span> View All... </span>  </p>
       </div>
     </div>

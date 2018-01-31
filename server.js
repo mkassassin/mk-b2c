@@ -18,10 +18,10 @@ var app = express();
 
 //create a cors middleware
 app.use(function(req, res, next) {
-//set headers to allow cross origin request.
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, PATCH, DELETE, OPTIONS');
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 
@@ -53,6 +53,11 @@ require('./app/routes/Follow.routes.js')(app);
 require('./app/routes/Topics.routes.js')(app);
 
 require('./app/routes/HighlightsPost.routes.js')(app);
+
+require('./app/routes/QuestionsPost.routes.js')(app);
+
+require('./app/routes/FileUpload.routes.js')(app);
+
 app.listen(3000, function(){
     console.log("Server is listening on port 3000");
 });

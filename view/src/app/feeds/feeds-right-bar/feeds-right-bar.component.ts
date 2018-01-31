@@ -13,6 +13,7 @@ export class FeedsRightBarComponent implements OnInit {
   FollowingUsers:any[];
   FollowingTopics:any[];
   UserFollowingUsers:any[];
+  TimeOut:boolean = true;
 
   constructor(private FollowService: FollowServiceService) {
                 this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
@@ -43,8 +44,14 @@ export class FeedsRightBarComponent implements OnInit {
                       console.log(userFollowdatas);
                     }
                 });
-   }
 
+                this.TimeOutFuction();
+            }
+
+
+  TimeOutFuction(){
+      setTimeout(()=>{ this.TimeOut = false; },5000);
+  }
   ngOnInit() {
   }
 

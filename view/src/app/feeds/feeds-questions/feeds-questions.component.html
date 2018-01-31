@@ -1,367 +1,205 @@
 <div class="Questions">
-  <!-- Question Header Post Div -->
-  <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
-    <div fxFill (click)="OpenModelQuestion()">
-      <div class="leftArea">
-        <i class="fa fa-file-text" aria-hidden="true"></i> Ask a Question?...
+
+  <div *ngIf="PostsList?.length <= 0 && TimeOut">
+      <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+          <div fxFlex>
+              <div class="preloader-orbit-loading">
+                <div class="cssload-inner cssload-one"></div>
+                <div class="cssload-inner cssload-two"></div>
+                <div class="cssload-inner cssload-three"></div>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
-  <!-- Question Header Post Div  END-->
 
-  <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
+  <div *ngIf="PostsList?.length > 0 && !TimeOut">
 
-
-
-
-
-    <div class="postScroll">
-
-      <!-- Question Post Div -->
-      <div class="QuestionPost mt-15">
-        <!-- Question Post Info Header Div -->
-        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex>
-            <div class="leftSide">
-              <div class="" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="60px">
-                  <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                  <p class="postusername"> User Name </p>
-                  <p class="postusercategory"> Invester &nbsp; | &nbsp; Software De... </p>
-                  <p class="postuserfollowers"> 20 Followers </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div fxFlex="35%">
-            <div class="rightSide">
-              <div class="" fxLayout="row" fxLayoutAlign="end center">
-                <div class="text-right" fxFill>
-                  <p class="postaction"> ... </p>
-                  <p class="postdate"> 2 Months Ago </p>
-                  <p class="posttopic"> Topic Name </p>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- Question Header Post Div -->
+    <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
+      <div fxFill (click)="OpenModelQuestion()">
+        <div class="leftArea">
+          <i class="fa fa-file-text" aria-hidden="true"></i> Ask a Question?...
         </div>
-        <!-- Question Post Info Header Div End -->
-        <hr class="m-5">
-        <!-- Question Post -->
-        <div class="postmain" fxLayout="row">
-          <div fxFlex class="text-left">
-            <h5 class="postquestion"> What is Blockchain Technology? </h5>
-
-            <div class="postAnswer">
-              <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
-                <div fxFlex>
-                  <div class="leftSide">
-                    <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
-                      <div fxFlex="45px">
-                        <img class="postansuserImg" src="assets/images/icons/user.png" alt="">
-                      </div>
-                      <div fxFlex>
-                        <p class="postansusername"> User Name </p>
-                        <p class="postansfollowes"> 20 followers </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="35%">
-                  <div class="rightSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="end center">
-                      <div fxFlex>
-                      </div>
-                      <div class="text-right mr-5" fxFlex="150px">
-                        <p class="postansaction"> ... </p>
-                        <p class="postansdate"> 2 Months Ago </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="m-0" style="border-color: #77778729;">
-              <div class="postAns" fxLayout="row" fxLayoutAlign="start">
-                <div fxFlex>
-                  <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions that can be programmed
-                    to record not just financial transactions but virtually everything of value.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="postAnswer">
-              <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
-                <div fxFlex>
-                  <div class="leftSide">
-                    <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
-                      <div fxFlex="45px">
-                        <img class="postansuserImg" src="assets/images/icons/user.png" alt="">
-                      </div>
-                      <div fxFlex>
-                        <p class="postansusername"> User Name </p>
-                        <p class="postansfollowes"> 20 followers </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="35%">
-                  <div class="rightSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="end center">
-                      <div fxFlex>
-                      </div>
-                      <div class="text-right mr-5" fxFlex="150px">
-                        <p class="postansaction"> ... </p>
-                        <p class="postansdate"> 2 Months Ago </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="m-0" style="border-color: #77778729;">
-              <div class="postAns" fxLayout="row" fxLayoutAlign="start">
-                <div fxFlex>
-                  <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions that can be programmed
-                    to record not just financial transactions but virtually everything of value.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="text-right">
-              <p class="viewAll">View All...</p>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post END -->
-        <hr class="m-5">
-        <!-- Question Post Share Like And More -->
-        <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex class="text-left">
-            <div class="like">
-              <img src="assets/images/icons/like.png" alt="">
-              <p class="count"> 300 </p>
-            </div>
-          </div>
-          <div fxFlex class="text-center">
-            <div class="chat" (click)="clicked = !clicked">
-              <img src="assets/images/icons/comment.png" alt="">
-              <p class="count"> 200 </p>
-            </div>
-          </div>
-          <div fxFlex class="text-right">
-            <div class="share">
-              <img src="assets/images/icons/share.png" alt="">
-              <p class="count"> 100 </p>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post Share Like And More  END-->
-        <hr class="m-5">
-        <!-- Question Post Share Like And More -->
-        <div *ngIf="clicked" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="60px" class="text-left">
-            <div class="chatUserImg text-center">
-              <img src="assets/images/icons/user.png" alt=""> </div>
-          </div>
-          <div fxFlex class="text-center">
-            <div class="chatInput">
-              <input type="text" placeholder="Post Your Answer..."> </div>
-          </div>
-          <div fxFlex="70px" class="text-right">
-            <div class="chatsend text-center">
-              <i class="material-icons">send</i>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post Share Like And More  END-->
-
       </div>
-      <!-- Question Post Div END -->
-
-
-
-
-
-
-
-
-
-
-
-      <!-- Question Post Div -->
-      <div class="QuestionPost mt-15">
-        <!-- Question Post Info Header Div -->
-        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex>
-            <div class="leftSide">
-              <div class="" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="60px">
-                  <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                  <p class="postusername"> User Name </p>
-                  <p class="postusercategory"> Invester &nbsp; | &nbsp; Software De... </p>
-                  <p class="postuserfollowers"> 20 Followers </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div fxFlex="35%">
-            <div class="rightSide">
-              <div class="" fxLayout="row" fxLayoutAlign="end center">
-                <div class="text-right" fxFill>
-                  <p class="postaction"> ... </p>
-                  <p class="postdate"> 2 Months Ago </p>
-                  <p class="posttopic"> Topic Name </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post Info Header Div End -->
-        <hr class="m-5">
-        <!-- Question Post -->
-        <div class="postmain" fxLayout="row">
-          <div fxFlex class="text-left">
-            <h5 class="postquestion"> What is Blockchain Technology? </h5>
-
-            <div class="postAnswer">
-              <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
-                <div fxFlex>
-                  <div class="leftSide">
-                    <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
-                      <div fxFlex="45px">
-                        <img class="postansuserImg" src="assets/images/icons/user.png" alt="">
-                      </div>
-                      <div fxFlex>
-                        <p class="postansusername"> User Name </p>
-                        <p class="postansfollowes"> 20 followers </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="35%">
-                  <div class="rightSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="end center">
-                      <div fxFlex>
-                      </div>
-                      <div class="text-right mr-5" fxFlex="150px">
-                        <p class="postansaction"> ... </p>
-                        <p class="postansdate"> 2 Months Ago </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="m-0" style="border-color: #77778729;">
-              <div class="postAns" fxLayout="row" fxLayoutAlign="start">
-                <div fxFlex>
-                  <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions that can be programmed
-                    to record not just financial transactions but virtually everything of value.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="postAnswer">
-              <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
-                <div fxFlex>
-                  <div class="leftSide">
-                    <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
-                      <div fxFlex="45px">
-                        <img class="postansuserImg" src="assets/images/icons/user.png" alt="">
-                      </div>
-                      <div fxFlex>
-                        <p class="postansusername"> User Name </p>
-                        <p class="postansfollowes"> 20 followers </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div fxFlex="35%">
-                  <div class="rightSide">
-                    <div class="" fxLayout="row" fxLayoutAlign="end center">
-                      <div fxFlex>
-                      </div>
-                      <div class="text-right mr-5" fxFlex="150px">
-                        <p class="postansaction"> ... </p>
-                        <p class="postansdate"> 2 Months Ago </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="m-0" style="border-color: #77778729;">
-              <div class="postAns" fxLayout="row" fxLayoutAlign="start">
-                <div fxFlex>
-                  <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions that can be programmed
-                    to record not just financial transactions but virtually everything of value.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="text-right">
-              <p class="viewAll">View All...</p>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post END -->
-        <hr class="m-5">
-        <!-- Question Post Share Like And More -->
-        <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex class="text-left">
-            <div class="like">
-              <img src="assets/images/icons/like.png" alt="">
-              <p class="count"> 300 </p>
-            </div>
-          </div>
-          <div fxFlex class="text-center">
-            <div class="chat" (click)="clicked2 = !clicked2">
-              <img src="assets/images/icons/comment.png" alt="">
-              <p class="count"> 200 </p>
-            </div>
-          </div>
-          <div fxFlex class="text-right">
-            <div class="share">
-              <img src="assets/images/icons/share.png" alt="">
-              <p class="count"> 100 </p>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post Share Like And More  END-->
-        <hr class="m-5">
-        <!-- Question Post Share Like And More -->
-        <div *ngIf="clicked2" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="60px" class="text-left">
-            <div class="chatUserImg text-center">
-              <img src="assets/images/icons/user.png" alt=""> </div>
-          </div>
-          <div fxFlex class="text-center">
-            <div class="chatInput">
-              <input type="text" placeholder="Post Your Answer..."> </div>
-          </div>
-          <div fxFlex="70px" class="text-right">
-            <div class="chatsend text-center">
-              <i class="material-icons">send</i>
-            </div>
-          </div>
-        </div>
-        <!-- Question Post Share Like And More  END-->
-
-      </div>
-      <!-- Question Post Div END -->
-
-
     </div>
+    <!-- Question Header Post Div  END-->
+
+    <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
 
 
 
 
 
+      <div class="postScroll">
+
+        <!-- Question Post Div -->
+        <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList">
+          <!-- Question Post Info Header Div -->
+          <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex>
+              <div class="leftSide">
+                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                  <div fxFlex="60px">
+                    <img class="postuserImg" src="assets/images/icons/user.png" alt="">
+                  </div>
+                  <div class="mt-10" fxFlex>
+                    <p class="postusername"> {{Post.UserName}} </p>
+                    <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
+                    <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="35%">
+              <div class="rightSide">
+                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                  <div class="text-right" fxFill>
+                    <p class="postaction"> ... </p>
+                    <p class="postdate"> {{Post.PostDate | date }} </p>
+                    <p class="posttopic"> {{Post.PostTopicName}} </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Question Post Info Header Div End -->
+          <hr class="m-5">
+          <!-- Question Post -->
+          <div class="postmain" fxLayout="row">
+            <div fxFlex class="text-left">
+              <h5 class="postquestion"> {{Post.PostText}} </h5>
+
+              <div class="postAnswer">
+                <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                  <div fxFlex>
+                    <div class="leftSide">
+                      <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex="45px">
+                          <img class="postansuserImg" src="assets/images/icons/user.png" alt="">
+                        </div>
+                        <div fxFlex>
+                          <p class="postansusername"> User Name </p>
+                          <p class="postansfollowes"> 20 followers </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="35%">
+                    <div class="rightSide">
+                      <div class="" fxLayout="row" fxLayoutAlign="end center">
+                        <div fxFlex>
+                        </div>
+                        <div class="text-right mr-5" fxFlex="150px">
+                          <p class="postansaction"> ... </p>
+                          <p class="postansdate"> 2 Months Ago </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="m-0" style="border-color: #77778729;">
+                <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                  <div fxFlex>
+                    <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions that can be programmed
+                      to record not just financial transactions but virtually everything of value.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="postAnswer">
+                <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                  <div fxFlex>
+                    <div class="leftSide">
+                      <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex="45px">
+                          <img class="postansuserImg" src="assets/images/icons/user.png" alt="">
+                        </div>
+                        <div fxFlex>
+                          <p class="postansusername"> User Name </p>
+                          <p class="postansfollowes"> 20 followers </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="35%">
+                    <div class="rightSide">
+                      <div class="" fxLayout="row" fxLayoutAlign="end center">
+                        <div fxFlex>
+                        </div>
+                        <div class="text-right mr-5" fxFlex="150px">
+                          <p class="postansaction"> ... </p>
+                          <p class="postansdate"> 2 Months Ago </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="m-0" style="border-color: #77778729;">
+                <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                  <div fxFlex>
+                    <p class="postAnsText"> &emsp; The blockchain is an incorruptible digital ledger of economic transactions that can be programmed
+                      to record not just financial transactions but virtually everything of value.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-right">
+                <p class="viewAll">View All...</p>
+              </div>
+            </div>
+          </div>
+          <!-- Question Post END -->
+          <hr class="m-5">
+          <!-- Question Post Share Like And More -->
+          <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex class="text-left">
+              <div class="like">
+                <img src="assets/images/icons/like.png" alt="">
+                <p class="count"> 300 </p>
+              </div>
+            </div>
+            <div fxFlex class="text-center">
+              <div class="chat" (click)="clicked = !clicked">
+                <img src="assets/images/icons/comment.png" alt="">
+                <p class="count"> 200 </p>
+              </div>
+            </div>
+            <div fxFlex class="text-right">
+              <div class="share">
+                <img src="assets/images/icons/share.png" alt="">
+                <p class="count"> 100 </p>
+              </div>
+            </div>
+          </div>
+          <!-- Question Post Share Like And More  END-->
+          <hr class="m-5">
+          <!-- Question Post Share Like And More -->
+          <div *ngIf="clicked" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="60px" class="text-left">
+              <div class="chatUserImg text-center">
+                <img src="assets/images/icons/user.png" alt=""> </div>
+            </div>
+            <div fxFlex class="text-center">
+              <div class="chatInput">
+                <input type="text" placeholder="Post Your Answer..."> </div>
+            </div>
+            <div fxFlex="70px" class="text-right">
+              <div class="chatsend text-center">
+                <i class="material-icons">send</i>
+              </div>
+            </div>
+          </div>
+          <!-- Question Post Share Like And More  END-->
+
+        </div>
+        <!-- Question Post Div END -->
 
 
 
+      </div>
 
 
-  </p-scrollPanel>
+    </p-scrollPanel>
+
+  </div>
 </div>

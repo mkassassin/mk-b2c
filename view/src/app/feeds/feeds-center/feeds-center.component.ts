@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedsCenterComponent implements OnInit {
 
+  ActiveIndex:Number;
     scrollHeight;
     screenHeight:number;
     anotherHeight:number;
@@ -23,6 +24,7 @@ export class FeedsCenterComponent implements OnInit {
 
   onTabChange(event) {
     console.log(event);
+    this.ActiveIndex = event.index;
   }
 
 }

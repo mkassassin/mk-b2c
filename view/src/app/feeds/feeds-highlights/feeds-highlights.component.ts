@@ -18,6 +18,7 @@ export class FeedsHighlightsComponent implements OnInit {
   anotherHeight:number;
   UserInfo;
   PostsList:any;
+  TimeOut:boolean = true;
 
   constructor(
     private Service: PostServiceService,
@@ -25,19 +26,23 @@ export class FeedsHighlightsComponent implements OnInit {
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
 
-                    this.Service.GetPostList(this.UserInfo.data._id, '0')
+                    this.Service.GetHighlightsList(this.UserInfo.data._id, '0')
                     .subscribe( datas => {  
                         if(datas['status'] == "True"){
-                          this.PostsList = datas['data'];
-                          console.log(datas);
+                          this.PostsList = datas['data']
                         }else{
                           console.log(datas);
                         }
                       });
+                    this.TimeOutFuction();
    }
 
   // material dialog 
   PostOneDialogRef: MatDialogRef<PostOneComponent>;
+
+  TimeOutFuction(){
+    setTimeout(()=>{ this.TimeOut = false; },8000);
+  }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 165;
@@ -45,15 +50,17 @@ export class FeedsHighlightsComponent implements OnInit {
   }
 
   OpenModel() {
-    let PostOneDialogRef = this.dialog.open(PostOneComponent, { minWidth:'50%', position: {top: '50px'},  data: { Header:'Highlight Post One Form', type:'Creat Form' } });
+    let PostOneDialogRef = this.dialog.open(PostOneComponent, {disableClose:true, minWidth:'50%', position: {top: '50px'},  data: { Header:'Highlight Post One Form', type:'Creat Form' } });
     PostOneDialogRef.afterClosed().subscribe(result => this.postSubmit(result));
   }
 
   postSubmit(result){
+    console.log(result);
     if(result === "Close"){
-      alert('Post Not Submit Properly;');
+      console.log('Post Not Submit Properly');
     }else{
-
+      this.PostsList.splice(0 , 0, result);
     }
   }
+  
 }
