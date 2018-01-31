@@ -6,7 +6,9 @@
         </p-tabPanel>
 
         <p-tabPanel header="Questions">
-            <app-feeds-questions></app-feeds-questions>
+            <div *ngIf="ActiveIndex == '1'">
+                 <app-feeds-questions></app-feeds-questions>
+            </div>
         </p-tabPanel>
 
         <p-tabPanel header="Trends">

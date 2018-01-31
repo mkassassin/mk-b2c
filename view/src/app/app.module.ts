@@ -19,7 +19,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AutoCompleteModule} from 'primeng/autocomplete';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
-
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
@@ -49,6 +49,8 @@ import { DataSharedVarServiceService } from './service/data-shared-var-service/d
 import { PostThreeComponent } from './popups/post-three/post-three.component';
 import { FollowServiceService } from './service/follow-service/follow-service.service';
 import { PostServiceService } from './service/post-service/post-service.service';
+import { ImagePreviewDirective } from './directives/image-preview.directive';
+import { VideoPreviewDirective } from './directives/video-preview.directive';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import { PostServiceService } from './service/post-service/post-service.service'
     ProfileFollowersComponent,
     ProfileFollowingComponent,
     ProfileSettingsComponent,
-    PostThreeComponent
+    PostThreeComponent,
+    ImagePreviewDirective,
+    VideoPreviewDirective
   ],
   imports: [
     CommonModule,
@@ -94,7 +98,8 @@ import { PostServiceService } from './service/post-service/post-service.service'
     MatDialogModule,
     MatButtonModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    FileUploadModule
   ],
   providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService],
   bootstrap: [AppComponent],

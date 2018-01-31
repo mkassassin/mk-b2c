@@ -11,4 +11,6 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/UserValidate/:email/:password', user.UserValidate);
 
+    app.post('/API/SigninSignup/UserValidate', user.MobileUserValidate);
+
 }

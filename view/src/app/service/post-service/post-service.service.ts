@@ -24,8 +24,21 @@ export class PostServiceService {
         .catch(this.handleError);
     }
 
-    public GetPostList(UserId: any, Limit:any): Observable<any[]> {
+    public GetHighlightsList(UserId: any, Limit:any): Observable<any[]> {
         return this.http .get(API_URL + 'HighlightsPost/GetPostList/'+ UserId + "/"+ Limit)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+
+    public QuestionsSubmit(data: any) {
+        return this.http .post(API_URL + 'QuestionsPost/Submit' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public GetQuestionsList(UserId: any, Limit:any): Observable<any[]> {
+        return this.http .get(API_URL + 'QuestionsPost/GetPostList/'+ UserId + "/"+ Limit)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }

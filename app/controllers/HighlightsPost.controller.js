@@ -43,7 +43,37 @@ exports.Submit = function(req, res) {
             res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Post."});
             
         } else {
-            res.send({status:"True", data: result });
+            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                if(err) {
+                    res.send({status:"Fale", Error:err });
+                } else {
+                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
+                        if(newerr){
+                            res.send({status:"Fale", Error:newerr });
+                        }else{
+                            var newArray = [];
+                            newArray.push( {
+                                            _id: UserData._id,
+                                            UserName: UserData.UserName,
+                                            UserCategoryId: UserData.UserCategoryId,
+                                            UserCategoryName: UserData.UserCategoryName,
+                                            UserImage: UserData.UserImage,
+                                            UserCompany: UserData.UserCompany,
+                                            UserProfession: UserData.UserProfession,
+                                            Followers:count,
+                                            PostType: result.PostType,
+                                            PostDate: result.PostDate,
+                                            PostText: result.PostText ,
+                                            PostLink: result.PostLink,
+                                            PostImage: result.PostImage,
+                                            PostVideo: result.PostVideo
+                                        }
+                            );
+                            res.send({status:"True", data: newArray[0] });
+                        }
+                    });
+                 }
+            });
         }
     });
 };
@@ -53,7 +83,6 @@ exports.Submit = function(req, res) {
 exports.GetPostList = function(req, res) {
     var SkipCoun = 0;
     SkipCoun = parseInt(req.params.Limit) * 10;
-    console.log(SkipCoun);
     HighlightsPostModel.HighlightsPostType.find({}, {} , {sort:{createdAt : -1}, skip: SkipCoun, limit: 10  }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});

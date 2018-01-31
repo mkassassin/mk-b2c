@@ -44,8 +44,7 @@ exports.Register = function(req, res) {
      
     varUserType.save(function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while creating the Account."});
-            
+            res.status(500).send({status:"False", message: "Some error occurred while creating the Account."});            
         } else {
             res.send({status:"True", data: result });
         }
@@ -90,6 +89,32 @@ exports.UserValidate = function(req, res) {
         } else {
             if(data === null){
                 UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, result) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while Validate The E-mail."});
+                    } else {
+                        if(result !== null){
+                            res.send({ status:"False", message: " Email and Password Not Match! " });
+                        }else{
+                            res.send({ status:"False", message: " Invalid Username and Password  " });
+                        } 
+                    }
+                });
+            }else{
+                res.send({ status:"True", message: "Sign In Successfully", data:data });
+            } 
+        }
+    });
+};
+
+
+
+exports.MobileUserValidate= function(req, res) {
+    UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase(), 'UserPassword': req.body.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null){
+                UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase()}, function(err, result) {
                     if(err) {
                         res.status(500).send({status:"False", message: "Some error occurred while Validate The E-mail."});
                     } else {
