@@ -5,10 +5,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-const API_URL = 'http://localhost:3000/API/LikeAndRating/';
+const API_URL = 'http://localhost:3000/API/CommentAndAnswer/';
+
 
 @Injectable()
-export class LikeAndRatingServiceService {
+export class CommentAndAnswerService {
 
 
   constructor( private http: Http) {  }
@@ -18,23 +19,22 @@ export class LikeAndRatingServiceService {
         return Observable.throw(error);
     }
 
-    public HighlightsLikeAdd(data: any) {
-        return this.http .post(API_URL + 'HighlightsLikeAdd' , data)
+    public HighlightsCommentAdd(data: any) {
+        return this.http .post(API_URL + 'HighlightsCommentAdd' , data)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
 
-    public HighlightsUnLike(LikeId: any): Observable<any[]> {
-        return this.http.get(API_URL + 'HighlightsUnLike/' + LikeId )
+    public GetHighlightsComments(PostId: any):Observable<any> {
+        return this.http .get(API_URL + 'GetHighlightsComments/' + PostId)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
-
-    public QuestionsRatingAdd(data: any) {
-        return this.http .post(API_URL + 'QuestionsRatingAdd' , data)
+    
+    public QuestionsAnwerAdd(data: any) {
+        return this.http .post(API_URL + 'QuestionsAnwerAdd' , data)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
-
 
 }

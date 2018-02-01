@@ -28,9 +28,19 @@ exports.HighlightsLikeAdd = function(req, res) {
         if(err) {
             res.status(500).send({status:"False", Error: err,  message: "Some error occurred while Find Following Users ."});
         } else {
-            console.log(result);
             if(result.length > 0){
-                res.send({status:"True", message:'Post Already Liked', data: result });
+                if(result[0].ActiveStates == 'InActive'){
+                    result[0].ActiveStates = 'Active';
+                    result[0].save(function (newerr, newresult) {
+                        if (newerr){
+                            res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UnLike ."});
+                        }else{
+                            res.send({status:"True", data: newresult });
+                        }
+                    });
+                }else{
+                    res.send({status:"True", message:'Post Already Liked', data: result });
+                }
             }else{
                 varHighlightsLike.save(function(newerr, newresult) {
                     if(newerr) {
@@ -45,6 +55,29 @@ exports.HighlightsLikeAdd = function(req, res) {
     });
 
      
+};
+
+
+exports.HighlightsUnLike = function(req, res) {
+    if(!req.params.LikeId) {
+        res.status(400).send({status:"False", message: " LikeId can not be Empty! "});
+    }
+
+    Model.HighlightsLike.findById(req.params.LikeId, function (err, result) {
+        if(err){ 
+            res.status(500).send({status:"False", Error: err,  message: "Some error occurred while  UnLike ."});
+        }else{
+            result.ActiveStates = 'InActive';
+            result.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UnLike ."});
+                }else{
+                    res.send({status:"True", data: newresult });
+                }
+            });
+        }   
+    });  
+
 };
 
 
@@ -75,19 +108,19 @@ exports.QuestionsRatingAdd = function(req, res) {
             ActiveStates: 'Active'
     });
 
-    Model.QuestionsRating.find({'UserId': req.params.UserId , 'PostId': req.params.UserId, 'PostUserId': req.body.PostUserId }, function(err, result) {
+    Model.QuestionsRating.find({'UserId': req.body.UserId , 'PostId': req.body.UserId, 'PostUserId': req.body.PostUserId }, function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while Find Following Users ."});
         } else {
             if(result.length > 0){
                 res.send({status:"True", message:'Post Already Rated', data: result });
             }else{
-                varQuestionsRating.save(function(err, result) {
-                    if(err) {
-                        res.status(500).send({status:"False", Error: err, message: "Some error occurred while Like the Post."});
+                varQuestionsRating.save(function(newerr, newresult) {
+                    if(newerr) {
+                        res.status(500).send({status:"False", Error: err, message: "Some error occurred while Rate the Post."});
                         
                     } else {
-                        res.send({status:"True", data: result });
+                        res.send({status:"True", data: newresult });
                     }
                 });
             }

@@ -60,6 +60,7 @@ require('./app/routes/FileUpload.routes.js')(app);
 
 require('./app/routes//LikeAndRating.routes.js')(app);
 
+require('./app/routes/CommentAndAnswer.rouetes.js')(app);
 
 app.listen(3000, function(){
     console.log("Server is listening on port 3000");

@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostServiceService } from "./../../service/post-service/post-service.service";
 import { LikeAndRatingServiceService } from "./../../service/like-and-rating-service.service";
-
+import { CommentAndAnswerService } from "./../../service/comment-and-answer-service/comment-and-answer.service";
 
 @Component({
   selector: 'app-feeds-highlights',
@@ -21,10 +21,12 @@ export class FeedsHighlightsComponent implements OnInit {
   UserInfo;
   PostsList:any;
   TimeOut:boolean = true;
+  ActiveComment;
 
   constructor(
     private Service: PostServiceService,
     private LikeService: LikeAndRatingServiceService,
+    private commentservice :CommentAndAnswerService,
     public dialog: MatDialog
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
@@ -73,21 +75,57 @@ export class FeedsHighlightsComponent implements OnInit {
                 'PostUserId':  this.PostsList[index].UserId,
                 'Date':  new Date(),
               }
-    this.LikeService.HighlightsLikeAdd(data)
-                    .subscribe( datas => {  
-                        if(datas['status'] == "True" && !datas['message']){
-                          this.PostsList[index].UserLiked = true;
-                          this.PostsList[index].LikesCount = this.PostsList[index].LikesCount + 1;
-                        }else{
-                          console.log(datas);
-                        }
-                      });
-
-    
+    this.LikeService.HighlightsLikeAdd(data).subscribe( datas => {  
+          if(datas['status'] == "True" && !datas['message']){
+            console.log(datas['data']._id);
+            this.PostsList[index].UserLiked = true;
+            this.PostsList[index].UserLikeId = datas['data']._id;
+            this.PostsList[index].LikesCount = this.PostsList[index].LikesCount + 1;
+          }else{
+            console.log(datas);
+          }
+        });
   }
+
+
   RemoveLike(index){
-    this.PostsList[index].UserLiked = false;
-    this.PostsList[index].LikesCount = this.PostsList[index].LikesCount - 1;
+    this.LikeService.HighlightsUnLike(this.PostsList[index].UserLikeId).subscribe( datas => {  
+          if(datas['status'] == "True" && !datas['message']){
+            this.PostsList[index].UserLiked = false;
+            this.PostsList[index].LikesCount = this.PostsList[index].LikesCount - 1;
+          }else{
+            console.log(datas);
+          }
+      });
+  }
+
+
+  ChangeActiveComment(index){
+    if(this.ActiveComment == index){
+      this.ActiveComment = '';
+    }else{
+      this.ActiveComment = index;
+    }
+  }
+
+
+  SubmitComment(comment, index){
+
+    let data = {'UserId': this.UserInfo.data._id, 
+              'PostId': this.PostsList[index]._id,
+              'PostUserId':  this.PostsList[index].UserId,
+              'CommentText': comment,
+              'Date':  new Date(),
+            }
+          this.commentservice.HighlightsCommentAdd(data).subscribe( datas => {  
+            if(datas['status'] == "True" && !datas['message']){
+                this.ActiveComment = index;
+                this.PostsList[index].comments.splice(0, 0, datas['data']);
+                this.commentservice.GetHighlightsComments(this.PostsList[index]._id).subscribe( newDatas => console.log(newDatas));
+            }else{
+                console.log(datas);
+            }
+          });
   }
   
 }

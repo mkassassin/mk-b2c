@@ -1,6 +1,7 @@
 var HighlightsPostModel = require('../models/HighlightsPost.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var FollowModel = require('../models/Follow.model.js');
+var LikeAndRating = require('../models/LikeAndRating.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -53,20 +54,25 @@ exports.Submit = function(req, res) {
                         }else{
                             var newArray = [];
                             newArray.push( {
-                                            _id: UserData._id,
+                                            _id: result._id,
+                                            UserId: UserData._id,
                                             UserName: UserData.UserName,
                                             UserCategoryId: UserData.UserCategoryId,
                                             UserCategoryName: UserData.UserCategoryName,
                                             UserImage: UserData.UserImage,
                                             UserCompany: UserData.UserCompany,
                                             UserProfession: UserData.UserProfession,
-                                            Followers:count,
+                                            Followers: count,
                                             PostType: result.PostType,
                                             PostDate: result.PostDate,
                                             PostText: result.PostText ,
                                             PostLink: result.PostLink,
                                             PostImage: result.PostImage,
-                                            PostVideo: result.PostVideo
+                                            PostVideo: result.PostVideo,
+                                            LikesCount: 0,
+                                            UserLiked: false,
+                                            UserLikeId: '',
+                                            comments: []
                                         }
                             );
                             res.send({status:"True", data: newArray[0] });
@@ -110,29 +116,54 @@ exports.GetPostList = function(req, res) {
                                             res.send({status:"Fale", Error:newerr });
                                             reject(err);
                                         }else{
-                                            var newArray = [];
-                                            newArray.push( {
-                                                            UserId: UserData._id,
-                                                            UserName: UserData.UserName,
-                                                            UserCategoryId: UserData.UserCategoryId,
-                                                            UserCategoryName: UserData.UserCategoryName,
-                                                            UserImage: UserData.UserImage,
-                                                            UserCompany: UserData.UserCompany,
-                                                            UserProfession: UserData.UserProfession,
-                                                            Followers:count,
-                                                            _id: info._id,
-                                                            PostType: info.PostType,
-                                                            PostDate: info.PostDate,
-                                                            PostText: info.PostText ,
-                                                            PostLink: info.PostLink,
-                                                            PostImage: info.PostImage,
-                                                            PostVideo: info.PostVideo,
-                                                            LikesCount: 123,
-                                                            UserLiked: false,
+                                            LikeAndRating.HighlightsLike.count({'PostId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                if(NewErr){
+                                                    res.send({status:"Fale", Error:NewErr });
+                                                    reject(err);
+                                                }else{
+                                                    LikeAndRating.HighlightsLike.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': UserData._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                        if(someerr){
+                                                            res.send({status:"Fale", Error:someerr });
+                                                            reject(err);
+                                                        }else{
+        
+                                                            if(newResult.length > 0){
+                                                                var UserLiked = true;
+                                                                var UserLikedId = newResult[0]._id;
+                                                            }else{
+                                                                var UserLiked = false;
+                                                                var UserLikedId = '';
+                                                            }
+                                                            var newArray = [];
+                                                            newArray.push( {
+                                                                            UserId: UserData._id,
+                                                                            UserName: UserData.UserName,
+                                                                            UserCategoryId: UserData.UserCategoryId,
+                                                                            UserCategoryName: UserData.UserCategoryName,
+                                                                            UserImage: UserData.UserImage,
+                                                                            UserCompany: UserData.UserCompany,
+                                                                            UserProfession: UserData.UserProfession,
+                                                                            Followers:count,
+                                                                            _id: info._id,
+                                                                            PostType: info.PostType,
+                                                                            PostDate: info.PostDate,
+                                                                            PostText: info.PostText ,
+                                                                            PostLink: info.PostLink,
+                                                                            PostImage: info.PostImage,
+                                                                            PostVideo: info.PostVideo,
+                                                                            LikesCount: NewCount,
+                                                                            UserLiked: UserLiked,
+                                                                            UserLikeId: UserLikedId,
+                                                                            comments: []
+                                                                        }
+                                                            );
+                                                            PostsArray.push(newArray[0]);
+                                                            resolve(UserData);
                                                         }
-                                            );
-                                            PostsArray.push(newArray[0]);
-                                            resolve(UserData);
+                                                    });
+                                                }
+                                            });
+ 
                                         }
                                     });
                                 }else{

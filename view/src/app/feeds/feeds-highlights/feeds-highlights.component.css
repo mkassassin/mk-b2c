@@ -178,6 +178,7 @@
     font-size: 32px;
     color: #333333;
     transform: rotate(-35deg);
+    cursor: pointer;
 }
 
 
