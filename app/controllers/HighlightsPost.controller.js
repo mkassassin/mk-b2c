@@ -112,7 +112,7 @@ exports.GetPostList = function(req, res) {
                                         }else{
                                             var newArray = [];
                                             newArray.push( {
-                                                            _id: UserData._id,
+                                                            UserId: UserData._id,
                                                             UserName: UserData.UserName,
                                                             UserCategoryId: UserData.UserCategoryId,
                                                             UserCategoryName: UserData.UserCategoryName,
@@ -120,12 +120,15 @@ exports.GetPostList = function(req, res) {
                                                             UserCompany: UserData.UserCompany,
                                                             UserProfession: UserData.UserProfession,
                                                             Followers:count,
+                                                            _id: info._id,
                                                             PostType: info.PostType,
                                                             PostDate: info.PostDate,
                                                             PostText: info.PostText ,
                                                             PostLink: info.PostLink,
                                                             PostImage: info.PostImage,
-                                                            PostVideo: info.PostVideo
+                                                            PostVideo: info.PostVideo,
+                                                            LikesCount: 123,
+                                                            UserLiked: false,
                                                         }
                                             );
                                             PostsArray.push(newArray[0]);

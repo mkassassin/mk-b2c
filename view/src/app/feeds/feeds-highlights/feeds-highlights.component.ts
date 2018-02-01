@@ -4,6 +4,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostServiceService } from "./../../service/post-service/post-service.service";
+import { LikeAndRatingServiceService } from "./../../service/like-and-rating-service.service";
+
 
 @Component({
   selector: 'app-feeds-highlights',
@@ -22,6 +24,7 @@ export class FeedsHighlightsComponent implements OnInit {
 
   constructor(
     private Service: PostServiceService,
+    private LikeService: LikeAndRatingServiceService,
     public dialog: MatDialog
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
@@ -61,6 +64,30 @@ export class FeedsHighlightsComponent implements OnInit {
     }else{
       this.PostsList.splice(0 , 0, result);
     }
+  }
+
+
+  AddLike(index){
+    let data = {'UserId': this.UserInfo.data._id, 
+                'PostId': this.PostsList[index]._id,
+                'PostUserId':  this.PostsList[index].UserId,
+                'Date':  new Date(),
+              }
+    this.LikeService.HighlightsLikeAdd(data)
+                    .subscribe( datas => {  
+                        if(datas['status'] == "True" && !datas['message']){
+                          this.PostsList[index].UserLiked = true;
+                          this.PostsList[index].LikesCount = this.PostsList[index].LikesCount + 1;
+                        }else{
+                          console.log(datas);
+                        }
+                      });
+
+    
+  }
+  RemoveLike(index){
+    this.PostsList[index].UserLiked = false;
+    this.PostsList[index].LikesCount = this.PostsList[index].LikesCount - 1;
   }
   
 }

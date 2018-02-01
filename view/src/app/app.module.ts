@@ -51,6 +51,7 @@ import { FollowServiceService } from './service/follow-service/follow-service.se
 import { PostServiceService } from './service/post-service/post-service.service';
 import { ImagePreviewDirective } from './directives/image-preview.directive';
 import { VideoPreviewDirective } from './directives/video-preview.directive';
+import { LikeAndRatingServiceService } from './service/like-and-rating-service.service';
 
 
 @NgModule({
@@ -101,7 +102,7 @@ import { VideoPreviewDirective } from './directives/video-preview.directive';
     MatExpansionModule,
     FileUploadModule
   ],
-  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService],
+  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService],
   bootstrap: [AppComponent],
   entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
 })

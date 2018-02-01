@@ -1,6 +1,7 @@
 var QuestionsPostModel = require('../models/QuestionsPost.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var FollowModel = require('../models/Follow.model.js');
+var NotificationModel = require('../models/Notificatio.model.js');
 
 var usersProjection = { 
     __v: false,

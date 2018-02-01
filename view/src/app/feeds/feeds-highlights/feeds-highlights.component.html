@@ -30,7 +30,7 @@
 
       <div class="postScroll">
         <!-- Highlights Post Div -->
-        <div *ngFor="let Post of PostsList" class="HighlightsPost mt-15 ">
+        <div *ngFor="let Post of PostsList; let i=index" class="HighlightsPost mt-15 ">
           <!-- Highlights Post Info Header Div -->
           <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex>
@@ -73,8 +73,9 @@
           <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex class="text-left">
               <div class="like">
-                <img src="assets/images/icons/like.png" alt="">
-                <p class="count"> 300 </p>
+                <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="assets/images/icons/like.png" alt="">
+                <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="assets/images/icons/liked.png" alt="">
+                <p class="count"> {{Post.LikesCount}} <small *ngIf="Post.UserLiked" > <small> (You Also) </small> </small> </p>
               </div>
             </div>
             <div fxFlex class="text-center">
