@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-const API_URL = 'http://localhost:3000/API/Trends/';
+const API_URL = 'http://139.59.20.129:80/API/Trends/';
 
 @Injectable()
 export class TrendsService {

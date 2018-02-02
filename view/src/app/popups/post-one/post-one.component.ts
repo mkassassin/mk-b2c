@@ -6,9 +6,9 @@ import { PostServiceService } from "./../../service/post-service/post-service.se
 import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
 
-const uriImage = 'http://localhost:3000/API/FileUpload/UploadImage';
+const uriImage = 'http://139.59.20.129:80/API/FileUpload/UploadImage';
 
-const uriVideo = 'http://localhost:3000/API/FileUpload/UploadVideo';
+const uriVideo = 'http://139.59.20.129:80/API/FileUpload/UploadVideo';
 
 @Component({
   selector: 'app-post-one',
