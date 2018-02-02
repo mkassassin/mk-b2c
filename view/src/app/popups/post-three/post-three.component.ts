@@ -8,16 +8,22 @@ import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 })
 export class PostThreeComponent implements OnInit {
 
+  PostText;
+
   constructor(
     private dialogRef: MatDialogRef<PostThreeComponent>,
-    @Inject(MAT_DIALOG_DATA) private data:any ) { }
+    @Inject(MAT_DIALOG_DATA) private data:any ) {
+      
+     }
 
   ngOnInit() {
-    console.log(this.data);
+    
   }
 
   close() {
-    this.dialogRef.close(this.data);
+    this.dialogRef.close('Close');
   }
-
+  Submit(){
+    this.dialogRef.close({'PostText':this.PostText});
+  }
 }

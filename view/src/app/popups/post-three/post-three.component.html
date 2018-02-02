@@ -17,14 +17,14 @@
   
     <mat-dialog-content class="postbody">
       <div class="pt-10 pb-10">
-      <textarea class="posttext" placeholder="Write a Impression ..."></textarea>
+      <textarea [(ngModel)]="PostText" class="posttext" placeholder="Write a Impression ..."></textarea>
 
 
       <div fxLayout fxLayoutAlign="space-between">
         <div fxFlex="85%">
         </div>
         <div fxFlex="15%" style="line-height:75px;">
-            <button type="button" mat-raised-button (click)="close()" color="primary"> Post </button>
+            <button type="button" mat-raised-button (click)="Submit()" color="primary"> Post </button>
         </div>
       </div>
   

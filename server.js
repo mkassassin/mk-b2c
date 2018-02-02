@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 const path = require('path');
+const axios = require("axios");
 
 var dbConfig = require('./app/config/database.config.js');
 var mongoose = require('mongoose');
@@ -60,7 +61,10 @@ require('./app/routes/FileUpload.routes.js')(app);
 
 require('./app/routes//LikeAndRating.routes.js')(app);
 
-require('./app/routes/CommentAndAnswer.rouetes.js')(app);
+require('./app/routes/CommentAndAnswer.routes.js')(app);
+
+require('./app/routes/Trends.routes.js')(app);
+
 
 app.listen(3000, function(){
     console.log("Server is listening on port 3000");

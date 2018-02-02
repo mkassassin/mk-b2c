@@ -53,6 +53,7 @@ import { ImagePreviewDirective } from './directives/image-preview.directive';
 import { VideoPreviewDirective } from './directives/video-preview.directive';
 import { LikeAndRatingServiceService } from './service/like-and-rating-service.service';
 import { CommentAndAnswerService } from './service/comment-and-answer-service/comment-and-answer.service';
+import { TrendsService } from './service/trends-service/trends.service';
 
 
 @NgModule({
@@ -103,7 +104,7 @@ import { CommentAndAnswerService } from './service/comment-and-answer-service/co
     MatExpansionModule,
     FileUploadModule
   ],
-  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService],
+  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService, TrendsService],
   bootstrap: [AppComponent],
   entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
 })

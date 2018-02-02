@@ -3,114 +3,29 @@
       <div fxFlex="30%">
         <p-scrollPanel  [style]="{width: '100%', height: scrollHeight }" styleClass="customscroll_1">
 
-            <div class="coinlistitem selected" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin1.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin2.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
+            <div *ngIf="CoinListLoader" class="col-sm-12" >
+                <div style="height:300px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
+
+            <div *ngFor="let item of ListOfCoins; let i=index" (click)="ChangeActiveCoin(i)" [ngClass]="{'selected': ActiveCoin == i}" class="coinlistitem " fxLayout="row" fxLayoutAlign="start center">
                 <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin3.png" alt="">
+                    <img class="coinlistImg" src="https://www.cryptocompare.com{{item.ImageUrl}}" alt="">
                 </div>
                 <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
+                    <p class="coinlistname">{{item.FullName}} </p>
+                    <p class="coinlistamt"> $ {{item.Rate}} </p>
                 </div>
             </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin4.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin5.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin6.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin1.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin2.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin3.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin4.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin5.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
-            <div class="coinlistitem" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="45px">
-                    <img class="coinlistImg" src="assets/images/coins/coin6.png" alt="">
-                </div>
-                <div class="mt-10" fxFlex>
-                    <p class="coinlistname"> Currency Name </p>
-                    <p class="coinlistamt"> $ 100000 </p>
-                </div>
-            </div>
+
+            <br>
 
         </p-scrollPanel>
     </div>
@@ -132,9 +47,23 @@
                         </div>
 
                         <p-scrollPanel style="width:100%;"  [style]="{width: '100%', height: impresionsHeight }" styleClass="customscroll_1">
-                            <div class="impressionPost">
+
+                            <div *ngIf="ImpressionsListLoader" class="col-sm-12" >
+                                <div style="height:300px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                                    <div fxFlex>
+                                        <div class="preloader-orbit-loading">
+                                            <div class="cssload-inner cssload-one"></div>
+                                            <div class="cssload-inner cssload-two"></div>
+                                            <div class="cssload-inner cssload-three"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div *ngFor="let item of ListOfImpressions; let i=index" class="impressionPost">
                                 <div class="impressionbody">
-                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
+                                    <p class="impressiontext"> {{item.PostText}} </p>
                                 </div>
                                 <hr class="m-0">
                                 <div class="impressioninfo">
@@ -143,11 +72,11 @@
                                                     <div class="leftSide">
                                                         <div class="" fxLayout="row" fxLayoutAlign="start center">
                                                             <div fxFlex="45px">
-                                                                <img class="postuserImg" src="assets/images/icons/user.png" alt="">
+                                                                <img class="postuserImg" src="assets/images/users/{{item.UserImage}}" alt="">
                                                             </div>
                                                             <div class="mt-10" fxFlex>
-                                                                <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
-                                                                <p class="postuserfollowers"> 20 Followers </p>
+                                                                <p class="postusercategory"> <span class="postusername"> {{item.UserName}},  </span> {{item.UserCategoryName}}  &nbsp; | &nbsp; {{item.UserProfession | slice:0:15 }}{{ item.UserProfession?.length > 15 ? '...' : ' ' }} </p>
+                                                                <p class="postuserfollowers"> {{item.Followers}} Followers </p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -157,7 +86,7 @@
                                                         <div class="" fxLayout="row" fxLayoutAlign="end center">
                                                             <div class="text-right" fxFlex>
                                                                 <p class="postaction"> ... </p>
-                                                                <p class="postdate"> 2 Months Ago </p>
+                                                                <p class="postdate"> {{item.PostDate}} </p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -165,105 +94,8 @@
                                             </div>
                                 </div>
                             </div>
-                            <div class="impressionPost">
-                                <div class="impressionbody">
-                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
-                                </div>
-                                <hr class="m-0">
-                                <div class="impressioninfo">
-                                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                                        <div fxFlex>
-                                            <div class="leftSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                                                    <div fxFlex="45px">
-                                                        <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                                                    </div>
-                                                    <div class="mt-10" fxFlex>
-                                                        <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
-                                                        <p class="postuserfollowers"> 20 Followers </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div fxFlex="25%">
-                                            <div class="rightSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
-                                                    <div class="text-right" fxFlex>
-                                                        <p class="postaction"> ... </p>
-                                                        <p class="postdate"> 2 Months Ago </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="impressionPost">
-                                <div class="impressionbody">
-                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
-                                </div>
-                                <hr class="m-0">
-                                <div class="impressioninfo">
-                                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                                        <div fxFlex>
-                                            <div class="leftSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                                                    <div fxFlex="45px">
-                                                        <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                                                    </div>
-                                                    <div class="mt-10" fxFlex>
-                                                        <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
-                                                        <p class="postuserfollowers"> 20 Followers </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div fxFlex="25%">
-                                            <div class="rightSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
-                                                    <div class="text-right" fxFlex>
-                                                        <p class="postaction"> ... </p>
-                                                        <p class="postdate"> 2 Months Ago </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="impressionPost">
-                                <div class="impressionbody">
-                                    <p class="impressiontext"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. qui eaque ducimus quis sequi error iusto ut.!</p>
-                                </div>
-                                <hr class="m-0">
-                                <div class="impressioninfo">
-                                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                                        <div fxFlex>
-                                            <div class="leftSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                                                    <div fxFlex="45px">
-                                                        <img class="postuserImg" src="assets/images/icons/user.png" alt="">
-                                                    </div>
-                                                    <div class="mt-10" fxFlex>
-                                                        <p class="postusercategory"> <span class="postusername"> User Name,  </span> Invester &nbsp; | &nbsp; Software De... </p>
-                                                        <p class="postuserfollowers"> 20 Followers </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div fxFlex="25%">
-                                            <div class="rightSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
-                                                    <div class="text-right" fxFlex>
-                                                        <p class="postaction"> ... </p>
-                                                        <p class="postdate"> 2 Months Ago </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
                         </p-scrollPanel>
                     </div>
                         
