@@ -22,6 +22,8 @@ export class FeedsHighlightsComponent implements OnInit {
   PostsList:any;
   TimeOut:boolean = true;
   ActiveComment;
+  LoadingActiveComment;
+  PostsListLoder:boolean = true;
 
   constructor(
     private Service: PostServiceService,
@@ -34,20 +36,16 @@ export class FeedsHighlightsComponent implements OnInit {
                     this.Service.GetHighlightsList(this.UserInfo.data._id, '0')
                     .subscribe( datas => {  
                         if(datas['status'] == "True"){
-                          this.PostsList = datas['data']
+                          this.PostsList = datas['data'];
+                          this.PostsListLoder = false;
                         }else{
                           console.log(datas);
                         }
                       });
-                    this.TimeOutFuction();
    }
 
   // material dialog 
   PostOneDialogRef: MatDialogRef<PostOneComponent>;
-
-  TimeOutFuction(){
-    setTimeout(()=>{ this.TimeOut = false; },8000);
-  }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 165;
@@ -100,11 +98,24 @@ export class FeedsHighlightsComponent implements OnInit {
   }
 
 
-  ChangeActiveComment(index){
-    if(this.ActiveComment == index){
-      this.ActiveComment = '';
+  ChangeActiveComment(index:string){
+    if(this.ActiveComment == index || this.LoadingActiveComment == index){
+      this.ActiveComment = -1;
+      this.LoadingActiveComment = -1;
     }else{
       this.ActiveComment = index;
+      this.LoadingActiveComment = index;
+      this.PostsList[index].comments = [];
+      this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
+      .subscribe( newDatas => {
+        this.LoadingActiveComment = -1;
+        if(newDatas['status'] == "True"){
+          console.log(newDatas['data']);
+          this.PostsList[index].comments = newDatas['data'];
+        }else{
+          console.log(newDatas);
+        }
+      });
     }
   }
 
@@ -117,11 +128,24 @@ export class FeedsHighlightsComponent implements OnInit {
               'CommentText': comment,
               'Date':  new Date(),
             }
+            this.LoadingActiveComment = index;
+            this.ActiveComment = index;
+            this.PostsList[index].comments = [];
           this.commentservice.HighlightsCommentAdd(data).subscribe( datas => {  
-            if(datas['status'] == "True" && !datas['message']){
-                this.ActiveComment = index;
-                this.PostsList[index].comments.splice(0, 0, datas['data']);
-                this.commentservice.GetHighlightsComments(this.PostsList[index]._id).subscribe( newDatas => console.log(newDatas));
+            if(datas['status'] == "True" && !datas['message']){ 
+
+                this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
+                  .subscribe( newDatas => 
+                  {
+                    this.LoadingActiveComment = -1;
+                    if(newDatas['status'] == "True"){
+                      this.PostsList[index].comments = newDatas['data'];
+                      this.PostsList[index].commentsCount = this.PostsList[index].commentsCount + 1;
+                    }else{
+                      console.log(newDatas);
+                    }
+                  });
+                
             }else{
                 console.log(datas);
             }

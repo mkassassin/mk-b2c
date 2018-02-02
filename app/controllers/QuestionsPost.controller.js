@@ -2,6 +2,8 @@ var QuestionsPostModel = require('../models/QuestionsPost.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var FollowModel = require('../models/Follow.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
+var RatingModel = require('../models/LikeAndRating.model.js');
+var AnswerModel = require('../models/CommentAndAnswer.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -52,26 +54,43 @@ exports.Submit = function(req, res) {
                         if(newerr){
                             res.send({status:"Fale", Error:newerr });
                         }else{
-                            var newArray = [];
-                            newArray.push( {
-                                            _id: UserData._id,
-                                            UserName: UserData.UserName,
-                                            UserCategoryId: UserData.UserCategoryId,
-                                            UserCategoryName: UserData.UserCategoryName,
-                                            UserImage: UserData.UserImage,
-                                            UserCompany: UserData.UserCompany,
-                                            UserProfession: UserData.UserProfession,
-                                            Followers:count,
-                                            PostTopicId: result.PostTopicId,
-                                            PostTopicName: result.PostTopicName,
-                                            PostDate: result.PostDate,
-                                            PostText: result.PostText ,
-                                            PostLink: result.PostLink,
-                                            PostImage: result.PostImage,
-                                            PostVideo: result.PostVideo
+                            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                                if(err) {
+                                    res.send({status:"Fale", Error:err });
+                                } else {
+                                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: result._id,
+                                                            UserId: UserData._id,
+                                                            UserName: UserData.UserName,
+                                                            UserCategoryId: UserData.UserCategoryId,
+                                                            UserCategoryName: UserData.UserCategoryName,
+                                                            UserImage: UserData.UserImage,
+                                                            UserCompany: UserData.UserCompany,
+                                                            UserProfession: UserData.UserProfession,
+                                                            Followers: count,
+                                                            PostTopicId: result.PostTopicId,
+                                                            PostTopicName: result.PostTopicName,
+                                                            PostDate: result.PostDate,
+                                                            PostText: result.PostText ,
+                                                            PostLink: result.PostLink,
+                                                            PostImage: result.PostImage,
+                                                            PostVideo: result.PostVideo,
+                                                            RatingCount: 0,
+                                                            UserRating: false,
+                                                            Answers: [],
+                                                            AnswersCount: 1,
+                                                        }
+                                            );
+                                            res.send({status:"True", data: newArray[0] });
                                         }
-                            );
-                            res.send({status:"True", data: newArray[0] });
+                                    });
+                                 }
+                            });
                         }
                     });
                  }
@@ -106,38 +125,150 @@ exports.GetPostList = function(req, res) {
                                 res.send({status:"Fale", Error:err });
                                 reject(err);
                             } else {
-                                if(UserData.length !== null){
-                                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
-                                        if(newerr){
-                                            res.send({status:"Fale", Error:newerr });
-                                            reject(err);
-                                        }else{
-                                            var newArray = [];
-                                            newArray.push( {
-                                                            _id: UserData._id,
-                                                            UserName: UserData.UserName,
-                                                            UserCategoryId: UserData.UserCategoryId,
-                                                            UserCategoryName: UserData.UserCategoryName,
-                                                            UserImage: UserData.UserImage,
-                                                            UserCompany: UserData.UserCompany,
-                                                            UserProfession: UserData.UserProfession,
-                                                            Followers:count,
-                                                            PostTopicId: info.PostTopicId,
-                                                            PostTopicName: info.PostTopicName,
-                                                            PostDate: info.PostDate,
-                                                            PostText: info.PostText ,
-                                                            PostLink: info.PostLink,
-                                                            PostImage: info.PostImage,
-                                                            PostVideo: info.PostVideo
+                                FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
+                                    if(newerr){
+                                        res.send({status:"Fale", Error:newerr });
+                                        reject(err);
+                                    }else{
+                                        RatingModel.QuestionsRating.count({'PostId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                            if(NewErr){
+                                                res.send({status:"Fale", Error:NewErr });
+                                                reject(err);
+                                            }else{
+                                                RatingModel.QuestionsRating.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': UserData._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                    if(someerr){
+                                                        res.send({status:"Fale", Error:someerr });
+                                                        reject(err);
+                                                    }else{
+    
+                                                        if(newResult.length > 0){
+                                                            var UserRating = true;
+                                                        }else{
+                                                            var UserRating = false;
                                                         }
-                                            );
-                                            PostsArray.push(newArray[0]);
-                                            resolve(UserData);
-                                        }
-                                    });
-                                }else{
-                                    resolve(UserData);
-                                }
+
+                                                        AnswerModel.QuestionsAnwer.count({'PostId': info._id , 'ActiveStates':'Active' }, function(commentErr, AnswerCount) {
+                                                            if(commentErr){
+                                                                res.send({status:"Fale", Error:commentErr });
+                                                                reject(err);
+                                                            }else{
+                                                                if(AnswerCount > 0){
+                                                                    AnswerModel.QuestionsAnwer.find({'PostId': info._id , 'ActiveStates':'Active' }, {} , {sort:{createdAt : -1}, limit:3 }, function(AnswerErr, AnswerArray) {
+                                                                        if(AnswerErr){
+                                                                            res.send({status:"Fale", Error:AnswerErr });
+                                                                            reject(err);
+                                                                        }else{
+                                                                            var AnswerArray = new Array();
+                                                                            GetAnswerData();
+                                                                            async function GetAnswerData(){
+                                                                                for (let newinfo of AnswerArray) {
+                                                                                    await getAnswerInfo(newinfo);
+                                                                                }
+                                                                                var newArray = [];
+                                                                                newArray.push({
+                                                                                                _id: info._id,
+                                                                                                UserId: UserData._id,
+                                                                                                UserName: UserData.UserName,
+                                                                                                UserCategoryId: UserData.UserCategoryId,
+                                                                                                UserCategoryName: UserData.UserCategoryName,
+                                                                                                UserImage: UserData.UserImage,
+                                                                                                UserCompany: UserData.UserCompany,
+                                                                                                UserProfession: UserData.UserProfession,
+                                                                                                Followers:count,
+                                                                                                PostTopicId: info.PostTopicId,
+                                                                                                PostTopicName: info.PostTopicName,
+                                                                                                PostDate: info.PostDate,
+                                                                                                PostText: info.PostText ,
+                                                                                                PostLink: info.PostLink,
+                                                                                                PostImage: info.PostImage,
+                                                                                                PostVideo: info.PostVideo,
+                                                                                                RatingCount: NewCount,
+                                                                                                UserRating: UserRating,
+                                                                                                Answers: AnswerArray,
+                                                                                                AnswersCount: AnswerCount,
+                                                                                            }
+                                                                                    );
+                                                                                PostsArray.push(newArray[0]);
+
+                                                                                function getAnswerInfo(newinfo){  
+                                                                                    
+                                                                                    return new Promise(( resolve, reject )=>{
+                                                                                        UserModel.UserType.findOne({'_id': newinfo.UserId }, usersProjection, function(AnswerErr, AnswerUserData) {
+                                                                                            if(AnswerErr) {
+                                                                                                res.send({status:"Fale", Error:AnswerErr });
+                                                                                                reject(AnswerErr);
+                                                                                            } else {
+                                                                                                console.log(AnswerUserData);
+                                                                                                FollowModel.FollowUserType.count({'UserId': AnswerUserData._id}, function(AnswerFollowErr, AnswerUserFollowcount) {
+                                                                                                    if(AnswerFollowErr){
+                                                                                                        res.send({status:"Fale", Error:AnswerFollowErr });
+                                                                                                        reject(err);
+                                                                                                    }else{
+                                                                                                        var newAnsArray = [];
+                                                                                                        newAnsArray.push({
+                                                                                                                        _id: newinfo._id,
+                                                                                                                        UserName: AnswerUserData.UserName,
+                                                                                                                        UserCategoryId: AnswerUserData.UserCategoryId,
+                                                                                                                        UserCategoryName: AnswerUserData.UserCategoryName,
+                                                                                                                        UserImage: AnswerUserData.UserImage,
+                                                                                                                        UserCompany: AnswerUserData.UserCompany,
+                                                                                                                        UserProfession: AnswerUserData.UserProfession,
+                                                                                                                        Followers:AnswerUserFollowcount,
+                                                                                                                        Date: info.Date,
+                                                                                                                        AnswerText: info.AnswerText ,
+                                                                                                                    }
+                                                                                                            );
+                                                                                                            AnswerArray.push(newAnsArray[0]);
+                                                                                                        resolve(AnswerUserData);
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+                                                                                        });
+                                                                                    })
+                                                                                }
+
+                                                                            resolve(newArray[0]);
+                                                                            }
+
+                                                                        }
+                                                                    });
+
+                                                                }else{
+                                                                    var newArray = [];
+                                                                    newArray.push( {
+                                                                                    _id: info._id,
+                                                                                    UserId: UserData._id,
+                                                                                    UserName: UserData.UserName,
+                                                                                    UserCategoryId: UserData.UserCategoryId,
+                                                                                    UserCategoryName: UserData.UserCategoryName,
+                                                                                    UserImage: UserData.UserImage,
+                                                                                    UserCompany: UserData.UserCompany,
+                                                                                    UserProfession: UserData.UserProfession,
+                                                                                    Followers:count,
+                                                                                    PostTopicId: info.PostTopicId,
+                                                                                    PostTopicName: info.PostTopicName,
+                                                                                    PostDate: info.PostDate,
+                                                                                    PostText: info.PostText ,
+                                                                                    PostLink: info.PostLink,
+                                                                                    PostImage: info.PostImage,
+                                                                                    PostVideo: info.PostVideo,
+                                                                                    RatingCount: NewCount,
+                                                                                    UserRating: UserRating,
+                                                                                    Answers: [],
+                                                                                    AnswersCount: 0,
+                                                                                }
+                                                                        );
+                                                                    PostsArray.push(newArray[0]);
+                                                                    resolve(UserData);
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     });

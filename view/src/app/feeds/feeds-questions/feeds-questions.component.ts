@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 import { PostServiceService } from "./../../service/post-service/post-service.service";
+import { CommentAndAnswerService } from "./../../service/comment-and-answer-service/comment-and-answer.service";
 
 @Component({
   selector: 'app-feeds-questions',
@@ -10,16 +11,17 @@ import { PostServiceService } from "./../../service/post-service/post-service.se
   styleUrls: ['./feeds-questions.component.css']
 })
 export class FeedsQuestionsComponent implements OnInit {
-  clicked:boolean = false;
-  clicked2:boolean =false;
+
+  ActiveAnswerInput;
   scrollHeight;
   screenHeight:number;
   anotherHeight:number;
   UserInfo;
   PostsList:any;
-  TimeOut:boolean = true;
+  PostsListLoading:boolean = true;
 
   constructor(
+    private AnswerService: CommentAndAnswerService,
     private Service: PostServiceService,
     public dialog: MatDialog
   ) { 
@@ -28,18 +30,15 @@ export class FeedsQuestionsComponent implements OnInit {
     this.Service.GetQuestionsList(this.UserInfo.data._id, '0')
     .subscribe( datas => {  
         if(datas['status'] == "True"){
-          this.PostsList = datas['data']
+          this.PostsList = datas['data'];
+          this.PostsListLoading = false;
         }else{
           console.log(datas);
         }
       });
-      this.TimeOutFuction();
   }
 
-  TimeOutFuction(){
-    setTimeout(()=>{ this.TimeOut = false; },8000);
-  }
-  
+
   // material dialog 
   PostTwoDialogRef: MatDialogRef<PostTwoComponent>;
 
@@ -61,5 +60,47 @@ export class FeedsQuestionsComponent implements OnInit {
       this.PostsList.splice(0 , 0, result);
     }
   }
+
+
+  ChangeActiveAnswerInput(index:string){
+    if(this.ActiveAnswerInput == index ){
+      this.ActiveAnswerInput = -1;
+    }else{
+      this.ActiveAnswerInput = index;
+    }
+  }
+
+
+
+
+
+  SubmitAnswer(answer, index){
+
+    let data = {'UserId': this.UserInfo.data._id, 
+              'PostId': this.PostsList[index]._id,
+              'PostUserId':  this.PostsList[index].UserId,
+              'AnswerText': answer,
+              'Date':  new Date(),
+            }
+
+            console.log(data);
+          this.AnswerService.QuestionsAnwerAdd(data).subscribe( datas => {  
+            if(datas['status'] == "True" && !datas['message']){ 
+                    if(datas['status'] == "True"){
+                      var AnsData = new Array();
+                      AnsData = datas['data'];
+                      this.PostsList[index].Answers.splice(0, 0, AnsData);
+                      this.PostsList[index].AnswersCount = this.PostsList[index].AnswersCount + 1;
+                    }else{
+                      console.log(datas);
+                    }
+            }else{
+                console.log(datas);
+            }
+          });
+  }
+
+
+
 
 }

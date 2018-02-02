@@ -2,7 +2,7 @@
 
    
 
-  <div *ngIf="PostsList?.length <= 0 && TimeOut">
+  <div *ngIf="PostsListLoder">
       <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
           <div fxFlex>
               <div class="preloader-orbit-loading">
@@ -14,7 +14,7 @@
       </div>
   </div>
 
-  <div *ngIf="PostsList?.length > 0 && !TimeOut">
+  <div *ngIf="!PostsListLoder">
 
     <!-- Highlights Header Post Div -->
     <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
@@ -64,7 +64,10 @@
           <!-- Highlights Post -->
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-center">
-              <h5> {{Post.PostText}} </h5>
+              <h5 class="tex-left"> {{Post.PostText}} </h5>
+              <div>
+                  <img *ngFor="let image of (Post.PostImage ? Post.PostImage.slice(0,1): []); let l =index"  src="assets/Uploads/Images/{{image.ImageName}}" alt="Spring">
+              </div>
             </div>
           </div>
           <!-- Highlights Post END -->
@@ -81,7 +84,7 @@
             <div fxFlex class="text-center">
               <div class="chat" (click)="ChangeActiveComment(i)">
                 <img src="assets/images/icons/comment.png" alt="">
-                <p class="count"> 200 </p>
+                <p class="count"> {{Post.commentsCount}} </p>
               </div>
             </div>
             <div fxFlex class="text-right">
@@ -111,6 +114,26 @@
           </div>
           <!-- Highlights Post Share Like And More  END-->
 
+
+          <div *ngIf="LoadingActiveComment == i">
+            <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div fxFlex>
+                    <div class="preloader-orbit-loading">
+                      <div class="cssload-inner cssload-one"></div>
+                      <div class="cssload-inner cssload-two"></div>
+                      <div class="cssload-inner cssload-three"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+          <div *ngIf="ActiveComment == i && LoadingActiveComment != i && Post.comments == undefined">
+            <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div fxFlex>
+                    <h5 style="line-height:60px; text-align:center"> No Comment Found!...</h5>
+                </div>
+            </div>
+        </div>
 
           <!-- Highlights Post Comments-->
           <div *ngIf="ActiveComment == i" class="Comments">

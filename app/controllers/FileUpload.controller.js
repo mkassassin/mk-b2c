@@ -3,7 +3,7 @@ var multer = require('multer');
 
 var ImageStore = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './uploads/images');
+        cb(null, './view/src/assets/Uploads/Images');
     },
     filename:function(req, file, cb){
         cb(null, Date.now() +"-"+ file.originalname);
@@ -12,7 +12,7 @@ var ImageStore = multer.diskStorage({
 
 var VideoStore = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './uploads/videos');
+        cb(null, './view/src/assets/Uploads/Videos');
     },
     filename:function(req, file, cb){
         cb(null, Date.now() +"-"+ file.originalname);

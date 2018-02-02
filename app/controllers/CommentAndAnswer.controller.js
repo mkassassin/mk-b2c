@@ -89,7 +89,7 @@ exports.HighlightsCommentAdd = function(req, res) {
 
 
 exports.GetHighlightsComments = function(req, res) {
-    Model.HighlightsComment.find({'PostId': req.params.PostId }, {} , {sort:{createdAt : -1}}, function(err, result) {
+    Model.HighlightsComment.find({'PostId': req.params.PostId }, {} , {sort:{createdAt : -1}, limit: 3}, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Commants ."});
         } else {
@@ -187,7 +187,36 @@ exports.QuestionsAnwerAdd = function(req, res) {
             res.status(500).send({status:"False", Error: err, message: "Some error occurred while Like the Post."});
             
         } else {
-            res.send({status:"True", data: result });
+            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                if(err) {
+                    res.send({status:"Fale", Error:err });
+                } else {
+                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
+                        if(newerr){
+                            res.send({status:"Fale", Error:newerr });
+                        }else{
+                            var newArray = [];
+                            newArray.push( {
+                                            _id: result._id,
+                                            UserId: UserData._id,
+                                            UserName: UserData.UserName,
+                                            UserCategoryId: UserData.UserCategoryId,
+                                            UserCategoryName: UserData.UserCategoryName,
+                                            UserImage: UserData.UserImage,
+                                            UserCompany: UserData.UserCompany,
+                                            UserProfession: UserData.UserProfession,
+                                            Followers: count,
+                                            Date: result.Date,
+                                            PostId: result.PostId,
+                                            PostUserId: result.PostUserId ,
+                                            AnswerText: result.AnswerText
+                                        }
+                            );
+                            res.send({status:"True", data: newArray[0] });
+                        }
+                    });
+                 }
+            });
         }
     });
 

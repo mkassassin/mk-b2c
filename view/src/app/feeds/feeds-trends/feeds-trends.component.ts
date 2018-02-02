@@ -23,7 +23,7 @@ export class FeedsTrendsComponent implements OnInit {
   ListOfCoins;
   ActiveCoin = 0;
   CoinListLoader:boolean = true;
-  ListOfImpressions;
+  ListOfImpressions:Array<object> = new Array();
   ImpressionsListLoader:boolean = true;
 
   constructor(
@@ -72,7 +72,7 @@ export class FeedsTrendsComponent implements OnInit {
   ChangeActiveCoin(id){
     if(this.ActiveCoin != id ){
       this.ActiveCoin = id;
-      this.ListOfImpressions = '';
+      this.ListOfImpressions = [];
       this.ImpressionsListLoader = true;
 
       this.TrendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId)
@@ -89,11 +89,12 @@ export class FeedsTrendsComponent implements OnInit {
   }
 
   OpenModel() {
-    let PostThreeDialogRef = this.dialog.open(PostThreeComponent, { minWidth:'50%', position: {top: '50px'},  data: { CoinId : this.ListOfCoins[this.ActiveCoin].CoinId } });
+    let PostThreeDialogRef = this.dialog.open(PostThreeComponent, {disableClose:true, minWidth:'50%', position: {top: '50px'},  data: { CoinId : this.ListOfCoins[this.ActiveCoin].CoinId } });
     PostThreeDialogRef.afterClosed().subscribe(result => this.GoToAnalize(result));
   }
   
   GoToAnalize(result){
+
     if(result !== "Close" && result.PostText !== ''){
         let data = {'UserId': this.UserInfo.data._id, 
             'PostText': result.PostText,
@@ -102,7 +103,14 @@ export class FeedsTrendsComponent implements OnInit {
           }
         this.TrendsService.ImpressionAdd(data).subscribe( datas => {
           if(datas['status'] == "True" && !datas['message']){
-            this.ListOfImpressions.splice(0, 0, datas['data']);
+
+            if(this.ListOfImpressions == undefined){
+              var data = new Array();
+                data.push(datas['data']);
+                this.ListOfImpressions = data;
+            }else{
+              this.ListOfImpressions.splice(0, 0, datas['data']);
+            } 
           }else{
               console.log(datas);
           }
