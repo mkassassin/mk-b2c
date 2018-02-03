@@ -64,7 +64,7 @@
           <!-- Highlights Post -->
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-center">
-              <h5 class="tex-left"> {{Post.PostText}} </h5>
+              <h5 class="text-left"> {{Post.PostText}} </h5>
               <div>
                   <img *ngFor="let image of (Post.PostImage ? Post.PostImage.slice(0,1): []); let l =index"  src="assets/Uploads/Images/{{image.ImageName}}" alt="Spring">
               </div>

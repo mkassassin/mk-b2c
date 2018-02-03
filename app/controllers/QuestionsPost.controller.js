@@ -101,182 +101,117 @@ exports.Submit = function(req, res) {
 
 
 
-exports.GetPostList = function(req, res) {
+
+
+exports.GetPostList = function (req, res) {
     var SkipCoun = 0;
     SkipCoun = parseInt(req.params.Limit) * 10;
-    QuestionsPostModel.QuestionsPostType.find({}, {} , {sort:{createdAt : -1}, skip: SkipCoun, limit: 10  }, function(err, result) {
-        if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+    QuestionsPostModel.QuestionsPostType.find({}, {}, { sort: { createdAt: -1 }, skip: SkipCoun, limit: 10 }, function (err, result) {
+        if (err) {
+            res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });
         } else {
-            if(result.length > 0){
-                var PostsArray = new Array();
-                GetUserData();
-                async function GetUserData(){
-                    for (let info of result) {
-                        await getUserInfo(info);
-                     }
-                    res.send({status:"True", data: PostsArray });
-                  }
-                  
-                  function getUserInfo(info){
-                    return new Promise(( resolve, reject )=>{
-                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
-                            if(err) {
-                                res.send({status:"Fale", Error:err });
-                                reject(err);
-                            } else {
-                                FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
-                                    if(newerr){
-                                        res.send({status:"Fale", Error:newerr });
-                                        reject(err);
-                                    }else{
-                                        RatingModel.QuestionsRating.count({'PostId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
-                                            if(NewErr){
-                                                res.send({status:"Fale", Error:NewErr });
-                                                reject(err);
-                                            }else{
-                                                RatingModel.QuestionsRating.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': UserData._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
-                                                    if(someerr){
-                                                        res.send({status:"Fale", Error:someerr });
-                                                        reject(err);
-                                                    }else{
+            const GetUserData = (result) =>
+                Promise.all(
+                    result.map(info => getPostInfo(info) )
+                ).then( result =>{res.send({ status: "True", data: result }) }
+                ).catch(err => res.send({ status: "False", Error: err }));
+
+
+            const getPostInfo = info =>
+                Promise.all([
+                    UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
+                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    RatingModel.QuestionsRating.count({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec(),
+                ]).then(data => {
+                    let UserData = data[0];
+                    let followCount = data[1];
+                    let ratingCount = data[2];
+                    let UserRating = data[3];
+                    let AnswerCount = data[4];
+                    let Answerdata = data[5];
+
+                    var AnswersArray= new Array();
+
+                   return GetAnsUserData();
+                    async function GetAnsUserData(){
+                        for (let ansInfo of Answerdata) {
+                            await getAnswerInfo(ansInfo);
+                         }
+
+                         let result = {
+                            _id: info._id,
+                            UserId: UserData._id,
+                            UserName: UserData.UserName,
+                            UserCategoryId: UserData.UserCategoryId,
+                            UserCategoryName: UserData.UserCategoryName,
+                            UserImage: UserData.UserImage,
+                            UserCompany: UserData.UserCompany,
+                            UserProfession: UserData.UserProfession,
+                            Followers:followCount,
+                            PostTopicId: info.PostTopicId,
+                            PostTopicName: info.PostTopicName,
+                            PostDate: info.PostDate,
+                            PostText: info.PostText ,
+                            PostLink: info.PostLink,
+                            PostImage: info.PostImage,
+                            PostVideo: info.PostVideo,
+                            RatingCount: ratingCount,
+                            UserRating: UserRating,
+                            AnswersCount: AnswerCount,
+                            Answers: AnswersArray,
     
-                                                        if(newResult.length > 0){
-                                                            var UserRating = true;
-                                                        }else{
-                                                            var UserRating = false;
+                        };
+                        return result;
+                      }
+                      
+                      function getAnswerInfo(ansInfo){
+                        return new Promise(( resolve, reject )=>{
+                            UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
+                                if(err) {
+                                    res.send({status:"Fale", Error:err });
+                                    reject(err);
+                                } else {
+                                    FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: ansInfo._id,
+                                                            UserId: AnsUserData._id,
+                                                            UserName: AnsUserData.UserName,
+                                                            UserCategoryId: AnsUserData.UserCategoryId,
+                                                            UserCategoryName: AnsUserData.UserCategoryName,
+                                                            UserImage: AnsUserData.UserImage,
+                                                            UserCompany: AnsUserData.UserCompany,
+                                                            UserProfession: AnsUserData.UserProfession,
+                                                            Followers: count,
+                                                            Date: ansInfo.Date,
+                                                            PostId: ansInfo.PostId,
+                                                            PostUserId: ansInfo.PostUserId ,
+                                                            AnswerText: ansInfo.AnswerText
                                                         }
-
-                                                        AnswerModel.QuestionsAnwer.count({'PostId': info._id , 'ActiveStates':'Active' }, function(commentErr, AnswerCount) {
-                                                            if(commentErr){
-                                                                res.send({status:"Fale", Error:commentErr });
-                                                                reject(err);
-                                                            }else{
-                                                                if(AnswerCount > 0){
-                                                                    AnswerModel.QuestionsAnwer.find({'PostId': info._id , 'ActiveStates':'Active' }, {} , {sort:{createdAt : -1}, limit:3 }, function(AnswerErr, AnswerArray) {
-                                                                        if(AnswerErr){
-                                                                            res.send({status:"Fale", Error:AnswerErr });
-                                                                            reject(err);
-                                                                        }else{
-                                                                            var AnswerArray = new Array();
-                                                                            GetAnswerData();
-                                                                            async function GetAnswerData(){
-                                                                                for (let newinfo of AnswerArray) {
-                                                                                    await getAnswerInfo(newinfo);
-                                                                                }
-                                                                                var newArray = [];
-                                                                                newArray.push({
-                                                                                                _id: info._id,
-                                                                                                UserId: UserData._id,
-                                                                                                UserName: UserData.UserName,
-                                                                                                UserCategoryId: UserData.UserCategoryId,
-                                                                                                UserCategoryName: UserData.UserCategoryName,
-                                                                                                UserImage: UserData.UserImage,
-                                                                                                UserCompany: UserData.UserCompany,
-                                                                                                UserProfession: UserData.UserProfession,
-                                                                                                Followers:count,
-                                                                                                PostTopicId: info.PostTopicId,
-                                                                                                PostTopicName: info.PostTopicName,
-                                                                                                PostDate: info.PostDate,
-                                                                                                PostText: info.PostText ,
-                                                                                                PostLink: info.PostLink,
-                                                                                                PostImage: info.PostImage,
-                                                                                                PostVideo: info.PostVideo,
-                                                                                                RatingCount: NewCount,
-                                                                                                UserRating: UserRating,
-                                                                                                Answers: AnswerArray,
-                                                                                                AnswersCount: AnswerCount,
-                                                                                            }
-                                                                                    );
-                                                                                PostsArray.push(newArray[0]);
-
-                                                                                function getAnswerInfo(newinfo){  
-                                                                                    
-                                                                                    return new Promise(( resolve, reject )=>{
-                                                                                        UserModel.UserType.findOne({'_id': newinfo.UserId }, usersProjection, function(AnswerErr, AnswerUserData) {
-                                                                                            if(AnswerErr) {
-                                                                                                res.send({status:"Fale", Error:AnswerErr });
-                                                                                                reject(AnswerErr);
-                                                                                            } else {
-                                                                                                console.log(AnswerUserData);
-                                                                                                FollowModel.FollowUserType.count({'UserId': AnswerUserData._id}, function(AnswerFollowErr, AnswerUserFollowcount) {
-                                                                                                    if(AnswerFollowErr){
-                                                                                                        res.send({status:"Fale", Error:AnswerFollowErr });
-                                                                                                        reject(err);
-                                                                                                    }else{
-                                                                                                        var newAnsArray = [];
-                                                                                                        newAnsArray.push({
-                                                                                                                        _id: newinfo._id,
-                                                                                                                        UserName: AnswerUserData.UserName,
-                                                                                                                        UserCategoryId: AnswerUserData.UserCategoryId,
-                                                                                                                        UserCategoryName: AnswerUserData.UserCategoryName,
-                                                                                                                        UserImage: AnswerUserData.UserImage,
-                                                                                                                        UserCompany: AnswerUserData.UserCompany,
-                                                                                                                        UserProfession: AnswerUserData.UserProfession,
-                                                                                                                        Followers:AnswerUserFollowcount,
-                                                                                                                        Date: info.Date,
-                                                                                                                        AnswerText: info.AnswerText ,
-                                                                                                                    }
-                                                                                                            );
-                                                                                                            AnswerArray.push(newAnsArray[0]);
-                                                                                                        resolve(AnswerUserData);
-                                                                                                    }
-                                                                                                });
-                                                                                            }
-                                                                                        });
-                                                                                    })
-                                                                                }
-
-                                                                            resolve(newArray[0]);
-                                                                            }
-
-                                                                        }
-                                                                    });
-
-                                                                }else{
-                                                                    var newArray = [];
-                                                                    newArray.push( {
-                                                                                    _id: info._id,
-                                                                                    UserId: UserData._id,
-                                                                                    UserName: UserData.UserName,
-                                                                                    UserCategoryId: UserData.UserCategoryId,
-                                                                                    UserCategoryName: UserData.UserCategoryName,
-                                                                                    UserImage: UserData.UserImage,
-                                                                                    UserCompany: UserData.UserCompany,
-                                                                                    UserProfession: UserData.UserProfession,
-                                                                                    Followers:count,
-                                                                                    PostTopicId: info.PostTopicId,
-                                                                                    PostTopicName: info.PostTopicName,
-                                                                                    PostDate: info.PostDate,
-                                                                                    PostText: info.PostText ,
-                                                                                    PostLink: info.PostLink,
-                                                                                    PostImage: info.PostImage,
-                                                                                    PostVideo: info.PostVideo,
-                                                                                    RatingCount: NewCount,
-                                                                                    UserRating: UserRating,
-                                                                                    Answers: [],
-                                                                                    AnswersCount: 0,
-                                                                                }
-                                                                        );
-                                                                    PostsArray.push(newArray[0]);
-                                                                    resolve(UserData);
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
-                            }
+                                            );
+                                            AnswersArray.push(newArray[0]);
+                                            resolve(newArray[0]);
+                                        }
+                                    });
+                                }
+                            });
                         });
-                    });
-                  };
-        
-            }else{
-            res.send({status:"True", message:'No More Posts' });
-            }
+                    }
+
+
+                }).catch(error => {
+                    console.log(error)
+                })
+
+             GetUserData(result);
+
         }
     });
 };

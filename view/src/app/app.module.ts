@@ -54,6 +54,7 @@ import { VideoPreviewDirective } from './directives/video-preview.directive';
 import { LikeAndRatingServiceService } from './service/like-and-rating-service.service';
 import { CommentAndAnswerService } from './service/comment-and-answer-service/comment-and-answer.service';
 import { TrendsService } from './service/trends-service/trends.service';
+import { ProfileSerivceService } from './service/profile-service/profile-serivce.service';
 
 
 @NgModule({
@@ -104,7 +105,7 @@ import { TrendsService } from './service/trends-service/trends.service';
     MatExpansionModule,
     FileUploadModule
   ],
-  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService, TrendsService],
+  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService, TrendsService, ProfileSerivceService],
   bootstrap: [AppComponent],
   entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
 })
