@@ -71,6 +71,20 @@ exports.Timeline = function (req, res) {
                             for (let ansInfo of Answerdata) {
                                 await getAnswerInfo(ansInfo);
                              }
+                             var images = [];
+                                if(info.PostImage.length > 0){
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                }
+                             
     
                              let result = {
                                  Type:'Question',
@@ -88,7 +102,7 @@ exports.Timeline = function (req, res) {
                                 PostDate: info.PostDate,
                                 PostText: info.PostText ,
                                 PostLink: info.PostLink,
-                                PostImage: info.PostImage,
+                                PostImage: images,
                                 PostVideo: info.PostVideo,
                                 RatingCount: ratingCount,
                                 UserRating: UserRating,
@@ -147,6 +161,20 @@ exports.Timeline = function (req, res) {
                         }
 
                         var newArray = [];
+                        var images = [];
+                        if(info.PostImage.length > 0){
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                            }
+
                         newArray.push( {
                                         Type:'Highlight',
                                         UserId: UserData._id,
@@ -162,7 +190,7 @@ exports.Timeline = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
-                                        PostImage: info.PostImage,
+                                        PostImage: images,
                                         PostVideo: info.PostVideo,
                                         LikesCount: LikingCount,
                                         UserLiked: UserLiked,

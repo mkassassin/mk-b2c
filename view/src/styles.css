@@ -127,3 +127,15 @@ html, body {
 .bs-datepicker-container{
     padding: 10px !important
 }
+
+
+
+
+
+
+
+
+
+.ui-galleria-panel{
+    position: relative !important;
+}

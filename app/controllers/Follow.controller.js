@@ -1,6 +1,9 @@
 var FollowModel = require('../models/Follow.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var TopicsModel = require('../models/Topics.model.js');
+var AnswerModel = require('../models/CommentAndAnswer.model.js');
+var QuestionsPostModel = require('../models/QuestionsPost.model.js');
+
 
 var usersProjection = { 
     __v: false,
@@ -391,6 +394,102 @@ exports.UnFollowingTopics = function(req, res) {
                                             );
                                             UnFollowingArray.push(newArray[0]);
                                             resolve(FollowesData);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    });
+                  };
+        
+            }else{
+            res.send({status:"True", message:'No Un Followeing Topics In This User', data:result});
+            }
+        }
+    });
+};
+
+
+
+exports.DiscoverTopics = function(req, res) {
+    TopicsModel.TopicsType.find({}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Un Followed Topics."});
+        } else { 
+            if(result.length > 0){
+                var UnFollowingArray = new Array();
+                GetUnFollowesData();
+                async function GetUnFollowesData(){
+                    for (let info of result) {
+                        await getData(info);
+                     }
+                    res.send({status:"True", data: UnFollowingArray });
+                  }
+                  
+                  function getData(info, i){
+                    return new Promise(( resolve, reject )=>{
+                        FollowModel.FollowTopicType.find({'UserId': req.params.UserId, 'FollowingTopicId': info._id }, function(err, FollowesData) {
+                            if(err) {
+                                res.send({status:"Fale", Error:err });
+                                reject(err);
+                            } else {
+                                if(FollowesData.length < 0){
+                                    resolve(FollowesData);
+                                }
+                                else{
+                                    FollowModel.FollowTopicType.count({'FollowingTopicId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            QuestionsPostModel.QuestionsPostType.count({'PostTopicId' :info._id, 'ActiveStates' : 'Active'}, function (qusCounterr, qusCount) {
+                                                if(qusCounterr){
+                                                    res.send({status:"Fale", Error:qusCounterr });
+                                                    reject(qusCounterr);
+                                                }else{
+                                                    QuestionsPostModel.QuestionsPostType.find({'PostTopicId' : info._id }, '_id PostText PostDate', { sort: { createdAt: -1 } }, function (qusErr, questions) {
+                                                        if(qusErr){
+                                                            res.send({status:"Fale", Error:qusErr });
+                                                            reject(qusErr);
+                                                        }else{
+                                                            var AnsCount = 0 ;
+
+                                                            const GetAnsData = (questions) => 
+                                                                Promise.all( questions.map(qusinfo => getPostInfo(qusinfo) ) )
+                                                                    .then( AnsResult => {
+                                                                        var newArray = [];
+                                                                            newArray.push( {
+                                                                                            _id: info._id,
+                                                                                            TopicName: info.TopicName,
+                                                                                            TopicImage: info.TopicImage,
+                                                                                            Followers:count,
+                                                                                            QuestionCount : qusCount,
+                                                                                            Questions : questions,
+                                                                                            AnsCount : AnsCount
+                                                                                        }
+                                                                            );
+                                                                            UnFollowingArray.push(newArray[0]);
+                                                                            resolve(questions);
+                                                                    })
+                                                                    .catch(someerr => res.send({ status: "False", Error: someerr }));
+
+                                                                    const getPostInfo = qusinfo =>
+                                                                        Promise.all([
+                                                                            AnswerModel.QuestionsAnwer.count({ 'PostId': qusinfo._id, 'ActiveStates': 'Active' }).exec(),
+                                                                        ]).then(data => {
+                                                                            AnsCount += JSON.parse(data);
+                                                                            return data;
+                                                                        }).catch(error => {
+                                                                            console.log(error)
+                                                                        })                                                                    
+
+                                                            GetAnsData(questions);
+
+                                                            
+                                                        }
+                                                    });
+                                                }
+                                            });
                                         }
                                     });
                                 }

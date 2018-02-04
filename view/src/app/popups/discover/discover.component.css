@@ -1,0 +1,218 @@
+
+.box-1{
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    margin: 3px;
+    margin-top: 20px;
+    background-color: #ffffff;
+}
+.DiscoverRightBar .followheader{
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 0px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #ffda00;
+}
+.DiscoverRightBar .userlistImg{
+    height: 45px;
+    width: 45px;
+    padding: 0px;
+    background-color: #e2e2e2;
+    border-radius: 50px;
+    margin: 0px;
+    cursor: pointer;
+}
+.DiscoverRightBar .userlistname {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 13px;
+    color: #333333;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverRightBar .userlistname span{
+    cursor: pointer;
+}
+
+.DiscoverRightBar .userlistcategory {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.4px;
+    color: #666666;
+    font-family: 'Ubuntu', sans-serif;
+}
+.DiscoverRightBar .boxQuestions{
+    border: 1px solid silver;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+}
+.DiscoverRightBar .questionsList{
+    margin-bottom: 0;
+    font-size: 13px;
+    text-align: left;
+}
+
+.DiscoverRightBar .topicAddIcon{
+    position: absolute;
+    top: -10px;
+    margin-left: 10px;
+}
+
+.DiscoverRightBar .topicAddIcon i{
+    color: #66666673;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+
+
+
+
+
+
+.box-2{
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    margin: 3px;
+    margin-top: 20px;
+    background-color: #ffffff;
+}
+.DiscoverLefBar .followheader{
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 0px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #ffda00;
+}
+.DiscoverLefBar .followPart{
+    height: 70px;
+    text-align: center;
+    padding-left: 0px;
+}
+.DiscoverLefBar .followimg{
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
+    background-color: #66666630;
+    padding: 0px;
+    border-radius: 55px;
+    cursor: pointer;
+}
+.DiscoverLefBar .followimg.selected{
+    border:5px double #333333;
+}
+.DiscoverLefBar .followname{
+    font-size: 12px;
+    margin: 0px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.DiscoverLefBar .followname span{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+.DiscoverLefBar .userlistImg{
+    height: 40px;
+    width: 40px;
+    padding: 0px;
+    background-color: #e2e2e2;
+    border-radius: 50px;
+    margin: 0px;
+    cursor: pointer;
+}
+.DiscoverLefBar .userlistname {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 13px;
+    color: #333333;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverLefBar .userlistname span{
+    cursor: pointer;
+}
+
+.DiscoverLefBar .userlistcategory {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.4px;
+    color: #666666;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverLefBar .userlistfollowers {
+    margin: 0px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    color: #999999;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.3px;
+}
+.DiscoverLefBar .userAddIcon {
+    margin: 0px;
+}
+.DiscoverLefBar .userAddIcon i{
+    font-size: 30px;
+    color: #99999991;
+    line-height: 40px;
+    width: 40px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+ .btn-cutom{
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    outline: transparent;
+    padding: 5px 22px;
+}
+ .btn-cutom:hover{
+    color: #fff;
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+}
+ .btn-cutom:focus{
+    box-shadow: none;
+}

@@ -20,4 +20,6 @@ module.exports = function(app) {
     app.get('/API/Follow/FollowingTopics/:UserId', controller.FollowingTopics);
 
     app.get('/API/Follow/UnFollowingTopics/:UserId', controller.UnFollowingTopics);
+
+    app.get('/API/Follow/DiscoverTopics/:UserId', controller.DiscoverTopics);
 }

@@ -21,7 +21,7 @@
           <div fxFlex="21%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                   <div fxFlex="30%" class="text-center">
-                      <img routerLink="/Feeds" style="cursor:pointer ;height:28px" class="headericon" src="assets/images/icons/explore.png" alt="">
+                      <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:28px" class="headericon" src="assets/images/icons/explore.png" alt="">
                   </div>
                   <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
                       <img  class="headericon" src="assets/images/icons/notification.png" alt="">

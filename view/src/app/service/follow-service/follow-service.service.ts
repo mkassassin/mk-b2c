@@ -60,4 +60,9 @@ export class FollowServiceService {
         return this.http.delete(API_URL + 'UnFollowTopic/' + Id)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
+
+    public DiscoverTopics(Id: any): Observable<any[]>  {
+        return this.http.get(API_URL + 'DiscoverTopics/' + Id)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
 }

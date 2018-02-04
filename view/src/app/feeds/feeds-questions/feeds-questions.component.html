@@ -28,8 +28,6 @@
 
 
 
-
-
       <div class="postScroll">
 
         <!-- Question Post Div -->
@@ -68,8 +66,9 @@
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-left">
               <h5 class="postquestion"> {{Post.PostText}} </h5>
-
-                
+              <div *ngIf="Post.PostImage?.length > 0">
+                  <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
+              </div>
               <div *ngIf="Post.Answers == undefined">
                   <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
                       <div fxFlex>
@@ -129,9 +128,14 @@
           <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex class="text-left">
               <div class="like">
-                <img src="assets/images/icons/like.png" alt="">
+                <ngl-rating [isReadonly]="UserRating == 0" [(rate)]="Post.UserRating" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                    <ng-template nglRatingIcon let-active>
+                      <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                    </ng-template>
+                </ngl-rating>
                 <p class="count"> {{Post.RatingCount}} </p>
               </div>
+              <small> Your Rating {{Post.UserRating}}  </small>
             </div>
             <div fxFlex class="text-center">
               <div class="chat" (click)="ChangeActiveAnswerInput(i)">

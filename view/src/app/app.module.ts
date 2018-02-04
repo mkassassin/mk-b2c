@@ -17,9 +17,11 @@ import { TabViewModule } from "primeng/tabview";
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AutoCompleteModule} from 'primeng/autocomplete';
+import { GalleriaModule } from 'primeng/galleria';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NglModule } from 'ng-lightning/ng-lightning';
 
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
@@ -55,6 +57,7 @@ import { LikeAndRatingServiceService } from './service/like-and-rating-service.s
 import { CommentAndAnswerService } from './service/comment-and-answer-service/comment-and-answer.service';
 import { TrendsService } from './service/trends-service/trends.service';
 import { ProfileSerivceService } from './service/profile-service/profile-serivce.service';
+import { DiscoverComponent } from './popups/discover/discover.component';
 
 
 @NgModule({
@@ -81,7 +84,8 @@ import { ProfileSerivceService } from './service/profile-service/profile-serivce
     ProfileSettingsComponent,
     PostThreeComponent,
     ImagePreviewDirective,
-    VideoPreviewDirective
+    VideoPreviewDirective,
+    DiscoverComponent
   ],
   imports: [
     CommonModule,
@@ -98,15 +102,17 @@ import { ProfileSerivceService } from './service/profile-service/profile-serivce
     ScrollPanelModule,
     OverlayPanelModule,
     AutoCompleteModule,
+    GalleriaModule,
     BsDatepickerModule.forRoot(),
     MatDialogModule,
     MatButtonModule,
     MatMenuModule,
     MatExpansionModule,
-    FileUploadModule
+    FileUploadModule,
+    NglModule.forRoot()
   ],
   providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService, TrendsService, ProfileSerivceService],
   bootstrap: [AppComponent],
-  entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent]
+  entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent, DiscoverComponent]
 })
 export class AppModule { }

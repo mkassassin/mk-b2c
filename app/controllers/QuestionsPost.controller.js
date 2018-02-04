@@ -63,6 +63,20 @@ exports.Submit = function(req, res) {
                                             res.send({status:"Fale", Error:newerr });
                                         }else{
                                             var newArray = [];
+                                            var images = [];
+                                            if(result.PostImage.length > 0){
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                                }
+
                                             newArray.push( {
                                                             _id: result._id,
                                                             UserId: UserData._id,
@@ -78,7 +92,7 @@ exports.Submit = function(req, res) {
                                                             PostDate: result.PostDate,
                                                             PostText: result.PostText ,
                                                             PostLink: result.PostLink,
-                                                            PostImage: result.PostImage,
+                                                            PostImage: images,
                                                             PostVideo: result.PostVideo,
                                                             RatingCount: 0,
                                                             UserRating: false,
@@ -141,6 +155,21 @@ exports.GetPostList = function (req, res) {
                             await getAnswerInfo(ansInfo);
                          }
 
+                         var images = [];
+                            if(info.PostImage.length > 0){
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                                }
+
+
                          let result = {
                             _id: info._id,
                             UserId: UserData._id,
@@ -156,7 +185,7 @@ exports.GetPostList = function (req, res) {
                             PostDate: info.PostDate,
                             PostText: info.PostText ,
                             PostLink: info.PostLink,
-                            PostImage: info.PostImage,
+                            PostImage: images,
                             PostVideo: info.PostVideo,
                             RatingCount: ratingCount,
                             UserRating: UserRating,

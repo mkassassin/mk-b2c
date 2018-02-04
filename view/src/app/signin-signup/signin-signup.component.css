@@ -178,6 +178,9 @@
     background-color: #5c5c5c;
     border-color: #5c5c5c;
 }
+.SignInSignUp .btn-cutom:focus{
+    box-shadow: none;
+}
 .height-60{
     height: 60px
 }

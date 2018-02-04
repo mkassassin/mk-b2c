@@ -127,6 +127,7 @@
     display: inline-flex;
     cursor: pointer;
     margin-top: 5px;
+    max-width: 125px;
 }
 .Questions .QuestionPost .postLikes {
     padding: 0px 15px;
@@ -365,4 +366,13 @@
     margin-right: 5px;
     padding-bottom: 3px;
     font-family: 'Ubuntu', sans-serif;
+}
+
+
+.rating{
+    display: inline-flex;
+}
+.rating .ratingpart img{
+    width: 25px;
+    height: 25px;
 }

@@ -62,12 +62,25 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
+  value = 1;
+
+  RatingImage(isActive: boolean) {
+    return `assets/images/icons/like${isActive ? 'd' : ''}.png`;
+  }
+
+
+
   ChangeActiveAnswerInput(index:string){
     if(this.ActiveAnswerInput == index ){
       this.ActiveAnswerInput = -1;
     }else{
       this.ActiveAnswerInput = index;
     }
+  }
+
+  rateChanging(index){
+    console.log( this.PostsList[index].UserRating );
+
   }
 
 

@@ -54,8 +54,8 @@
                 <div class="postmain" fxLayout="row">
                   <div fxFlex class="text-center">
                     <h5 class="text-left"> {{Post.PostText}} </h5>
-                    <div>
-                        <img *ngFor="let image of (Post.PostImage ? Post.PostImage.slice(0,1): []); let l =index"  src="assets/Uploads/Images/{{image.ImageName}}" alt="Spring">
+                    <div *ngIf="Post.PostImage?.length > 0">
+                        <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
                     </div>
                   </div>
                 </div>
@@ -209,7 +209,9 @@
                 <div class="postmain" fxLayout="row">
                   <div fxFlex class="text-left">
                     <h5 class="postquestion"> {{Post.PostText}} </h5>
-      
+                    <div *ngIf="Post.PostImage?.length > 0">
+                        <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
+                    </div>
                       
                     <div *ngIf="Post.Answers == undefined">
                         <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
