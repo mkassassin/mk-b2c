@@ -1,8 +1,10 @@
+
 var mongoose = require('mongoose');
 
 var NotificationSchema = mongoose.Schema({
+    NotificationType: { type : Number , required : true },
     UserId: { type : String , required : true },
-    ResponseUserId: { type : String , required : true },
+    ResponseUserId: { type : String },
     FollowUserId: { type : String },
     FollowTopicId: { type : String },
     HighlightPostId: { type : String },
@@ -15,7 +17,8 @@ var NotificationSchema = mongoose.Schema({
     QuestionAnswerId: { type : String },
     ImpressionPostId: { type : String },
     ImpressionFolllowId: { type : String },
-    NotificationType: Number  
+    Viewed: Number,
+    NotificationDate: String
     }, 
     { timestamps: true }
 );
@@ -44,3 +47,9 @@ module.exports = {
     // 12 == Question Post Share
     // 13 == New Impression Post
     // 14 == Impression Follow
+
+
+
+//Viewed 
+    // 0 == False
+    // 1 == True

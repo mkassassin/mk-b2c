@@ -100,7 +100,7 @@
                         </div>
                         <div class="text-right mr-5" fxFlex="150px">
                           <p class="postansaction"> ... </p>
-                          <p class="postansdate"> {{Answer.Date}} </p>
+                          <p class="postansdate"> {{Answer.Date | date}} </p>
                         </div>
                       </div>
                     </div>
@@ -128,14 +128,18 @@
           <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex class="text-left">
               <div class="like">
-                <ngl-rating [isReadonly]="UserRating == 0" [(rate)]="Post.UserRating" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                <ngl-rating style="max-width:100px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
                     <ng-template nglRatingIcon let-active>
                       <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
                     </ng-template>
                 </ngl-rating>
-                <p class="count"> {{Post.RatingCount}} </p>
+                <ngl-rating style="max-width:100px;cursor:pointer" *ngIf="!Post.userRated" [isReadonly]="false" [(rate)]="Post.RatingCount" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                    <ng-template nglRatingIcon let-active>
+                      <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                    </ng-template>
+                </ngl-rating>
+                <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <small> ( Your Rating {{Post.userRating}} ) </small> </small> </p>
               </div>
-              <small> Your Rating {{Post.UserRating}}  </small>
             </div>
             <div fxFlex class="text-center">
               <div class="chat" (click)="ChangeActiveAnswerInput(i)">

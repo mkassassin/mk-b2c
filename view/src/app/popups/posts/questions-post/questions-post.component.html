@@ -1,0 +1,179 @@
+<div class="Discover">
+  
+    <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top:-20px;">
+      <div fxFlex="50%">
+        <div class="text-left">
+            <!-- <img src="assets/images/logo1.png" width="30px" alt=""> -->
+        </div>
+      </div>
+      <div fxFlex="50%">
+        <h4 class="m-0 text-right" >
+          <span style="cursor:pointer; position: absolute; font-size: 20px; font-weight: 900;" (click)="close()"> X </span>
+        </h4>
+      </div>  
+    </div>
+
+    <mat-dialog-content style="max-height:100%;">
+        <div class="Questions mt-20">
+          
+            <div *ngIf="!PostsListLoading">
+          
+                <div class="postScroll">
+          
+                  <!-- Question Post Div -->
+                  <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList; let i = index; let j = index">
+                    <!-- Question Post Info Header Div -->
+                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                      <div fxFlex>
+                        <div class="leftSide">
+                          <div class="" fxLayout="row" fxLayoutAlign="start center">
+                            <div fxFlex="60px">
+                              <img class="postuserImg" src="assets/images/icons/user.png" alt="">
+                            </div>
+                            <div class="mt-10" fxFlex>
+                              <p class="postusername"> {{Post.UserName}} </p>
+                              <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
+                              <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div fxFlex="35%">
+                        <div class="rightSide">
+                          <div class="" fxLayout="row" fxLayoutAlign="end center">
+                            <div class="text-right" fxFill>
+                              <p class="postaction"> ... </p>
+                              <p class="postdate"> {{Post.PostDate | date }} </p>
+                              <p class="posttopic"> {{Post.PostTopicName}} </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Question Post Info Header Div End -->
+                    <hr class="m-5">
+                    <!-- Question Post -->
+                    <div class="postmain" fxLayout="row">
+                      <div fxFlex class="text-left">
+                        <h5 class="postquestion"> {{Post.PostText}} </h5>
+                        <div *ngIf="Post.PostImage?.length > 0">
+                            <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
+                        </div>
+                        <div *ngIf="Post.Answers == undefined">
+                            <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                                <div fxFlex>
+                                    <h5 style="line-height:60px; text-align:center"> No Answers Found!...</h5>
+                                </div>
+                            </div>
+                        </div>
+          
+          
+                        <div *ngFor="let Answer of (Post.Answers ? Post.Answers.slice(0,2): []); let k=index" class="postAnswer">
+                          <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                            <div fxFlex>
+                              <div class="leftSide">
+                                <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                                  <div fxFlex="45px">
+                                    <img class="postansuserImg" src="assets/images/users/{{Answer.UserImage}}" alt="">
+                                  </div>
+                                  <div fxFlex>
+                                    <p class="postansusername">{{Answer.UserName}} </p>
+                                    <p class="postansfollowes"> {{Answer.Followers}} followers </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div fxFlex="35%">
+                              <div class="rightSide">
+                                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                  <div fxFlex>
+                                  </div>
+                                  <div class="text-right mr-5" fxFlex="150px">
+                                    <p class="postansaction"> ... </p>
+                                    <p class="postansdate"> {{Answer.Date | date}} </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="m-0" style="border-color: #77778729;">
+                          <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                            <div fxFlex>
+                              <p class="postAnsText"> &emsp;  {{Answer.AnswerText}}.</p>
+                            </div>
+                          </div>
+                        </div>
+          
+          
+                        <div *ngIf="Post.Answers?.length > 2" class="text-right">
+                          <p class="viewAll">View All...</p>
+                        </div>
+                      </div>
+          
+                    </div>
+          
+                    <!-- Question Post END -->
+                    <hr class="m-5">
+                    <!-- Question Post Share Like And More -->
+                    <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                      <div fxFlex class="text-left">
+                        <div class="like">
+                          <ngl-rating style="max-width:100px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
+                              <ng-template nglRatingIcon let-active>
+                                <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                              </ng-template>
+                          </ngl-rating>
+                          <ngl-rating style="max-width:100px;cursor:pointer" *ngIf="!Post.userRated" [isReadonly]="false" [(rate)]="Post.RatingCount" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                              <ng-template nglRatingIcon let-active>
+                                <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                              </ng-template>
+                          </ngl-rating>
+                          <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <small> ( Your Rating {{Post.userRating}} ) </small> </small> </p>
+                        </div>
+                      </div>
+                      <div fxFlex class="text-center">
+                        <div class="chat" (click)="ChangeActiveAnswerInput(i)">
+                          <img src="assets/images/icons/comment.png" alt="">
+                          <p class="count"> {{Post.AnswersCount}} </p>
+                        </div>
+                      </div>
+                      <div fxFlex class="text-right">
+                        <div class="share">
+                          <img src="assets/images/icons/share.png" alt="">
+                          <p class="count"> 100 </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Question Post Share Like And More  END-->
+                    <hr class="m-5">
+                    <!-- Question Post Share Like And More -->
+                    <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
+                      <div fxFlex="60px" class="text-left">
+                        <div class="chatUserImg text-center">
+                          <img src="assets/images/icons/user.png" alt=""> </div>
+                      </div>
+                      <div fxFlex class="text-center">
+                        <div class="chatInput">
+                          <input #j type="text" placeholder="Post Your Answer..."> </div>
+                      </div>
+                      <div fxFlex="70px" class="text-right">
+                        <div class="chatsend text-center">
+                          <i (click)="SubmitAnswer(j.value, i); j.value='' " class="material-icons">send</i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Question Post Share Like And More  END-->
+          
+                  </div>
+                  <!-- Question Post Div END -->
+          
+          
+          
+                </div>
+          
+          
+            </div>
+          </div>
+    </mat-dialog-content>        
+
+</div>

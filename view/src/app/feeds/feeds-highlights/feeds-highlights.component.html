@@ -52,7 +52,7 @@
                 <div class="" fxLayout="row" fxLayoutAlign="end center">
                   <div class="text-right" fxFill>
                     <p class="postaction"> ... </p>
-                    <p class="postdate"> {{Post.PostDate | date }} </p>
+                    <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
                     <p class="posttopic"> {{Post.PostType}} </p>
                   </div>
                 </div>
@@ -159,7 +159,7 @@
                       <div class="" fxLayout="row" fxLayoutAlign="end center">
                         <div class="text-right" fxFlex>
                           <p class="postaction"> ... </p>
-                          <p class="postdate"> {{comment.Date}} </p>
+                          <p class="postdate"> {{comment.Date | timeAgo}} </p>
                         </div>
                       </div>
                     </div>

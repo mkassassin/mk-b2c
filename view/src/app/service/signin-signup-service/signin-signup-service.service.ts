@@ -50,6 +50,11 @@ export class SigninSignupServiceService {
         .catch(this.handleError);
     }
 
+    public GetNotification(UserId: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'GetNotification/' + UserId)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
     // public GetCountries(): Observable<any[]>  {
     //     return this.http .get("https://battuta.medunes.net/api/country/all/?key=e25aa18a44446a410802dac50fe6fcc7")
     //     .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);

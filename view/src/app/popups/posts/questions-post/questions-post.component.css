@@ -1,35 +1,4 @@
 
-.Questions .headerPost{
-    height: 50px;
-    background-color: #ffffff;
-    margin: 0px 3px 5px 3px;
-    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
-}
-
-.Questions .headerPost .leftArea{    
-    padding: 0px 10px;
-    line-height: 50px;
-    font-size: 17px;
-    font-weight: 600;
-    color: #333333;
-    letter-spacing: 0.5px;
-    font-family: 'Ubuntu', sans-serif;
-}
-.Questions .headerPost .leftArea i{    
-    font-size: 19px;
-    padding: 0px 10px;
-}
-
-
-.postScroll{
-    margin-bottom: 30px;
-}
-
-
-
-
-
-
 .Questions .QuestionPost{
     background-color:#ffffff;
     box-shadow: 0px 0px 5px 1px #607d8b63;

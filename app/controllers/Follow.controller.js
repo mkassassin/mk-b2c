@@ -3,7 +3,7 @@ var UserModel = require('../models/SignInSignUp.model.js');
 var TopicsModel = require('../models/Topics.model.js');
 var AnswerModel = require('../models/CommentAndAnswer.model.js');
 var QuestionsPostModel = require('../models/QuestionsPost.model.js');
-
+var NotificationModel = require('../models/Notificatio.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -32,6 +32,15 @@ exports.FollowUser = function(req, res) {
             ActiveStates: 'Active',
     });
 
+    var varNotification = new NotificationModel.Notification({
+            UserId:  req.body.UserId,
+            ResponseUserId: req.body.FollowingUserId,
+            FollowUserId: req.body.FollowingUserId,
+            NotificationType: 0,
+            Viewed: 0,
+            NotificationDate: new Date
+    });
+
     FollowModel.FollowUserType.find({UserId: req.body.UserId, FollowingUserId:req.body.FollowingUserId }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Follow Details Add. "});
@@ -39,18 +48,24 @@ exports.FollowUser = function(req, res) {
             if(result.length > 0 ){
                 res.send({ status:"True", message: "This User Already Followed By User."})
             }else{
-                varFollowUserType.save(function(err, result) {
-                    if(err) {
-                        res.status(500).send({status:"False", message: "Some error occurred while creating the Account.", Error : err});
+                varFollowUserType.save(function(newerr, data) {
+                    if(newerr) {
+                        res.status(500).send({status:"False", Error:newerr, message: "Some error occurred while Follow Details Save."});
                         
                     } else {
-                        res.send({status:"True", data: result });
+                        varNotification.save(function(Nofifyerr, Notifydata) {
+                            if(Nofifyerr) {
+                                res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                
+                            } else {
+                                res.send({status:"True", data: data });
+                            }
+                        });
                     }
                 });
             }  
         }
     });
-
 
 };
 
@@ -58,11 +73,36 @@ exports.UnFollowUser = function(req, res) {
     if(!req.params.FollowUserDBid){
         res.status(500).send({status:"False", message: "Follow User DB Id Is Missing!"});
     }
-        FollowModel.FollowUserType.remove({_id: req.params.FollowUserDBid}, function(err, result) {
+        FollowModel.FollowUserType.findOne({_id: req.params.FollowUserDBid}, function(err, result) {
             if(err) {
-                res.status(500).send({status:"False", Error:err, message: "Could not Delete UserFollow Info"});
+                res.status(500).send({status:"False", Error:err, message: "Follow User DB Error"});
             } else {
-                res.send({ status:"True", data: result, message: "User Follow Info Deleted Successfully!"})
+                if(result !== null){
+                    var varNotification = new NotificationModel.Notification({
+                        UserId:  result.UserId,
+                        ResponseUserId: result.FollowingUserId,
+                        FollowUserId: result.FollowingUserId,
+                        NotificationType: 1,
+                        Viewed: 0,
+                        NotificationDate: new Date
+                    });
+
+                    varNotification.save(function(Nofifyerr, Notifydata) {
+                        if(Nofifyerr) {
+                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                        } else {
+                            FollowModel.FollowUserType.remove({_id: req.params.FollowUserDBid}, function(Removeerr, Removeresult) {
+                                if(Removeerr) {
+                                    res.status(500).send({status:"False", Error:Removeerr, message: "Could not Delete UserFollow Info"});
+                                } else {
+                                    res.send({ status:"True", data: Removeresult, message: "User Follow Info Deleted Successfully!"})
+                                }
+                            });
+                        }
+                    });
+                }else{
+                    res.send({ status:"True", message: "User Follow Info Already  Deleted!"})
+                }
             }
         });
 };
@@ -90,7 +130,7 @@ exports.FollowingUsers = function(req, res) {
                                 reject(err);
                             } else {
                                 if(FollowesData.length !== null){
-                                    FollowModel.FollowUserType.count({'UserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                    FollowModel.FollowUserType.count({'FollowingUserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });
                                             reject(err);
@@ -152,7 +192,7 @@ exports.UnFollowingUsers = function(req, res) {
                                     resolve(FollowesData);
                                 }
                                 else{
-                                    FollowModel.FollowUserType.count({'UserId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                    FollowModel.FollowUserType.count({'FollowingUserId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });
                                             reject(newerr);
@@ -209,7 +249,7 @@ exports.UserFollowingUsers = function(req, res) {
                                 reject(err);
                             } else {
                                 if(FollowesData.length !== null){
-                                    FollowModel.FollowUserType.count({'UserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                    FollowModel.FollowUserType.count({'FollowingUserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });
                                             reject(err);
@@ -263,19 +303,34 @@ exports.FollowTopic = function(req, res) {
             ActiveStates: 'Active',
     });
 
+    var varNotification = new NotificationModel.Notification({
+            UserId:  req.body.UserId,
+            FollowTopicId: req.body.FollowingTopicId,
+            NotificationType: 3,
+            Viewed: 0,
+            NotificationDate: new Date
+    });
+
     FollowModel.FollowTopicType.find({UserId:req.body.UserId, FollowingTopicId:req.body.FollowingTopicId }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Follow The Topic "});
         } else {
             if(result.length > 0 ){
-                res.send({ status:"False", message: "This Topic Already Followed By User."})
+                res.send({ status:"False", message: "This Topic Already Followed By Topic."})
             }else{
-                varFollowTopicType.save(function(err, data) {
-                    if(err) {
-                        res.status(500).send({status:"False", Error:err, message: "Some error occurred while creating the Account."});
+                varFollowTopicType.save(function(Newerr, data) {
+                    if(Newerr) {
+                        res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while Follow The Topic."});
                         
                     } else {
-                        res.send({status:"True", data: data });
+                        varNotification.save(function(Nofifyerr, Notifydata) {
+                            if(Nofifyerr) {
+                                res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                
+                            } else {
+                                res.send({status:"True", data: data });
+                            }
+                        });
                     }
                 });
             }
@@ -288,11 +343,35 @@ exports.UnFollowTopic = function(req, res) {
     if(!req.params.FollowTopicDBid){
         res.status(500).send({status:"False", message: "Follow Topic DB Id Is Missing!"});
     }
-    FollowModel.FollowTopicType.remove({_id: req.params.FollowTopicDBid}, function(err, result) {
+    FollowModel.FollowTopicType.findOne({_id: req.params.FollowTopicDBid}, function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", Error:err,  message: "Some error occurred while UnFollow The Topic "});
+            res.status(500).send({status:"False", Error:err, message: "Follow Topic DB Error"});
         } else {
-            res.send({ status:"True", data: result, message: "Topic Follow Info Deleted Successfully!"})
+            if(result !== null){
+                var varNotification = new NotificationModel.Notification({
+                    UserId:  result.UserId,
+                    FollowTopicId: result.FollowingTopicId,
+                    NotificationType: 4,
+                    Viewed: 0,
+                    NotificationDate: new Date
+                });
+
+                varNotification.save(function(Nofifyerr, Notifydata) {
+                    if(Nofifyerr) {
+                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                    } else {
+                        FollowModel.FollowTopicType.remove({_id: req.params.FollowTopicDBid}, function(Removeerr, Removeresult) {
+                            if(Removeerr) {
+                                res.status(500).send({status:"False", Error:Removeerr, message: "Could not Delete TopicFollow Info"});
+                            } else {
+                                res.send({ status:"True", data: Removeresult, message: "Topic Follow Info Deleted Successfully!"})
+                            }
+                        });
+                    }
+                });
+            }else{
+                res.send({ status:"True", message: "Topic Follow Info Already Deleted!"})
+            }
         }
     });
 };

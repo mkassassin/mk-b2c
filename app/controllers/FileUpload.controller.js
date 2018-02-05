@@ -24,9 +24,9 @@ var ImageUpload = multer({storage:ImageStore}).single('file');
 var VideoUpload = multer({storage:VideoStore}).single('file');
 
 exports.UploadImageFile = function(req, res) {
-    ImageUpload(req, res, function(err){
-        if(err){
-            res.status(500).send({status:"False", Error:err});
+    ImageUpload(req, res, function(uploaderr){
+        if(uploaderr){
+            res.status(500).send({status:"False", Error:uploaderr});
         }else{
             if(!req.body.UserId) {
                 res.status(400).send({status:"False", message: " User Id can not be Empty! "});

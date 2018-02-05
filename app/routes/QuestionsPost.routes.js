@@ -7,4 +7,6 @@ module.exports = function(app) {
 
     app.get('/API/QuestionsPost/GetPostList/:UserId/:Limit', QuestionsPost.GetPostList);
 
+    app.get('/API/QuestionsPost/ViewPost/:UserId/:PostId', QuestionsPost.ViewPost);
+
 }

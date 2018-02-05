@@ -1,6 +1,7 @@
 var Model = require('../models/CommentAndAnswer.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var FollowModel = require('../models/Follow.model.js');
+var NotificationModel = require('../models/Notificatio.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -53,28 +54,44 @@ exports.HighlightsCommentAdd = function(req, res) {
                 if(err) {
                     res.send({status:"Fale", Error:err });
                 } else {
-                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
-                        if(newerr){
-                            res.send({status:"Fale", Error:newerr });
-                        }else{
-                            var newArray = [];
-                            newArray.push( {
-                                            _id: result._id,
-                                            UserId: UserData._id,
-                                            UserName: UserData.UserName,
-                                            UserCategoryId: UserData.UserCategoryId,
-                                            UserCategoryName: UserData.UserCategoryName,
-                                            UserImage: UserData.UserImage,
-                                            UserCompany: UserData.UserCompany,
-                                            UserProfession: UserData.UserProfession,
-                                            Followers: count,
-                                            Date: result.Date,
-                                            PostId: result.PostId,
-                                            PostUserId: result.PostUserId ,
-                                            CommentText: result.CommentText
-                                        }
-                            );
-                            res.send({status:"True", data: newArray[0] });
+                    var varNotification = new NotificationModel.Notification({
+                            UserId:  req.body.UserId,
+                            HighlightPostId: req.body.PostId,
+                            ResponseUserId: req.body.PostUserId,
+                            HighlightCommentId: result._id,
+                            NotificationType: 7,
+                            Viewed: 0,
+                            NotificationDate: new Date
+                    });
+                    varNotification.save(function(Nofifyerr, Notifydata) {
+                        if(Nofifyerr) {
+                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                            
+                        } else {
+                            FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                if(newerr){
+                                    res.send({status:"Fale", Error:newerr });
+                                }else{
+                                    var newArray = [];
+                                    newArray.push( {
+                                                    _id: result._id,
+                                                    UserId: UserData._id,
+                                                    UserName: UserData.UserName,
+                                                    UserCategoryId: UserData.UserCategoryId,
+                                                    UserCategoryName: UserData.UserCategoryName,
+                                                    UserImage: UserData.UserImage,
+                                                    UserCompany: UserData.UserCompany,
+                                                    UserProfession: UserData.UserProfession,
+                                                    Followers: count,
+                                                    Date: result.Date,
+                                                    PostId: result.PostId,
+                                                    PostUserId: result.PostUserId ,
+                                                    CommentText: result.CommentText
+                                                }
+                                    );
+                                    res.send({status:"True", data: newArray[0] });
+                                }
+                            });
                         }
                     });
                  }
@@ -111,7 +128,7 @@ exports.GetHighlightsComments = function(req, res) {
                                 reject(err);
                             } else {
                                 if(UserData.length !== null){
-                                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
+                                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });
                                             reject(err);
@@ -191,28 +208,44 @@ exports.QuestionsAnwerAdd = function(req, res) {
                 if(err) {
                     res.send({status:"Fale", Error:err });
                 } else {
-                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
-                        if(newerr){
-                            res.send({status:"Fale", Error:newerr });
-                        }else{
-                            var newArray = [];
-                            newArray.push( {
-                                            _id: result._id,
-                                            UserId: UserData._id,
-                                            UserName: UserData.UserName,
-                                            UserCategoryId: UserData.UserCategoryId,
-                                            UserCategoryName: UserData.UserCategoryName,
-                                            UserImage: UserData.UserImage,
-                                            UserCompany: UserData.UserCompany,
-                                            UserProfession: UserData.UserProfession,
-                                            Followers: count,
-                                            Date: result.Date,
-                                            PostId: result.PostId,
-                                            PostUserId: result.PostUserId ,
-                                            AnswerText: result.AnswerText
-                                        }
-                            );
-                            res.send({status:"True", data: newArray[0] });
+                    var varNotification = new NotificationModel.Notification({
+                        UserId:  req.body.UserId,
+                        QuestionPostId: req.body.PostId,
+                        ResponseUserId: req.body.PostUserId,
+                        QuestionAnswerId: result._id,
+                        NotificationType: 11,
+                        Viewed: 0,
+                        NotificationDate: new Date
+                    });
+                    varNotification.save(function(Nofifyerr, Notifydata) {
+                        if(Nofifyerr) {
+                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                            
+                        } else {
+                            FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                if(newerr){
+                                    res.send({status:"Fale", Error:newerr });
+                                }else{
+                                    var newArray = [];
+                                    newArray.push( {
+                                                    _id: result._id,
+                                                    UserId: UserData._id,
+                                                    UserName: UserData.UserName,
+                                                    UserCategoryId: UserData.UserCategoryId,
+                                                    UserCategoryName: UserData.UserCategoryName,
+                                                    UserImage: UserData.UserImage,
+                                                    UserCompany: UserData.UserCompany,
+                                                    UserProfession: UserData.UserProfession,
+                                                    Followers: count,
+                                                    Date: result.Date,
+                                                    PostId: result.PostId,
+                                                    PostUserId: result.PostUserId ,
+                                                    AnswerText: result.AnswerText
+                                                }
+                                    );
+                                    res.send({status:"True", data: newArray[0] });
+                                }
+                            });
                         }
                     });
                  }

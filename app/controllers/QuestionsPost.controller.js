@@ -50,61 +50,76 @@ exports.Submit = function(req, res) {
                 if(err) {
                     res.send({status:"Fale", Error:err });
                 } else {
-                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
+                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                         if(newerr){
                             res.send({status:"Fale", Error:newerr });
                         }else{
-                            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
-                                if(err) {
-                                    res.send({status:"Fale", Error:err });
-                                } else {
-                                    FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
-                                        if(newerr){
-                                            res.send({status:"Fale", Error:newerr });
-                                        }else{
-                                            var newArray = [];
-                                            var images = [];
-                                            if(result.PostImage.length > 0){
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                }
-
-                                            newArray.push( {
-                                                            _id: result._id,
-                                                            UserId: UserData._id,
-                                                            UserName: UserData.UserName,
-                                                            UserCategoryId: UserData.UserCategoryId,
-                                                            UserCategoryName: UserData.UserCategoryName,
-                                                            UserImage: UserData.UserImage,
-                                                            UserCompany: UserData.UserCompany,
-                                                            UserProfession: UserData.UserProfession,
-                                                            Followers: count,
-                                                            PostTopicId: result.PostTopicId,
-                                                            PostTopicName: result.PostTopicName,
-                                                            PostDate: result.PostDate,
-                                                            PostText: result.PostText ,
-                                                            PostLink: result.PostLink,
-                                                            PostImage: images,
-                                                            PostVideo: result.PostVideo,
-                                                            RatingCount: 0,
-                                                            UserRating: false,
-                                                            Answers: [],
-                                                            AnswersCount: 1,
-                                                        }
-                                            );
-                                            res.send({status:"True", data: newArray[0] });
+                            var newArray = [];
+                            var images = [];
+                            newArray.push( {
+                                            _id: result._id,
+                                            UserId: UserData._id,
+                                            UserName: UserData.UserName,
+                                            UserCategoryId: UserData.UserCategoryId,
+                                            UserCategoryName: UserData.UserCategoryName,
+                                            UserImage: UserData.UserImage,
+                                            UserCompany: UserData.UserCompany,
+                                            UserProfession: UserData.UserProfession,
+                                            Followers: count,
+                                            PostTopicId: result.PostTopicId,
+                                            PostTopicName: result.PostTopicName,
+                                            PostDate: result.PostDate,
+                                            PostText: result.PostText ,
+                                            PostLink: result.PostLink,
+                                            PostImage: images,
+                                            PostVideo: result.PostVideo,
+                                            RatingCount: 0,
+                                            userRated: false,
+                                            UserRating: 0,
+                                            Answers: [],
+                                            AnswersCount: 0,
                                         }
-                                    });
-                                 }
-                            });
+                            );
+                            
+                            if(count > 0){
+                                FollowModel.FollowUserType.find({'FollowingUserId': UserData._id},  function(someerr, followUsers) {
+                                    if(someerr){
+                                        res.send({status:"Fale", Error:someerr });
+                                    }else{
+                                        SetNofifiction();
+                                        async function SetNofifiction(){
+                                            for (let info of followUsers) {
+                                                await SetNotify(info);
+                                            }
+                                            res.send({status:"True", data:newArray[0] });
+                                        }
+
+                                        function SetNotify(info){
+                                            return new Promise(( resolve, reject )=>{
+                                                var varNotification = new NotificationModel.Notification({
+                                                    UserId:  req.body.UserId,
+                                                    QuestionPostId: result._id,
+                                                    ResponseUserId: info.UserId,
+                                                    NotificationType: 9,
+                                                    Viewed: 0,
+                                                    NotificationDate: new Date
+                                                });
+                                                varNotification.save(function(Nofifyerr, Notifydata) {
+                                                    if(Nofifyerr) {
+                                                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                                        reject(Nofifyerr);
+                                                    } else {
+                                                       resolve(Notifydata);
+                                                    }
+                                                });
+                                            })
+                                        }
+                                    }
+                                 });
+                                
+                            }else{
+                                res.send({status:"True", data: newArray[0] });
+                            }
                         }
                     });
                  }
@@ -127,7 +142,9 @@ exports.GetPostList = function (req, res) {
             const GetUserData = (result) =>
                 Promise.all(
                     result.map(info => getPostInfo(info) )
-                ).then( result =>{res.send({ status: "True", data: result }) }
+                ).then( result =>{ 
+                    res.send({ status: "True", data: result }) 
+                }
                 ).catch(err => res.send({ status: "False", Error: err }));
 
 
@@ -136,66 +153,240 @@ exports.GetPostList = function (req, res) {
                     UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
                     FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                    RatingModel.QuestionsRating.count({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
+                    RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec(),
+                    RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                 ]).then(data => {
                     let UserData = data[0];
                     let followCount = data[1];
                     let ratingCount = data[2];
-                    let UserRating = data[3];
+                    let userRate = data[3];
                     let AnswerCount = data[4];
                     let Answerdata = data[5];
+                    let RatingList = data[6];
+                    
 
                     var AnswersArray= new Array();
+                    var RatingCal = 0 ;
 
                    return GetAnsUserData();
                     async function GetAnsUserData(){
                         for (let ansInfo of Answerdata) {
                             await getAnswerInfo(ansInfo);
-                         }
-
-                         var images = [];
-                            if(info.PostImage.length > 0){
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
+                        }
+                        return RatingCountFonction();
+                            async function RatingCountFonction(){
+                                for (let rateInfo of RatingList) {
+                                    await getRatingInfo(rateInfo);
                                 }
-
-
-                         let result = {
-                            _id: info._id,
-                            UserId: UserData._id,
-                            UserName: UserData.UserName,
-                            UserCategoryId: UserData.UserCategoryId,
-                            UserCategoryName: UserData.UserCategoryName,
-                            UserImage: UserData.UserImage,
-                            UserCompany: UserData.UserCompany,
-                            UserProfession: UserData.UserProfession,
-                            Followers:followCount,
-                            PostTopicId: info.PostTopicId,
-                            PostTopicName: info.PostTopicName,
-                            PostDate: info.PostDate,
-                            PostText: info.PostText ,
-                            PostLink: info.PostLink,
-                            PostImage: images,
-                            PostVideo: info.PostVideo,
-                            RatingCount: ratingCount,
-                            UserRating: UserRating,
-                            AnswersCount: AnswerCount,
-                            Answers: AnswersArray,
-    
-                        };
-                        return result;
+                                    var images = [];
+                                    var userRated = false;
+                                    var userRating = 0 ;
+                                        if(userRate.length > 0){
+                                            userRated = true;
+                                            userRating = userRate[0].Rating;
+                                            
+                                        }else{
+                                            userRated = false;
+                                            userRating = 0;
+                                        }
+                                    let result = {
+                                        _id: info._id,
+                                        UserId: UserData._id,
+                                        UserName: UserData.UserName,
+                                        UserCategoryId: UserData.UserCategoryId,
+                                        UserCategoryName: UserData.UserCategoryName,
+                                        UserImage: UserData.UserImage,
+                                        UserCompany: UserData.UserCompany,
+                                        UserProfession: UserData.UserProfession,
+                                        Followers:followCount,
+                                        PostTopicId: info.PostTopicId,
+                                        PostTopicName: info.PostTopicName,
+                                        PostDate: info.PostDate,
+                                        PostText: info.PostText ,
+                                        PostLink: info.PostLink,
+                                        PostImage: images,
+                                        PostVideo: info.PostVideo,
+                                        RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
+                                        userRated: userRated,
+                                        userRating: userRating,
+                                        AnswersCount: AnswerCount,
+                                        Answers: AnswersArray,
+                                    };
+                                return result;
+                            }
                       }
                       
+
+                      function getRatingInfo(rateInfo){
+                        return new Promise(( resolve, reject )=>{
+                            RatingModel.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                if(Rateerr) {
+                                    res.send({status:"Fale", Error:Rateerr });
+                                    reject(Rateerr);
+                                } else {
+                                    RatingCal += JSON.parse(RateData.Rating);
+                                    resolve(RateData);
+                                }
+                            });
+                        });
+                    }
+
+
+                      function getAnswerInfo(ansInfo){
+                        return new Promise(( resolve, reject )=>{
+                            UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
+                                if(err) {
+                                    res.send({status:"Fale", Error:err });
+                                    reject(err);
+                                } else {
+                                    FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: ansInfo._id,
+                                                            UserId: AnsUserData._id,
+                                                            UserName: AnsUserData.UserName,
+                                                            UserCategoryId: AnsUserData.UserCategoryId,
+                                                            UserCategoryName: AnsUserData.UserCategoryName,
+                                                            UserImage: AnsUserData.UserImage,
+                                                            UserCompany: AnsUserData.UserCompany,
+                                                            UserProfession: AnsUserData.UserProfession,
+                                                            Followers: count,
+                                                            Date: ansInfo.Date,
+                                                            PostId: ansInfo.PostId,
+                                                            PostUserId: ansInfo.PostUserId ,
+                                                            AnswerText: ansInfo.AnswerText
+                                                        }
+                                            );
+                                            AnswersArray.push(newArray[0]);
+                                            resolve(newArray[0]);
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+
+                }).catch(error => {
+                    console.log(error)
+                })
+
+             GetUserData(result);
+
+        }
+    });
+};
+
+
+
+
+exports.ViewPost = function (req, res) {
+
+    QuestionsPostModel.QuestionsPostType.find({'_id': req.params.PostId}, function (err, result) {
+        if (err) {
+            res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });
+        } else {
+            const GetUserData = (result) =>
+                Promise.all(
+                    result.map(info => getPostInfo(info) )
+                ).then( result =>{ 
+                    res.send({ status: "True", data: result }) 
+                }
+                ).catch(err => res.send({ status: "False", Error: err }));
+
+
+            const getPostInfo = info =>
+                Promise.all([
+                    UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
+                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec(),
+                    RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                ]).then(data => {
+                    let UserData = data[0];
+                    let followCount = data[1];
+                    let ratingCount = data[2];
+                    let userRate = data[3];
+                    let AnswerCount = data[4];
+                    let Answerdata = data[5];
+                    let RatingList = data[6];
+                    
+
+                    var AnswersArray= new Array();
+                    var RatingCal = 0 ;
+
+                   return GetAnsUserData();
+                    async function GetAnsUserData(){
+                        for (let ansInfo of Answerdata) {
+                            await getAnswerInfo(ansInfo);
+                        }
+                        return RatingCountFonction();
+                            async function RatingCountFonction(){
+                                for (let rateInfo of RatingList) {
+                                    await getRatingInfo(rateInfo);
+                                }
+                                    var images = [];
+                                    var userRated = false;
+                                    var userRating = 0 ;
+                                        if(userRate.length > 0){
+                                            userRated = true;
+                                            userRating = userRate[0].Rating;
+                                            
+                                        }else{
+                                            userRated = false;
+                                            userRating = 0;
+                                        }
+                                    let result = {
+                                        _id: info._id,
+                                        UserId: UserData._id,
+                                        UserName: UserData.UserName,
+                                        UserCategoryId: UserData.UserCategoryId,
+                                        UserCategoryName: UserData.UserCategoryName,
+                                        UserImage: UserData.UserImage,
+                                        UserCompany: UserData.UserCompany,
+                                        UserProfession: UserData.UserProfession,
+                                        Followers:followCount,
+                                        PostTopicId: info.PostTopicId,
+                                        PostTopicName: info.PostTopicName,
+                                        PostDate: info.PostDate,
+                                        PostText: info.PostText ,
+                                        PostLink: info.PostLink,
+                                        PostImage: images,
+                                        PostVideo: info.PostVideo,
+                                        RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
+                                        userRated: userRated,
+                                        userRating: userRating,
+                                        AnswersCount: AnswerCount,
+                                        Answers: AnswersArray,
+                                    };
+                                return result;
+                            }
+                      }
+                      
+
+                      function getRatingInfo(rateInfo){
+                        return new Promise(( resolve, reject )=>{
+                            RatingModel.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                if(Rateerr) {
+                                    res.send({status:"Fale", Error:Rateerr });
+                                    reject(Rateerr);
+                                } else {
+                                    RatingCal += JSON.parse(RateData.Rating);
+                                    resolve(RateData);
+                                }
+                            });
+                        });
+                    }
+
+
                       function getAnswerInfo(ansInfo){
                         return new Promise(( resolve, reject )=>{
                             UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {

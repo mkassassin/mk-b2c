@@ -22,6 +22,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
@@ -58,6 +59,8 @@ import { CommentAndAnswerService } from './service/comment-and-answer-service/co
 import { TrendsService } from './service/trends-service/trends.service';
 import { ProfileSerivceService } from './service/profile-service/profile-serivce.service';
 import { DiscoverComponent } from './popups/discover/discover.component';
+import { HighlightsPostComponent } from './popups/posts/highlights-post/highlights-post.component';
+import { QuestionsPostComponent } from './popups/posts/questions-post/questions-post.component';
 
 
 @NgModule({
@@ -85,7 +88,10 @@ import { DiscoverComponent } from './popups/discover/discover.component';
     PostThreeComponent,
     ImagePreviewDirective,
     VideoPreviewDirective,
-    DiscoverComponent
+    DiscoverComponent,
+    TimeAgoPipe,
+    HighlightsPostComponent,
+    QuestionsPostComponent
   ],
   imports: [
     CommonModule,
@@ -113,6 +119,12 @@ import { DiscoverComponent } from './popups/discover/discover.component';
   ],
   providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService, TrendsService, ProfileSerivceService],
   bootstrap: [AppComponent],
-  entryComponents:[PostOneComponent, PostTwoComponent, PostThreeComponent, DiscoverComponent]
+  entryComponents:[ PostOneComponent, 
+                    PostTwoComponent, 
+                    PostThreeComponent, 
+                    DiscoverComponent, 
+                    HighlightsPostComponent,
+                    QuestionsPostComponent
+                  ]
 })
 export class AppModule { }

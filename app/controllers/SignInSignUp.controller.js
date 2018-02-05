@@ -1,4 +1,5 @@
 var UserModel = require('../models/SignInSignUp.model.js');
+var NotificationModel = require('../models/Notificatio.model.js');
 
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -9,7 +10,18 @@ var transporter = nodemailer.createTransport({
     }
   });
   
-
+  var usersProjection = { 
+    __v: false,
+    UserEmail: false,
+    UserPassword: false,
+    UserCountry: false,
+    UserState: false,
+    UserCity: false,
+    UserDateOfBirth: false,
+    UserGender: false,
+    createdAt: false,
+    updatedAt: false,
+};
 
 exports.Register = function(req, res) {
     if(!req.body.UserName) {
@@ -51,7 +63,6 @@ exports.Register = function(req, res) {
     });
 };
 
-
 exports.NameValidate = function(req, res) {
         UserModel.UserType.findOne({'UserName': req.params.name.toLowerCase()}, function(err, data) {
             if(err) {
@@ -66,7 +77,6 @@ exports.NameValidate = function(req, res) {
         });
 };
 
-
 exports.EmailValidate = function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, data) {
         if(err) {
@@ -80,7 +90,6 @@ exports.EmailValidate = function(req, res) {
         }
     });
 };
-
 
 exports.UserValidate = function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase(), 'UserPassword': req.params.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
@@ -106,8 +115,6 @@ exports.UserValidate = function(req, res) {
     });
 };
 
-
-
 exports.MobileUserValidate= function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase(), 'UserPassword': req.body.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
         if(err) {
@@ -130,4 +137,69 @@ exports.MobileUserValidate= function(req, res) {
             } 
         }
     });
+};
+
+
+exports.GetNotification = function(req, res) {
+    if(!req.params.UserId){
+        res.status(500).send({status:"False", message: " User Id Is Missing!"});
+    }
+    NotificationModel.Notification.find({'ResponseUserId': req.params.UserId, 'Viewed': 0 }, function(err, result) {
+            if(err) {
+                res.status(500).send({status:"False", Error:err, message: "Follow User DB Error"});
+            } else {
+                if(result.length > 0){
+                    var NotificationsArray = new Array();
+                    GetUserData();
+                    async function GetUserData(){
+                        for (let info of result) {
+                            await getUserInfo(info);
+                         }
+                        res.send({status:"True", data: NotificationsArray });
+                      }
+                      
+                      function getUserInfo(info){
+                        return new Promise(( resolve, reject )=>{
+                            UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, FollowesData) {
+                                if(err) {
+                                    res.send({status:"Fale", Error:err });
+                                    reject(err);
+                                } else {
+                                    var newArray = [];
+                                    newArray.push( {
+                                                    _id: info._id,
+                                                    UserId: FollowesData._id,
+                                                    UserName: FollowesData.UserName,
+                                                    UserCategoryName: FollowesData.UserCategoryName,
+                                                    UserImage: FollowesData.UserImage,
+                                                    NotificationType: info.NotificationType,
+                                                    FollowUserId: info.FollowUserId,
+                                                    FollowTopicId: info.FollowTopicId,
+                                                    HighlightPostId: info.HighlightPostId,
+                                                    HighlightLikeId: info.HighlightLikeId,
+                                                    HighlightCommentId: info.HighlightCommentId,
+                                                    HighlightShareId: info.HighlightShareId,
+                                                    QuestionPostId: info.QuestionPostId,
+                                                    QuestionRatingId: info.QuestionRatingId,
+                                                    QuestionShareId: info.QuestionShareId,
+                                                    QuestionAnswerId: info.QuestionAnswerId,
+                                                    ImpressionPostId: info.ImpressionPostId,
+                                                    ImpressionFolllowId: info.ImpressionFolllowId,
+                                                    Viewed: info.Viewed,
+                                                    NotificationDate: info.createdAt || ''
+                                                }
+                                    );
+                                    NotificationsArray.push(newArray[0]);
+                                    resolve(FollowesData);
+                                    
+                                }
+                            });
+                        });
+                      };
+            
+                }else{
+                res.send({status:"True", message:'Un Read Notifications Empty.' });
+                }
+            }
+        });
 };

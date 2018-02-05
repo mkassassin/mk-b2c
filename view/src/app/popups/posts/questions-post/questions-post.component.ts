@@ -1,69 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Component, Directive, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 
-import { PostTwoComponent } from './../../popups/post-two/post-two.component';
-import { PostServiceService } from "./../../service/post-service/post-service.service";
-import { CommentAndAnswerService } from "./../../service/comment-and-answer-service/comment-and-answer.service";
-import { LikeAndRatingServiceService } from "./../../service/like-and-rating-service.service";
+import { PostServiceService } from "./../../../service/post-service/post-service.service";
+import { LikeAndRatingServiceService } from "./../../../service/like-and-rating-service.service";
+import { CommentAndAnswerService } from "./../../../service/comment-and-answer-service/comment-and-answer.service";
+
 
 @Component({
-  selector: 'app-feeds-questions',
-  templateUrl: './feeds-questions.component.html',
-  styleUrls: ['./feeds-questions.component.css']
+  selector: 'app-questions-post',
+  templateUrl: './questions-post.component.html',
+  styleUrls: ['./questions-post.component.css']
 })
-export class FeedsQuestionsComponent implements OnInit {
+export class QuestionsPostComponent implements OnInit {
 
+  
   ActiveAnswerInput;
-  scrollHeight;
-  screenHeight:number;
-  anotherHeight:number;
   UserInfo;
   PostsList:any;
   PostsListLoading:boolean = true;
-
   constructor(
     private AnswerService: CommentAndAnswerService,
     private ratingService: LikeAndRatingServiceService,
     private Service: PostServiceService,
-    public dialog: MatDialog
-  ) { 
-    this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
+    private dialogRef: MatDialogRef<QuestionsPostComponent>,
+    @Inject(MAT_DIALOG_DATA) private data:any  ) { 
 
-    this.Service.GetQuestionsList(this.UserInfo.data._id, '0')
-    .subscribe( datas => {  
-        if(datas['status'] == "True"){
-          this.PostsList = datas['data'];
-          this.PostsListLoading = false;
-        }else{
-          console.log(datas);
-        }
-      });
-  }
+          this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
 
-
-  // material dialog 
-  PostTwoDialogRef: MatDialogRef<PostTwoComponent>;
+          this.Service.ViewQuestionsPost( this.UserInfo.data._id, this.data.PostId)
+          .subscribe( datas => {  
+              if(datas['status'] == "True"){
+                this.PostsList = datas['data'];
+                this.PostsListLoading = false;
+              }else{
+                console.log(datas);
+              }
+            });
+   }
 
   ngOnInit() {
-    this.screenHeight = window.innerHeight - 165;
-    this.scrollHeight = this.screenHeight + "px";
   }
 
-  OpenModelQuestion() {
-    let PostTwoDialogRef = this.dialog.open(PostTwoComponent, {disableClose:true, minWidth:'50%', position: {top: '50px'},  data: { Header:'Questions Post Two Form', type:'Creat Form' } });
-    PostTwoDialogRef.afterClosed().subscribe(result => this.postSubmit(result));
-  }
-
-  postSubmit(result){
-    console.log(result);
-    if(result === "Close"){
-      console.log('Post Not Submit Properly');
-    }else{
-      this.PostsList.splice(0 , 0, result);
-    }
-  }
-
-
+  
   RatingImage(isActive: boolean) {
     return `assets/images/icons/like${isActive ? 'd' : ''}.png`;
   }
@@ -103,9 +81,7 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
-
-
-
+  
   SubmitAnswer(answer, index){
 
     let data = {'UserId': this.UserInfo.data._id, 
@@ -132,6 +108,10 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
+  
 
+  close() {
+    this.dialogRef.close('Close');
+  }
 
 }

@@ -40,49 +40,64 @@
         <div class="notifyheader">
             <div class="" fxLayout="row" fxLayoutAlign="start center">
                 <div fxFlex>
-                    <p class="notifyheadertext"> Notifications</p>
+                    <p class="notifyheadertext"> Notifications <span> ( {{ NotificationList?.length}} ) </span> </p>
                     <div class="arrow"></div>
                 </div>
             </div>
         </div>
         <hr class="m-0">
         <p-scrollPanel style="width:100%;" [style]="{height: '250px' }" styleClass="customscroll_1">
-            <div class="notifylist">
-                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                    <div fxFlex="45px">
-                        <img class="userImg" src="assets/images/icons/user.png" alt="">
-                    </div>
-                    <div class="mt-10" fxFlex>
-                        <p class="notifycategory"> <span class="username"> User Name,  </span> Invester Software De... </p>
-                        <p class="notifydate"> 2 Months Ago  </p>
-                    </div>
-                </div>
-                <hr class="m-0">
-            </div>
-            <div class="notifylist">
-                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                    <div fxFlex="45px">
-                        <img class="userImg" src="assets/images/icons/user.png" alt="">
-                    </div>
-                    <div class="mt-10" fxFlex>
-                        <p class="notifycategory"> <span class="username"> User Name,  </span> Invester Software De... </p>
-                        <p class="notifydate"> 2 Months Ago  </p>
+
+            <div *ngIf="NotificationLoder">
+                <div style="height:210px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
                     </div>
                 </div>
-                <hr class="m-0">
             </div>
-            <div class="notifylist">
-                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                    <div fxFlex="45px">
-                        <img class="userImg" src="assets/images/icons/user.png" alt="">
+
+            <div *ngIf="!NotificationLoder">
+                <div class="notifylist" *ngFor="let Notify of NotificationList; let i=index">
+                    <div style="position:relative" fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex="45px">
+                            <img class="userImg" src="assets/images/users/{{Notify.UserImage}}" alt="">
+                        </div>
+                        <div class="mt-10" fxFlex>
+                            <p class="notifycategory"> <span class="username"> {{Notify.UserName}}  </span>
+                                    <span *ngIf="Notify.NotificationType == 0"> Followed You </span>
+                                    <span *ngIf="Notify.NotificationType == 5" > Written a New Highlight Post  
+                                        <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                    </span>
+                                    <span *ngIf="Notify.NotificationType == 6"> Like Your Post 
+                                            <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span>
+                                    </span>
+                                    <span *ngIf="Notify.NotificationType == 7"> Comment Your Post 
+                                            <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span>
+                                    </span>
+                                    <span *ngIf="Notify.NotificationType == 9"> Asking a New Question 
+                                        <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                    </span>
+                                    <span *ngIf="Notify.NotificationType == 11"> Answering Your Question 
+                                            <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                    </span>
+                                    <span *ngIf="Notify.NotificationType == 10"> Rated Your Question 
+                                            <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                    </span>
+                                    <span *ngIf="Notify.NotificationType == 1"> Unfollow to You </span>
+                            </p>
+                            <p class="notifydate"> {{Notify.NotificationDate | timeAgo }}  </p>
+                        </div>
                     </div>
-                    <div class="mt-10" fxFlex>
-                        <p class="notifycategory"> <span class="username"> User Name,  </span> Invester Software De... </p>
-                        <p class="notifydate"> 2 Months Ago  </p>
-                    </div>
+                    <hr class="m-0">
                 </div>
-                <hr class="m-0">
+                <br>
             </div>
+            
+
         </p-scrollPanel>
         <div class="notifyfooter">
             <hr class="m-0">
