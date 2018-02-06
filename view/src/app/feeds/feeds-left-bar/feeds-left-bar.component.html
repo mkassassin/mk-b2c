@@ -54,19 +54,22 @@
         </div>
         <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
           <div class="text-center" fxFlex="33.3%">
-            <img [ngClass]="{'selected': ActiveCategory == '01'}"  (click)="ActiveCategorySelect('01')" class="followimg" src="assets/images/icons/category1-color.png" alt="">
+            <img *ngIf="ActiveCategory == '01'" class="followimg selected" src="assets/images/icons/category1-color.png" alt="">
+            <img *ngIf="ActiveCategory != '01'"  (click)="ActiveCategorySelect('01')" class="followimg" src="assets/images/icons/category1.png" alt="">
             <p class="followname">
               <span (click)="ActiveCategorySelect('01')"> Enthusiast </span>
             </p>
           </div>
           <div class="text-center" fxFlex="33.3%">
-            <img [ngClass]="{'selected': ActiveCategory == '02'}" (click)="ActiveCategorySelect('02')" class="followimg" src="assets/images/icons/category2-color.png" alt="">
+            <img *ngIf="ActiveCategory == '02'" class=" selected followimg" src="assets/images/icons/category2-color.png" alt="">
+            <img *ngIf="ActiveCategory != '02'" (click)="ActiveCategorySelect('02')" class="followimg" src="assets/images/icons/category2.png" alt="">
             <p class="followname">
               <span (click)="ActiveCategorySelect('02')"> Investor </span>
             </p>
           </div>
           <div class="text-center" fxFlex="33.3%">
-            <img [ngClass]="{'selected': ActiveCategory == '03'}" (click)="ActiveCategorySelect('03')" class="followimg" src="assets/images/icons/category3-color.png" alt="">
+            <img *ngIf="ActiveCategory == '03'" class="followimg selected" src="assets/images/icons/category3-color.png" alt="">
+            <img *ngIf="ActiveCategory != '03'" (click)="ActiveCategorySelect('03')" class="followimg" src="assets/images/icons/category3.png" alt="">
             <p class="followname">
               <span (click)="ActiveCategorySelect('03')"> Expert </span>
             </p>
@@ -75,19 +78,22 @@
 
         <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
           <div class="text-center" fxFlex="33.3%">
-            <img [ngClass]="{'selected': ActiveCategory == '04'}"  (click)="ActiveCategorySelect('04')" class="followimg" src="assets/images/icons/category4-color.png" alt="">
+            <img *ngIf="ActiveCategory == '04'" class="followimg selected" src="assets/images/icons/category4-color.png" alt="">
+            <img *ngIf="ActiveCategory != '04'" (click)="ActiveCategorySelect('04')" class="followimg" src="assets/images/icons/category4.png" alt="">
             <p class="followname">
               <span (click)="ActiveCategorySelect('04')"> Media </span>
             </p>
           </div>
           <div class="text-center" fxFlex="33.3%">
-            <img [ngClass]="{'selected': ActiveCategory == '05'}" (click)="ActiveCategorySelect('05')" class="followimg" src="assets/images/icons/category5-color.png" alt="">
+            <img *ngIf="ActiveCategory == '05'" class="followimg selected" src="assets/images/icons/category5-color.png" alt="">
+            <img *ngIf="ActiveCategory != '05'" (click)="ActiveCategorySelect('05')" class="followimg" src="assets/images/icons/category5.png" alt="">
             <p class="followname">
               <span (click)="ActiveCategorySelect('05')"> Blogger </span>
             </p>
           </div>
           <div class="text-center" fxFlex="33.3%">
-            <img [ngClass]="{'selected': ActiveCategory == '06'}" (click)="ActiveCategorySelect('06')" class="followimg" src="assets/images/icons/category6-color.png" alt="">
+            <img *ngIf="ActiveCategory == '06'" class="followimg selected" src="assets/images/icons/category6-color.png" alt="">
+            <img *ngIf="ActiveCategory != '06'" (click)="ActiveCategorySelect('06')" class="followimg" src="assets/images/icons/category6.png" alt="">
             <p class="followname">
               <span (click)="ActiveCategorySelect('06')"> Company </span>
             </p>

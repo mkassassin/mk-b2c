@@ -8,17 +8,17 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
-//Custome Module --------------------------------
+// Custome Module --------------------------------
 import { AppRoutingModule } from './app.routing.module';
 
-//Feture Module
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { TabViewModule } from "primeng/tabview";
+// Feture Module
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { TabViewModule } from 'primeng/tabview';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AutoCompleteModule} from 'primeng/autocomplete';
 import { GalleriaModule } from 'primeng/galleria';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, TypeaheadModule, BsDropdownModule   } from 'ngx-bootstrap';
 import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
@@ -61,6 +61,7 @@ import { ProfileSerivceService } from './service/profile-service/profile-serivce
 import { DiscoverComponent } from './popups/discover/discover.component';
 import { HighlightsPostComponent } from './popups/posts/highlights-post/highlights-post.component';
 import { QuestionsPostComponent } from './popups/posts/questions-post/questions-post.component';
+import { SearchService } from './service/search-service/search.service';
 
 
 @NgModule({
@@ -110,6 +111,8 @@ import { QuestionsPostComponent } from './popups/posts/questions-post/questions-
     AutoCompleteModule,
     GalleriaModule,
     BsDatepickerModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    BsDropdownModule.forRoot(),
     MatDialogModule,
     MatButtonModule,
     MatMenuModule,
@@ -117,12 +120,24 @@ import { QuestionsPostComponent } from './popups/posts/questions-post/questions-
     FileUploadModule,
     NglModule.forRoot()
   ],
-  providers: [AuthGuard, NotAuthGuard, SigninSignupServiceService, DataSharedVarServiceService, FollowServiceService, PostServiceService, LikeAndRatingServiceService, CommentAndAnswerService, TrendsService, ProfileSerivceService],
+  providers: [
+                AuthGuard,
+                NotAuthGuard,
+                SigninSignupServiceService,
+                DataSharedVarServiceService,
+                FollowServiceService,
+                PostServiceService,
+                LikeAndRatingServiceService,
+                CommentAndAnswerService,
+                TrendsService,
+                ProfileSerivceService,
+                SearchService
+              ],
   bootstrap: [AppComponent],
-  entryComponents:[ PostOneComponent, 
-                    PostTwoComponent, 
-                    PostThreeComponent, 
-                    DiscoverComponent, 
+  entryComponents: [ PostOneComponent,
+                    PostTwoComponent,
+                    PostThreeComponent,
+                    DiscoverComponent,
                     HighlightsPostComponent,
                     QuestionsPostComponent
                   ]

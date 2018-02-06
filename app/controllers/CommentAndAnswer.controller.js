@@ -145,6 +145,7 @@ exports.GetHighlightsComments = function(req, res) {
                                                             Followers:count,
                                                             _id: info._id,
                                                             CommentText: info.CommentText,
+                                                            CommentDate: info.Date,
                                                             PostId: req.params.PostId,
                                                         }
                                             );

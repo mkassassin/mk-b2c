@@ -1,3 +1,92 @@
+
+.SearchOptions{
+    position: absolute;
+    top: 4px;
+    height: 26px;
+}
+i.filter{
+    font-size: 30px;
+    color: #333333;
+    font-weight: 900;
+}
+.dropdown-menu.searchFilter{
+    padding: 0px;
+    min-width: 175px;
+    border-radius: 0px;
+    background-color: white;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    border: none;
+}
+.dropdown-menu.searchFilter li a{
+    padding: 5px 5px 5px 5px;
+    height: 40px;
+    display: inline-flex;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+
+.dropdown-menu.searchFilter li a:hover{
+    background: #333f4f;
+    color: #fff;
+}
+
+.dropdown-menu.searchFilter li hr{
+    margin: 0px 5px;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: #c1baba;
+}
+.dropdown-menu.searchFilter li a i{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: #ffda00;
+    line-height: 30px;
+    color: #333333;
+    border-radius: 40px;
+    margin-right: 8px;
+}
+.dropdown-menu.searchFilter li a:hover i{
+    background-color: #ffffff;
+    color: #333333;
+}
+.searchList{
+    display: inline-flex;
+    height: 45px;
+}
+.searchList img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    margin: 4px 8px 0px 8px;
+}
+.searchList p{
+   font-size: 13px;
+   font-weight: 600;
+   color: #888888;
+   font-family: 'Ubuntu', sans-serif;
+   line-height: 18px;
+   margin-bottom: 0px;
+   margin-top: 4px;
+}
+.searchList p .searchName{
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+.searchList p.searchFollowers{
+    font-size: 12px;
+    font-weight: 600;
+    color: #999999;
+    font-family: 'Ubuntu', sans-serif;
+    line-height: 15px;
+    margin-bottom: 0px;
+ }
+
+
+ 
 .feedsHeader .headerLogo{
     height: 32px;
     margin: 5px;
@@ -37,6 +126,7 @@
     color: #333333 !important;
     letter-spacing: 0.4px;
     font-family: 'Ubuntu', sans-serif;
+    padding-left: 40px;
 }
 .feedsHeader .SearchStyle:-ms-input-placeholder ,
 .feedsHeader .SearchStyle::-webkit-input-placeholder,
@@ -52,7 +142,7 @@
     right: 0px;
 }
 .feedsHeader  .searchIncon .icon{
-    height: 22px;
+    height: 20px;
 }
 
 .feedsHeader .headeruserimg{
@@ -69,7 +159,19 @@
     letter-spacing: 0.3px;
 }
 
-
+.notifyCount{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #000000;
+    line-height: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    border-radius: 50px;
+    margin-left: -9px;
+    top: 1px;
+}
 
 
 .notifylist{

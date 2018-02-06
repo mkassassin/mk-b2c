@@ -50,7 +50,7 @@
 }
 .Questions .QuestionPost .leftSide .postusername{
     line-height: 14px;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.5px;
     margin: 0px;
     font-weight: 600;
@@ -149,9 +149,13 @@
     cursor: pointer;
     margin-top: 5px;
 }
-.Questions .QuestionPost .postLikes .chat img{
-    width: 30px;
-    height: 30px;
+.Questions .QuestionPost .postLikes .chat .answer{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0px 5px;
+    line-height: 30px;
+    color: #555555;
 }
 .Questions .QuestionPost .postLikes .chat .count{
     line-height: 30px;
@@ -236,7 +240,7 @@
 }
 .Questions .PostAnsHeader .postansusername{
     line-height: 14px;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.5px;
     margin: 0px;
     font-weight: 600;

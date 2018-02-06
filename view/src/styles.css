@@ -3,13 +3,15 @@
 @import './../node_modules/primeng/resources/primeng.min.css';
 @import './../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
-@import "./assets/Themes/CustomeTheme.css";
 
-@import " ./../assets/css/crypto/materialcssoveright.css";
+@import './assets/Themes/CustomeTheme.css';
+
+@import './assets/css/crypto/materialcssoveright.css';
 
 
 @import './assets/css/crypto/primengtabsoveright.css';
 @import './assets/css/crypto/primengautocompleteoveright.css';
+
 
 html, body {
     box-sizing: border-box;
@@ -26,6 +28,33 @@ html, body {
 .bg-color-D1D1D1{
     background-color: #D1D1D1 !important;
 }
+
+
+
+
+.dropdown-menu{
+    width: 100%;
+}
+.feedsHeader .dropdown.open.dropdown-menu{
+    padding: 0px;
+}
+.feedsHeader .dropdown.open.dropdown-menu .dropdown-item{
+    padding: 0px;
+    cursor: pointer;
+}
+.feedsHeader .dropdown.open.dropdown-menu .dropdown-item.active{
+    background-color: #3333333d;
+}
+.feedsHeader .dropdown.open.dropdown-menu .dropdown-header{
+    border-bottom: 2px solid #ffda00;
+    background-color: #333333;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+}
+
 
 
 .customscroll_1.ui-corner-all{

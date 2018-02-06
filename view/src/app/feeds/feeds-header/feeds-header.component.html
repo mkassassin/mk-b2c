@@ -6,14 +6,65 @@
                       <img class="headerLogo" src="assets/images/logo1.png" alt="">
                   </div>
                   <div>
-                      <button class="btn-flat btn btn-cutom"> Post </button>
+                      <button class="btn-flat btn btn-cutom" > Post </button>
                   </div>
               </div>  
           </div><!-- header left -->
 
           <div fxFlex="51%">
               <div style="position:relative">
-                  <input class="SearchStyle" type="text" placeholder="Search...">
+                    <span class="SearchOptions" dropdown >
+                        <a href dropdownToggle (click)="false">  <i class="material-icons filter">filter_list</i> </a>
+                        <ul *dropdownMenu class="dropdown-menu searchFilter">
+                            <li>
+                                <a (click)="SearchAll()" class="dropdown-item"> <i class="material-icons">perm_identity</i> All </a>
+                                <hr>
+                                <a (click)="SearchUsers()" class="dropdown-item"> <i class="material-icons">perm_identity</i> Users </a>
+                                <hr>
+                                <a (click)="SearchTopics()" class="dropdown-item"> <i class="material-icons">bubble_chart</i> Topics </a>
+                                <!-- <hr>
+                                <a class="dropdown-item"> <i class="material-icons">trending_up</i> Highlights </a>
+                                <hr>
+                                <a class="dropdown-item"> <i class="material-icons">help_outline</i> Questions </a>
+                                <hr>
+                                <a class="dropdown-item"> <i class="material-icons">attach_money</i> Coins </a> -->
+                            </li>
+                        </ul>
+                    </span>
+
+                  <input [disabled]="InputLoading" [(ngModel)]="selected" [typeahead]="SearchList"
+                                                typeaheadGroupField="Category"
+                                                (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                                                typeaheadOptionField="SearchText"
+                                                [typeaheadScrollable]="true"
+                                                [typeaheadOptionsInScrollableView]="8"
+                                                [typeaheadItemTemplate]="customItemTemplate"
+                                                class="SearchStyle" type="text"
+                                                placeholder="{{Placeholder}}">
+
+                    <ng-template #customItemTemplate let-value="item" let-index="index">
+                        <div *ngIf="value.Category === 'Users'" class="searchList">
+                            <img src="assets/images/users/{{value.UserImage}}" alt=""> 
+                            <div class="usersInfo">
+                                <p>
+                                    <span class="searchName"> {{value.UserName}}</span>
+                                    <span class="searchCategory"> &nbsp; {{value.UserCategoryName}} </span>
+                                    <span class="searchProfesion"> &nbsp; | &nbsp; {{value.UserCategoryName}} @ {{value.UserProfession}} </span>
+                                </p>
+                                <p class="searchFollowers"> {{value.Followers}} Followers </p> 
+                            </div>     
+                        </div>
+                        <div  *ngIf="value.Category === 'Topics'" class="searchList">
+                            <img src="assets/images/topics/{{value.TopicImage}}" alt=""> 
+                            <div class="usersInfo">
+                                <p>
+                                    <span class="searchName"> {{value.TopicName}}</span>
+                                </p>
+                                <p class="searchFollowers"> {{value.Followers}} Followers </p> 
+                            </div>     
+                        </div>
+                        <hr style="margin:0px 12px; border:1px dotted #d4d4d4">
+                    </ng-template>
                   <span class="searchIncon"> <img class="icon" src="assets/images/icons/search.png" alt=""> </span>
               </div>
           </div><!-- header center -->
@@ -25,6 +76,7 @@
                   </div>
                   <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
                       <img  class="headericon" src="assets/images/icons/notification.png" alt="">
+                      <span class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
                   <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
                       <img class="headeruserimg" src="assets/images/sample/img7.jpg" alt="">
@@ -122,15 +174,6 @@
             </div>
         </div>
         <div class="userdropdarrow"></div>
-        <hr class="m-0">
-        <div routerLink="/Profile" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
-            <div class="userdropd_icon" fxFlex="40px">
-                <i class="material-icons">settings</i>
-            </div>
-            <div fxFlex>
-                <p class="userdropd_text"> Settings </p>
-            </div>
-        </div>
         <hr class="m-0">
         <div (click)="LogOut()" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between  center">
             <div class="userdropd_icon" fxFlex="40px">

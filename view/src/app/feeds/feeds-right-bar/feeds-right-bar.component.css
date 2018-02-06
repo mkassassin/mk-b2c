@@ -34,12 +34,11 @@
     text-align: left;
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 10px;
     padding-left: 10px;
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
-    border-bottom: 1px solid #ffda00;
-    margin: 0px 5px;
+    /* border-bottom: 1px solid #ffda00; */
+    margin: 10px 5px 0px 5px;
     letter-spacing: 0.4px;
 }
 

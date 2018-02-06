@@ -78,7 +78,7 @@
 .postOne .cat-img-item.selected img{
     width: 42px;
     height: 42px;
-    border:5px double #333333;
+    border:3px solid #333333;
 }
 
 

@@ -33,6 +33,10 @@
     height: 50px;
     margin: 7px 0px 7px 7px;
     padding: 3px;
+    cursor: pointer;
+}
+.Trends .coinlistitem:hover {
+    background-color: #ffda0061;
 }
 .Trends .coinlistitem.selected{
     background-color: #ffda00;
@@ -67,7 +71,7 @@
 }
 .Trends .impression .headerPost .leftArea{    
     line-height: 35px;
-    font-size: 16px;
+    font-size: 15px;
     padding: 0px 10px;
     font-weight: 600;
     color: #333333;
@@ -97,13 +101,14 @@
     padding: 0px 2px;
 }
 .Trends .impressionPost .leftSide .postuserImg{
-    height: 40px;
-    width: 40px;
+    height: 38px;
+    width: 38px;
     border-radius: 45px;
+    margin-top: 5px;
 }
 .Trends .impressionPost .leftSide .postusername{
     line-height: 14px;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.5px;
     margin: 0px;
     font-weight: 600;

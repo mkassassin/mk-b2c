@@ -64,7 +64,7 @@
           <!-- Highlights Post -->
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-center">
-              <h5 class="text-left"> {{Post.PostText}} </h5>
+              <h5 class="text-left ml-20"> {{Post.PostText}} </h5>
               <div *ngIf="Post.PostImage?.length > 0">
                 <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
               </div>
