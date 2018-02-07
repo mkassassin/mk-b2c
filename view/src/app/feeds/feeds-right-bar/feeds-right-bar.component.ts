@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FollowServiceService } from "./../../service/follow-service/follow-service.service";
+import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 
 @Component({
   selector: 'app-feeds-right-bar',
@@ -9,38 +9,39 @@ import { FollowServiceService } from "./../../service/follow-service/follow-serv
 })
 export class FeedsRightBarComponent implements OnInit {
 
-  UserInfo:any;
-  FollowingUsers:any[];
-  FollowingTopics:any[];
-  UserFollowingUsers:any[];
-  TimeOut:boolean = true;
+
+  UserInfo: any;
+  FollowingUsers: any[];
+  FollowingTopics: any[];
+  UserFollowingUsers: any[];
+  TimeOut: Boolean = true;
 
   constructor(private FollowService: FollowServiceService) {
-                this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
+                this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
                 this.FollowService.FollowingTopics(this.UserInfo.data._id)
-                .subscribe( topicdatas => {  
-                    if(topicdatas['status'] == "True"){
+                .subscribe( topicdatas => {
+                    if (topicdatas['status'] === 'True') {
                       this.FollowingTopics = topicdatas['data'];
-                    }else{
+                    }else {
                       console.log(topicdatas);
                     }
                 });
 
                 this.FollowService.FollowingUsers(this.UserInfo.data._id)
-                .subscribe( userdatas => {  
-                    if(userdatas['status'] == "True"){
+                .subscribe( userdatas => {
+                    if (userdatas['status'] === 'True') {
                       this.FollowingUsers = userdatas['data'];
-                    }else{
+                    }else {
                       console.log(userdatas);
                     }
                 });
 
                 this.FollowService.UserFollowingUsers(this.UserInfo.data._id)
-                .subscribe( userFollowdatas => {  
-                    if(userFollowdatas['status'] == "True"){
+                .subscribe( userFollowdatas => {
+                    if (userFollowdatas['status'] === 'True') {
                       this.UserFollowingUsers = userFollowdatas['data'];
-                    }else{
+                    }else {
                       console.log(userFollowdatas);
                     }
                 });
@@ -49,8 +50,8 @@ export class FeedsRightBarComponent implements OnInit {
             }
 
 
-  TimeOutFuction(){
-      setTimeout(()=>{ this.TimeOut = false; },5000);
+  TimeOutFuction() {
+      setTimeout(() => { this.TimeOut = false; }, 5000);
   }
   ngOnInit() {
   }

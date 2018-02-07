@@ -23,6 +23,8 @@ import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } f
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ImageCropperComponent } from 'ng2-img-cropper';
+import { ChartsModule } from 'ng2-charts';
 
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
@@ -62,6 +64,8 @@ import { DiscoverComponent } from './popups/discover/discover.component';
 import { HighlightsPostComponent } from './popups/posts/highlights-post/highlights-post.component';
 import { QuestionsPostComponent } from './popups/posts/questions-post/questions-post.component';
 import { SearchService } from './service/search-service/search.service';
+import { ProfilePictureCropperComponent } from './popups/profile-picture-cropper/profile-picture-cropper.component';
+import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topics.component';
 
 
 @NgModule({
@@ -92,7 +96,10 @@ import { SearchService } from './service/search-service/search.service';
     DiscoverComponent,
     TimeAgoPipe,
     HighlightsPostComponent,
-    QuestionsPostComponent
+    QuestionsPostComponent,
+    ProfilePictureCropperComponent,
+    ImageCropperComponent,
+    DiscoverTopicsComponent
   ],
   imports: [
     CommonModule,
@@ -118,7 +125,8 @@ import { SearchService } from './service/search-service/search.service';
     MatMenuModule,
     MatExpansionModule,
     FileUploadModule,
-    NglModule.forRoot()
+    NglModule.forRoot(),
+    ChartsModule
   ],
   providers: [
                 AuthGuard,
@@ -139,7 +147,9 @@ import { SearchService } from './service/search-service/search.service';
                     PostThreeComponent,
                     DiscoverComponent,
                     HighlightsPostComponent,
-                    QuestionsPostComponent
+                    QuestionsPostComponent,
+                    ProfilePictureCropperComponent,
+                    DiscoverTopicsComponent
                   ]
 })
 export class AppModule { }

@@ -8,6 +8,6 @@ module.exports = function(app) {
 
     app.get('/API/Trends/ImpressionPosts/:CoinId', Trends.ImpressionPosts);
 
-    app.get('/API/Trends/CoinInfo/:CoinId', Trends.CoinInfo);
+    app.get('/API/Trends/ChartInfo/:CoinCode', Trends.ChartInfo);
 
 }

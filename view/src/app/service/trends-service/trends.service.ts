@@ -37,7 +37,11 @@ export class TrendsService {
         .catch(this.handleError);
     }
 
-
+    public ChartInfo(CoinCode: any): Observable<any[]> {
+        return this.http.get(API_URL + 'ChartInfo/' + CoinCode )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 
 
 }

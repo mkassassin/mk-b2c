@@ -32,71 +32,100 @@
     <div fxFlex="70%">
         <div class="tabStyleTwo">
             <div class="text-center">
-                    <img style="max-height:220px;" src="assets/images/bitcoin_chart.png" alt="">
-            </div>
-                
 
-                    <div class="impression">
-
-                        <div class="headerPost mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
-                            <div fxFlex (click)="OpenModel()">
-                                <div class="leftArea">
-                                    <i class="fa fa-file-text" aria-hidden="true"></i>  Write Impression...
+                    <div *ngIf="ChartLoader" class="col-sm-12" >
+                        <div style="height:300px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                            <div fxFlex>
+                                <div class="preloader-orbit-loading">
+                                    <div class="cssload-inner cssload-one"></div>
+                                    <div class="cssload-inner cssload-two"></div>
+                                    <div class="cssload-inner cssload-three"></div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <p-scrollPanel style="width:100%;"  [style]="{width: '100%', height: impresionsHeight }" styleClass="customscroll_1">
+                    <div *ngIf="!ChartLoader" class="row">
+                        <div class="col-md-12">
+                            <div style="display: block;">
+                            <canvas baseChart width="450" height="250"
+                                        [datasets]="lineChartData"
+                                        [labels]="lineChartLabels"
+                                        [options]="lineChartOptions"
+                                        [colors]="lineChartColors"
+                                        [legend]="lineChartLegend"
+                                        [chartType]="lineChartType"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div *ngIf="ImpressionsListLoader" class="col-sm-12" >
-                                <div style="height:300px" fxLayout="row" fxLayoutAlign="space-evenly center">
-                                    <div fxFlex>
-                                        <div class="preloader-orbit-loading">
-                                            <div class="cssload-inner cssload-one"></div>
-                                            <div class="cssload-inner cssload-two"></div>
-                                            <div class="cssload-inner cssload-three"></div>
-                                        </div>
-                                    </div>
+
+            </div>
+                
+
+            <div class="impression">
+
+                <div *ngIf="!ImpressionsListLoader" class="headerPost mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
+                    <div fxFlex (click)="OpenModel()">
+                        <div class="leftArea">
+                            <i class="fa fa-file-text" aria-hidden="true"></i>  Write Impression...
+                        </div>
+                    </div>
+                </div>
+
+                <p-scrollPanel style="width:100%;"  [style]="{width: '100%', height: impresionsHeight }" styleClass="customscroll_1">
+
+                    <div *ngIf="ImpressionsListLoader" class="col-sm-12" >
+                        <div style="height:300px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                            <div fxFlex>
+                                <div class="preloader-orbit-loading">
+                                    <div class="cssload-inner cssload-one"></div>
+                                    <div class="cssload-inner cssload-two"></div>
+                                    <div class="cssload-inner cssload-three"></div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <div *ngFor="let item of ListOfImpressions; let i=index" class="impressionPost">
-                                <div class="impressionbody">
-                                    <p class="impressiontext"> {{item.PostText}} </p>
-                                </div>
-                                <hr class="m-0">
-                                <div class="impressioninfo">
-                                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                                                <div fxFlex>
-                                                    <div class="leftSide">
-                                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
-                                                            <div fxFlex="45px">
-                                                                <img class="postuserImg" src="assets/images/users/{{item.UserImage}}" alt="">
-                                                            </div>
-                                                            <div class="mt-10" fxFlex>
-                                                                <p class="postusercategory"> <span class="postusername"> {{item.UserName}},  </span> {{item.UserCategoryName}}  &nbsp; | &nbsp; {{item.UserProfession | slice:0:15 }}{{ item.UserProfession?.length > 15 ? '...' : ' ' }} </p>
-                                                                <p class="postuserfollowers"> {{item.Followers}} Followers </p>
-                                                            </div>
-                                                        </div>
+                    <div *ngFor="let item of ListOfImpressions; let i=index" class="impressionPost">
+                        <div class="impressionbody">
+                            <p class="impressiontext"> {{item.PostText}} </p>
+                        </div>
+                        <hr class="m-0">
+                        <div class="impressioninfo">
+                                <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                        <div fxFlex>
+                                            <div class="leftSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                                    <div fxFlex="45px">
+                                                        <img class="postuserImg" src="assets/images/users/{{item.UserImage}}" alt="">
                                                     </div>
-                                                </div>
-                                                <div fxFlex="25%">
-                                                    <div class="rightSide">
-                                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
-                                                            <div class="text-right" fxFlex>
-                                                                <p class="postaction"> ... </p>
-                                                                <p class="postdate"> {{item.PostDate | timeAgo}} </p>
-                                                            </div>
-                                                        </div>
+                                                    <div class="mt-10" fxFlex>
+                                                        <p class="postusercategory"> <span class="postusername"> {{item.UserName}},  </span> {{item.UserCategoryName}}  &nbsp; | &nbsp; {{item.UserProfession | slice:0:15 }}{{ item.UserProfession?.length > 15 ? '...' : ' ' }} </p>
+                                                        <p class="postuserfollowers"> {{item.Followers}} Followers </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                </div>
-                            </div>
-
-
-                        </p-scrollPanel>
+                                        </div>
+                                        <div fxFlex="25%">
+                                            <div class="rightSide">
+                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                                    <div class="text-right" fxFlex>
+                                                        <p class="postaction"> ... </p>
+                                                        <p class="postdate"> {{item.PostDate | timeAgo}} </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
                     </div>
+
+
+                </p-scrollPanel>
+            </div>
                         
         </div>
     </div>

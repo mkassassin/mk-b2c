@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
+import { DiscoverTopicsComponent } from './../../popups/discover-topics/discover-topics.component';
 import { DiscoverComponent } from './../../popups/discover/discover.component';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
 import { SearchService } from './../../service/search-service/search.service';
 import { HighlightsPostComponent } from './../../popups/posts/highlights-post/highlights-post.component';
 import { QuestionsPostComponent } from './../../popups/posts/questions-post/questions-post.component';
+import { PostOneComponent } from './../../popups/post-one/post-one.component';
+import { PostTwoComponent } from './../../popups/post-two/post-two.component';
+
 
 import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
@@ -94,12 +98,35 @@ export class FeedsHeaderComponent implements OnInit {
 
   ngOnInit() {}
 
+
+  OpenQuestionModel() {
+    const PostTwoDialogRef = this.dialog.open(PostTwoComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Creat Form' } });
+    PostTwoDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+  }
+
+
+  OpenHighlightsModel() {
+    const PostOneDialogRef = this.dialog.open( PostOneComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Creat Form' } });
+    PostOneDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+  }
+
+
   OpenModelDiscover() {
     const DiscoverDialogRef = this.dialog.open(
-      DiscoverComponent, {disableClose: true, minWidth: '80%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form'} }
+      DiscoverComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
+
+  OpenModelDiscoverTopics() {
+    const DiscoverTopicDialogRef = this.dialog.open(
+      DiscoverTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form'} }
+    );
+    DiscoverTopicDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+  }
+
 
   OpenModelHighlightsPost(PostId) {
     const HighlightsPostDialogRef = this.dialog.open(

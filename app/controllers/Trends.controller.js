@@ -2,7 +2,8 @@ var CoinsModel = require('../models/Coins.model.js');
 var TrendsModel = require('../models/Trends.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var FollowModel = require('../models/Follow.model.js');
-const axios = require("axios");
+var axios = require("axios");
+var moment = require("moment");
 
 
 var usersProjection = { 
@@ -42,6 +43,7 @@ exports.CoinsList = function(req, res) {
                                     newArray.push( {
                                         CoinId: info._id,
                                         Name: info.Name,
+                                        Code: info.Symbol,
                                         FullName: info.CoinName,
                                         SortOrder: info.SortOrder,
                                         ImageUrl: info.ImageUrl,
@@ -49,7 +51,7 @@ exports.CoinsList = function(req, res) {
                                         TimeStamp: Date.now()
                                         }
                                     );
-
+                                    
                             CoinsArray.push(newArray[0]);
                             resolve(newArray[0]);
 
@@ -58,8 +60,7 @@ exports.CoinsList = function(req, res) {
                             reject(error);
                         });
                 });
-              };
-
+              }
         }
     });
 };
@@ -196,16 +197,43 @@ exports.ImpressionPosts = function(req, res) {
 
 
 
-exports.CoinInfo = function(req, res) {
-        TopicsModel.TopicsType.findOne({'TopicName': req.params.name}, function(err, data) {
-            if(err) {
-                res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Validate The Name."});
-            } else {
-                if(data === null){
-                    res.send({ status:"True", available: "True", message: "( " + req.params.name + " ) This Name is Available." });
-                }else{
-                    res.send({ status:"True", available: "False", message: "( " + req.params.name + " ) This Name is Already Exist. " });
-                } 
+
+
+exports.ChartInfo = function(req, res) {
+    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym='+ req.params.CoinCode +'&tsym=USD&limit=24&aggregate=60')
+        .then(response => {
+            const Result = response['data'].Data;
+
+            var DateArray = new Array();
+            var ValueArray = new Array();
+            GetDateArray();
+            async function GetDateArray(){
+                for (let info of Result) {
+                    await GetDateInfo(info);
+                 }
+                    var newArray = [];
+                    newArray.push( {
+                        Dates: DateArray,
+                        Values: [{data: ValueArray, label: req.params.CoinCode}]
+                        }
+                    );
+                res.send({status:"True", data:newArray[0]});
             }
-        });
+              
+            function GetDateInfo(info){
+                return new Promise(( resolve, reject )=>{
+                    var time = moment.unix(info.time).format("h:mm a");
+                    DateArray.push(time);
+                    ValueArray.push(info.close);
+                    resolve(time);
+                });
+              }
+
+
+        })
+        .catch(error => {
+            res.send({ status:"False", Error: error });
+    });
 };
+
+

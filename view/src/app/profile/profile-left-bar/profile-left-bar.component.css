@@ -1,64 +1,99 @@
 
-.profileRightBar .userdiv{
-    background-color: #e9eef3;
-    margin: 7px;
+.ProfilrLeftBar .userdiv{
     padding: 7px;
-    border: 1px solid #dee4ea;
-    border-bottom: 2px solid #dee4ea;
 }
 
-.profileRightBar .userimg{
-    width: 90px;
-    height: 90px;
+.ProfilrLeftBar .userimg{
+    width: 120px;
+    height: 120px;
     border-radius: 100px;
 }
-.profileRightBar .username{
-    font-size: 19px;
-    font-weight: 900;
-    color: #777777;
-    margin: -5px 0px 0px 0px;
-    letter-spacing: 0.5px;
-    word-spacing: 4px;
-}
-.profileRightBar .follow{
-    text-align: center;
-    font-size: 13px;
-    padding: 0px;
-    font-weight: 600;
-    margin-bottom: 0px;
-    color: #9c9a9a;
+.ProfilrLeftBar .username{
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
     margin: 0px;
-    line-height: 21px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
 }
-.textLine{
+.ProfilrLeftBar .userfollowers{
+    font-size: 14px;
+    font-weight: 600;
+    color: #888888;
+    margin: 0px;
+    line-height: 18px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.6px;
+}
+
+.ProfilrLeftBar .headerstyle{
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    /* border-bottom: 1px solid #ffda00; */
+    margin: 10px 5px 0px 5px;
+    letter-spacing: 0.4px;
+}
+
+
+.ProfilrLeftBar .listFlexDiv{
     display: inline-flex;
-    min-height: 40px;
-    /* background-color: #e9eef3; */
-    margin: 3px 5px;
-    width: 96%;
-    border: 1px solid #dee4ea;
-    border-bottom: 2px solid #dee4ea;
+    padding: 10px 20px 0px 20px;
 }
-.textTitle{
-    margin: 0px 0px 0px 10px;
+
+.ProfilrLeftBar .followPart{
+    height: 60px;
+    text-align: center;
+    padding: 0px;
+}
+.ProfilrLeftBar .followimg{
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    border-radius: 50px;
+}
+
+.ProfilrLeftBar .followname{
+    font-size: 11px;
+    margin: 0px;
+    font-weight: 700;
+    color: #666666;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+
+
+.ProfilrLeftBar .viewAll{
+    margin: 0px;
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.4px;
-    color: #66666687;
-    line-height: 39px;
+    color: #999999;
+    letter-spacing: 0.6px;
+    margin-right: 5px;
+    padding-bottom: 3px;
+    font-family: 'Ubuntu', sans-serif;
 }
-.textCount{
-    margin: 0px 0px 0px 5px;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.4px;
-    color: #666666f0;
-    line-height: 22px;
-    margin-top: 6px;
-    zoom: 110%;
+.ProfilrLeftBar .viewAll span{
+   cursor: pointer;
 }
 
-
-
-
-
+.PictureChange{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 13px;
+    background-color: #ffda00;
+    padding: 3px 5px;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    box-shadow: rgba(56, 49, 49, 0.8) 2px 2px 1px 0px;
+    cursor: pointer;
+}

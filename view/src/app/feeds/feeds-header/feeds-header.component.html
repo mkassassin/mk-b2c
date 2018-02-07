@@ -1,17 +1,20 @@
- <div style="height:40px" class="feedsHeader bg-primary-color">
-      <div fxLayout="row" fxLayoutAlign="space-evenly center" >
-          <div fxFlex="21%">
+ <div style="height:45px;background-color: #ffffff !important; border-bottom: 3px solid #ffda00;" class="feedsHeader">
+      <div fxLayout="row" fxLayoutGap="2.5%" fxLayoutAlign="center center" >
+          <div fxFlex="19%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                   <div routerLink="/" style="cursor:pointer">
-                      <img class="headerLogo" src="assets/images/logo1.png" alt="">
+                      <img class="headerLogo" style="margin: 0px; height: 35px;" src="assets/images/icons/logo.png" alt="">
                   </div>
-                  <div>
-                      <button class="btn-flat btn btn-cutom" > Post </button>
+                  <div style="cursor:pointer">
+                      <img (click)="OpenHighlightsModel()" class="headerLogo" src="assets/images/icons/highlights.png" alt="">
                   </div>
+                  <div style="cursor:pointer">
+                      <img (click)="OpenQuestionModel()" class="headerLogo" src="assets/images/icons/question.png" alt="">
+                </div>
               </div>  
           </div><!-- header left -->
 
-          <div fxFlex="51%">
+          <div fxFlex="47%">
               <div style="position:relative">
                     <span class="SearchOptions" dropdown >
                         <a href dropdownToggle (click)="false">  <i class="material-icons filter">filter_list</i> </a>
@@ -69,16 +72,19 @@
               </div>
           </div><!-- header center -->
 
-          <div fxFlex="21%">
+          <div fxFlex="19%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                  <div fxFlex="30%" class="text-center">
-                      <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:28px" class="headericon" src="assets/images/icons/explore.png" alt="">
+                    <div fxFlex="25%" class="text-center">
+                        <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:35px" class="headericon" src="assets/images/icons/discoverpeople.png" alt="">
+                    </div>
+                  <div fxFlex="25%" class="text-center">
+                      <img (click)="OpenModelDiscoverTopics()" style="cursor:pointer ;height:35px" class="headericon" src="assets/images/icons/discovertopic.png" alt="">
                   </div>
-                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
+                  <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
                       <img  class="headericon" src="assets/images/icons/notification.png" alt="">
                       <span class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
-                  <div fxFlex="30%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
+                  <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
                       <img class="headeruserimg" src="assets/images/sample/img7.jpg" alt="">
                   </div>
               </div> 

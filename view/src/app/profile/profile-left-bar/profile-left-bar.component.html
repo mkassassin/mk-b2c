@@ -1,54 +1,135 @@
-<div class="profileRightBar">
+<div class="ProfilrLeftBar" style="position:relative">
 
     <!-- UserDetails -->
-    <div class="userdiv" fxLayout="row" fxLayoutAlign="space-evenly">
-        <div fxFlex="90px" class="text-center">
-            <img class="userimg" src="assets/images/sample/img7.jpg" alt="">
+    <div class="userdiv" fxLayout="column" fxLayoutAlign="start center">
+        <div fxFlex="120px" class="text-center">
+            <img class="userimg" src="assets/images/users/{{UserInfo.data.UserImage}}" alt="">
         </div>
-        <div fxFlex class="text-center">
-            <p class="username"> User Name </p>
-            <p class="follow">100 Followers </p>
-            <p class="follow"> 100 Following Users</p>
-            <p class="follow"> 100 Following Topics </p>
+        <div fxFlex="60px">
+            <p class="username"> {{UserInfo.data.UserName}} </p>
+            <p class="userfollowers"> {{UserInfo.data.UserCategoryName}} &nbsp; | &nbsp; {{UserInfo.data.UserProfession}} </p>
         </div>
     </div>
+
+    <div class="PictureChange" (click)="EditProfilePic()"> Edit Pic.. </div>
     <!-- UserDetails End -->
 
+    <!-- <hr class="mt-5 mb-5"> -->
 
-    <div class="row mr-0">
-        <div class="col-sm-12">
-            <div class="textLine"> 
-                <p class="textTitle"> E-mail :</p> 
-                <p class="textCount"> Username@usermail.com </p>
-            </div>
-            <div class="textLine"> 
-                <p class="textTitle"> Profession : </p> 
-                <p class="textCount"> User Profession </p>
-            </div>
-            <div class="textLine"> 
-                <p class="textTitle"> Company : </p> 
-                <p class="textCount"> User Working Company </p>
-            </div>
-            <div class="textLine"> 
-                <p class="textTitle"> Gender : </p> 
-                <p class="textCount"> Male </p>
-            </div>
-            <div class="textLine"> 
-                <p class="textTitle"> Date Of Birth : </p> 
-                <p class="textCount"> 01/01/1995</p>
-            </div>
-            <div class="textLine"> 
-                <p class="textTitle"> Location : </p> 
-                <p class="textCount"> Country Name <br> State Name <br> City Name</p>
-            </div>
-            <div class="textLine"> 
-                    <p class="textTitle"> Selected Category : </p> 
-                    <p class="textCount"> Blogger </p>
+    <!-- Followers -->
+    <div class="row">
+      <div class="col-sm-12">
+          <p class="headerstyle"> Following </p>
+      </div>
+      <div class="col-sm-12 listFlexDiv">
+
+        <div *ngIf="LoderOne" class="col-sm-12" >
+            <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div fxFlex>
+                    <div class="preloader-orbit-loading">
+                        <div class="cssload-inner cssload-one"></div>
+                        <div class="cssload-inner cssload-two"></div>
+                        <div class="cssload-inner cssload-three"></div>
+                    </div>
                 </div>
-            <div class="textLine"> 
-                <p class="textTitle"> Account Create Date : </p> 
-                <p class="textCount"> 01/01/2018 </p>
             </div>
         </div>
+    
+        <div *ngIf="UserFollowingUsers?.length <= 0 && !LoderOne" class="col-sm-12" >
+            <br>
+                <h5 class="userlistname"> Following Users Not Found!</h5>
+            <br>
+        </div>
+
+
+          <div *ngFor="let user of (UserFollowingUsers ? UserFollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
+              <img class="followimg" src="assets/images/users/{{user.UserImage}}" alt="">
+              <p class="followname"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </p>
+          </div>
+      </div>
+      <div *ngIf="UserFollowingUsers?.length > 4" class="col-sm-12 text-right">
+          <p class="viewAll"> <span> View All... </span> </p>
+      </div>
     </div>
+
+    <!-- Followers End  -->
+
+
+    <!-- Followers -->
+    <div class="row">
+      <div class="col-sm-12">
+          <p class="headerstyle"> Followed By </p>
+      </div>
+      <div class="col-sm-12 listFlexDiv">
+
+            <div *ngIf="LoderTwo" class="col-sm-12" >
+                <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div *ngIf="FollowingUsers?.length <= 0 && !LoderTwo" class="col-sm-12" >
+                <br>
+                    <h5 class="userlistname"> Followed Users Not Found!</h5>
+                <br>
+            </div>
+
+          <div *ngFor="let user of (FollowingUsers ? FollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
+              <img class="followimg" src="assets/images/users/{{user.UserImage}}" alt="">
+              <p class="followname"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </p>
+          </div>
+      </div>
+      <div *ngIf="FollowingUsers?.length > 4" class="col-sm-12 text-right">
+          <p class="viewAll"> <span> View All... </span>  </p>
+      </div>
+    </div>
+    
+    <!-- Followers End  -->
+
+
+
+    <!-- Followers -->
+    <div class="row ">
+      <div class="col-sm-12">
+          <p class="headerstyle"> Topics </p>
+      </div>
+      <div class="col-sm-12 listFlexDiv">
+
+            <div *ngIf="LoderThree" class="col-sm-12" >
+                <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div *ngIf="FollowingTopics?.length <= 0 && !LoderThree" class="col-sm-12" >
+                <br>
+                    <h5 class="userlistname"> Followed Topic Not Found!</h5>
+                <br>
+            </div>
+
+          <div *ngFor="let Topic of (FollowingTopics ? FollowingTopics.slice(0,4): []);" class="col-sm-3 followPart ">
+              <img class="followimg" src="assets/images/topics/{{Topic.TopicImage}}" alt="">
+              <p class="followname"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </p>
+          </div>
+        
+      </div>
+      <div *ngIf="FollowingTopics?.length > 4" class="col-sm-12 text-right">
+          <p class="viewAll"> <span> View All... </span>  </p>
+      </div>
+    </div>
+    
+    <!-- Followers End  -->
+
 </div>

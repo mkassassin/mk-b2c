@@ -1,6 +1,6 @@
 import { Component, Directive, Inject, OnInit } from '@angular/core';
 
-import { FollowServiceService } from "./../../service/follow-service/follow-service.service";
+import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 
 import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 
@@ -11,38 +11,25 @@ import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 })
 export class DiscoverComponent implements OnInit {
 
-  UserInfo:any;
-  DiscoverPeoples:any[];
-  DiscoverTopics:any[];
-  LoadingPeoples:boolean = true;
-  LoadingTopics:boolean = true;
-  ActiveCategory = "01";
+  UserInfo: any;
+  DiscoverPeoples: any[];
+  LoadingPeoples: Boolean = true;
+  ActiveCategory = '01';
 
   constructor(
     private Service: FollowServiceService,
     private dialogRef: MatDialogRef<DiscoverComponent>,
-    @Inject(MAT_DIALOG_DATA) private data:any ) {
+    @Inject(MAT_DIALOG_DATA) private data: any ) {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
         this.Service.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
-        .subscribe( userdatas =>  { 
-          if(userdatas['status'] == "True"){
+        .subscribe( userdatas =>  {
+          if (userdatas['status'] === 'True') {
             this.DiscoverPeoples = userdatas['data'];
             this.LoadingPeoples = false;
-          }else{
+          }else {
             this.LoadingPeoples = false;
             console.log(userdatas);
-          }
-        });
-
-        this.Service.DiscoverTopics(this.UserInfo.data._id)
-        .subscribe( datas =>  {  
-          if(datas['status'] == "True"){
-            this.LoadingTopics = false;
-            this.DiscoverTopics = datas['data'];
-          }else{
-            this.LoadingTopics = false;
-            console.log(datas);
           }
         });
 
@@ -53,44 +40,31 @@ export class DiscoverComponent implements OnInit {
 
   }
 
-  followUser(Id:String){
-    let data =  { "UserId" : this.UserInfo.data._id, "FollowingUserId" : Id };
-    var index = this.DiscoverPeoples.findIndex(x => x._id == Id);
+  followUser(Id: String) {
+    const data =  { 'UserId' : this.UserInfo.data._id, 'FollowingUserId' : Id };
+    const index = this.DiscoverPeoples.findIndex(x => x._id === Id);
       this.Service.FollowUser(data)
-        .subscribe( datas => { 
-          if(datas.status == "True"){
+        .subscribe( datas => {
+          if (datas.status === 'True') {
             this.DiscoverPeoples.splice(index , 1);
-          }else{
-            console.log(datas);
-          }
-      });
-  }
-
-  followTopic(Id:String){
-    let data =  { "UserId" : this.UserInfo.data._id, "FollowingTopicId" : Id };
-    var index = this.DiscoverTopics.findIndex(x => x._id == Id);
-      this.Service.FollowTopic(data)
-        .subscribe( datas => { 
-          if(datas.status == "True"){
-            this.DiscoverTopics.splice(index , 1);
-          }else{
+          }else {
             console.log(datas);
           }
       });
   }
 
 
-  ActiveCategorySelect(id){
-    if(this.ActiveCategory != id){
+  ActiveCategorySelect(id) {
+    if (this.ActiveCategory !== id) {
       this.LoadingPeoples = true;
       this.DiscoverPeoples = [];
-      this.ActiveCategory = id; 
+      this.ActiveCategory = id;
       this.Service.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
-      .subscribe( userdatas =>  {  
-            if(userdatas['status'] == "True"){
+      .subscribe( userdatas =>  {
+            if (userdatas['status'] === 'True') {
               this.DiscoverPeoples = userdatas['data'];
               this.LoadingPeoples = false;
-            }else{
+            }else {
               console.log(userdatas);
             }
       });
