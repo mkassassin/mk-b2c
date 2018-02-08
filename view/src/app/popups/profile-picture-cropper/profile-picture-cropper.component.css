@@ -1,0 +1,136 @@
+#hide input[type=file] {
+    display: none;
+    margin: 10px;
+  }
+  
+  #hide input[type=file]+label {
+    display: inline-block;
+    margin: 20px;
+    padding: 4px 32px;
+    background-color: #FFFFFF;
+    border: solid 1px #666F77;
+    border-radius: 6px;
+    color: #666F77;
+  }
+  
+  #hide input[type=file]:active+label {
+    background-image: none;
+    background-color: #2D6C7A;
+    color: #FFFFFF;
+  }
+
+  .btn-custom:focus{
+    outline-style: none;
+    outline-color: transparent;
+    opacity: 1;
+  }
+  
+
+  
+.imgUpload label{
+    width: 340px;
+    text-align: center;
+    height: 340px;
+    background-color: #dadada40;
+    box-shadow: 0px 0px 3px 1px rgba(158, 157, 157, 0.7);
+    color: #333333;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 300px
+}
+.imgUpload label span i{
+    font-size: 70px;
+    font-weight: 900;
+    margin-top: 140px;
+    line-height: 20px;
+    width: 100%
+}
+.ImgselectedList{
+    display: inline-block;
+    max-width: 800px;
+}
+.ImgselectedList li{
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0px 10px;
+    border: 1px solid #8080801f;
+    padding: 5px;
+    float: left;
+    margin-bottom: 20px;
+}
+.ImgselectedList li .selectedImg{
+    text-align: center;
+    box-shadow: 0px 0px 1px 1px silver;
+}
+.ImgselectedList li .selectedImg img{
+    height: 101px;
+    width: auto;
+}
+.ImgselectedList li .selectedImg .imgname{
+    position: absolute;
+    font-size: 13px;
+    padding: 0px;
+    letter-spacing: 0.3px;
+    width: 128px;
+    overflow: hidden;
+    bottom: 30px;
+    background-color: #ebe9e224;
+}
+.ImgselectedList li .selectedImg .imgprog{
+    position: absolute;
+    top: 35px;
+    left: 48px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    background-color: #e7e5e5c7;
+    font-size: 14px;
+    line-height: 40px;
+    border-radius: 50px;
+}
+.ImgselectedList li .selectedImg .clearbutton{
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background-color: #e7e5e5;
+    height: 25px;
+    width: 25px;
+    border-radius: 50px;
+    color: red;
+    cursor: pointer;
+}
+.ImgselectedList li .selectedImg .donebutton{
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background-color: #e7e5e5;
+    height: 25px;
+    width: 25px;
+    border-radius: 50px;
+    color: green;
+}
+.ImgselectedList li .selectedImg .upload{
+    width: 130px;
+    margin-left: -1px;
+    font-size: 15px;
+    height: 26px;
+    border: none;
+    background-color: #046204;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.5px;
+}
+.ImgselectedList li .selectedImg .remove{
+    width: 130px;
+    margin-left: -1px;
+    font-size: 15px;
+    height: 26px;
+    border: none;
+    background-color:#cf0505;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.5px;
+}

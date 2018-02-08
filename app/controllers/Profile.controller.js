@@ -32,14 +32,14 @@ exports.Timeline = function (req, res) {
                 } else {
 
 
-                    const GetUserData = (result) =>
+                    var GetUserData = (result) =>
                     Promise.all(
                         result.map(info => getPostInfo(info))
                     ).then( result =>{  res.send({ status: "True", data: result }) }
                     ).catch(err => res.send({ status: "False", Error: err }));
     
     
-                const getPostInfo = info =>
+                var getPostInfo = info =>
                     Promise.all([
                         UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
                         FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
@@ -51,15 +51,15 @@ exports.Timeline = function (req, res) {
                         CommentAndAnswer.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec()
                     ]).then(data => {
-                        let UserData = data[0];
-                        let followCount = data[1];
-                        let ratingCount = data[2];
-                        let UserRating = data[3];
-                        let LikingCount = data[4];
-                        let UserLike = data[5];
-                        let CommentCount = data[6];
-                        let AnswerCount = data[7];
-                        let Answerdata = data[8];
+                        var UserData = data[0];
+                        var followCount = data[1];
+                        var ratingCount = data[2];
+                        var UserRating = data[3];
+                        var LikingCount = data[4];
+                        var UserLike = data[5];
+                        var CommentCount = data[6];
+                        var AnswerCount = data[7];
+                        var Answerdata = data[8];
     
 
                     if(info.PostTopicId){
@@ -68,25 +68,11 @@ exports.Timeline = function (req, res) {
     
                        return GetAnsUserData();
                         async function GetAnsUserData(){
-                            for (let ansInfo of Answerdata) {
+                            for (var ansInfo of Answerdata) {
                                 await getAnswerInfo(ansInfo);
                              }
-                             var images = [];
-                                if(info.PostImage.length > 0){
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                }
                              
-    
-                             let result = {
+                             var result = {
                                  Type:'Question',
                                 _id: info._id,
                                 UserId: UserData._id,
@@ -102,7 +88,7 @@ exports.Timeline = function (req, res) {
                                 PostDate: info.PostDate,
                                 PostText: info.PostText ,
                                 PostLink: info.PostLink,
-                                PostImage: images,
+                                PostImage: info.PostImage,
                                 PostVideo: info.PostVideo,
                                 RatingCount: ratingCount,
                                 UserRating: UserRating,
@@ -161,19 +147,6 @@ exports.Timeline = function (req, res) {
                         }
 
                         var newArray = [];
-                        var images = [];
-                        if(info.PostImage.length > 0){
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                            }
 
                         newArray.push( {
                                         Type:'Highlight',
@@ -190,7 +163,7 @@ exports.Timeline = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
-                                        PostImage: images,
+                                        PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
                                         LikesCount: LikingCount,
                                         UserLiked: UserLiked,

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
-
+import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ProfileSerivceService } from './../../service/profile-service/profile-serivce.service';
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
+import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
 
 @Component({
   selector: 'app-profile-timeline',
@@ -23,21 +24,47 @@ export class ProfileTimelineComponent implements OnInit {
   LoadingActiveComment;
   ActiveAnswerInput;
   PostsListLoder: Boolean = true;
-
+  UserId;
 
   constructor(
+    private UserService: SigninSignupServiceService,
     private Service: ProfileSerivceService,
+    private ShareingService: DataSharedVarServiceService,
     private LikeService: LikeAndRatingServiceService,
     private commentservice: CommentAndAnswerService,
     private AnswerService: CommentAndAnswerService,
+    private elementRef: ElementRef
       ) {
-        this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
-        this.Service.Timeline(this.UserInfo.data._id)
+
+
+        const ProfilePage =  this.ShareingService.GetProfilePage();
+
+      if (ProfilePage.UserId !== '') {
+        this.UserId = ProfilePage.UserId;
+
+        const LoginUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+          this.UserService.GetUserInfo(this.UserId, LoginUserInfo.data._id )
+          .subscribe( datas => {
+              if (datas['status'] === 'True') {
+                this.UserInfo = datas;
+              }else {
+                console.log(datas);
+              }
+          });
+      }else {
+        this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+        this.UserId = this.UserInfo.data._id;
+      }
+        this.Service.Timeline(this.UserId)
         .subscribe( datas => {
             if (datas['status'] === 'True') {
               this.PostsList = datas['data'];
               this.PostsListLoder = false;
+              const s = document.createElement('script');
+                          s.type = 'text/javascript';
+                          s.src = './../../../assets/html5gallery/html5gallery.js';
+                          this.elementRef.nativeElement.appendChild(s);
             }else {
               console.log(datas);
             }
@@ -80,6 +107,7 @@ export class ProfileTimelineComponent implements OnInit {
       });
   }
 
+
   ChangeActiveComment(index: string) {
     if (this.ActiveComment === index || this.LoadingActiveComment === index) {
       this.ActiveComment = -1;
@@ -103,6 +131,8 @@ export class ProfileTimelineComponent implements OnInit {
 
 
   SubmitComment(comment, index) {
+
+    if (comment !== '') {
     const data = {'UserId': this.UserInfo.data._id,
               'PostId': this.PostsList[index]._id,
               'PostUserId':  this.PostsList[index].UserId,
@@ -117,20 +147,34 @@ export class ProfileTimelineComponent implements OnInit {
 
                 this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
                   .subscribe( newDatas => {
-                      this.LoadingActiveComment = -1;
-                      if (newDatas['status'] === 'True') {
-                        this.PostsList[index].comments = newDatas['data'];
-                        this.PostsList[index].commentsCount = this.PostsList[index].commentsCount + 1;
-                      }else {
-                        console.log(newDatas);
-                      }
+                    this.LoadingActiveComment = -1;
+                    if (newDatas['status'] === 'True') {
+                      this.PostsList[index].comments = newDatas['data'];
+                      this.PostsList[index].commentsCount = this.PostsList[index].commentsCount + 1;
+                    }else {
+                      console.log(newDatas);
+                    }
                   });
             }else {
                 console.log(datas);
             }
           });
+    }
   }
 
+
+
+
+
+
+
+
+
+
+
+RatingImage(isActive: boolean) {
+    return `assets/images/icons/like${isActive ? 'd' : ''}.png`;
+  }
 
 
 
@@ -143,10 +187,35 @@ export class ProfileTimelineComponent implements OnInit {
   }
 
 
+  rateChanging(index) {
+    const data = {'UserId': this.UserInfo.data._id,
+      'PostId': this.PostsList[index]._id,
+      'PostUserId':  this.PostsList[index].UserId,
+      'Rating': this.PostsList[index].RatingCount,
+      'Date':  new Date(),
+    };
+    this.LikeService.QuestionsRatingAdd(data).subscribe( datas => {
+      if (datas['status'] === 'True' && !datas['message']) {
+              if (datas['status'] === 'True') {
+                this.PostsList[index].userRated = true;
+                this.PostsList[index].userRating = datas['data'].Rating;
+                this.PostsList[index].RatingCount = datas['data'].OverallRating;
+              }else {
+                console.log(datas);
+              }
+      }else {
+          console.log(datas);
+      }
+    });
+
+  }
+
+
 
 
 
   SubmitAnswer(answer, index) {
+    if (answer !== '') {
     const data = {'UserId': this.UserInfo.data._id,
               'PostId': this.PostsList[index]._id,
               'PostUserId':  this.PostsList[index].UserId,
@@ -154,7 +223,6 @@ export class ProfileTimelineComponent implements OnInit {
               'Date':  new Date(),
             };
 
-            console.log(data);
           this.AnswerService.QuestionsAnwerAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
                     if (datas['status'] === 'True') {
@@ -169,9 +237,7 @@ export class ProfileTimelineComponent implements OnInit {
                 console.log(datas);
             }
           });
+    }
   }
-
-
-
 
 }

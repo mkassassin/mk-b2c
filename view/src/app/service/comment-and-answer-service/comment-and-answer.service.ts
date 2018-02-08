@@ -32,7 +32,7 @@ export class CommentAndAnswerService {
     }
     
     public QuestionsAnwerAdd(data: any) {
-        return this.http .post(API_URL + 'QuestionsAnwerAdd' , data)
+        return this.http .post(API_URL + 'QuestionsAnswerAdd' , data)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }

@@ -1,7 +1,8 @@
 import { Component, Directive, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
-
+import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 
 @Component({
@@ -16,7 +17,8 @@ export class DiscoverComponent implements OnInit {
   LoadingPeoples: Boolean = true;
   ActiveCategory = '01';
 
-  constructor(
+  constructor(private router: Router,
+    private ShareService: DataSharedVarServiceService,
     private Service: FollowServiceService,
     private dialogRef: MatDialogRef<DiscoverComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
@@ -74,6 +76,12 @@ export class DiscoverComponent implements OnInit {
 
   close() {
     this.dialogRef.close('Close');
+  }
+
+
+  GotoProfile(Id) {
+    this.ShareService.SetProfilePage(Id);
+    this.dialogRef.close('GoToProfile');
   }
 
 }

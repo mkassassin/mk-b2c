@@ -145,6 +145,8 @@ export class FeedsHeaderComponent implements OnInit {
   DiscoverClose(result) {
     if (result === 'Close') {
       console.log('Post Not Submit Properly');
+    }else if (result === 'GoToProfile') {
+      this.GotoProfile();
     }else {
       console.log('Post Submited');
     }
@@ -161,5 +163,10 @@ export class FeedsHeaderComponent implements OnInit {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('UserToken');
     this.router.navigate(['SignInSignUp']);
+  }
+
+
+  GotoProfile() {
+    this.router.navigate(['Profile']);
   }
 }

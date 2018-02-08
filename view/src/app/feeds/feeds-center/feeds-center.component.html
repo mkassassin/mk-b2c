@@ -2,7 +2,9 @@
     <p-tabView (onChange)="onTabChange($event)">
 
         <p-tabPanel header="Highlights">
-            <app-feeds-highlights></app-feeds-highlights>
+            <div *ngIf="ActiveIndex == '0'">
+                <app-feeds-highlights></app-feeds-highlights>
+            </div>
         </p-tabPanel>
 
         <p-tabPanel header="Questions">
@@ -12,7 +14,9 @@
         </p-tabPanel>
 
         <p-tabPanel header="Trends">
+            <div>
                 <app-feeds-trends></app-feeds-trends>
+            </div>
         </p-tabPanel>
 
       </p-tabView>

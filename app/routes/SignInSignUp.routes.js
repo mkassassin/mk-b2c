@@ -15,4 +15,6 @@ module.exports = function(app) {
 
     app.post('/API/SigninSignup/UserValidate', user.MobileUserValidate);
 
+    app.get('/API/SigninSignup/GetUserInfo/:UserId/:LoginUserId', user.GetUserInfo);
+
 }

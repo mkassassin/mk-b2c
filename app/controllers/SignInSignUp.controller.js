@@ -1,5 +1,7 @@
 var UserModel = require('../models/SignInSignUp.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
+var FollowModel = require('../models/Follow.model.js');
+
 
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -202,4 +204,48 @@ exports.GetNotification = function(req, res) {
                 }
             }
         });
+};
+
+
+exports.GetUserInfo = function(req, res) {
+    UserModel.UserType.findOne( { '_id': req.params.UserId }, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Info."});
+        } else {
+            FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
+                if(newerr){
+                    res.send({status:"Fale", Error:newerr });
+                }else{
+                    FollowModel.FollowUserType.find({'UserId': req.params.LoginUserId, 'FollowingUserId': data._id }, function(someerr, findresult) {
+                        if(someerr){
+                            res.send({status:"Fale", Error:someerr });
+                        }else{
+                            var UserFollow = false;
+                            var FollowDbId = '';
+                            if(findresult.length > 0){
+                                UserFollow = true;
+                                FollowDbId = findresult[0]._id;
+                            }
+                            var newArray = [];
+                                newArray.push( {
+                                                _id: data._id,
+                                                UserName: data.UserName,
+                                                UserEmail: data.UserEmail,
+                                                UserCategoryId: data.UserCategoryId,
+                                                UserCategoryName: data.UserCategoryName,
+                                                UserImage: data.UserImage,
+                                                UserCompany: data.UserCompany,
+                                                UserProfession: data.UserProfession,
+                                                Followers: count,
+                                                UserFollow: UserFollow,
+                                                FollowDbId: FollowDbId
+                                            }
+                                );
+                            res.send({ status:"True",  data: newArray[0] });
+                        }
+                    });
+                }
+            });
+        }
+    });
 };

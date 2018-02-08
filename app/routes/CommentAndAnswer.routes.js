@@ -7,7 +7,7 @@ module.exports = function(app) {
 
     app.get('/API/CommentAndAnswer/GetHighlightsComments/:PostId', Countroll.GetHighlightsComments);   
 
-    app.post('/API/CommentAndAnswer/QuestionsAnwerAdd', Countroll.QuestionsAnwerAdd);
+    app.post('/API/CommentAndAnswer/QuestionsAnswerAdd', Countroll.QuestionsAnwerAdd);
 
 
 }

@@ -23,7 +23,6 @@ import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } f
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { TimeAgoPipe } from 'time-ago-pipe';
-import { ImageCropperComponent } from 'ng2-img-cropper';
 import { ChartsModule } from 'ng2-charts';
 
 import { AuthGuard } from './guard/auth.guard';
@@ -98,7 +97,6 @@ import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topic
     HighlightsPostComponent,
     QuestionsPostComponent,
     ProfilePictureCropperComponent,
-    ImageCropperComponent,
     DiscoverTopicsComponent
   ],
   imports: [

@@ -1,25 +1,11 @@
 <div class="Discover">
-  <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top:-20px;">
-    <div fxFlex="50%">
-      <div class="text-left">
-        <img src="assets/images/logo1.png" width="30px" alt="">
-      </div>
-    </div>
-    <div fxFlex="50%">
-      <h4 class="m-0 text-right">
-        <span style="cursor:pointer" (click)="close()"> X </span>
-      </h4>
-    </div>
-  </div>
 
-  <mat-dialog-content class="p-0 mt-10">
-    <div>
       <div fxLayout="row" fxLayoutAlign="space-evenly start">
-        <div fxFlex="90%" class="DiscoverRightBar">
+        <div fxFlex="100%" class="DiscoverRightBar">
           <div class="box-1 mt-0 mb-10">
             <div class="row m-0">
               <div class="col-sm-12 p-0">
-                <p class="followheader"> Discover Topic </p>
+                <p class="followheader"> Discover Topic <span style="cursor:pointer; position:absolute; right:10px; font-size:20px" (click)="close()"> X </span> </p>
               </div>
             </div>
 
@@ -80,9 +66,6 @@
           <!-- follow people  -->
         </div>
       </div>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions> </mat-dialog-actions>
 
 </div>
 

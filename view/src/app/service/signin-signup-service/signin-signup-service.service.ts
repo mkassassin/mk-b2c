@@ -50,6 +50,11 @@ export class SigninSignupServiceService {
         .catch(this.handleError);
     }
 
+    public GetUserInfo(UserId: any, LoginUserId: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'GetUserInfo/' + UserId + '/' + LoginUserId)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
     public GetNotification(UserId: any): Observable<any[]>  {
         return this.http .get(API_URL + 'GetNotification/' + UserId)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);

@@ -71,7 +71,7 @@ exports.Submit = function(req, res) {
                                             PostDate: result.PostDate,
                                             PostText: result.PostText ,
                                             PostLink: result.PostLink,
-                                            PostImage: images,
+                                            PostImage: info.PostImage,
                                             PostVideo: result.PostVideo,
                                             RatingCount: 0,
                                             userRated: false,
@@ -180,7 +180,6 @@ exports.GetPostList = function (req, res) {
                                 for (let rateInfo of RatingList) {
                                     await getRatingInfo(rateInfo);
                                 }
-                                    var images = [];
                                     var userRated = false;
                                     var userRating = 0 ;
                                         if(userRate.length > 0){
@@ -206,7 +205,7 @@ exports.GetPostList = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
-                                        PostImage: images,
+                                        PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
                                         RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
                                         userRated: userRated,
@@ -333,7 +332,6 @@ exports.ViewPost = function (req, res) {
                                 for (let rateInfo of RatingList) {
                                     await getRatingInfo(rateInfo);
                                 }
-                                    var images = [];
                                     var userRated = false;
                                     var userRating = 0 ;
                                         if(userRate.length > 0){
@@ -359,7 +357,7 @@ exports.ViewPost = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
-                                        PostImage: images,
+                                        PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
                                         RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
                                         userRated: userRated,

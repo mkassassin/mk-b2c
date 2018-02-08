@@ -1,0 +1,15 @@
+<div  class="imgUpload mb-20" id="hide" style="text-align:center">
+    <div style="display:inline-flex;">
+      <label for="imguploadinput">
+          <input id="imguploadinput" type="file" ng2FileSelect [uploader]='Imageuploader'>
+          <span *ngIf="(Imageuploader.queue)?.length <= 0"> <i class="material-icons">add</i>  <span> Select Image </span> </span>
+          <img *ngIf="(Imageuploader.queue)?.length > 0" imgPreview [image]="Imageuploader.queue[0]?._file" style="width:100%; height:100%;border-radius:300px" >
+      </label>
+    </div>
+    <div class="row mt-20">
+      <div class="col-sm-12">
+        <button mat-raised-button class="btn-custom" color="primary" type="button" (click)="Imageuploader.queue[0]?.upload()"> Submit </button>
+        <button class="ml-40" mat-raised-button class="btn-custom" type="button" (click)="close()"> Cancel </button>
+      </div>
+    </div>
+  </div>

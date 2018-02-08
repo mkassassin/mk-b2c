@@ -6,4 +6,6 @@ module.exports = function(app) {
 
     app.post('/API/FileUpload/UploadVideo', controller.UploadVideoFile);
 
+    app.post('/API/FileUpload/ProfileUpdate',  controller.ProfileUpdate)
+
 }

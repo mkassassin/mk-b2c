@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-
+import { Router } from '@angular/router';
 
 import { PostThreeComponent } from './../../popups/post-three/post-three.component';
-
+import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { TrendsService } from './../../service/trends-service/trends.service';
 
 @Component({
@@ -27,7 +27,8 @@ export class FeedsTrendsComponent implements OnInit {
   ListOfImpressions: Array<object> = new Array();
   ImpressionsListLoader: Boolean = true;
   ChartLoader: Boolean = true;
-
+  Info: any[] = [];
+  Prediction: any[] = [];
 
   lineChartData: Array<any> = [];
   lineChartLabels: Array<any> = [];
@@ -46,7 +47,8 @@ export class FeedsTrendsComponent implements OnInit {
     }
   ];
 
-  constructor(
+  constructor(private router: Router,
+    private ShareService: DataSharedVarServiceService,
     public dialog: MatDialog,
     private trendsService: TrendsService
   ) {
@@ -58,6 +60,7 @@ export class FeedsTrendsComponent implements OnInit {
             this.ListOfCoins = datas['data'];
             this.CoinListLoader = false;
             this.ListOfCoins = this.ListOfCoins.sort((a, b) => a.Rate - b.Rate ).reverse();
+            this.Info = this.ListOfCoins[this.ActiveCoin];
 
             this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId)
               .subscribe( posts => {
@@ -67,6 +70,15 @@ export class FeedsTrendsComponent implements OnInit {
                   }else {
                     this.ImpressionsListLoader = false;
                     console.log(posts);
+                  }
+              });
+
+              this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+              .subscribe( data => {
+                  if (data['status'] === 'True') {
+                    this.Prediction = data['data'];
+                  }else {
+                    console.log(data);
                   }
               });
 
@@ -109,10 +121,9 @@ export class FeedsTrendsComponent implements OnInit {
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 125;
-    this.impresionscreenHeight = window.innerHeight - 430;
+    this.impresionscreenHeight = window.innerHeight - 600;
     this.scrollHeight = this.screenHeight + 'px';
     this.impresionsHeight = this.impresionscreenHeight + 'px';
-
   }
 
   ChangeActiveCoin(id) {
@@ -120,6 +131,7 @@ export class FeedsTrendsComponent implements OnInit {
       this.ActiveCoin = id;
       this.ListOfImpressions = [];
       this.ImpressionsListLoader = true;
+      this.Info = this.ListOfCoins[this.ActiveCoin];
 
       this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId)
           .subscribe( posts => {
@@ -129,6 +141,16 @@ export class FeedsTrendsComponent implements OnInit {
               }else {
                 this.ImpressionsListLoader = false;
                 console.log(posts);
+              }
+          });
+
+      this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+          .subscribe( data => {
+              if (data['status'] === 'True') {
+                this.Prediction = data['data'];
+                console.log(data);
+              }else {
+                console.log(data);
               }
           });
 
@@ -153,7 +175,6 @@ export class FeedsTrendsComponent implements OnInit {
   }
 
   GoToAnalize(result) {
-
     if (result !== 'Close' && result.PostText !== '') {
         const data = {'UserId': this.UserInfo.data._id,
             'PostText': result.PostText,
@@ -180,5 +201,46 @@ export class FeedsTrendsComponent implements OnInit {
   onTabChange(event) {
     console.log(event);
   }
+
+
+
+
+  AddPrediction(value) {
+    if (value !== '') {
+      console.log(value);
+    const data = {'UserId': this.UserInfo.data._id,
+              'CoinId': this.Info['CoinId'],
+              'CoinCode': this.Info['Code'],
+              'CoinName':  this.Info['FullName'],
+              'Value': value
+            };
+
+          this.trendsService.PredictionAdd(data).subscribe( datas => {
+            if (datas['status'] === 'True' && !datas['message']) {
+              console.log(datas['data']);
+
+              this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+              .subscribe( newdata => {
+                  if (newdata['status'] === 'True') {
+                    this.Prediction = newdata['data'];
+                    console.log(newdata);
+                  }else {
+                    console.log(newdata);
+                  }
+              });
+            }else {
+                console.log(datas);
+            }
+          });
+    }
+  }
+
+
+
+  GotoProfile(Id) {
+    this.ShareService.SetProfilePage(Id);
+    this.router.navigate(['Profile']);
+  }
+
 
 }

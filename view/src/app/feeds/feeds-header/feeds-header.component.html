@@ -6,10 +6,10 @@
                       <img class="headerLogo" style="margin: 0px; height: 35px;" src="assets/images/icons/logo.png" alt="">
                   </div>
                   <div style="cursor:pointer">
-                      <img (click)="OpenHighlightsModel()" class="headerLogo" src="assets/images/icons/highlights.png" alt="">
+                      <img style=" width: 27px;height: 27px;" (click)="OpenHighlightsModel()" class="headerLogo" src="assets/images/icons/highlights.png" alt="">
                   </div>
                   <div style="cursor:pointer">
-                      <img (click)="OpenQuestionModel()" class="headerLogo" src="assets/images/icons/question.png" alt="">
+                      <img style=" width: 30px;height: 27px;" (click)="OpenQuestionModel()" class="headerLogo" src="assets/images/icons/question.png" alt="">
                 </div>
               </div>  
           </div><!-- header left -->
@@ -47,7 +47,7 @@
 
                     <ng-template #customItemTemplate let-value="item" let-index="index">
                         <div *ngIf="value.Category === 'Users'" class="searchList">
-                            <img src="assets/images/users/{{value.UserImage}}" alt=""> 
+                            <img src="./../../../assets/images/users/{{value.UserImage}}" alt=""> 
                             <div class="usersInfo">
                                 <p>
                                     <span class="searchName"> {{value.UserName}}</span>
@@ -58,7 +58,7 @@
                             </div>     
                         </div>
                         <div  *ngIf="value.Category === 'Topics'" class="searchList">
-                            <img src="assets/images/topics/{{value.TopicImage}}" alt=""> 
+                            <img src="./../../../assets/images/topics/{{value.TopicImage}}" alt=""> 
                             <div class="usersInfo">
                                 <p>
                                     <span class="searchName"> {{value.TopicName}}</span>
@@ -75,17 +75,17 @@
           <div fxFlex="19%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                     <div fxFlex="25%" class="text-center">
-                        <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:35px" class="headericon" src="assets/images/icons/discoverpeople.png" alt="">
+                        <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:32px" class="headericon" src="assets/images/icons/discoverpeople.png" alt="">
                     </div>
                   <div fxFlex="25%" class="text-center">
-                      <img (click)="OpenModelDiscoverTopics()" style="cursor:pointer ;height:35px" class="headericon" src="assets/images/icons/discovertopic.png" alt="">
+                      <img (click)="OpenModelDiscoverTopics()" style="cursor:pointer ;height:32px" class="headericon" src="assets/images/icons/discovertopic.png" alt="">
                   </div>
                   <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
-                      <img  class="headericon" src="assets/images/icons/notification.png" alt="">
+                      <img  class="headericon" style="height:25px;" src="assets/images/icons/notification.png" alt="">
                       <span class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
                   <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
-                      <img class="headeruserimg" src="assets/images/sample/img7.jpg" alt="">
+                      <img class="headeruserimg" src="assets/images/users/{{UserInfo.data.UserImage}}" alt="">
                   </div>
               </div> 
           </div><!-- header right -->

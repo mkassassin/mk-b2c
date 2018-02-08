@@ -1,26 +1,11 @@
 <div class="Discover">
-  <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top:-20px;">
-    <div fxFlex="50%">
-      <div class="text-left">
-        <img src="assets/images/logo1.png" width="30px" alt="">
-      </div>
-    </div>
-    <div fxFlex="50%">
-      <h4 class="m-0 text-right">
-        <span style="cursor:pointer" (click)="close()"> X </span>
-      </h4>
-    </div>
-  </div>
-
-  <mat-dialog-content class="p-0 mt-10">
-    <div>
       <div fxLayout="row" fxLayoutAlign="space-evenly start">
 
-        <div fxFlex="90%" class="DiscoverLefBar">
+        <div fxFlex="100%" class="DiscoverLefBar">
           <div class="box-2 mt-0 mb-10">
             <div class="row m-0">
               <div class="col-sm-12 p-0">
-                <p class="followheader"> Discover People </p>
+                <p class="followheader"> Discover People <span style="cursor:pointer; position:absolute; right:10px; font-size:20px" (click)="close()"> X </span> </p>
               </div>
               <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
                 <div class="text-center" fxFlex>
@@ -96,11 +81,11 @@
                 <!-- follow peoples List  -->
                 <div style="padding:0px 10%" *ngFor="let user of DiscoverPeoples; let j=index" class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
                   <div fxFlex="55px" class="text-center">
-                    <img class="userlistImg" src="assets/images/users/{{user.UserImage}}" alt="">
+                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="assets/images/users/{{user.UserImage}}" alt="">
                   </div>
                   <div fxFlex>
                     <p class="userlistname">
-                      <span> {{user.UserName }} </span>
+                      <span style="cursor:pointer" (click)="GotoProfile(user._id)"> {{user.UserName }} </span>
                     </p>
                     <p class="userlistcategory"> {{user.UserProfession + " @ " + user.UserCompany | slice:0:20 }}{{ (user.UserProfession + " @ " + user.UserCompany)?.length
                       > 20 ? '...' : ' ' }} </p>
@@ -123,8 +108,6 @@
           <!-- follow people  -->
         </div>
       </div>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions> </mat-dialog-actions>
+
 
 </div>

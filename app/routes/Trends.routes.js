@@ -10,4 +10,8 @@ module.exports = function(app) {
 
     app.get('/API/Trends/ChartInfo/:CoinCode', Trends.ChartInfo);
 
+    app.post('/API/Trends/PredictionAdd', Trends.PredictionAdd);
+
+    app.get('/API/Trends/GetPrediction/:CoinId/:UserId', Trends.GetPrediction);
+
 }

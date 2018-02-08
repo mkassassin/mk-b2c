@@ -125,11 +125,11 @@
       <!-- follow peoples List  -->
       <div *ngFor="let user of (UnfollowingUsers ? UnfollowingUsers.slice(0,3): []); let j=index"  class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
         <div fxFlex="55px" class="text-center">
-          <img class="userlistImg" src="assets/images/users/{{user.UserImage}}" alt="">
+          <img (click)="GotoProfile(user._id)" class="userlistImg" src="assets/images/users/{{user.UserImage}}" alt="">
         </div>
         <div fxFlex>
           <p class="userlistname">
-            <span> {{user.UserName }} </span>
+            <span (click)="GotoProfile(user._id)"> {{user.UserName }} </span>
           </p>
           <p class="userlistcategory"> {{user.UserProfession + " @ " + user.UserCompany  | slice:0:20 }}{{ (user.UserProfession + " @ " + user.UserCompany)?.length > 20 ? '...' : ' ' }} </p>
           <p class="userlistfollowers"> {{user.Followers }} Followers </p>

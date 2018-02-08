@@ -22,16 +22,16 @@
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	width: 5px;
+	width: 4px;
 	background: #ffda00;
-	left: 13%;
+	left: 13.3%;
 	margin-left: -8px;
 }
 
 /* The date/time */
 .cbp_tmtimeline > li .cbp_tmtime {
 	display: block;
-	width: 19%;
+	width: 21%;
 	padding-right: 100px;
 	position: absolute;
 }
@@ -42,13 +42,13 @@
 }
 
 .cbp_tmtimeline > li .cbp_tmtime span:first-child {
-	font-size: 15px;
+	font-size: 12px;
     font-weight: 600;
     color: #666666a8;
 }
 
 .cbp_tmtimeline > li .cbp_tmtime span:last-child {
-	font-size: 13px;
+	font-size: 11px;
 	color: #a5b7c1;
 }
 
@@ -58,8 +58,8 @@
 
 /* Right content */
 .cbp_tmtimeline > li .cbp_tmlabel {
-	margin: 0 15px 15px 18%;
-	background: #666666;
+	margin: 0 15px 15px 17%;
+	background: transparent;
 	color: #fff;
 	padding: 0px;
 	font-size: 1.2em;
@@ -70,7 +70,7 @@
 }
 
 .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel {
-	background: #666666;
+	background: transparent
 }
 
 .cbp_tmtimeline > li .cbp_tmlabel h2 { 
@@ -88,32 +88,32 @@
 	width: 0;
 	position: absolute;
 	pointer-events: none;
-	border-right-color: #666666;
+	border-right-color: #ffda00;
 	border-width: 10px;
 	top: 10px;
 }
 
 .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {
-	border-right-color: #666666;
+	border-right-color: #ffda00;
 }
 
 /* The icons */
 .cbp_tmtimeline > li .cbp_tmicon {
-	width: 40px;
-	height: 40px;
-	position: absolute;
-	color: #fff;
-	background: #666666;
-	border-radius: 50%;
-	box-shadow:0 0 0 5px #ffda0069;
-	text-align: center;
-	left: 13%;
-	margin: 0 0 0 -25px;
+	width: 35px;
+    height: 35px;
+    position: absolute;
+    color: #fff;
+    background: #666666;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #ffda0069;
+    text-align: center;
+    left: 13.4%;
+    margin: 0 0 0 -25px;
 }
 
 .cbp_tmtimeline > li .cbp_tmicon i{
-	font-size: 30px;
-    line-height: 40px;
+	font-size: 26px;
+    line-height: 35px;
 }
 
 .cbp_tmicon-phone:before {

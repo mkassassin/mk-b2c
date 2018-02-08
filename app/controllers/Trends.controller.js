@@ -2,6 +2,7 @@ var CoinsModel = require('../models/Coins.model.js');
 var TrendsModel = require('../models/Trends.model.js');
 var UserModel = require('../models/SignInSignUp.model.js');
 var FollowModel = require('../models/Follow.model.js');
+var PredictionModel = require('../models/Prediction.model.js')
 var axios = require("axios");
 var moment = require("moment");
 
@@ -21,7 +22,7 @@ var usersProjection = {
 
 
 exports.CoinsList = function(req, res) {
-    CoinsModel.Coins.find({}, 'Name Symbol CoinName FullName SortOrder ImageUrl StartDate' , {skip: 0 , limit: 20}, function(err, result) {
+    CoinsModel.Coins.find({}, 'Name Symbol CoinName FullName SortOrder ImageUrl StartDate' , {skip: 0 , limit: 100}, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Get The Coins."});
         } else {
@@ -37,7 +38,7 @@ exports.CoinsList = function(req, res) {
               
               function getUserInfo(info){
                 return new Promise(( resolve, reject )=>{
-                    axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + info.Name + '&tsyms=USD')
+                    axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=' + info.Name + '&tsyms=USD')
                         .then(response => {
                                 var newArray = [];
                                     newArray.push( {
@@ -47,8 +48,11 @@ exports.CoinsList = function(req, res) {
                                         FullName: info.CoinName,
                                         SortOrder: info.SortOrder,
                                         ImageUrl: info.ImageUrl,
-                                        Rate: response.data.USD,
-                                        TimeStamp: Date.now()
+                                        Rate: response.data['DISPLAY'][info.Name]['USD'].PRICE,
+                                        Open: response.data['DISPLAY'][info.Name]['USD'].OPEN24HOUR,
+                                        High: response.data['DISPLAY'][info.Name]['USD'].HIGH24HOUR,
+                                        Low: response.data['DISPLAY'][info.Name]['USD'].LOW24HOUR,
+                                        TimeStamp: new Date()
                                         }
                                     );
                                     
@@ -64,10 +68,6 @@ exports.CoinsList = function(req, res) {
         }
     });
 };
-
-
-
-
 
 
 exports.ImpressionAdd = function(req, res) {
@@ -129,8 +129,6 @@ exports.ImpressionAdd = function(req, res) {
         }
     });
 };
-
-
 
 
 exports.ImpressionPosts = function(req, res) {
@@ -196,9 +194,6 @@ exports.ImpressionPosts = function(req, res) {
 };
 
 
-
-
-
 exports.ChartInfo = function(req, res) {
     axios.get('https://min-api.cryptocompare.com/data/histominute?fsym='+ req.params.CoinCode +'&tsym=USD&limit=24&aggregate=60')
         .then(response => {
@@ -237,3 +232,99 @@ exports.ChartInfo = function(req, res) {
 };
 
 
+exports.PredictionAdd = function(req, res) {
+    if(!req.body.CoinId) {
+        res.status(400).send({status:"False", message: " Coin Id can not be Empty! "});
+    }
+    if(!req.body.CoinCode) {
+        res.status(400).send({status:"False", message: " CoinCode can not be Empty! "});
+    }
+    if(!req.body.UserId) {
+        res.status(400).send({status:"False", message: " User Id can not be Empty! "});
+    }
+    if(!req.body.Value) {
+        res.status(400).send({status:"False", message: " Prediction Valu can not be Empty! "});
+    }
+
+    console.log(new Date());
+
+    var varPrediction = new PredictionModel.Prediction({
+            CoinId: req.body.CoinId,
+            CoinCode: req.body.CoinCode,
+            CoinName: req.body.CoinName,
+            UserId: req.body.UserId,
+            Value: req.body.Value,
+            Time: new Date()
+    });
+
+    varPrediction.save(function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Prediction Add ."});
+            
+        } else {
+            res.send({status:"True", data: result });
+        }
+    });
+};
+
+
+
+
+exports.GetPrediction = function(req, res) {
+    var NewDate = new Date();
+    NewDate.setHours(NewDate.getHours() - 6);
+
+    PredictionModel.Prediction.find({'CoinId': req.params.CoinId, 'createdAt': { $gt: NewDate } }, {} , {}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while Find Commants ."});
+        } else {
+            PredictionModel.Prediction.count({'CoinId': req.params.CoinId, 'createdAt': { $gt: NewDate }  }, function(newerr, count) {
+                if(newerr) {
+                    res.status(500).send({status:"False", Error:newerr, message: "Some error occurred while Find Commants ."});
+                } else {
+                    PredictionModel.Prediction.find({'CoinId': req.params.CoinId, 'createdAt': { $gt: NewDate }, 'UserId': req.params.UserId  }, function(FindErr, findUser) {
+                        if(FindErr) {
+                            res.status(500).send({status:"False", Error:FindErr, message: "Some error occurred while Find Commants."});
+                        } else {
+                            var UserValue = 0;
+                            var UserRated = false;
+                                if( findUser.length > 0){
+                                    UserRated = true;
+                                    UserValue = findUser[0].Value;
+                                }else{
+                                    UserRated = false;
+                                    UserValue = 0;
+                                }
+                            var TotalValue = 0 ;
+                                GetPredictionData();
+                                async function GetPredictionData(){
+                                    for (let info of result) {
+                                        await getPredictionInfo(info);
+                                    }
+                                    var FinalResult = 0; 
+                                    FinalResult = JSON.parse(TotalValue) / JSON.parse(count);
+                                    var newArray = [];
+                                        newArray.push( {
+                                                        Prediction: FinalResult,
+                                                        UsersCount: count,
+                                                        UserDone: UserRated,
+                                                        UserPrediction: UserValue,
+                                                        Date: new Date
+                                                    } );
+                                    res.send({status:"True", data: newArray[0] });
+                                }
+
+                                function getPredictionInfo(info){
+                                    return new Promise(( resolve, reject )=>{
+                                        TotalValue += JSON.parse(info.Value);
+                                        resolve(info);
+                                    });
+                                }
+                        }
+                    });
+                }
+            })
+            
+        }
+    });
+};

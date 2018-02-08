@@ -54,19 +54,8 @@ exports.Submit = function(req, res) {
                             res.send({status:"Fale", Error:newerr });
                         }else{
                             var newArray = [];
-                            var images = [];
-                                if(result.PostImage.length > 0){
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                }
+
+                            
 
                             newArray.push( {
                                             _id: result._id,
@@ -82,7 +71,7 @@ exports.Submit = function(req, res) {
                                             PostDate: result.PostDate,
                                             PostText: result.PostText ,
                                             PostLink: result.PostLink,
-                                            PostImage: images,
+                                            PostImage: result.PostImage,
                                             PostVideo: result.PostVideo,
                                             LikesCount: 0,
                                             UserLiked: false,
@@ -195,19 +184,6 @@ exports.GetPostList = function(req, res) {
                                                                     res.send({status:"Fale", Error:commentErr });
                                                                     reject(err);
                                                                 }else{ 
-                                                                    var images = [];
-                                                                    if(info.PostImage.length > 0){
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                                    }
                                                                     var newArray = [];
                                                                     newArray.push( {
                                                                                     UserId: UserData._id,
@@ -223,7 +199,7 @@ exports.GetPostList = function(req, res) {
                                                                                     PostDate: info.PostDate,
                                                                                     PostText: info.PostText ,
                                                                                     PostLink: info.PostLink,
-                                                                                    PostImage: images,
+                                                                                    PostImage: info.PostImage,
                                                                                     PostVideo: info.PostVideo,
                                                                                     LikesCount: NewCount,
                                                                                     UserLiked: UserLiked,
@@ -306,19 +282,6 @@ exports.ViewPost = function(req, res) {
                                                 if(commentErr){
                                                     res.send({status:"Fale", Error:commentErr });
                                                 }else{ 
-                                                    var images = [];
-                                                    if(result.PostImage.length > 0){
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    images.push({source:'assets/Uploads/Images/1517463374058-2.jpg' });
-                                                    }
                                                     var newArray = [];
                                                     newArray.push( {
                                                                     UserId: UserData._id,
@@ -334,7 +297,7 @@ exports.ViewPost = function(req, res) {
                                                                     PostDate: result.PostDate,
                                                                     PostText: result.PostText ,
                                                                     PostLink: result.PostLink,
-                                                                    PostImage: images,
+                                                                    PostImage: info.PostImage,
                                                                     PostVideo: result.PostVideo,
                                                                     LikesCount: NewCount,
                                                                     UserLiked: UserLiked,

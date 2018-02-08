@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 import { PostServiceService } from './../../service/post-service/post-service.service';
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
+import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 
 @Component({
   selector: 'app-feeds-questions',
@@ -21,11 +23,13 @@ export class FeedsQuestionsComponent implements OnInit {
   PostsList: any;
   PostsListLoading: Boolean = true;
 
-  constructor(
+  constructor(private router: Router,
+    private ShareService: DataSharedVarServiceService,
     private AnswerService: CommentAndAnswerService,
     private ratingService: LikeAndRatingServiceService,
     private Service: PostServiceService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private elementRef: ElementRef
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -34,6 +38,12 @@ export class FeedsQuestionsComponent implements OnInit {
         if (datas['status'] === 'True') {
           this.PostsList = datas['data'];
           this.PostsListLoading = false;
+
+          const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = './../../../assets/html5gallery/html5gallery.js';
+          this.elementRef.nativeElement.appendChild(s);
+
         }else {
           console.log(datas);
         }
@@ -45,6 +55,7 @@ export class FeedsQuestionsComponent implements OnInit {
   ngOnInit() {
     this.screenHeight = window.innerHeight - 165;
     this.scrollHeight = this.screenHeight + 'px';
+
   }
 
   OpenModelQuestion() {
@@ -59,6 +70,10 @@ export class FeedsQuestionsComponent implements OnInit {
       console.log('Post Not Submit Properly');
     }else {
       this.PostsList.splice(0 , 0, result);
+      const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = './../../../assets/html5gallery/html5gallery.js';
+          this.elementRef.nativeElement.appendChild(s);
     }
   }
 
@@ -132,6 +147,14 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
+
+
+
+
+  GotoProfile(Id) {
+    this.ShareService.SetProfilePage(Id);
+    this.router.navigate(['Profile']);
+  }
 
 
 }

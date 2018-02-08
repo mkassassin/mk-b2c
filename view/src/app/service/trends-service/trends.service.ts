@@ -32,7 +32,7 @@ export class TrendsService {
     }
 
     public ImpressionPosts(CoinId: any): Observable<any[]> {
-        return this.http.get(API_URL + 'ImpressionPosts/'+ CoinId )
+        return this.http.get(API_URL + 'ImpressionPosts/' + CoinId )
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
@@ -43,5 +43,18 @@ export class TrendsService {
         .catch(this.handleError);
     }
 
+
+    public PredictionAdd(data: any) {
+        return this.http.post(API_URL + 'PredictionAdd', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+
+    public GetPrediction(CoinId: any, UserId: any): Observable<any[]> {
+        return this.http.get(API_URL + 'GetPrediction/' + CoinId + '/' + UserId )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 
 }

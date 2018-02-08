@@ -159,12 +159,6 @@ html, body {
 
 
 
-
-
-
-
-
-
-.ui-galleria-panel{
-    position: relative !important;
+.html5gallery>div{
+    background:  #ffffff !important;
 }

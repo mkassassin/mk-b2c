@@ -38,10 +38,10 @@
               <div class="leftSide">
                 <div class="" fxLayout="row" fxLayoutAlign="start center">
                   <div fxFlex="60px">
-                    <img class="postuserImg" src="assets/images/icons/user.png" alt="">
+                    <img class="postuserImg" src="assets/images/users/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-10" fxFlex>
-                    <p class="postusername"> {{Post.UserName}} </p>
+                    <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
                     <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
                     <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                   </div>
@@ -66,8 +66,17 @@
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-left">
               <h5 class="postquestion"> {{Post.PostText}} </h5>
-              <div *ngIf="Post.PostImage?.length > 0">
-                  <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
+              <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' ">
+                  <div style="text-align:center;">
+                      <div style="margin:0 auto;" class="html5gallery" data-skin="light" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fit">
+                        <ng-container *ngIf="Post.PostImage[0] !== ''">
+                          <a *ngFor="let img of Post.PostImage" href="./../../../assets/Uploads/Images/{{img.ImageName}}"><img src="./../../../assets/Uploads/Images/{{img.ImageName}}"></a>
+                        </ng-container>  
+                        <ng-container *ngIf="Post.PostVideo[0] !== ''">
+                          <a *ngFor="let vid of Post.PostVideo" href="./../../../assets/Uploads/Videos/{{vid.VideoName}}"><img src="./../../../assets/images/videoSampleImg.jpg"></a>
+                        </ng-container>
+                      </div>
+                  </div>
               </div>
               <div *ngIf="Post.Answers == undefined">
                   <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
@@ -87,7 +96,7 @@
                           <img class="postansuserImg" src="assets/images/users/{{Answer.UserImage}}" alt="">
                         </div>
                         <div fxFlex>
-                          <p class="postansusername">{{Answer.UserName}} </p>
+                          <p class="postansusername" style="cursor:pointer" (click)="GotoProfile(Answer.UserId)">{{Answer.UserName}} </p>
                           <p class="postansfollowes"> {{Answer.Followers}} followers </p>
                         </div>
                       </div>
@@ -160,7 +169,7 @@
           <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex="60px" class="text-left">
               <div class="chatUserImg text-center">
-                <img src="assets/images/icons/user.png" alt=""> </div>
+                <img src="assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
             </div>
             <div fxFlex class="text-center">
               <div class="chatInput">
