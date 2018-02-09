@@ -297,7 +297,7 @@ exports.ViewPost = function(req, res) {
                                                                     PostDate: result.PostDate,
                                                                     PostText: result.PostText ,
                                                                     PostLink: result.PostLink,
-                                                                    PostImage: info.PostImage,
+                                                                    PostImage: result.PostImage,
                                                                     PostVideo: result.PostVideo,
                                                                     LikesCount: NewCount,
                                                                     UserLiked: UserLiked,

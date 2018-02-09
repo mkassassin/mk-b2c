@@ -9,7 +9,7 @@ const API_URL = 'http://localhost:3000/API/SignInSignUp/';
 
 @Injectable()
 export class SigninSignupServiceService {
-    
+
 
   constructor( private http: Http) {  }
 
@@ -28,18 +28,33 @@ export class SigninSignupServiceService {
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 
-    public UserValidate(email: any,password: any): Observable<any[]>  {
-        return this.http .get(API_URL + 'UserValidate/' + email + "/" + password)
-        .map(response => { 
+    public UserValidate(email: any, password: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'UserValidate/' + email + '/' + password)
+        .map(response => {
                         const result = response.json();
-                            if (result.status == "True" && result.data._id) {
-                                let encodedata = btoa(Date());
+                            if (result.status === 'True' && result.data._id) {
+                                const encodedata = btoa(Date());
                                 localStorage.setItem('UserToken', btoa(Date()));
                                 localStorage.setItem('currentUser', JSON.stringify(result));
-                            }else{
+                            }else {
                                 localStorage.removeItem('currentUser');
                             }
-                        return result; 
+                        return result;
+                    }) .catch(this.handleError);
+    }
+
+    public FBUserValidate(email: any, fbid: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'FBUserValidate/' + email + '/' + fbid)
+        .map(response => {
+                        const result = response.json();
+                            if (result.status === 'True' && result.data._id) {
+                                const encodedata = btoa(Date());
+                                localStorage.setItem('UserToken', btoa(Date()));
+                                localStorage.setItem('currentUser', JSON.stringify(result));
+                            }else {
+                                localStorage.removeItem('currentUser');
+                            }
+                        return result;
                     }) .catch(this.handleError);
     }
 
@@ -59,21 +74,5 @@ export class SigninSignupServiceService {
         return this.http .get(API_URL + 'GetNotification/' + UserId)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
-
-    // public GetCountries(): Observable<any[]>  {
-    //     return this.http .get("https://battuta.medunes.net/api/country/all/?key=e25aa18a44446a410802dac50fe6fcc7")
-    //     .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
-    // }
-
-    // public GetStates(CountyCode: any): Observable<any[]>  {
-    //     return this.http .get("https://battuta.medunes.net/api/region/"+ CountyCode +"/all/?key=e25aa18a44446a410802dac50fe6fcc7")
-    //     .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
-    // }
-
-    // public GetCities(CountyCode: any, StateName: any): Observable<any[]>  {
-    //     return this.http .get("https://battuta.medunes.net/api/city/"+ CountyCode +"/search/?region="+ StateName +"?key=e25aa18a44446a410802dac50fe6fcc7")
-    //     .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
-    // }
-
 
 }

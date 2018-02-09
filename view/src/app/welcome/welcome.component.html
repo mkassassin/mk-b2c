@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-sm-12 text-center">
                                 <p class="textStyle-1">Already have an Account? &nbsp;
-                                    <a (click)="gotoSignIn()" class="linkStyle-3"> Sign In </a>
+                                    <a style="cursor:pointer" (click)="gotoSignIn()" class="linkStyle-3"> Sign In </a>
                                 </p>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                 </p>
                                 <div style="display:inline-flex">
                                     <a href="#" class="linkStyle-4 facebook">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    <i (click)="signInWithFB()" class="fa fa-facebook" aria-hidden="true"></i>
                                     </a>
                                     <a href="#" class="linkStyle-4 twitter">
                                     <i class="fa fa-twitter" aria-hidden="true"></i>
@@ -75,12 +75,12 @@
                                 <div fxFlex="20%"> </div>
                                 <div FxFlex="60%" style="width:100%" >
                                     <div fxLayout="row" fxLayoutAlign="space-evenly center" >
-                                        <a href="#" class="linkStyle-5"> About Us </a>
-                                        <a href="#" class="linkStyle-5"> Career </a>
-                                        <a href="#" class="linkStyle-5"> Terms </a>
-                                        <a href="#" class="linkStyle-5"> Privacy </a>
-                                        <a href="#" class="linkStyle-5"> Advertise </a>
-                                        <a href="#" class="linkStyle-5"> Contact </a>
+                                        <a routerLink="About"  class="linkStyle-5"> About Us </a>
+                                        <a routerLink="About" class="linkStyle-5"> Career </a>
+                                        <a routerLink="About" class="linkStyle-5"> Terms </a>
+                                        <a routerLink="About" class="linkStyle-5"> Privacy </a>
+                                        <a routerLink="About" class="linkStyle-5"> Advertise </a>
+                                        <a routerLink="About" class="linkStyle-5"> Contact </a>
                                     </div>
                                 </div>
                                 <div fxFlex="20%"> </div>

@@ -17,7 +17,7 @@ export class FollowServiceService {
   }
 
     public UnFollowingUsers(Id: any, catId: any): Observable<any[]>  {
-        return this.http.get(API_URL + 'UnFollowingUsers/' + Id + "/" + catId)
+        return this.http.get(API_URL + 'UnFollowingUsers/' + Id + '/' + catId)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 

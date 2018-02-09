@@ -1,24 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Directive, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-
-import { DataSharedVarServiceService } from './../service/data-shared-var-service/data-shared-var-service.service';
-import { SigninSignupServiceService } from './../service/signin-signup-service/signin-signup-service.service';
-
+import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
+import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 
 @Component({
-  selector: 'app-signin-signup',
-  templateUrl: './signin-signup.component.html',
-  styleUrls: ['./signin-signup.component.css']
+  selector: 'app-fb-signup',
+  templateUrl: './fb-signup.component.html',
+  styleUrls: ['./fb-signup.component.css']
 })
-export class SigninSignupComponent implements OnInit {
+export class FbSignupComponent implements OnInit {
 
-  colorTheme = 'theme-orange';
-
-  ActiveTab: any;
-  ActiveTabIndex: Number = 0 ;
   ActiveGender: String = 'Male';
   SelectedCategory: String = '';
   UserNameAvailabel: Boolean = false;
@@ -57,29 +49,23 @@ export class SigninSignupComponent implements OnInit {
   city: String;
 
   RegisterForm: FormGroup;
-  SignInForm: FormGroup;
 
-  bsConfig: Partial<BsDatepickerConfig>;
+  constructor(private router: Router,
+    private Service: SigninSignupServiceService,
+    private dialogRef: MatDialogRef<FbSignupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any) {
 
-  constructor(  private router: Router,
-                private Service: SigninSignupServiceService,
-                private ShareingService: DataSharedVarServiceService,
-                private formBuilder: FormBuilder
-              ) {
-                this.ActiveTab = this.ShareingService.GetActiveSinInsignUpTab();
-                this.bsConfig = Object.assign({}, { containerClass: this.colorTheme, dateInputFormat: 'DD/MM/YYYY' });
-
-                this.SignUpType = this.ShareingService.GetSingUpType();
-               }
+     }
 
   ngOnInit() {
     this.RegisterForm = new FormGroup({
-      UserName: new FormControl('', Validators.required),
-      UserEmail: new FormControl('', Validators.required),
-      UserPassword: new FormControl('',  Validators.required),
+      UserName: new FormControl(this.data['Values'].name, Validators.required ),
+      UserEmail: new FormControl(this.data['Values'].email, Validators.required),
       UserCategoryId: new FormControl('',  Validators.required),
       UserCategoryName: new FormControl('', Validators.required),
-      UserImage: new FormControl(''),
+      ProviderType: new FormControl('FaceBook', Validators.required),
+      ProviderId: new FormControl(this.data['Values'].id, Validators.required),
+      UserImage: new FormControl(this.data['Values'].photoUrl),
       UserCompany: new FormControl(''),
       UserProfession: new FormControl(''),
       UserDateOfBirth: new FormControl(''),
@@ -88,26 +74,10 @@ export class SigninSignupComponent implements OnInit {
       UserState: new FormControl(''),
       UserCity: new FormControl('')
     });
-
-    this.SignInForm = new FormGroup({
-      LoginUserEmail: new FormControl('', Validators.required),
-      LoginUserPassword: new FormControl('',  Validators.required)
-    });
-
-    if (this.ActiveTab['ActiveTab'] === 'SingIn') {
-      this.ActiveTabIndex = 1;
-      if (this.ActiveTab['Email'] !== '') {
-      this.SignInForm.controls['LoginUserEmail'].setValue(this.ActiveTab['Email']);
-      }
-    }else {
-      this.ActiveTabIndex = 0;
-      if (this.ActiveTab['Email'] !== '') {
-        this.UserEmailAvailabel = false;
-        this.RegisterForm.controls['UserEmail'].setValue(this.ActiveTab['Email']);
-      }
-    }
-
+    this.ChekUserNameAvailabel();
+    this.ChekUserEmailAvailabel();
   }
+
 
   ChekUserNameAvailabel() {
     if (this.RegisterForm.value.UserName !== '') {
@@ -143,8 +113,6 @@ export class SigninSignupComponent implements OnInit {
     }
   }
 
-  onTabChange(event) {
-  }
 
   CategorySelect(name: String, id: Number) {
     this.RegisterForm.controls['UserGender'].setValue('Male');
@@ -233,7 +201,6 @@ export class SigninSignupComponent implements OnInit {
   checkFormValidation() {
     if ( this.RegisterForm.value.UserName !== '' &&
         this.RegisterForm.value.UserEmail !== '' &&
-        this.RegisterForm.value.UserPassword !== '' &&
         this.RegisterForm.value.UserCategoryId !== '' &&
         this.RegisterForm.value.UserCategoryName !== '' &&
         this.UserEmailAvailabel && this.UserNameAvailabel ) {
@@ -251,26 +218,25 @@ export class SigninSignupComponent implements OnInit {
     }
   }
 
-  FormSubmitStatus(data) {
-    if (data.status === 'True') {
-      this.ActiveTabIndex = 1;
-      this.SignInForm.controls['UserEmail'].setValue(data.UserEmail);
+  FormSubmitStatus(datas) {
+    if (datas.status === 'True') {
+      this.Service.FBUserValidate(datas.data.UserEmail, datas.data.ProviderId)
+      .subscribe( newdatas => { this.goto(newdatas); } );
     }
   }
 
-  LoginFormsubmit() {
-    this.Service.UserValidate(this.SignInForm.value.LoginUserEmail, this.SignInForm.value.LoginUserPassword)
-    .subscribe( datas => { this.LoginFormSubmitStatus(datas); } );
-  }
-
-  LoginFormSubmitStatus(data) {
-    if (data.status === 'True') {
-      this.router.navigate(['Feeds']);
+  goto(datas) {
+    if (datas.status === 'True') {
+        this.dialogRef.close('Success');
     }else {
-      alert(data.message);
+      alert('error');
     }
-
   }
 
+
+
+  close() {
+    this.dialogRef.close('Close');
+  }
 
 }

@@ -9,38 +9,54 @@ import { SigninSignupComponent } from './signin-signup/signin-signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { FeedsMainComponent } from './feeds-main/feeds-main.component';
 import { ProfileMainComponent } from './profile-main/profile-main.component';
+import { PageRoutingComponent } from './page-routing/page-routing/page-routing.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const appRoutes: Routes = [
-    { path: '',  
-        component: WelcomeComponent,  
-        data: { 
-            animation: { value: 'welcome', } 
+    { path: '',
+        component: WelcomeComponent,
+        data: {
+            animation: { value: 'welcome', }
         },
         canActivate: [NotAuthGuard]
     },
-    { path: 'SignInSignUp',  
-        component: SigninSignupComponent,  
-        data: { 
-            animation: { value: 'SignInSignUp', } 
+    { path: 'SignInSignUp',
+        component: SigninSignupComponent,
+        data: {
+            animation: { value: 'SignInSignUp', }
         },
         canActivate: [NotAuthGuard]
     },
-    { path: 'Feeds',  
+    { path: 'About',
+        component: AboutUsComponent,
+        data: {
+            animation: { value: 'About', }
+        },
+        canActivate: [NotAuthGuard]
+    },
+    { path: 'Feeds',
         component: FeedsMainComponent,
-        data: { 
-            animation: { value: 'Feeds', } 
+        data: {
+            animation: { value: 'Feeds', }
         },
         canActivate: [AuthGuard]
     },
-    { path: 'Profile',  
-        component: ProfileMainComponent,  
-        data: { 
-            animation: { value: 'Profile', } 
+    { path: 'Profile',
+        component: ProfileMainComponent,
+        data: {
+            animation: { value: 'Profile', }
         },
-        canActivate: [AuthGuard] 
-    }
+        canActivate: [AuthGuard]
+    },
+    { path: 'ViewProfile',
+        component: PageRoutingComponent,
+        data: {
+            animation: { value: 'ViewProfile', }
+        },
+        canActivate: [AuthGuard]
+    },
   ];
-  
+
 
 @NgModule({
     declarations: [ ],

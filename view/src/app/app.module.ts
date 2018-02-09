@@ -25,6 +25,19 @@ import { NglModule } from 'ng-lightning/ng-lightning';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ChartsModule } from 'ng2-charts';
 
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('202967426952150')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
+
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
 
@@ -65,6 +78,9 @@ import { QuestionsPostComponent } from './popups/posts/questions-post/questions-
 import { SearchService } from './service/search-service/search.service';
 import { ProfilePictureCropperComponent } from './popups/profile-picture-cropper/profile-picture-cropper.component';
 import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topics.component';
+import { PageRoutingComponent } from './page-routing/page-routing/page-routing.component';
+import { FbSignupComponent } from './popups/fb-signup/fb-signup.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
@@ -97,7 +113,10 @@ import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topic
     HighlightsPostComponent,
     QuestionsPostComponent,
     ProfilePictureCropperComponent,
-    DiscoverTopicsComponent
+    DiscoverTopicsComponent,
+    PageRoutingComponent,
+    FbSignupComponent,
+    AboutUsComponent
   ],
   imports: [
     CommonModule,
@@ -124,7 +143,8 @@ import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topic
     MatExpansionModule,
     FileUploadModule,
     NglModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    SocialLoginModule
   ],
   providers: [
                 AuthGuard,
@@ -137,7 +157,11 @@ import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topic
                 CommentAndAnswerService,
                 TrendsService,
                 ProfileSerivceService,
-                SearchService
+                SearchService,
+                {
+                  provide: AuthServiceConfig,
+                  useFactory: provideConfig
+                }
               ],
   bootstrap: [AppComponent],
   entryComponents: [ PostOneComponent,
@@ -147,7 +171,8 @@ import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topic
                     HighlightsPostComponent,
                     QuestionsPostComponent,
                     ProfilePictureCropperComponent,
-                    DiscoverTopicsComponent
+                    DiscoverTopicsComponent,
+                    FbSignupComponent
                   ]
 })
 export class AppModule { }

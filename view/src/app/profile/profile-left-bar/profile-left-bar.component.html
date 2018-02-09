@@ -3,11 +3,11 @@
     <!-- UserDetails -->
     <div *ngIf="!UserInfoLoading" class="userdiv" fxLayout="column" fxLayoutAlign="start center">
         <div fxFlex="120px" class="text-center">
-            <img  class="userimg" src="assets/images/users/{{UserInfo.data.UserImage}}" alt="">
+            <img  class="userimg" src="./../../../assets/images/users/{{UserInfo['data'].UserImage}}" alt="">
         </div>
         <div fxFlex="60px">
-            <p class="username"> {{UserInfo.data.UserName}} </p>
-            <p class="userfollowers"> {{UserInfo.data.UserCategoryName}} &nbsp; | &nbsp; {{UserInfo.data.UserProfession}} </p>
+            <p class="username"> {{UserInfo['data'].UserName}} </p>
+            <p class="userfollowers"> {{UserInfo['data'].UserCategoryName}} &nbsp; | &nbsp; {{UserInfo['data'].UserProfession}} </p>
         </div>
     </div>
 
@@ -16,8 +16,8 @@
 
     <div *ngIf="!LoginUser" class="row">
         <div class="col-sm-12 text-center">
-            <button *ngIf="!UserInfo.data.UserFollow" (click)="followUser(UserInfo.data._id)" style="min-width:70%" mat-raised-button class="btn-custom" color="primary" type="button" (click)="FollowUser()"> Follow </button>
-            <button *ngIf="UserInfo.data.UserFollow" (click)="UnfollowUser(UserInfo.data._id)" style="min-width:70%" mat-raised-button class="btn-custom" type="button" (click)="UnFollowUser()"> Unfollow </button>
+            <button *ngIf="!LoginUserFollow" (click)="followUser(UserInfo['data']._id)" style="min-width:70%" mat-raised-button class="btn-custom" color="primary" type="button" (click)="FollowUser()"> Follow </button>
+            <button *ngIf="LoginUserFollow" (click)="UnfollowUser(UserInfo['data']._id)" style="min-width:70%" mat-raised-button class="btn-custom" type="button" (click)="UnFollowUser()"> Unfollow </button>
         </div>
     </div>
 
@@ -49,7 +49,7 @@
 
           <div *ngFor="let user of (UserFollowingUsers ? UserFollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
               <img class="followimg" (click)="GotoProfile(user._id)" src="assets/images/users/{{user.UserImage}}" alt="">
-              <p class="followname" (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </p>
+              <p class="followname" > <span (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </span> </p>
           </div>
       </div>
       <div *ngIf="UserFollowingUsers?.length > 4" class="col-sm-12 text-right">
@@ -87,7 +87,7 @@
 
           <div *ngFor="let user of (FollowingUsers ? FollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
               <img class="followimg" (click)="GotoProfile(user._id)" src="assets/images/users/{{user.UserImage}}" alt="">
-              <p class="followname" (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </p>
+              <p class="followname" > <span (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </span>  </p>
           </div>
       </div>
       <div *ngIf="FollowingUsers?.length > 4" class="col-sm-12 text-right">
@@ -126,7 +126,7 @@
 
           <div *ngFor="let Topic of (FollowingTopics ? FollowingTopics.slice(0,4): []);" class="col-sm-3 followPart ">
               <img class="followimg" src="assets/images/topics/{{Topic.TopicImage}}" alt="">
-              <p class="followname"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </p>
+              <p class="followname"> <span (click)="GotoProfile(user._id)"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </span>  </p>
           </div>
         
       </div>

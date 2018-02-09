@@ -4,12 +4,19 @@ import {Component, Injectable, Input, Output, EventEmitter} from '@angular/core'
 export interface ReturnUrl { Url: String; Id: String; }
 export interface ActiveSinInsignUpTab { ActiveTab: String; Email: String; }
 
+export interface SingUpType { Type: String; Values: any; }
+
 export interface ProfilePage { UserId: String; Other: String; }
 
 @Injectable()
 export class DataSharedVarServiceService {
 
   constructor() { }
+
+  StoreSingUpType: SingUpType = { Type: '', Values : '' };
+  SetSingUpType(Type, Values = null) {this.StoreSingUpType.Type = Type; this.StoreSingUpType.Values = Values; }
+  GetSingUpType() { return this.StoreSingUpType; }
+
 
   StoreReturnUrl: ReturnUrl = { Url : '', Id : '' };
   SetReturnUrl(Url, Id= null) {this.StoreReturnUrl.Url = Url; this.StoreReturnUrl.Id = Id; }
@@ -24,6 +31,8 @@ export class DataSharedVarServiceService {
   StoreProfilePage: ProfilePage = { UserId : '', Other : '' };
   SetProfilePage(UserId, Other= null) {this.StoreProfilePage.UserId = UserId; this.StoreProfilePage.Other = Other; }
   GetProfilePage() { return this.StoreProfilePage; }
+
+
 
 
 }

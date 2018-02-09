@@ -67,7 +67,7 @@ export class ProfilePictureCropperComponent implements OnInit {
             // localStorage.removeItem('currentUser');
             // localStorage.setItem('currentUser', JSON.stringify(JSON.parse(response)));
             // this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
-            this.dialogRef.close('Close');
+            this.dialogRef.close(JSON.parse(response));
           }
         };
 

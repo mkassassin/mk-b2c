@@ -171,7 +171,7 @@
 
 
     <mat-menu #userView="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuUserView" >   
-        <div routerLink="/Profile" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between center">
+        <div (click)="GotoMyProfile()" style="cursor:pointer" class="userdropd" fxLayout="row" fxLayoutAlign="space-between center">
             <div class="userdropd_icon" fxFlex="40px">
                 <i class="material-icons">portrait</i>
             </div>

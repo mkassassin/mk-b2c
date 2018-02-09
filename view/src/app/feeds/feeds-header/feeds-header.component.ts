@@ -12,6 +12,7 @@ import { QuestionsPostComponent } from './../../popups/posts/questions-post/ques
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 
+import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
 
 import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
@@ -34,6 +35,7 @@ export class FeedsHeaderComponent implements OnInit {
   InputLoading: Boolean = true;
 
   constructor(private router: Router,
+    private authService: AuthService,
     private searchService: SearchService,
     private ShareingService: DataSharedVarServiceService,
     private NotifyService: SigninSignupServiceService,
@@ -157,16 +159,28 @@ export class FeedsHeaderComponent implements OnInit {
   }
 
   LogOut() {
+
+
     const localDataString = localStorage.getItem('currentUser');
     const localData = JSON.parse(localDataString);
     this.ShareingService.SetActiveSinInsignUpTab('SingIn', localData.data.UserEmail);
+
+    if (localData.data.Provider === 'Facebook') {
+      this.authService.signOut();
+    }
+
     localStorage.removeItem('currentUser');
     localStorage.removeItem('UserToken');
     this.router.navigate(['SignInSignUp']);
   }
 
 
+  GotoMyProfile() {
+    this.ShareingService.SetProfilePage('');
+    this.router.navigate(['ViewProfile']);
+  }
+
   GotoProfile() {
-    this.router.navigate(['Profile']);
+    this.router.navigate(['ViewProfile']);
   }
 }

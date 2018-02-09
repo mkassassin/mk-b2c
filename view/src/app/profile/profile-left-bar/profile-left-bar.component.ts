@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { ProfilePictureCropperComponent } from './../../popups/profile-picture-c
 export class ProfileLeftBarComponent implements OnInit {
 
 
-  UserInfo: any;
+  UserInfo: any[] = [];
   FollowingUsers: any[];
   FollowingTopics: any[];
   UserFollowingUsers: any[];
@@ -27,7 +27,8 @@ export class ProfileLeftBarComponent implements OnInit {
   LoginUserFollow: Boolean = false;
   UserInfoLoading: Boolean = true;
 
-  constructor(private router: Router,
+  constructor(private cdRef: ChangeDetectorRef,
+      private router: Router,
       private FollowService: FollowServiceService,
       private ShareingService: DataSharedVarServiceService,
       private UserService: SigninSignupServiceService,
@@ -47,7 +48,7 @@ export class ProfileLeftBarComponent implements OnInit {
               if (datas['status'] === 'True') {
                 this.UserInfo = datas;
                 this.UserInfoLoading = false;
-                this.LoginUserFollow = this.UserInfo.data.UserFollow;
+                this.LoginUserFollow = this.UserInfo['data'].UserFollow;
                 this.LoginUser = false;
               }else {
                 console.log(datas);
@@ -56,7 +57,7 @@ export class ProfileLeftBarComponent implements OnInit {
       }else {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.UserInfoLoading = false;
-        this.UserId = this.UserInfo.data._id;
+        this.UserId = this.UserInfo['data']._id;
         this.LoginUser = true;
       }
 
@@ -103,20 +104,27 @@ export class ProfileLeftBarComponent implements OnInit {
     }
 
     postSubmit(result) {
-      this.UserInfo = '';
-      this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      if ( result === 'Close') {
+        console.log(result);
+      }else {
+        console.log(result['data'].UserImage);
+        // this.UserInfo = [];
+        this.UserInfo['data'].UserImage = result['data'].UserImage;
+        // this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+        this.cdRef.detectChanges();
+      }
     }
 
 
 
     followUser(Id: String) {
       const LoginUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-      const data =  { 'UserId' : LoginUserInfo.data._id, 'FollowingUserId' : this.UserInfo.data._id };
+      const data =  { 'UserId' : LoginUserInfo.data._id, 'FollowingUserId' : this.UserInfo['data']._id };
         this.FollowService.FollowUser(data)
           .subscribe( datas => {
             if (datas['status'] === 'True') {
-              this.UserInfo.data.UserFollow = true;
-              this.UserInfo.data.FollowDbId = datas['data']._id;
+              this.UserInfo['data'].FollowDbId = datas['data']._id;
+              this.LoginUserFollow = true;
             }else {
               console.log(datas);
             }
@@ -124,10 +132,10 @@ export class ProfileLeftBarComponent implements OnInit {
     }
 
     UnfollowUser(Id: String) {
-        this.FollowService.UnFollowUser(this.UserInfo.data.FollowDbId)
+        this.FollowService.UnFollowUser(this.UserInfo['data'].FollowDbId)
           .subscribe( datas => {
             if (datas['status'] === 'True') {
-              this.UserInfo.data.UserFollow = false;
+              this.LoginUserFollow = false;
             }else {
               console.log(datas);
             }
@@ -142,7 +150,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   GotoProfile(Id) {
     this.ShareingService.SetProfilePage(Id);
-    this.router.navigate(['Profile']);
+    this.router.navigate(['ViewProfile']);
   }
 
 

@@ -16,7 +16,9 @@ export class FeedsRightBarComponent implements OnInit {
   FollowingUsers: any[];
   FollowingTopics: any[];
   UserFollowingUsers: any[];
-  TimeOut: Boolean = true;
+  LoderOne: Boolean = true;
+  LoderTwo: Boolean = true;
+  LoderThree: Boolean = true;
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -26,8 +28,10 @@ export class FeedsRightBarComponent implements OnInit {
                 this.FollowService.FollowingTopics(this.UserInfo.data._id)
                 .subscribe( topicdatas => {
                     if (topicdatas['status'] === 'True') {
+                      this.LoderThree = false;
                       this.FollowingTopics = topicdatas['data'];
                     }else {
+                      this.LoderThree = false;
                       console.log(topicdatas);
                     }
                 });
@@ -35,8 +39,10 @@ export class FeedsRightBarComponent implements OnInit {
                 this.FollowService.FollowingUsers(this.UserInfo.data._id)
                 .subscribe( userdatas => {
                     if (userdatas['status'] === 'True') {
+                      this.LoderTwo = false;
                       this.FollowingUsers = userdatas['data'];
                     }else {
+                      this.LoderTwo = false;
                       console.log(userdatas);
                     }
                 });
@@ -44,29 +50,28 @@ export class FeedsRightBarComponent implements OnInit {
                 this.FollowService.UserFollowingUsers(this.UserInfo.data._id)
                 .subscribe( userFollowdatas => {
                     if (userFollowdatas['status'] === 'True') {
+                      this.LoderOne = false;
                       this.UserFollowingUsers = userFollowdatas['data'];
                     }else {
+                      this.LoderOne = false;
                       console.log(userFollowdatas);
                     }
                 });
 
-                this.TimeOutFuction();
             }
 
 
-  TimeOutFuction() {
-      setTimeout(() => { this.TimeOut = false; }, 5000);
-  }
+
   ngOnInit() {
   }
 
 
-  
+
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);
     this.router.navigate(['Profile']);
   }
 
-  
+
 
 }

@@ -1,0 +1,162 @@
+<div class="AboutUs">
+    <!-- Start main-content -->
+    <div class="main-content">
+        <!-- Section: home -->
+        <section id="home" class="divider parallax">
+            <div class="display-table">
+                <div class="display-table-cell">
+                    <div [ngStyle]="{height: scrollHeight }"  fxLayout="column" fxLayoutAlign="space-between">
+                        <div fxflex style=" background-image: url('./../assets/images/bg.png');">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="50%">
+                                    <div class="logodiv">
+                                        <img class="logoDesign-1" src="assets/images/logo1.png" alt="">
+                                    </div>
+                                </div>
+                                <div fxFlex="50%">
+                                    <div class="routingdiv text-right">
+                                        <a (click)="gotoSignUp()" class="linkStyle-1"> Sign Up</a>
+                                        <a (click)="gotoSignIn()" class="linkStyle-1"> Sign In</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-20 mb-40">
+                                <h2 class="TextDesign-1">
+                                    Welcome to the centralized hub for the decentralized technology!
+                                </h2>
+                                <h2 class="TextDesign-2">
+                                    THE WORLD'S FIRST SOCIAL NETWORK FOR BLOCKCHAIN AND CRYPTOCURRENCIES
+                                </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="45px" class="menudiv">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%"> </div>
+                                <div FxFlex="60%" style="width:100%" >
+                                    <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+                                        <a [ngClass]="{'Selected': ActivePage === '01'}" (click)="ActivePageChange('01')" class="linkStyle-5"> B2C</a>
+                                        <a [ngClass]="{'Selected': ActivePage === '02'}" (click)="ActivePageChange('02')" class="linkStyle-5"> Mission </a>
+                                        <a [ngClass]="{'Selected': ActivePage === '03'}" (click)="ActivePageChange('03')" class="linkStyle-5"> Platform </a>
+                                        <a [ngClass]="{'Selected': ActivePage === '04'}" (click)="ActivePageChange('04')" class="linkStyle-5"> Careers </a>
+                                        <a [ngClass]="{'Selected': ActivePage === '05'}" (click)="ActivePageChange('05')" class="linkStyle-5"> Terms and Privacy </a>
+                                        <a [ngClass]="{'Selected': ActivePage === '06'}" (click)="ActivePageChange('06')" class="linkStyle-5"> Contact </a>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%"> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="ActivePage === '01'" class="container">
+                        <div  class="row mt-20">
+                            <div class="col-sm-4 imgStyle1">
+                              <img src="assets/images/icons/explainer1.png" alt="">
+                              <p class="ImgText"> Connect </p>
+                            </div>
+                            <div class="col-sm-4 imgStyle1">
+                                <img src="assets/images/icons/explainer2.png" alt="">
+                                <p class="ImgText"> Learn </p>
+                            </div>
+                            <div class="col-sm-4 imgStyle1">
+                                <img src="assets/images/icons/explainer3.png" alt="">
+                                <p class="ImgText"> Engage</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="ActivePage === '02'" class="container">
+                        <div class="row mt-10">
+                            <div class="col-sm-6 imgStyle2">
+                              <img src="assets/images/icons/logo.png" alt="">
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="ImgTextNew"> Our <br> Misson </p>
+                            </div>
+                            <div class="col-sm-12">
+                              <p class="NewTextStyle">  Creating a better digital world <span> TOGETHER </span> </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="ActivePage === '03'" class="container">
+                        <div class="row mt-10">
+                            <div class="col-sm-12">
+                              <div style="display:inline-flex">
+                                <img class="imgStyle3" src="assets/images/icons/explainer1.png" alt="">
+                                <p class="NewTextStyle1"> <span> CONNECT</span> with blockchain and crypto enthusiasts, investors, bloggers, experts, media and startups </p>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div style="display:inline-flex">
+                                <img class="imgStyle3" src="assets/images/icons/explainer2.png" alt="">
+                                <p class="NewTextStyle1"> <span> LEARN </span> about various topics of the decentralized technology, ask and answer questions, create topics of interest and many more </p>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div style="display:inline-flex">
+                                <img class="imgStyle3" src="assets/images/icons/explainer3.png" alt="">
+                                <p class="NewTextStyle1"> <span> ENGAGE </span> with like-minded people, know the trends and get up-to-date with the happenings of the community </p>
+                              </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- <div *ngIf="ActivePage === '04'" class="container">
+                        <div class="row mt-20">
+                            <div class="col-sm-12">
+                              <p class="NewTextStyle3"> We are looking for dynamic individuals to work with B2C towards our mission of creating a better digital world together. Currently, we are looking for full time/part time interns on work from home/university basis. 
+                                  Apply with your CV and motivation letter to  <span> career@b2c.network </span> </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div *ngIf="ActivePage === '05'" class="container">
+                        <div class="row mt-20">
+                            <div class="col-sm-6 imgStyle2">
+                              <img src="assets/images/icons/logo.png" alt="">
+                              <p class="ImgText"> Connect </p>
+                            </div>
+                            <div class="col-sm-6 imgStyle1">
+                                <p class="ImgTextNew"> Our <br> Misson </p>
+                            </div>
+                            <div class="col-sm-12">
+                              <p class="NewTextStyle">  Creating a better digital world <span> TOGETHER </span> </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div *ngIf="ActivePage === '05'" class="container">
+                        <div class="row mt-20">
+                            <div class="col-sm-6 imgStyle2">
+                              <img src="assets/images/icons/logo.png" alt="">
+                              <p class="ImgText"> Connect </p>
+                            </div>
+                            <div class="col-sm-6 imgStyle1">
+                                <p class="ImgTextNew"> Our <br> Misson </p>
+                            </div>
+                            <div class="col-sm-12">
+                              <p class="NewTextStyle">  Creating a better digital world <span> TOGETHER </span> </p>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- end main-content -->
+</div>

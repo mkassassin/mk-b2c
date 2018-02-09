@@ -239,7 +239,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);
-    this.router.navigate(['Profile']);
+    this.router.navigate(['ViewProfile']);
   }
 
 

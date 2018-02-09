@@ -23,6 +23,9 @@ var transporter = nodemailer.createTransport({
     UserGender: false,
     createdAt: false,
     updatedAt: false,
+    Provider: false,
+    ProviderType: false,
+    ProviderId: false,
 };
 
 exports.Register = function(req, res) {
@@ -31,9 +34,6 @@ exports.Register = function(req, res) {
     }
     if(!req.body.UserEmail){
         res.status(400).send({status:"False", message: " E-mail can not be Empty! "});
-    }
-    if(!req.body.UserPassword){
-        res.status(400).send({status:"False", message: " Password can not be Empty! "});
     }
     if(!req.body.UserCategoryId || !req.body.UserCategoryName ){
         res.status(400).send({status:"False", message: " Select Any One Category "});
@@ -46,6 +46,8 @@ exports.Register = function(req, res) {
             UserCategoryId:req.body.UserCategoryId,
             UserCategoryName:req.body.UserCategoryName,
             UserImage:req.body.UserImage || "userImage.png",
+            ProviderType: req.body.ProviderType || 'Normal',
+            ProviderId: req.body.ProviderId || '',
             UserCompany:req.body.UserCompany || "",
             UserProfession:req.body.UserProfession || "",
             UserDateOfBirth:req.body.UserDateOfBirth || "",
@@ -55,15 +57,16 @@ exports.Register = function(req, res) {
             UserCity:req.body.UserCity || ""
     });
 
-     
+
     varUserType.save(function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while creating the Account."});            
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while creating the Account."});            
         } else {
             res.send({status:"True", data: result });
         }
     });
 };
+
 
 exports.NameValidate = function(req, res) {
         UserModel.UserType.findOne({'UserName': req.params.name.toLowerCase()}, function(err, data) {
@@ -117,6 +120,20 @@ exports.UserValidate = function(req, res) {
     });
 };
 
+exports.FBUserValidate = function(req, res) {
+    UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase(), 'ProviderId': req.params.fbid}, "_id UserName ProviderType UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null){
+                res.send({ status:"False", message: " Invalid Username and Password  " });
+            }else{
+                res.send({ status:"True", data:data });
+            } 
+        }
+    });
+};
+
 exports.MobileUserValidate= function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase(), 'UserPassword': req.body.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
         if(err) {
@@ -140,7 +157,6 @@ exports.MobileUserValidate= function(req, res) {
         }
     });
 };
-
 
 exports.GetNotification = function(req, res) {
     if(!req.params.UserId){
@@ -205,7 +221,6 @@ exports.GetNotification = function(req, res) {
             }
         });
 };
-
 
 exports.GetUserInfo = function(req, res) {
     UserModel.UserType.findOne( { '_id': req.params.UserId }, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {

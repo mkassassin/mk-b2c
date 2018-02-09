@@ -21,7 +21,7 @@
       </div>
       <div class="col-sm-12 listFlexDiv">
 
-        <div *ngIf="UserFollowingUsers?.length <= 0 && TimeOut" class="col-sm-12" >
+        <div *ngIf="LoderOne" class="col-sm-12" >
             <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
                 <div fxFlex>
                     <div class="preloader-orbit-loading">
@@ -33,7 +33,7 @@
             </div>
         </div>
     
-        <div *ngIf="UserFollowingUsers?.length <= 0 && !TimeOut" class="col-sm-12" >
+        <div *ngIf="UserFollowingUsers?.length <= 0 && !LoderOne" class="col-sm-12" >
             <br>
                 <h5 class="userlistname"> Following Users Not Found!</h5>
             <br>
@@ -60,7 +60,7 @@
       </div>
       <div class="col-sm-12 listFlexDiv">
 
-            <div *ngIf="FollowingUsers?.length <= 0 && TimeOut" class="col-sm-12" >
+            <div *ngIf="LoderTwo" class="col-sm-12" >
                 <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
                     <div fxFlex>
                         <div class="preloader-orbit-loading">
@@ -72,7 +72,7 @@
                 </div>
             </div>
         
-            <div *ngIf="FollowingUsers?.length <= 0 && !TimeOut" class="col-sm-12" >
+            <div *ngIf="FollowingUsers?.length <= 0 && !LoderTwo" class="col-sm-12" >
                 <br>
                     <h5 class="userlistname"> Followed Users Not Found!</h5>
                 <br>
@@ -99,7 +99,7 @@
       </div>
       <div class="col-sm-12 listFlexDiv">
 
-            <div *ngIf="FollowingTopics?.length <= 0 && TimeOut" class="col-sm-12" >
+            <div *ngIf="LoderThree" class="col-sm-12" >
                 <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
                     <div fxFlex>
                         <div class="preloader-orbit-loading">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         
-            <div *ngIf="FollowingTopics?.length <= 0 && !TimeOut" class="col-sm-12" >
+            <div *ngIf="FollowingTopics?.length <= 0 && !LoderThree" class="col-sm-12" >
                 <br>
                     <h5 class="userlistname"> Followed Topic Not Found!</h5>
                 <br>

@@ -11,6 +11,8 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/UserValidate/:email/:password', user.UserValidate);
 
+    app.get('/API/SigninSignup/FBUserValidate/:email/:fbid', user.FBUserValidate);
+
     app.get('/API/SigninSignup/GetNotification/:UserId', user.GetNotification);
 
     app.post('/API/SigninSignup/UserValidate', user.MobileUserValidate);

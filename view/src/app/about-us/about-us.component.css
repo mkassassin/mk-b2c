@@ -1,0 +1,179 @@
+/* .AboutUs{
+    background-color: #FFDA00 !important;
+} */
+.AboutUs .text-color{
+    color: #666666;
+}
+    
+    /* Index Page Header Design  */
+    
+.AboutUs .logoDesign-1{
+    height: 55px;
+    margin: 3px 20px;
+    cursor: pointer;
+}
+.AboutUs .TextDesign-1{
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Ubuntu', sans-serif;
+    word-spacing: 1px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    font-size: 37px;
+}
+.AboutUs .TextDesign-2{
+    text-align: center;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.0px;
+    word-spacing: 6px;
+    zoom: 100%;
+    text-transform: uppercase;
+    margin: 0% 10%;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.AboutUs .TextDesign-3{
+    font-size: 25px;
+    margin: 0px;
+    font-weight: 800;
+    line-height: 40px;
+}
+.AboutUs .linkStyle-1{
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 25px;
+    border: 1px solid #333333;
+    padding: 5px 15px 6px 15px;
+    letter-spacing: 1px;
+    color: #333333;
+}
+.AboutUs .linkStyle-1:hover,
+.AboutUs .linkStyle-1:active,
+.AboutUs .linkStyle-1:focus{
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.AboutUs .index-style-1{
+    max-width: 550px;
+    margin-bottom: 10px;
+    background-color: #333333;
+    width: 100%;
+    padding: 10px;
+    box-shadow: 3px 3px 3px #6b5d5da1;
+}
+
+
+.AboutUs .linkStyle-2{
+    width: 10%;
+    margin-left: 10px;
+    text-align: center;
+}
+.AboutUs .linkStyle-2 img{
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    margin-top: 3px;
+}
+.AboutUs .textStyle-1{
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.AboutUs .linkStyle-3{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+    
+/* .AboutUs .fixed-row{
+        position: fixed;
+        top: 93%;
+        width: 102%;
+    } */
+.AboutUs .menudiv{
+        height: 45px;
+        line-height: 45px;
+        background-color: #ffffff;
+        width: 100%;
+        text-align: center;
+    }
+.AboutUs .linkStyle-5{
+        color: #666666;
+        font-weight: 700;
+        font-size: 15px;
+        text-decoration: none;
+        margin: 0px 15px;
+        min-width: 100px;
+        cursor: pointer;
+    }
+.AboutUs .linkStyle-5.Selected{
+    line-height: 35px;
+    border-bottom: 5px solid #ffda00;
+}
+
+.imgStyle1{
+    text-align: center;
+}
+.imgStyle1 img{
+    height: 200px;
+    width: 200px;
+}
+.ImgText{
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-top: 20px !important;
+    margin-bottom: 0px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.8px;
+}
+.imgStyle2{
+    text-align: right;
+    border-right: 5px solid #333333;
+}
+.imgStyle2 img{
+    width: 150px;
+}
+.ImgTextNew{
+    font-size: 40px;
+    font-weight: 900;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.NewTextStyle{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 28px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    word-spacing: 3px;
+    color: #333333;
+}
+.NewTextStyle span{
+    color: #ffda00;
+}
+.imgStyle3{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.NewTextStyle1{
+    font-size: 21px;
+    font-weight: 600;
+    margin-left: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 22px;
+}
+.NewTextStyle1 span{
+    color: #ffda00;
+    margin-right: 10px;
+}

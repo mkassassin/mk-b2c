@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ProfileSerivceService } from './../../service/profile-service/profile-serivce.service';
@@ -18,7 +19,8 @@ export class ProfileTimelineComponent implements OnInit {
   screenHeight: number;
   anotherHeight: number;
 
-  UserInfo;
+  UserInfo: any[] = [];
+  LoginUser: any[] = [];
   PostsList: any;
   ActiveComment;
   LoadingActiveComment;
@@ -26,7 +28,7 @@ export class ProfileTimelineComponent implements OnInit {
   PostsListLoder: Boolean = true;
   UserId;
 
-  constructor(
+  constructor(private router: Router,
     private UserService: SigninSignupServiceService,
     private Service: ProfileSerivceService,
     private ShareingService: DataSharedVarServiceService,
@@ -36,15 +38,13 @@ export class ProfileTimelineComponent implements OnInit {
     private elementRef: ElementRef
       ) {
 
-
-
-        const ProfilePage =  this.ShareingService.GetProfilePage();
+        this.LoginUser = JSON.parse(localStorage.getItem('currentUser'));
+      const ProfilePage =  this.ShareingService.GetProfilePage();
 
       if (ProfilePage.UserId !== '') {
         this.UserId = ProfilePage.UserId;
 
-        const LoginUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-          this.UserService.GetUserInfo(this.UserId, LoginUserInfo.data._id )
+        this.UserService.GetUserInfo(this.UserId, this.LoginUser['data']._id )
           .subscribe( datas => {
               if (datas['status'] === 'True') {
                 this.UserInfo = datas;
@@ -54,8 +54,9 @@ export class ProfileTimelineComponent implements OnInit {
           });
       }else {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
-        this.UserId = this.UserInfo.data._id;
+        this.UserId = this.UserInfo['data']._id;
       }
+
         this.Service.Timeline(this.UserId)
         .subscribe( datas => {
             if (datas['status'] === 'True') {
@@ -78,7 +79,7 @@ export class ProfileTimelineComponent implements OnInit {
   }
 
   AddLike(index) {
-    const data = {'UserId': this.UserInfo.data._id,
+    const data = {'UserId': this.LoginUser['data']._id,
                 'PostId': this.PostsList[index]._id,
                 'PostUserId':  this.PostsList[index].UserId,
                 'Date':  new Date(),
@@ -133,7 +134,7 @@ export class ProfileTimelineComponent implements OnInit {
   SubmitComment(comment, index) {
 
     if (comment !== '') {
-    const data = {'UserId': this.UserInfo.data._id,
+    const data = {'UserId': this.LoginUser['data']._id,
               'PostId': this.PostsList[index]._id,
               'PostUserId':  this.PostsList[index].UserId,
               'CommentText': comment,
@@ -188,7 +189,7 @@ RatingImage(isActive: boolean) {
 
 
   rateChanging(index) {
-    const data = {'UserId': this.UserInfo.data._id,
+    const data = {'UserId': this.LoginUser['data']._id,
       'PostId': this.PostsList[index]._id,
       'PostUserId':  this.PostsList[index].UserId,
       'Rating': this.PostsList[index].RatingCount,
@@ -216,7 +217,7 @@ RatingImage(isActive: boolean) {
 
   SubmitAnswer(answer, index) {
     if (answer !== '') {
-    const data = {'UserId': this.UserInfo.data._id,
+    const data = {'UserId': this.LoginUser['data']._id,
               'PostId': this.PostsList[index]._id,
               'PostUserId':  this.PostsList[index].UserId,
               'AnswerText': answer,
@@ -239,5 +240,14 @@ RatingImage(isActive: boolean) {
           });
     }
   }
+
+
+
+  GotoProfile(Id) {
+    this.ShareingService.SetProfilePage(Id);
+    this.router.navigate(['ViewProfile']);
+  }
+
+
 
 }

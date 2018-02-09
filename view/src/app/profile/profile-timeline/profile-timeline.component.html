@@ -100,7 +100,7 @@
                 <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
                   <div fxFlex="50px" class="text-left">
                     <div class="chatUserImg text-center">
-                      <img src="assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
+                      <img src="assets/images/users/{{LoginUser['data'].UserImage}}" alt=""> </div>
                   </div>
                   <div fxFlex class="text-center">
                     <div class="chatInput">
@@ -148,7 +148,9 @@
                               </div>
                               <div fxFlex>
                                 <p class="postusercategory">
-                                  <span class="postusername"> {{ comment.UserName }}, </span> {{comment.UserCategoryName}} &nbsp; | &nbsp; {{comment.UserProfession | slice:0:7 }}{{ comment.UserProfession?.length > 7 ? '...' : ' ' }}</p>
+                                  <span class="postusername" style="cursor:pointer" (click)="GotoProfile(comment.UserId)"> {{ comment.UserName }}, </span>
+                                   {{comment.UserCategoryName}} &nbsp; | &nbsp; {{comment.UserProfession | slice:0:7 }}{{ comment.UserProfession?.length > 7 ? '...' : ' ' }}
+                                </p>
                                 <p class="postuserfollowers"> {{ comment.Followers }} Followers </p>
                               </div>
                             </div>
@@ -252,7 +254,7 @@
                                   <img class="postansuserImg" src="assets/images/users/{{Answer.UserImage}}" alt="">
                                 </div>
                                 <div fxFlex>
-                                  <p class="postansusername">{{Answer.UserName}} </p>
+                                  <p class="postansusername"> <span style="cursor:pointer" (click)="GotoProfile(Answer.UserId)"> {{Answer.UserName}} </span>  </p>
                                   <p class="postansfollowes"> {{Answer.Followers}} followers </p>
                                 </div>
                               </div>
@@ -325,7 +327,7 @@
                   <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
                     <div fxFlex="60px" class="text-left">
                       <div class="chatUserImg text-center">
-                        <img src="assets/images/icons/user.png" alt=""> </div>
+                        <img src="assets/images/users/{{LoginUser['data'].UserImage}}" alt=""> </div>
                     </div>
                     <div fxFlex class="text-center">
                       <div class="chatInput">
