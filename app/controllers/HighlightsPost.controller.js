@@ -154,7 +154,7 @@ exports.GetPostList = function(req, res) {
                                 res.send({status:"Fale", Error:err });
                                 reject(err);
                             } else {
-                                if(UserData.length !== null){
+                                if(UserData !== null){
                                     FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });
