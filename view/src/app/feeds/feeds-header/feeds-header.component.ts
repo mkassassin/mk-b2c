@@ -11,6 +11,7 @@ import { HighlightsPostComponent } from './../../popups/posts/highlights-post/hi
 import { QuestionsPostComponent } from './../../popups/posts/questions-post/questions-post.component';
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
+import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
 
 import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
 
@@ -144,11 +145,22 @@ export class FeedsHeaderComponent implements OnInit {
     QuestionsPostDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
 
+
+  OpenModelCreatTopic() {
+    const CreatTopictDialogRef = this.dialog.open(
+      CreatTopicComponent, {disableClose: true, minWidth: '60%', height: '90%', position: {top: '50px'},  data: { PostId: '' } }
+    );
+    CreatTopictDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+  }
+
+
   DiscoverClose(result) {
     if (result === 'Close') {
       console.log('Post Not Submit Properly');
     }else if (result === 'GoToProfile') {
       this.GotoProfile();
+    }else if (result === 'Created') {
+      alert('Topic Created Successfully');
     }else {
       console.log('Post Submited');
     }

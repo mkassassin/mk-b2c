@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="row StyleInput">
+      <div class="col-sm-12">
+        <label>Topic Image </label>
+          <input id="imguploadinput" type="file" ng2FileSelect [uploader]="Imageuploader" >
+      </div>
+      <div class="col-sm-12">
+        <label> Topic Image </label>
+          <input [(ngModel)]="TopicName" type="text" placeholder="Enter Topic Name" >
+      </div>
+      <div class="col-sm-12">
+        <label> Topic Description </label>
+          <textarea [(ngModel)]="TopicDescription" placeholder="Enter Topic Description"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+      <img *ngIf="(Imageuploader.queue)?.length > 0" imgPreview [image]="Imageuploader.queue[0]?._file" style="max-width:400px; max-height:400px" />
+  </div>
+</div>
+
+<hr>
+<div class="row mt-30">
+    <div class="col-sm-6 text-left">
+        <button class="ml-40" mat-raised-button class="btn-custom" type="button" (click)="close()"> Cancel </button>
+    </div>
+    <div class="col-sm-6 text-right">
+        <button mat-raised-button class="btn-custom" color="primary" type="button" (click)="Imageuploader.queue[0]?.upload()"> Submit </button>
+    </div>
+</div>

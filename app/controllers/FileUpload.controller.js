@@ -1,6 +1,7 @@
 var FileUploadModel = require('../models/FileUpload.model.js');
 var multer = require('multer');
 var UserModel = require('../models/SignInSignUp.model.js');
+var TopicsModel = require('../models/Topics.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -47,11 +48,26 @@ var UserStore = multer.diskStorage({
     }
 })
 
+
+var TopicsStore = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null, './view/src/assets/images/topics');
+    },
+    filename:function(req, file, cb){
+        cb(null, Date.now() +"-"+ file.originalname);
+    }
+})
+
+
+
 var ImageUpload = multer({storage:ImageStore}).single('file');
 
 var VideoUpload = multer({storage:VideoStore}).single('file');
 
 var ProfileUpload = multer({storage:UserStore}).single('file');
+
+var CreateTopic = multer({storage:TopicsStore}).single('file');
+
 
 exports.UploadImageFile = function(req, res) {
     ImageUpload(req, res, function(uploaderr){
@@ -148,6 +164,47 @@ exports.ProfileUpdate = function(req, res) {
                             res.send({status:"True", data: newresult });
                         }
                     });
+                }
+            });
+        }
+    });
+};
+
+
+
+
+
+
+
+
+
+
+exports.CreateTopic = function(req, res) {
+    CreateTopic(req, res, function(uploaderr){
+        
+        if(uploaderr){
+            res.status(500).send({status:"False", Error:uploaderr});
+        }else{
+            if(!req.body.TopicName) {
+                res.status(400).send({status:"False", message: " User Id can not be Empty! "});
+            }
+            if(!req.file.filename){
+                res.status(400).send({status:"False", message: " File can not be Empty! "});
+            }
+
+            var varTopicsType = new TopicsModel.TopicsType({
+                TopicName:  req.body.TopicName,
+                TopicDescription: req.body.TopicDescription || "",
+                TopicImage: req.file.filename || "topicImage.png"
+            });
+        
+            
+            varTopicsType.save(function(err, result) {
+                if(err) {
+                    res.status(500).send({status:"False", Error: err, message: "Some error occurred while creating the Topic."});
+                    
+                } else {
+                    res.send({status:"True", data: result });
                 }
             });
         }

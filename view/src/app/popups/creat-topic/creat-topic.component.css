@@ -1,0 +1,22 @@
+  .btn-custom:focus{
+    outline-style: none;
+    outline-color: transparent;
+    opacity: 1;
+  }
+
+.StyleInput input{
+    width: 100%;
+    border:1px solid lightgray;
+    height: 40px;
+    padding: 5px;
+    margin:-10px 0px 20px 0px;
+    line-height: 20px;
+}
+.StyleInput textarea{
+    width: 100%;
+    border:1px solid lightgray;
+    height: 200px;
+    padding: 5px;
+    margin:-10px 0px 20px 0px;
+    line-height: 20px;
+}

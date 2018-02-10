@@ -81,6 +81,7 @@ import { DiscoverTopicsComponent } from './popups/discover-topics/discover-topic
 import { PageRoutingComponent } from './page-routing/page-routing/page-routing.component';
 import { FbSignupComponent } from './popups/fb-signup/fb-signup.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { CreatTopicComponent } from './popups/creat-topic/creat-topic.component';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     DiscoverTopicsComponent,
     PageRoutingComponent,
     FbSignupComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    CreatTopicComponent
   ],
   imports: [
     CommonModule,
@@ -172,7 +174,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
                     QuestionsPostComponent,
                     ProfilePictureCropperComponent,
                     DiscoverTopicsComponent,
-                    FbSignupComponent
+                    FbSignupComponent,
+                    CreatTopicComponent
                   ]
 })
 export class AppModule { }
