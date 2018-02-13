@@ -3,7 +3,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top:-20px;">
       <div fxFlex="50%">
         <div class="text-left">
-            <!-- <img src="assets/images/logo1.png" width="30px" alt=""> -->
+            <!-- <img src="./../../../../assets/images/logo1.png" width="30px" alt=""> -->
         </div>
       </div>
       <div fxFlex="50%">
@@ -14,179 +14,200 @@
     </div>
 
     <mat-dialog-content style="max-height:100%;">
-      <div class="Highlights">
+        <div class="Highlights">
 
-          <div *ngIf="PostsListLoder">
-              <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
-                  <div fxFlex>
-                      <div class="preloader-orbit-loading">
-                        <div class="cssload-inner cssload-one"></div>
-                        <div class="cssload-inner cssload-two"></div>
-                        <div class="cssload-inner cssload-three"></div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        
-          <div *ngIf="!PostsListLoder">
-        
-
-              <div class="postScroll">
-                <!-- Highlights Post Div -->
-                <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 ">
-                  <!-- Highlights Post Info Header Div -->
-                  <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+            <div *ngIf="PostsListLoder">
+                <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
                     <div fxFlex>
-                      <div class="leftSide">
-                        <div class="" fxLayout="row" fxLayoutAlign="start center">
-                          <div fxFlex="50px">
-                            <img class="postuserImg" src="assets/images/icons/user.png" alt="">
+                        <div class="preloader-orbit-loading">
+                          <div class="cssload-inner cssload-one"></div>
+                          <div class="cssload-inner cssload-two"></div>
+                          <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <div *ngIf="!PostsListLoder">
+          
+          
+              <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:30px">
+          
+                <div class="postScroll">
+                  <!-- Highlights Post Div -->
+                  <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 ">
+                    <!-- Highlights Post Info Header Div -->
+                    <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                      <div fxFlex>
+                        <div class="leftSide">
+                          <div class="" fxLayout="row" fxLayoutAlign="start center">
+                            <div fxFlex="50px">
+                              <img class="postuserImg" src="./../../../assets/images/users/{{Post.UserImage}}" alt="">
+                            </div>
+                            <div class="mt-5" fxFlex>
+                              <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
+                              <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
+                              <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                            </div>
                           </div>
-                          <div class="mt-5" fxFlex>
-                            <p class="postusername"> {{Post.UserName}} </p>
-                            <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
-                            <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                        </div>
+                      </div>
+                      <div fxFlex="35%">
+                        <div class="rightSide">
+                          <div class="" fxLayout="row" fxLayoutAlign="end center">
+                            <div class="text-right" fxFill>
+                              <p class="postaction"> ... </p>
+                              <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
+                              <p class="posttopic"> {{Post.PostType}} </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div fxFlex="35%">
-                      <div class="rightSide">
-                        <div class="" fxLayout="row" fxLayoutAlign="end center">
-                          <div class="text-right" fxFill>
-                            <p class="postaction"> ... </p>
-                            <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
-                            <p class="posttopic"> {{Post.PostType}} </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Highlights Post Info Header Div End -->
-                  <hr class="m-5">
-                  <!-- Highlights Post -->
-                  <div class="postmain" fxLayout="row">
-                    <div fxFlex class="text-center">
-                      <h5 class="text-left"> {{Post.PostText}} </h5>
-                      <div *ngIf="Post.PostImage?.length > 0">
-                        <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Highlights Post END -->
-                  <hr class="m-5 mb-0">
-                  <!-- Highlights Post Share Like And More -->
-                  <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div fxFlex class="text-left">
-                      <div class="like">
-                        <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="assets/images/icons/like.png" alt="">
-                        <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="assets/images/icons/liked.png" alt="">
-                        <p class="count"> {{Post.LikesCount}} <small *ngIf="Post.UserLiked" > <small> (You Also) </small> </small> </p>
-                      </div>
-                    </div>
-                    <div fxFlex class="text-center">
-                      <div class="chat" (click)="ChangeActiveComment(i)">
-                        <img src="assets/images/icons/comment.png" alt="">
-                        <p class="count"> {{Post.commentsCount}} </p>
-                      </div>
-                    </div>
-                    <div fxFlex class="text-right">
-                      <div class="share">
-                        <img src="assets/images/icons/share.png" alt="">
-                        <p class="count"> 100 </p>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Highlights Post Share Like And More  END-->
-                  <hr class="m-5 mt-0">
-                  <!-- Highlights Post Share Like And More -->
-                  <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
-                    <div fxFlex="50px" class="text-left">
-                      <div class="chatUserImg text-center">
-                        <img src="assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
-                    </div>
-                    <div fxFlex class="text-center">
-                      <div class="chatInput">
-                        <input #j type="text" placeholder="Post Your Comment..."> </div>
-                    </div>
-                    <div fxFlex="60px" class="text-right">
-                      <div class="chatsend text-center">
-                        <i (click)="SubmitComment(j.value, i); j.value='' " class="material-icons">send</i>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Highlights Post Share Like And More  END-->
-        
-        
-                  <div *ngIf="LoadingActiveComment == i">
-                    <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
-                        <div fxFlex>
-                            <div class="preloader-orbit-loading">
-                              <div class="cssload-inner cssload-one"></div>
-                              <div class="cssload-inner cssload-two"></div>
-                              <div class="cssload-inner cssload-three"></div>
+                    <!-- Highlights Post Info Header Div End -->
+                    <hr class="m-5">
+                    <!-- Highlights Post -->
+                    <div class="postmain" fxLayout="row">
+                      <div fxFlex class="text-center">
+                        <h5 class="text-left ml-20"> {{Post.PostText}}</h5>
+                        <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== ''">
+                            <div style="text-align:center;">
+                                <div style="margin:0 auto;" class="html5gallery" data-skin="light" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fit">
+                                  <ng-container *ngIf="Post.PostImage[0] !== ''">
+                                    <a *ngFor="let img of Post.PostImage" href="./../../../assets/Uploads/Images/{{img.ImageName}}"><img src="./../../../assets/Uploads/Images/{{img.ImageName}}"></a>
+                                  </ng-container>  
+                                  <ng-container *ngIf="Post.PostVideo[0] !== ''">
+                                    <a *ngFor="let vid of Post.PostVideo" href="./../../../assets/Uploads/Videos/{{vid.VideoName}}"><img src="./../../../assets/images/videoSampleImg.jpg"></a>
+                                  </ng-container>
+                                </div>
                             </div>
                         </div>
+                      </div>
                     </div>
-                </div>
-                  
-                  <div *ngIf="ActiveComment == i && LoadingActiveComment != i && Post.comments == undefined">
-                    <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
-                        <div fxFlex>
-                            <h5 style="line-height:60px; text-align:center"> No Comment Found!...</h5>
+                    <!-- Highlights Post END -->
+                    <hr class="m-5 mb-0">
+                    <!-- Highlights Post Share Like And More -->
+                    <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                      <div fxFlex class="text-left">
+                        <div class="like">
+                          <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="./../../../assets/images/icons/like.png" alt="">
+                          <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="./../../../assets/images/icons/liked.png" alt="">
+                          <p class="count"> {{Post.LikesCount}} <small *ngIf="Post.UserLiked" > <small> (You Also) </small> </small> </p>
                         </div>
+                      </div>
+                      <div fxFlex class="text-center">
+                        <div class="chat" (click)="ChangeActiveComment(i)">
+                          <img *ngIf="Post.UserCommented" src="./../../../assets/images/icons/commented.png" alt="">
+                          <img *ngIf="!Post.UserCommented" src="./../../../assets/images/icons/comment.png" alt="">
+                          <p class="count"> {{Post.commentsCount}} </p>
+                        </div>
+                      </div>
+                      <div fxFlex class="text-right">
+                        <div class="share">
+                          <img src="./../../../assets/images/icons/share.png" alt="">
+                          <p class="count"> 100 </p>
+                        </div>
+                      </div>
                     </div>
-                </div>
-        
-                  <!-- Highlights Post Comments-->
-                  <div *ngIf="ActiveComment == i" class="Comments">
-                    <div *ngFor="let comment of Post.comments; let k=index" class="commentPost">
-                      <div class="commentinfo mb-2">
-                        <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                    <!-- Highlights Post Share Like And More  END-->
+                    <hr class="m-5 mt-0">
+                    <!-- Highlights Post Share Like And More -->
+                    <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
+                      <div fxFlex="50px" class="text-left">
+                        <div class="chatUserImg text-center">
+                          <img src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
+                      </div>
+                      <div fxFlex class="text-center">
+                        <div class="chatInput">
+                          <input #j type="text" placeholder="Post Your Comment..."> </div>
+                      </div>
+                      <div fxFlex="60px" class="text-right">
+                        <div class="chatsend text-center">
+                          <i (click)="SubmitComment(j.value, i); j.value='' " class="material-icons">send</i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Highlights Post Share Like And More  END-->
+          
+          
+                    <div *ngIf="LoadingActiveComment == i">
+                      <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
                           <div fxFlex>
-                            <div class="leftSide">
-                              <div class="" fxLayout="row" fxLayoutAlign="start center">
-                                <div fxFlex="45px">
-                                  <img class="postuserImg" src="assets/images/users/{{comment.UserImage}}" alt="">
-                                </div>
-                                <div fxFlex>
-                                  <p class="postusercategory">
-                                    <span class="postusername"> {{ comment.UserName }}, </span> {{comment.UserCategoryName}} &nbsp; | &nbsp; {{comment.UserProfession | slice:0:7 }}{{ comment.UserProfession?.length > 7 ? '...' : ' ' }}</p>
-                                  <p class="postuserfollowers"> {{ comment.Followers }} Followers </p>
+                              <div class="preloader-orbit-loading">
+                                <div class="cssload-inner cssload-one"></div>
+                                <div class="cssload-inner cssload-two"></div>
+                                <div class="cssload-inner cssload-three"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                    
+                    <div *ngIf="ActiveComment == i && LoadingActiveComment != i && Post.comments == undefined">
+                      <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                          <div fxFlex>
+                              <h5 style="line-height:60px; text-align:center"> No Comment Found!...</h5>
+                          </div>
+                      </div>
+                  </div>
+          
+                    <!-- Highlights Post Comments-->
+                    <div *ngIf="ActiveComment == i" class="Comments">
+                      <div *ngFor="let comment of (Post.comments ? Post.comments.slice(0,2): []); let k=index" class="commentPost">
+                        <div class="commentinfo mb-2">
+                          <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                            <div fxFlex>
+                              <div class="leftSide">
+                                <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                  <div fxFlex="45px">
+                                    <img class="postuserImg" src="./../../../assets/images/users/{{comment.UserImage}}" alt="">
+                                  </div>
+                                  <div fxFlex>
+                                    <p class="postusercategory">
+                                      <span class="postusername" style="cursor:pointer" (click)="GotoProfile(comment.UserId)"> {{ comment.UserName }}, </span> {{comment.UserCategoryName}} &nbsp; | &nbsp; {{comment.UserProfession | slice:0:7 }}{{ comment.UserProfession?.length > 7 ? '...' : ' ' }}</p>
+                                    <p class="postuserfollowers"> {{ comment.Followers }} Followers </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div fxFlex="25%">
-                            <div class="rightSide">
-                              <div class="" fxLayout="row" fxLayoutAlign="end center">
-                                <div class="text-right" fxFlex>
-                                  <p class="postaction"> ... </p>
-                                  <p class="postdate"> {{comment.Date | timeAgo}} </p>
+                            <div fxFlex="25%">
+                              <div class="rightSide">
+                                <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                  <div class="text-right" fxFlex>
+                                    <p class="postaction"> ... </p>
+                                    <p class="postdate"> {{comment.Date | timeAgo}} </p>
+                                    <p  *ngIf="!comment.AlreadyFollow" style=" line-height: 10px; font-weight: 600; margin-top: 0px;" class="postdate" >
+                                      <span (click)="FollowUser(comment.UserId, i, k)" style="cursor:pointer"> Follow </span> </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                        <hr class="m-0">
+                        <div class="commentbody">
+                          <p class="commenttext"> {{comment.CommentText}} </p>
+                        </div>
                       </div>
-                      <hr class="m-0">
-                      <div class="commentbody">
-                        <p class="commenttext"> {{comment.CommentText}} </p>
+          
+                      <div *ngIf="Post.comments?.length > 2" class="row">
+                        <div class="col-sm-12">
+                          <p class="viewAll text-right"> View All...</p>
+                        </div>
                       </div>
+          
                     </div>
-        
+                    <!-- Highlights Post Comments END-->
+          
+          
                   </div>
-                  <!-- Highlights Post Comments END-->
-        
-        
+                  <!-- Highlights Post Div END -->
+          
+          
                 </div>
-                <!-- Highlights Post Div END -->
-        
-        
-              </div>
-        
+              </p-scrollPanel>
+          
+            </div>
           </div>
-      </div>
     </mat-dialog-content>        
 
 </div>

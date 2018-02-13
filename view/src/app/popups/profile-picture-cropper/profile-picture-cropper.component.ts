@@ -64,9 +64,9 @@ export class ProfilePictureCropperComponent implements OnInit {
         this.Imageuploader.onCompleteItem = (item: any, response: any, status: any, headers: any ) => {
           console.log(JSON.parse(response));
           if (JSON.parse(response).status === 'True') {
-            // localStorage.removeItem('currentUser');
-            // localStorage.setItem('currentUser', JSON.stringify(JSON.parse(response)));
-            // this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+            localStorage.removeItem('currentUser');
+            localStorage.setItem('currentUser', JSON.stringify(JSON.parse(response)));
+            this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
             this.dialogRef.close(JSON.parse(response));
           }
         };

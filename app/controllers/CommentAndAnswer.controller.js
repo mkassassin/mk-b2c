@@ -82,6 +82,7 @@ exports.HighlightsCommentAdd = function(req, res) {
                                                     UserImage: UserData.UserImage,
                                                     UserCompany: UserData.UserCompany,
                                                     UserProfession: UserData.UserProfession,
+                                                    UserCommented: true,
                                                     Followers: count,
                                                     Date: result.Date,
                                                     PostId: result.PostId,
@@ -131,26 +132,40 @@ exports.GetHighlightsComments = function(req, res) {
                                     FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });
-                                            reject(err);
+                                            reject(newerr);
                                         }else{
-                                            var newArray = [];
-                                            newArray.push( {
-                                                            UserId: UserData._id,
-                                                            UserName: UserData.UserName,
-                                                            UserCategoryId: UserData.UserCategoryId,
-                                                            UserCategoryName: UserData.UserCategoryName,
-                                                            UserImage: UserData.UserImage,
-                                                            UserCompany: UserData.UserCompany,
-                                                            UserProfession: UserData.UserProfession,
-                                                            Followers:count,
-                                                            _id: info._id,
-                                                            CommentText: info.CommentText,
-                                                            CommentDate: info.Date,
-                                                            PostId: req.params.PostId,
-                                                        }
-                                            );
-                                            CommentsArray.push(newArray[0]);
-                                            resolve(UserData);
+                                            FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': UserData._id}, function(nowerr, FollowesData) {
+                                                if(nowerr){
+                                                    res.send({status:"Fale", Error:nowerr });
+                                                    reject(nowerr);
+                                                }else{
+                                                    var alreadyfollowuser = true;
+                                                    if(FollowesData.length <= 0 && req.params.UserId != UserData._id){
+                                                        alreadyfollowuser = false;
+                                                    }else{
+                                                        alreadyfollowuser = true;
+                                                    }
+                                                    var newArray = [];
+                                                    newArray.push( {
+                                                                    UserId: UserData._id,
+                                                                    UserName: UserData.UserName,
+                                                                    UserCategoryId: UserData.UserCategoryId,
+                                                                    UserCategoryName: UserData.UserCategoryName,
+                                                                    UserImage: UserData.UserImage,
+                                                                    UserCompany: UserData.UserCompany,
+                                                                    UserProfession: UserData.UserProfession,
+                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                    Followers:count,
+                                                                    _id: info._id,
+                                                                    CommentText: info.CommentText,
+                                                                    CommentDate: info.Date,
+                                                                    PostId: req.params.PostId,
+                                                                }
+                                                    );
+                                                    CommentsArray.push(newArray[0]);
+                                                    resolve(UserData);
+                                                }
+                                            });
                                         }
                                     });
                                 }else{
@@ -239,6 +254,7 @@ exports.QuestionsAnwerAdd = function(req, res) {
                                                     UserImage: UserData.UserImage,
                                                     UserCompany: UserData.UserCompany,
                                                     UserProfession: UserData.UserProfession,
+                                                    AlreadyFollow: true,
                                                     Followers: count,
                                                     Date: result.Date,
                                                     PostId: result.PostId,

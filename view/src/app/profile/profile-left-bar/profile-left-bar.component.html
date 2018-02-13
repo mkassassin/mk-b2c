@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div *ngIf="LoginUser" class="PictureChange" (click)="EditProfilePic()"> Edit Pic.. </div>
+    <div *ngIf="LoginUser" class="PictureChange" (click)="EditProfilePic()"> <i class="material-icons">wallpaper</i> </div>
     <!-- UserDetails End -->
 
     <div *ngIf="!LoginUser" class="row">
@@ -24,7 +24,7 @@
     <!-- Followers -->
     <div class="row">
       <div class="col-sm-12">
-          <p class="headerstyle"> Following </p>
+          <p class="headerstyle"> Followed By </p>
       </div>
       <div class="col-sm-12 listFlexDiv">
 
@@ -48,7 +48,7 @@
 
 
           <div *ngFor="let user of (UserFollowingUsers ? UserFollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
-              <img class="followimg" (click)="GotoProfile(user._id)" src="assets/images/users/{{user.UserImage}}" alt="">
+              <img class="followimg" (click)="GotoProfile(user._id)" src="./../../../assets/images/users/{{user.UserImage}}" alt="">
               <p class="followname" > <span (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </span> </p>
           </div>
       </div>
@@ -63,7 +63,7 @@
     <!-- Followers -->
     <div class="row">
       <div class="col-sm-12">
-          <p class="headerstyle"> Followed By </p>
+          <p class="headerstyle"> Following </p>
       </div>
       <div class="col-sm-12 listFlexDiv">
 
@@ -86,7 +86,7 @@
             </div>
 
           <div *ngFor="let user of (FollowingUsers ? FollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
-              <img class="followimg" (click)="GotoProfile(user._id)" src="assets/images/users/{{user.UserImage}}" alt="">
+              <img class="followimg" (click)="GotoProfile(user._id)" src="./../../../assets/images/users/{{user.UserImage}}" alt="">
               <p class="followname" > <span (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </span>  </p>
           </div>
       </div>
@@ -125,7 +125,7 @@
             </div>
 
           <div *ngFor="let Topic of (FollowingTopics ? FollowingTopics.slice(0,4): []);" class="col-sm-3 followPart ">
-              <img class="followimg" src="assets/images/topics/{{Topic.TopicImage}}" alt="">
+              <img class="followimg" src="./../../../assets/images/topics/{{Topic.TopicImage}}" alt="">
               <p class="followname"> <span (click)="GotoProfile(user._id)"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </span>  </p>
           </div>
         

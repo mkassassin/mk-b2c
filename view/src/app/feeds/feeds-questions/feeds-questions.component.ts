@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
+import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 import { PostServiceService } from './../../service/post-service/post-service.service';
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
@@ -24,6 +25,7 @@ export class FeedsQuestionsComponent implements OnInit {
   PostsListLoading: Boolean = true;
 
   constructor(private router: Router,
+    private FollowService: FollowServiceService,
     private ShareService: DataSharedVarServiceService,
     private AnswerService: CommentAndAnswerService,
     private ratingService: LikeAndRatingServiceService,
@@ -147,7 +149,17 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
-
+  FollowUser(UserId, postIndex, answerIndex) {
+    const data =  { 'UserId' : this.UserInfo.data._id, 'FollowingUserId' : UserId };
+      this.FollowService.FollowUser(data)
+        .subscribe( datas => {
+          if (datas.status === 'True') {
+            this.PostsList[postIndex].Answers[answerIndex]['AlreadyFollow'] = true;
+          }else {
+            console.log(datas);
+          }
+      });
+  }
 
 
 

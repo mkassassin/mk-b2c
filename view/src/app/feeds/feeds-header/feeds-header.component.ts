@@ -158,7 +158,7 @@ export class FeedsHeaderComponent implements OnInit {
     if (result === 'Close') {
       console.log('Post Not Submit Properly');
     }else if (result === 'GoToProfile') {
-      this.GotoProfile();
+      this.GotoProfile('');
     }else if (result === 'Created') {
       alert('Topic Created Successfully');
     }else {
@@ -186,13 +186,23 @@ export class FeedsHeaderComponent implements OnInit {
     this.router.navigate(['SignInSignUp']);
   }
 
-
+RemoveNotify(Id, arrIndex) {
+  this.NotifyService.RemoveNotification(Id)
+  .subscribe( datas => {
+      if (datas['status'] === 'True') {
+        this.NotificationList.splice(arrIndex, 1);
+      }else {
+        console.log(datas);
+      }
+    });
+}
   GotoMyProfile() {
     this.ShareingService.SetProfilePage('');
     this.router.navigate(['ViewProfile']);
   }
 
-  GotoProfile() {
+  GotoProfile(Id) {
+    this.ShareingService.SetProfilePage(Id);
     this.router.navigate(['ViewProfile']);
   }
 }

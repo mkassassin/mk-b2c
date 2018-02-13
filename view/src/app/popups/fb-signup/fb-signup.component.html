@@ -23,28 +23,28 @@
         <!-- Topic Selection -->
         <div class="mt-10 mb-30" fxLayout fxLayoutAlign="space-between" style="width:84%;margin-left:8%">
           <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Enthusiast'}">
-            <img (click)="CategorySelect('Enthusiast','01')" src="assets/images/icons/category1.png" alt="">
+            <img (click)="CategorySelect('Enthusiast','01')" src="./../../../assets/images/icons/category1.png" alt="">
             <span class="catName"> Enthusiast </span>
-            <!-- <div class="catSelect" *ngIf="SelectedCategory == 'Enthusiast'"><img src="assets/images/tick.png" alt=""></div> -->
+            <!-- <div class="catSelect" *ngIf="SelectedCategory == 'Enthusiast'"><img src="./../../../assets/images/tick.png" alt=""></div> -->
           </div>
           <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Investor'}">
-            <img (click)="CategorySelect('Investor','02')" src="assets/images/icons/category2.png" alt="">
+            <img (click)="CategorySelect('Investor','02')" src="./../../../assets/images/icons/category2.png" alt="">
             <span class="catName"> Investor </span>
           </div>
           <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Expert'}">
-            <img (click)="CategorySelect('Expert','03')" src="assets/images/icons/category3.png" alt="">
+            <img (click)="CategorySelect('Expert','03')" src="./../../../assets/images/icons/category3.png" alt="">
             <span class="catName"> Expert </span>
           </div>
           <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Media'}">
-            <img (click)="CategorySelect('Media','04')" src="assets/images/icons/category4.png" alt="">
+            <img (click)="CategorySelect('Media','04')" src="./../../../assets/images/icons/category4.png" alt="">
             <span class="catName"> Media </span>
           </div>
           <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Blogger'}">
-            <img (click)="CategorySelect('Blogger','05')" src="assets/images/icons/category5.png" alt="">
+            <img (click)="CategorySelect('Blogger','05')" src="./../../../assets/images/icons/category5.png" alt="">
             <span class="catName"> Blogger </span>
           </div>
           <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Company'}">
-            <img (click)="CategorySelect('Company','06')" src="assets/images/icons/category6.png" alt="">
+            <img (click)="CategorySelect('Company','06')" src="./../../../assets/images/icons/category6.png" alt="">
             <span class="catName"> Company </span>
           </div>
         </div>
@@ -68,9 +68,9 @@
               <div fxFlex="41%">
                 <div class="gender-select">
                   <div class="tick ml-10" (click)="genderSelect('Male')" style="cursor:pointer">
-                    <img  [ngClass]="{ 'p-13': ActiveGender != 'Male' }" src="assets/images/tick.png" alt=""> Male </div>
+                    <img  [ngClass]="{ 'p-13': ActiveGender != 'Male' }" src="./../../../assets/images/tick.png" alt=""> Male </div>
                   <div class="tick ml-20" (click)="genderSelect('Female')" style="cursor:pointer">
-                    <img class="p-13" [ngClass]="{ 'p-13': ActiveGender != 'Female' }" src="assets/images/tick.png" alt=""> Female </div>
+                    <img class="p-13" [ngClass]="{ 'p-13': ActiveGender != 'Female' }" src="./../../../assets/images/tick.png" alt=""> Female </div>
                 </div>
               </div>
             </div>

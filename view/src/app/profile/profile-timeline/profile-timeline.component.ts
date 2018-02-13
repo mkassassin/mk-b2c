@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+
+import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ProfileSerivceService } from './../../service/profile-service/profile-serivce.service';
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
@@ -29,6 +31,7 @@ export class ProfileTimelineComponent implements OnInit {
   UserId;
 
   constructor(private router: Router,
+    private FollowService: FollowServiceService,
     private UserService: SigninSignupServiceService,
     private Service: ProfileSerivceService,
     private ShareingService: DataSharedVarServiceService,
@@ -78,8 +81,9 @@ export class ProfileTimelineComponent implements OnInit {
     this.scrollHeight = this.screenHeight + 'px';
   }
 
+
   AddLike(index) {
-    const data = {'UserId': this.LoginUser['data']._id,
+    const data = {'UserId': this.UserInfo['data']._id,
                 'PostId': this.PostsList[index]._id,
                 'PostUserId':  this.PostsList[index].UserId,
                 'Date':  new Date(),
@@ -117,11 +121,10 @@ export class ProfileTimelineComponent implements OnInit {
       this.ActiveComment = index;
       this.LoadingActiveComment = index;
       this.PostsList[index].comments = [];
-      this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
+      this.commentservice.GetHighlightsComments(this.PostsList[index]._id, this.UserInfo['data']._id)
       .subscribe( newDatas => {
         this.LoadingActiveComment = -1;
         if (newDatas['status'] === 'True') {
-          console.log(newDatas['data']);
           this.PostsList[index].comments = newDatas['data'];
         }else {
           console.log(newDatas);
@@ -132,9 +135,8 @@ export class ProfileTimelineComponent implements OnInit {
 
 
   SubmitComment(comment, index) {
-
     if (comment !== '') {
-    const data = {'UserId': this.LoginUser['data']._id,
+    const data = {'UserId': this.UserInfo['data']._id,
               'PostId': this.PostsList[index]._id,
               'PostUserId':  this.PostsList[index].UserId,
               'CommentText': comment,
@@ -145,8 +147,8 @@ export class ProfileTimelineComponent implements OnInit {
             this.PostsList[index].comments = [];
           this.commentservice.HighlightsCommentAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
-
-                this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
+              this.PostsList[index].UserCommented = true;
+                this.commentservice.GetHighlightsComments(this.PostsList[index]._id, this.UserInfo['data']._id)
                   .subscribe( newDatas => {
                     this.LoadingActiveComment = -1;
                     if (newDatas['status'] === 'True') {
@@ -165,6 +167,17 @@ export class ProfileTimelineComponent implements OnInit {
 
 
 
+  FollowUser(UserId, postIndex, commentIndex) {
+    const data =  { 'UserId' : this.UserInfo['data']._id, 'FollowingUserId' : UserId };
+      this.FollowService.FollowUser(data)
+        .subscribe( datas => {
+          if (datas.status === 'True') {
+            this.PostsList[postIndex].comments[commentIndex]['AlreadyFollow'] = true;
+          }else {
+            console.log(datas);
+          }
+      });
+  }
 
 
 
@@ -173,7 +186,10 @@ export class ProfileTimelineComponent implements OnInit {
 
 
 
-RatingImage(isActive: boolean) {
+
+
+
+  RatingImage(isActive: boolean) {
     return `assets/images/icons/like${isActive ? 'd' : ''}.png`;
   }
 
@@ -189,7 +205,7 @@ RatingImage(isActive: boolean) {
 
 
   rateChanging(index) {
-    const data = {'UserId': this.LoginUser['data']._id,
+    const data = {'UserId': this.UserInfo['data']._id,
       'PostId': this.PostsList[index]._id,
       'PostUserId':  this.PostsList[index].UserId,
       'Rating': this.PostsList[index].RatingCount,
@@ -217,7 +233,7 @@ RatingImage(isActive: boolean) {
 
   SubmitAnswer(answer, index) {
     if (answer !== '') {
-    const data = {'UserId': this.LoginUser['data']._id,
+    const data = {'UserId': this.UserInfo['data']._id,
               'PostId': this.PostsList[index]._id,
               'PostUserId':  this.PostsList[index].UserId,
               'AnswerText': answer,
@@ -240,6 +256,20 @@ RatingImage(isActive: boolean) {
           });
     }
   }
+
+
+  FollowUserQuestion(UserId, postIndex, answerIndex) {
+    const data =  { 'UserId' : this.UserInfo['data']._id, 'FollowingUserId' : UserId };
+      this.FollowService.FollowUser(data)
+        .subscribe( datas => {
+          if (datas.status === 'True') {
+            this.PostsList[postIndex].Answers[answerIndex]['AlreadyFollow'] = true;
+          }else {
+            console.log(datas);
+          }
+      });
+  }
+
 
 
 

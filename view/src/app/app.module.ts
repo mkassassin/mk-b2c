@@ -19,7 +19,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AutoCompleteModule} from 'primeng/autocomplete';
 import { GalleriaModule } from 'primeng/galleria';
 import { BsDatepickerModule, TypeaheadModule, BsDropdownModule   } from 'ngx-bootstrap';
-import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatMenuModule, MatExpansionModule, MatTooltipModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { TimeAgoPipe } from 'time-ago-pipe';
@@ -143,6 +143,7 @@ import { CreatTopicComponent } from './popups/creat-topic/creat-topic.component'
     MatButtonModule,
     MatMenuModule,
     MatExpansionModule,
+    MatTooltipModule,
     FileUploadModule,
     NglModule.forRoot(),
     ChartsModule,

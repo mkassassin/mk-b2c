@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
-
+import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostServiceService } from './../../service/post-service/post-service.service';
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
@@ -28,6 +28,7 @@ export class FeedsHighlightsComponent implements OnInit {
   PostsListLoder: Boolean = true;
 
   constructor(private router: Router,
+    private FollowService: FollowServiceService,
     private ShareService: DataSharedVarServiceService,
     private Service: PostServiceService,
     private LikeService: LikeAndRatingServiceService,
@@ -51,6 +52,7 @@ export class FeedsHighlightsComponent implements OnInit {
 
                         }else {
                           console.log(datas);
+                          this.PostsListLoder = false;
                         }
                       });
    }
@@ -123,11 +125,10 @@ export class FeedsHighlightsComponent implements OnInit {
       this.ActiveComment = index;
       this.LoadingActiveComment = index;
       this.PostsList[index].comments = [];
-      this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
+      this.commentservice.GetHighlightsComments(this.PostsList[index]._id, this.UserInfo.data._id)
       .subscribe( newDatas => {
         this.LoadingActiveComment = -1;
         if (newDatas['status'] === 'True') {
-          console.log(newDatas['data']);
           this.PostsList[index].comments = newDatas['data'];
         }else {
           console.log(newDatas);
@@ -138,7 +139,6 @@ export class FeedsHighlightsComponent implements OnInit {
 
 
   SubmitComment(comment, index) {
-
     if (comment !== '') {
     const data = {'UserId': this.UserInfo.data._id,
               'PostId': this.PostsList[index]._id,
@@ -151,8 +151,8 @@ export class FeedsHighlightsComponent implements OnInit {
             this.PostsList[index].comments = [];
           this.commentservice.HighlightsCommentAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
-
-                this.commentservice.GetHighlightsComments(this.PostsList[index]._id)
+              this.PostsList[index].UserCommented = true;
+                this.commentservice.GetHighlightsComments(this.PostsList[index]._id, this.UserInfo.data._id)
                   .subscribe( newDatas => {
                     this.LoadingActiveComment = -1;
                     if (newDatas['status'] === 'True') {
@@ -174,6 +174,19 @@ export class FeedsHighlightsComponent implements OnInit {
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);
     this.router.navigate(['ViewProfile']);
+  }
+
+
+  FollowUser(UserId, postIndex, commentIndex) {
+    const data =  { 'UserId' : this.UserInfo.data._id, 'FollowingUserId' : UserId };
+      this.FollowService.FollowUser(data)
+        .subscribe( datas => {
+          if (datas.status === 'True') {
+            this.PostsList[postIndex].comments[commentIndex]['AlreadyFollow'] = true;
+          }else {
+            console.log(datas);
+          }
+      });
   }
 
 

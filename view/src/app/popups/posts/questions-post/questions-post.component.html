@@ -3,7 +3,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top:-20px;">
       <div fxFlex="50%">
         <div class="text-left">
-            <!-- <img src="assets/images/logo1.png" width="30px" alt=""> -->
+            <!-- <img src="./../../../../assets/images/logo1.png" width="30px" alt=""> -->
         </div>
       </div>
       <div fxFlex="50%">
@@ -15,9 +15,20 @@
 
     <mat-dialog-content style="max-height:100%;">
         <div class="Questions mt-20">
+
+            <div *ngIf="PostsListLoading">
+                <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                          <div class="cssload-inner cssload-one"></div>
+                          <div class="cssload-inner cssload-two"></div>
+                          <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
           
             <div *ngIf="!PostsListLoading">
-          
                 <div class="postScroll">
           
                   <!-- Question Post Div -->
@@ -28,10 +39,10 @@
                         <div class="leftSide">
                           <div class="" fxLayout="row" fxLayoutAlign="start center">
                             <div fxFlex="60px">
-                              <img class="postuserImg" src="assets/images/icons/user.png" alt="">
+                              <img class="postuserImg" src="./../../../assets/images/users/{{Post.UserImage}}" alt="">
                             </div>
                             <div class="mt-10" fxFlex>
-                              <p class="postusername"> {{Post.UserName}} </p>
+                              <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
                               <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
                               <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                             </div>
@@ -43,7 +54,7 @@
                           <div class="" fxLayout="row" fxLayoutAlign="end center">
                             <div class="text-right" fxFill>
                               <p class="postaction"> ... </p>
-                              <p class="postdate"> {{Post.PostDate | date }} </p>
+                              <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
                               <p class="posttopic"> {{Post.PostTopicName}} </p>
                             </div>
                           </div>
@@ -56,8 +67,17 @@
                     <div class="postmain" fxLayout="row">
                       <div fxFlex class="text-left">
                         <h5 class="postquestion"> {{Post.PostText}} </h5>
-                        <div *ngIf="Post.PostImage?.length > 0">
-                            <p-galleria [images]="Post.PostImage" panelWidth="100%" panelHeight="400" [autoPlay]="false" [showCaption]="false"></p-galleria>
+                        <div *ngIf=" ( Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' )  &&  Post.PostImage?.length > 0 ">
+                            <div style="text-align:center;">
+                                <div style="margin:0 auto;" class="html5gallery" data-skin="light" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fit">
+                                  <ng-container *ngIf="Post.PostImage[0] !== '' &&  Post.PostImage?.length > 0 ">
+                                    <a *ngFor="let img of Post.PostImage" href="./../../../assets/Uploads/Images/{{img.ImageName}}"><img src="./../../../assets/Uploads/Images/{{img.ImageName}}"></a>
+                                  </ng-container>  
+                                  <ng-container *ngIf="Post.PostVideo[0] !== ''">
+                                    <a *ngFor="let vid of Post.PostVideo" href="./../../../assets/Uploads/Videos/{{vid.VideoName}}"><img src="./../../../assets/images/videoSampleImg.jpg"></a>
+                                  </ng-container>
+                                </div>
+                            </div>
                         </div>
                         <div *ngIf="Post.Answers == undefined">
                             <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
@@ -74,10 +94,10 @@
                               <div class="leftSide">
                                 <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
                                   <div fxFlex="45px">
-                                    <img class="postansuserImg" src="assets/images/users/{{Answer.UserImage}}" alt="">
+                                    <img class="postansuserImg" src="./../../../assets/images/users/{{Answer.UserImage}}" alt="">
                                   </div>
                                   <div fxFlex>
-                                    <p class="postansusername">{{Answer.UserName}} </p>
+                                    <p class="postansusername" style="cursor:pointer" (click)="GotoProfile(Answer.UserId)">{{Answer.UserName}} </p>
                                     <p class="postansfollowes"> {{Answer.Followers}} followers </p>
                                   </div>
                                 </div>
@@ -90,7 +110,9 @@
                                   </div>
                                   <div class="text-right mr-5" fxFlex="150px">
                                     <p class="postansaction"> ... </p>
-                                    <p class="postansdate"> {{Answer.Date | date}} </p>
+                                    <p class="postansdate"> {{Answer.Date | timeAgo}} </p>
+                                    <p  *ngIf="!Answer.AlreadyFollow" style=" line-height: 10px; font-weight: 600; margin-top: 0px;" class="postdate" >
+                                        <span (click)="FollowUser(Answer.UserId, i, k)" style="cursor:pointer"> Follow </span> </p>
                                   </div>
                                 </div>
                               </div>
@@ -116,7 +138,7 @@
                     <hr class="m-5">
                     <!-- Question Post Share Like And More -->
                     <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-                      <div fxFlex class="text-left">
+                      <div fxFlex="40%" class="text-left">
                         <div class="like">
                           <ngl-rating style="max-width:100px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
                               <ng-template nglRatingIcon let-active>
@@ -131,15 +153,15 @@
                           <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <small> ( Your Rating {{Post.userRating}} ) </small> </small> </p>
                         </div>
                       </div>
-                      <div fxFlex class="text-center">
+                      <div fxFlex="20%" class="text-center">
                         <div class="chat" (click)="ChangeActiveAnswerInput(i)">
-                          <img src="assets/images/icons/comment.png" alt="">
                           <p class="count"> {{Post.AnswersCount}} </p>
+                          <p class="answer"> Answer </p>
                         </div>
                       </div>
-                      <div fxFlex class="text-right">
+                      <div fxFlex="40%" class="text-right">
                         <div class="share">
-                          <img src="assets/images/icons/share.png" alt="">
+                          <img src="./../../../assets/images/icons/share.png" alt="">
                           <p class="count"> 100 </p>
                         </div>
                       </div>
@@ -150,11 +172,11 @@
                     <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
                       <div fxFlex="60px" class="text-left">
                         <div class="chatUserImg text-center">
-                          <img src="assets/images/icons/user.png" alt=""> </div>
+                          <img src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
                       </div>
                       <div fxFlex class="text-center">
                         <div class="chatInput">
-                          <input #j type="text" placeholder="Post Your Answer..."> </div>
+                          <input #j type="text" placeholder="Write an Answer..."> </div>
                       </div>
                       <div fxFlex="70px" class="text-right">
                         <div class="chatsend text-center">
@@ -170,7 +192,7 @@
           
           
                 </div>
-          
+        
           
             </div>
           </div>

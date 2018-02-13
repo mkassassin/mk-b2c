@@ -15,6 +15,8 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/GetNotification/:UserId', user.GetNotification);
 
+    app.get('/API/SigninSignup/RemoveNotification/:NotifyId', user.RemoveNotification);
+
     app.post('/API/SigninSignup/UserValidate', user.MobileUserValidate);
 
     app.get('/API/SigninSignup/GetUserInfo/:UserId/:LoginUserId', user.GetUserInfo);

@@ -75,4 +75,9 @@ export class SigninSignupServiceService {
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 
+    public RemoveNotification(NotifyId: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'RemoveNotification/' + NotifyId)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
 }

@@ -3,13 +3,13 @@
           <div fxFlex="19%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                   <div routerLink="/" style="cursor:pointer">
-                      <img class="headerLogo" style="margin: 0px; height: 35px;" src="assets/images/icons/logo.png" alt="">
+                      <img class="headerLogo" style="margin: 0px; height: 35px;" src="./../../../assets/images/icons/logo.png" alt="">
                   </div>
                   <div style="cursor:pointer">
-                      <img style=" width: 27px;height: 27px;" (click)="OpenHighlightsModel()" class="headerLogo" src="assets/images/icons/highlights.png" alt="">
+                      <img style=" width: 27px;height: 27px;" (click)="OpenHighlightsModel()" class="headerLogo" src="./../../../assets/images/icons/highlights.png" alt="">
                   </div>
                   <div style="cursor:pointer">
-                      <img style=" width: 30px;height: 27px;" (click)="OpenQuestionModel()" class="headerLogo" src="assets/images/icons/question.png" alt="">
+                      <img style=" width: 30px;height: 27px;" (click)="OpenQuestionModel()" class="headerLogo" src="./../../../assets/images/icons/question.png" alt="">
                 </div>
               </div>  
           </div><!-- header left -->
@@ -68,24 +68,24 @@
                         </div>
                         <hr style="margin:0px 12px; border:1px dotted #d4d4d4">
                     </ng-template>
-                  <span class="searchIncon"> <img class="icon" src="assets/images/icons/search.png" alt=""> </span>
+                  <span class="searchIncon"> <img class="icon" src="./../../../assets/images/icons/search.png" alt=""> </span>
               </div>
           </div><!-- header center -->
 
           <div fxFlex="19%">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                     <div fxFlex="25%" class="text-center">
-                        <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:32px" class="headericon" src="assets/images/icons/discoverpeople.png" alt="">
+                        <img (click)="OpenModelDiscover()" style="cursor:pointer ;height:32px" class="headericon" src="./../../../assets/images/icons/discoverpeople.png" alt="">
                     </div>
                   <div fxFlex="25%" class="text-center">
-                      <img (click)="OpenModelDiscoverTopics()" style="cursor:pointer ;height:32px" class="headericon" src="assets/images/icons/discovertopic.png" alt="">
+                      <img (click)="OpenModelDiscoverTopics()" style="cursor:pointer ;height:32px" class="headericon" src="./../../../assets/images/icons/discovertopic.png" alt="">
                   </div>
                   <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
-                      <img  class="headericon" style="height:25px;" src="assets/images/icons/notification.png" alt="">
-                      <span class="notifyCount">  {{NotificationList?.length}} </span>
+                      <img  class="headericon" style="height:25px;" src="./../../../assets/images/icons/notification.png" alt="">
+                      <span *ngIf="NotificationList?.length > 0" class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
                   <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
-                      <img class="headeruserimg" src="assets/images/users/{{UserInfo.data.UserImage}}" alt="">
+                      <img class="headeruserimg" src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt="">
                   </div>
               </div> 
           </div><!-- header right -->
@@ -122,30 +122,34 @@
                 <div class="notifylist" *ngFor="let Notify of NotificationList; let i=index">
                     <div style="position:relative" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                            <img class="userImg" src="assets/images/users/{{Notify.UserImage}}" alt="">
+                            <img (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg" src="./../../../assets/images/users/{{Notify.UserImage}}" alt="">
                         </div>
                         <div class="mt-10" fxFlex>
                             <p class="notifycategory"> <span class="username"> {{Notify.UserName}}  </span>
-                                    <span *ngIf="Notify.NotificationType == 0"> Followed You </span>
+                                    <span *ngIf="Notify.NotificationType == 0"> Followed You 
+                                            <span (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View User... </span> 
+                                    </span>
                                     <span *ngIf="Notify.NotificationType == 5" > Written a New Highlight Post  
-                                        <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                        <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 6"> Like Your Post 
-                                            <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span>
+                                            <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span>
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 7"> Comment Your Post 
-                                            <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span>
+                                            <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span>
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 9"> Asking a New Question 
-                                        <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                        <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 11"> Answering Your Question 
-                                            <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                            <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 10"> Rated Your Question 
-                                            <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
+                                            <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
-                                    <span *ngIf="Notify.NotificationType == 1"> Unfollow to You </span>
+                                    <span *ngIf="Notify.NotificationType == 1"> Unfollow to You
+                                            <span (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View User... </span> 
+                                    </span>
                             </p>
                             <p class="notifydate"> {{Notify.NotificationDate | timeAgo }}  </p>
                         </div>

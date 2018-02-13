@@ -1,7 +1,7 @@
 <div class="postTwo">
   <div class="postheader" fxLayout="row" fxLayoutAlign="start" >
     <div fxFlex="65px" class="text-center">
-      <img class="userimg" src="assets/images/sample/img7.jpg" alt="">
+      <img class="userimg" src="./../../../assets/images/sample/img7.jpg" alt="">
     </div>
     <div fxFlex class="text-left">
       <h5 class="m-0 posttype"> Ask a Question </h5>
@@ -17,7 +17,7 @@
 
   <mat-dialog-content class="postbody">
     <form [formGroup]="PostForm" (ngSubmit)="submit()" enctype="multipart/form-data">
-        <textarea class="posttext" formControlName="PostText" placeholder="WAsk Your Question..."></textarea>
+        <textarea class="posttext" formControlName="PostText" placeholder="Ask Your Question..."></textarea>
 
         <input *ngIf="LinkInputActive" class="postlink mb-20" formControlName="PostLink" placeholder="Enter Link...">
 
@@ -97,7 +97,7 @@
               <div class="mt-10" fxLayout fxLayoutAlign="start end">
 
                 <div *ngFor="let item of (Topics ? Topics.slice(0,12): []); let i=index" class="cat-img-item" [ngClass]="{'selected': ActiveIndex == i}">
-                  <img (click)="ActiveTopicSelect(i)" src="assets/images/topics/{{item.TopicImage}}" alt="">
+                  <img (click)="ActiveTopicSelect(i)" src="./../../../assets/images/topics/{{item.TopicImage}}" alt="">
                   <p> {{item.TopicName}} </p>
                 </div>
 

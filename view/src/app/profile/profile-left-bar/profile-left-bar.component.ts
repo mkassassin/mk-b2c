@@ -107,10 +107,7 @@ export class ProfileLeftBarComponent implements OnInit {
       if ( result === 'Close') {
         console.log(result);
       }else {
-        console.log(result['data'].UserImage);
-        // this.UserInfo = [];
         this.UserInfo['data'].UserImage = result['data'].UserImage;
-        // this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.cdRef.detectChanges();
       }
     }

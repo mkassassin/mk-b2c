@@ -146,7 +146,7 @@ export class SigninSignupComponent implements OnInit {
   onTabChange(event) {
   }
 
-  CategorySelect(name: String, id: Number) {
+  CategorySelect(name: String, id: String) {
     this.RegisterForm.controls['UserGender'].setValue('Male');
     if (this.SelectedCategory === name) {
       this.SelectedCategory = '';

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
+import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostThreeComponent } from './../../popups/post-three/post-three.component';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { TrendsService } from './../../service/trends-service/trends.service';
@@ -19,6 +20,7 @@ export class FeedsTrendsComponent implements OnInit {
   screenHeight: number;
   impresionscreenHeight: number;
   anotherHeight: number;
+  PredictionAddButton: Boolean = true;
 
   UserInfo;
   ListOfCoins;
@@ -48,6 +50,7 @@ export class FeedsTrendsComponent implements OnInit {
   ];
 
   constructor(private router: Router,
+    private FollowService: FollowServiceService,
     private ShareService: DataSharedVarServiceService,
     public dialog: MatDialog,
     private trendsService: TrendsService
@@ -62,7 +65,7 @@ export class FeedsTrendsComponent implements OnInit {
             this.ListOfCoins = this.ListOfCoins.sort((a, b) => a.Rate - b.Rate ).reverse();
             this.Info = this.ListOfCoins[this.ActiveCoin];
 
-            this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId)
+            this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
               .subscribe( posts => {
                   if (posts['status'] === 'True') {
                     this.ListOfImpressions = posts['data'];
@@ -132,8 +135,9 @@ export class FeedsTrendsComponent implements OnInit {
       this.ListOfImpressions = [];
       this.ImpressionsListLoader = true;
       this.Info = this.ListOfCoins[this.ActiveCoin];
+      this.PredictionAddButton = true;
 
-      this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId)
+      this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
           .subscribe( posts => {
               if (posts['status'] === 'True') {
                 this.ListOfImpressions = posts['data'];
@@ -207,7 +211,6 @@ export class FeedsTrendsComponent implements OnInit {
 
   AddPrediction(value) {
     if (value !== '') {
-      console.log(value);
     const data = {'UserId': this.UserInfo.data._id,
               'CoinId': this.Info['CoinId'],
               'CoinCode': this.Info['Code'],
@@ -215,15 +218,14 @@ export class FeedsTrendsComponent implements OnInit {
               'Value': value
             };
 
+          this.PredictionAddButton = true;
           this.trendsService.PredictionAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
-              console.log(datas['data']);
 
               this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
               .subscribe( newdata => {
                   if (newdata['status'] === 'True') {
                     this.Prediction = newdata['data'];
-                    console.log(newdata);
                   }else {
                     console.log(newdata);
                   }
@@ -242,5 +244,17 @@ export class FeedsTrendsComponent implements OnInit {
     this.router.navigate(['ViewProfile']);
   }
 
+
+  followUser(Id: String, index) {
+    const data =  { 'UserId' : this.UserInfo.data._id, 'FollowingUserId' : Id };
+      this.FollowService.FollowUser(data)
+        .subscribe( datas => {
+          if (datas.status === 'True') {
+            this.ListOfImpressions[index]['AlreadyFollow'] = true;
+          }else {
+            console.log(datas);
+          }
+      });
+  }
 
 }

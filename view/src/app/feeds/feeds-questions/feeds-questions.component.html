@@ -38,7 +38,7 @@
               <div class="leftSide">
                 <div class="" fxLayout="row" fxLayoutAlign="start center">
                   <div fxFlex="60px">
-                    <img class="postuserImg" src="assets/images/users/{{Post.UserImage}}" alt="">
+                    <img class="postuserImg" src="./../../../assets/images/users/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-10" fxFlex>
                     <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
@@ -66,10 +66,10 @@
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-left">
               <h5 class="postquestion"> {{Post.PostText}} </h5>
-              <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' ">
+              <div *ngIf=" ( Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' )  &&  Post.PostImage?.length > 0 ">
                   <div style="text-align:center;">
                       <div style="margin:0 auto;" class="html5gallery" data-skin="light" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fit">
-                        <ng-container *ngIf="Post.PostImage[0] !== ''">
+                        <ng-container *ngIf="Post.PostImage[0] !== '' &&  Post.PostImage?.length > 0 ">
                           <a *ngFor="let img of Post.PostImage" href="./../../../assets/Uploads/Images/{{img.ImageName}}"><img src="./../../../assets/Uploads/Images/{{img.ImageName}}"></a>
                         </ng-container>  
                         <ng-container *ngIf="Post.PostVideo[0] !== ''">
@@ -93,7 +93,7 @@
                     <div class="leftSide">
                       <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                          <img class="postansuserImg" src="assets/images/users/{{Answer.UserImage}}" alt="">
+                          <img class="postansuserImg" src="./../../../assets/images/users/{{Answer.UserImage}}" alt="">
                         </div>
                         <div fxFlex>
                           <p class="postansusername" style="cursor:pointer" (click)="GotoProfile(Answer.UserId)">{{Answer.UserName}} </p>
@@ -110,6 +110,8 @@
                         <div class="text-right mr-5" fxFlex="150px">
                           <p class="postansaction"> ... </p>
                           <p class="postansdate"> {{Answer.Date | timeAgo}} </p>
+                          <p  *ngIf="!Answer.AlreadyFollow" style=" line-height: 10px; font-weight: 600; margin-top: 0px;" class="postdate" >
+                              <span (click)="FollowUser(Answer.UserId, i, k)" style="cursor:pointer"> Follow </span> </p>
                         </div>
                       </div>
                     </div>
@@ -152,13 +154,13 @@
             </div>
             <div fxFlex="20%" class="text-center">
               <div class="chat" (click)="ChangeActiveAnswerInput(i)">
-                <p class="answer"> Answer </p>
                 <p class="count"> {{Post.AnswersCount}} </p>
+                <p class="answer"> Answer </p>
               </div>
             </div>
             <div fxFlex="40%" class="text-right">
               <div class="share">
-                <img src="assets/images/icons/share.png" alt="">
+                <img src="./../../../assets/images/icons/share.png" alt="">
                 <p class="count"> 100 </p>
               </div>
             </div>
@@ -169,11 +171,11 @@
           <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex="60px" class="text-left">
               <div class="chatUserImg text-center">
-                <img src="assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
+                <img src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
             </div>
             <div fxFlex class="text-center">
               <div class="chatInput">
-                <input #j type="text" placeholder="Post Your Answer..."> </div>
+                <input #j type="text" placeholder="Write an Answer..."> </div>
             </div>
             <div fxFlex="70px" class="text-right">
               <div class="chatsend text-center">

@@ -22,7 +22,7 @@ var usersProjection = {
 
 
 exports.CoinsList = function(req, res) {
-    CoinsModel.Coins.find({}, 'Name Symbol CoinName FullName SortOrder ImageUrl StartDate' , {skip: 0 , limit: 100}, function(err, result) {
+    CoinsModel.Coins.find({}, 'Name Symbol CoinName FullName SortOrder ImageUrl StartDate' , {skip: 0 , limit: 10}, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Get The Coins."});
         } else {
@@ -116,6 +116,7 @@ exports.ImpressionAdd = function(req, res) {
                                             UserImage: UserData.UserImage,
                                             UserCompany: UserData.UserCompany,
                                             UserProfession: UserData.UserProfession,
+                                            AlreadyFollow: false,
                                             Followers: count,
                                             PostDate: result.PostDate,
                                             PostText: result.PostText
@@ -159,24 +160,38 @@ exports.ImpressionPosts = function(req, res) {
                                             res.send({status:"Fale", Error:newerr });
                                             reject(err);
                                         }else{
-                                            var newArray = [];
-                                            newArray.push( {
-                                                            UserId: UserData._id,
-                                                            UserName: UserData.UserName,
-                                                            UserCategoryId: UserData.UserCategoryId,
-                                                            UserCategoryName: UserData.UserCategoryName,
-                                                            UserImage: UserData.UserImage,
-                                                            UserCompany: UserData.UserCompany,
-                                                            UserProfession: UserData.UserProfession,
-                                                            Followers:count,
-                                                            _id: info._id,
-                                                            PostText: info.PostText,
-                                                            PostDate: info.PostDate,
-                                                            CoinId: req.params.CoinId,
-                                                        }
-                                            );
-                                            ImpressionsArray.push(newArray[0]);
-                                            resolve(UserData);
+                                            FollowModel.FollowUserType.find({'UserId': req.params.UserId, 'FollowingUserId': UserData._id }, function(dataerr, FollowesData) { 
+                                                if(dataerr){
+                                                    res.send({status:"Fale", Error:dataerr });
+                                                    reject(err);
+                                                }else{
+                                                    var alreadyfollowuser = true;
+                                                    if(FollowesData.length <= 0 && req.params.UserId != UserData._id){
+                                                        alreadyfollowuser = false;
+                                                    }else{
+                                                        alreadyfollowuser = true;
+                                                    }
+                                                    var newArray = [];
+                                                    newArray.push( {
+                                                                    UserId: UserData._id,
+                                                                    UserName: UserData.UserName,
+                                                                    UserCategoryId: UserData.UserCategoryId,
+                                                                    UserCategoryName: UserData.UserCategoryName,
+                                                                    UserImage: UserData.UserImage,
+                                                                    UserCompany: UserData.UserCompany,
+                                                                    UserProfession: UserData.UserProfession,
+                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                    Followers:count,
+                                                                    _id: info._id,
+                                                                    PostText: info.PostText,
+                                                                    PostDate: info.PostDate,
+                                                                    CoinId: req.params.CoinId,
+                                                                }
+                                                    );
+                                                    ImpressionsArray.push(newArray[0]);
+                                                    resolve(UserData);
+                                                }
+                                            });
                                         }
                                     });
                                 }else{

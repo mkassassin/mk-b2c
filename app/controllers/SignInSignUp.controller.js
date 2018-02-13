@@ -264,3 +264,22 @@ exports.GetUserInfo = function(req, res) {
         }
     });
 };
+
+
+exports.RemoveNotification = function(req, res) {
+    NotificationModel.Notification.findOne({'_id': req.params.NotifyId}, {}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Find."});
+        } else {
+            console.log(data);
+            data.Viewed = 1;
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Image ."});
+                }else{
+                    res.send({status:"True", data: newresult });
+                }
+            });
+        }
+    });
+};

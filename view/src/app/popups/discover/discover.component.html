@@ -9,42 +9,42 @@
               </div>
               <div style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
                 <div class="text-center" fxFlex>
-                  <img [ngClass]="{'selected': ActiveCategory == '01'}" (click)="ActiveCategorySelect('01')" class="followimg" src="assets/images/icons/category1-color.png"
+                  <img [ngClass]="{'selected': ActiveCategory == '01'}" (click)="ActiveCategorySelect('01')" class="followimg" src="./../../../assets/images/icons/category1-color.png"
                     alt="">
                   <p class="followname">
                     <span (click)="ActiveCategorySelect('01')"> Enthusiast </span>
                   </p>
                 </div>
                 <div class="text-center" fxFlex>
-                  <img [ngClass]="{'selected': ActiveCategory == '02'}" (click)="ActiveCategorySelect('02')" class="followimg" src="assets/images/icons/category2-color.png"
+                  <img [ngClass]="{'selected': ActiveCategory == '02'}" (click)="ActiveCategorySelect('02')" class="followimg" src="./../../../assets/images/icons/category2-color.png"
                     alt="">
                   <p class="followname">
                     <span (click)="ActiveCategorySelect('02')"> Investor </span>
                   </p>
                 </div>
                 <div class="text-center" fxFlex>
-                  <img [ngClass]="{'selected': ActiveCategory == '03'}" (click)="ActiveCategorySelect('03')" class="followimg" src="assets/images/icons/category3-color.png"
+                  <img [ngClass]="{'selected': ActiveCategory == '03'}" (click)="ActiveCategorySelect('03')" class="followimg" src="./../../../assets/images/icons/category3-color.png"
                     alt="">
                   <p class="followname">
                     <span (click)="ActiveCategorySelect('03')"> Expert </span>
                   </p>
                 </div>
                 <div class="text-center" fxFlex>
-                  <img [ngClass]="{'selected': ActiveCategory == '04'}" (click)="ActiveCategorySelect('04')" class="followimg" src="assets/images/icons/category4-color.png"
+                  <img [ngClass]="{'selected': ActiveCategory == '04'}" (click)="ActiveCategorySelect('04')" class="followimg" src="./../../../assets/images/icons/category4-color.png"
                     alt="">
                   <p class="followname">
                     <span (click)="ActiveCategorySelect('04')"> Media </span>
                   </p>
                 </div>
                 <div class="text-center" fxFlex>
-                  <img [ngClass]="{'selected': ActiveCategory == '05'}" (click)="ActiveCategorySelect('05')" class="followimg" src="assets/images/icons/category5-color.png"
+                  <img [ngClass]="{'selected': ActiveCategory == '05'}" (click)="ActiveCategorySelect('05')" class="followimg" src="./../../../assets/images/icons/category5-color.png"
                     alt="">
                   <p class="followname">
                     <span (click)="ActiveCategorySelect('05')"> Blogger </span>
                   </p>
                 </div>
                 <div class="text-center" fxFlex>
-                  <img [ngClass]="{'selected': ActiveCategory == '06'}" (click)="ActiveCategorySelect('06')" class="followimg" src="assets/images/icons/category6-color.png"
+                  <img [ngClass]="{'selected': ActiveCategory == '06'}" (click)="ActiveCategorySelect('06')" class="followimg" src="./../../../assets/images/icons/category6-color.png"
                     alt="">
                   <p class="followname">
                     <span (click)="ActiveCategorySelect('06')"> Company </span>
@@ -81,7 +81,7 @@
                 <!-- follow peoples List  -->
                 <div style="padding:0px 10%" *ngFor="let user of DiscoverPeoples; let j=index" class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
                   <div fxFlex="55px" class="text-center">
-                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="assets/images/users/{{user.UserImage}}" alt="">
+                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="./../../../assets/images/users/{{user.UserImage}}" alt="">
                   </div>
                   <div fxFlex>
                     <p class="userlistname">
@@ -102,7 +102,7 @@
             </p-scrollPanel>
             <hr class="m-5">
             <div class="text-center">
-              <button class="btn-flat btn btn-cutom mb-5" disabled> Follow All </button>
+              <button class="btn-flat btn btn-cutom mb-5" disabled> You are Following all Users in this Category </button>
             </div>
           </div>
           <!-- follow people  -->

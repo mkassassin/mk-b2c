@@ -9,7 +9,6 @@ const API_URL = 'http://localhost:3000/API/';
 
 @Injectable()
 export class PostServiceService {
-    
 
   constructor( private http: Http) {  }
 
@@ -24,14 +23,14 @@ export class PostServiceService {
         .catch(this.handleError);
     }
 
-    public GetHighlightsList(UserId: any, Limit:any): Observable<any[]> {
-        return this.http .get(API_URL + 'HighlightsPost/GetPostList/'+ UserId + "/"+ Limit)
+    public GetHighlightsList(UserId: any, Limit: any): Observable<any[]> {
+        return this.http .get(API_URL + 'HighlightsPost/GetPostList/' + UserId + '/' + Limit)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
 
-    public ViewHighlightPost(UserId: any, PostId:any): Observable<any[]> {
-        return this.http .get(API_URL + 'HighlightsPost/ViewPost/'+ UserId + "/"+ PostId)
+    public ViewHighlightPost(UserId: any, PostId: any): Observable<any[]> {
+        return this.http .get(API_URL + 'HighlightsPost/ViewPost/' + UserId + '/' + PostId)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
@@ -43,14 +42,14 @@ export class PostServiceService {
         .catch(this.handleError);
     }
 
-    public GetQuestionsList(UserId: any, Limit:any): Observable<any[]> {
-        return this.http .get(API_URL + 'QuestionsPost/GetPostList/'+ UserId + "/"+ Limit)
+    public GetQuestionsList(UserId: any, Limit: any): Observable<any[]> {
+        return this.http .get(API_URL + 'QuestionsPost/GetPostList/' + UserId + '/' + Limit)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
 
-    public ViewQuestionsPost(UserId: any, PostId:any): Observable<any[]> {
-        return this.http .get(API_URL + 'QuestionsPost/ViewPost/'+ UserId + "/"+ PostId)
+    public ViewQuestionsPost(UserId: any, PostId: any): Observable<any[]> {
+        return this.http .get(API_URL + 'QuestionsPost/ViewPost/' + UserId + '/' + PostId)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }

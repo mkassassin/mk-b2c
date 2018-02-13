@@ -150,17 +150,17 @@
     margin-top: 7px;
 }
 .SignInSignUp .gender-select .tick{
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
+    font-size: 11px;
+    font-weight: 500;
     color: #333333;
 }
 .SignInSignUp .gender-select .tick img{
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     padding: 4px;
     background: #fff;
-    margin-right: 5px;
+    margin-right: 0px;
+    margin-left: 8px;
 }
 .SignInSignUp .gender-select .tick img.p-13{
     padding: 13px;
@@ -301,4 +301,8 @@
     margin-left: 8% !important;
     margin-bottom: 0px;
     margin-top: -5px;
+}
+
+.maxwidth-82{
+    max-width: 84% !important;
 }

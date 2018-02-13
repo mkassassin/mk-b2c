@@ -115,10 +115,11 @@
     font-size: 15px;
 }
 .calValue{
-    width: 33%
+    width: 65%;
+    display: inline-flex;
 }
 .calValue input{
-    width: 100%;
+    width: 90%;
     height: 35px;
     border-width: 5px;
     border: 3px solid lightgray;
@@ -126,16 +127,17 @@
     padding: 5px;
 }
 .accuracy{
-    width: 27%;
+    width: 60%;
 }
 .accuracy .accuracyPercent{
     margin: 0px;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 22px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.5px;
     margin-left: 10px;
+    color: gray;
 }
 .accuracy .accuracyTime{
     margin: 0px;
@@ -146,11 +148,23 @@
     color: #777777;
 }
 .PredictionInfo{
-    width: 40%;
+    width: 13%;
     font-family: 'Ubuntu', sans-serif;
-    line-height: 15px;
-    font-size: 12px;
-    color: #888888;
+    font-size: 17px;
+    color: #d3d3d3;
+    font-weight: 800;
+    text-align: center;
+}
+.PredictionInfo p{
+    height: 25px;
+    width: 25px;
+    line-height: 21px;
+    text-align: center;
+    border-radius: 50px;
+    border: 2px solid lightgrey;
+    margin-left: 10px;
+    margin-top: 7px;
+    cursor: pointer;
 }
 .AddPrediction{
     width: 37%;
@@ -185,9 +199,34 @@
     width: 30px;
     cursor: pointer;
 }
+.ourPrediction{
+    line-height: 15px;
+    margin: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 5px;
+    letter-spacing: 0.5px;
+    color: #666666;
+}
+.PredictionButton{
+    border: 2px solid #ffda00;
+    padding-left: 5px;
+    border-radius: 0px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    font-family: 'Ubuntu', sans-serif;
+    margin: 0px 5px;
+}
 
-
-
+.tooltipCustomClass{
+    width:200px;
+    background-color:red;
+    font-size: 14px;
+}
 
 
 

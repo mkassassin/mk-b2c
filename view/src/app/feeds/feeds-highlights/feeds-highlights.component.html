@@ -35,7 +35,7 @@
               <div class="leftSide">
                 <div class="" fxLayout="row" fxLayoutAlign="start center">
                   <div fxFlex="50px">
-                    <img class="postuserImg" src="assets/images/users/{{Post.UserImage}}" alt="">
+                    <img class="postuserImg" src="./../../../assets/images/users/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-5" fxFlex>
                     <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
@@ -83,20 +83,21 @@
           <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex class="text-left">
               <div class="like">
-                <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="assets/images/icons/like.png" alt="">
-                <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="assets/images/icons/liked.png" alt="">
+                <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="./../../../assets/images/icons/like.png" alt="">
+                <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="./../../../assets/images/icons/liked.png" alt="">
                 <p class="count"> {{Post.LikesCount}} <small *ngIf="Post.UserLiked" > <small> (You Also) </small> </small> </p>
               </div>
             </div>
             <div fxFlex class="text-center">
               <div class="chat" (click)="ChangeActiveComment(i)">
-                <img src="assets/images/icons/comment.png" alt="">
+                <img *ngIf="Post.UserCommented" src="./../../../assets/images/icons/commented.png" alt="">
+                <img *ngIf="!Post.UserCommented" src="./../../../assets/images/icons/comment.png" alt="">
                 <p class="count"> {{Post.commentsCount}} </p>
               </div>
             </div>
             <div fxFlex class="text-right">
               <div class="share">
-                <img src="assets/images/icons/share.png" alt="">
+                <img src="./../../../assets/images/icons/share.png" alt="">
                 <p class="count"> 100 </p>
               </div>
             </div>
@@ -107,7 +108,7 @@
           <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex="50px" class="text-left">
               <div class="chatUserImg text-center">
-                <img src="assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
+                <img src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
             </div>
             <div fxFlex class="text-center">
               <div class="chatInput">
@@ -151,7 +152,7 @@
                     <div class="leftSide">
                       <div class="" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                          <img class="postuserImg" src="assets/images/users/{{comment.UserImage}}" alt="">
+                          <img class="postuserImg" src="./../../../assets/images/users/{{comment.UserImage}}" alt="">
                         </div>
                         <div fxFlex>
                           <p class="postusercategory">
@@ -167,6 +168,8 @@
                         <div class="text-right" fxFlex>
                           <p class="postaction"> ... </p>
                           <p class="postdate"> {{comment.Date | timeAgo}} </p>
+                          <p  *ngIf="!comment.AlreadyFollow" style=" line-height: 10px; font-weight: 600; margin-top: 0px;" class="postdate" >
+                            <span (click)="FollowUser(comment.UserId, i, k)" style="cursor:pointer"> Follow </span> </p>
                         </div>
                       </div>
                     </div>

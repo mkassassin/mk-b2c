@@ -131,6 +131,7 @@ exports.Submit = function(req, res) {
 
 
 exports.GetPostList = function(req, res) {
+    console
     var SkipCoun = 0;
     SkipCoun = parseInt(req.params.Limit) * 10;
     HighlightsPostModel.HighlightsPostType.find({}, {} , {sort:{createdAt : -1}, skip: SkipCoun, limit: 10  }, function(err, result) {
@@ -149,10 +150,10 @@ exports.GetPostList = function(req, res) {
                   
                   function getUserInfo(info){
                     return new Promise(( resolve, reject )=>{
-                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
-                            if(err) {
-                                res.send({status:"Fale", Error:err });
-                                reject(err);
+                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(inerr, UserData) {
+                            if(inerr) {
+                                res.send({status:"Fale", Error:inerr });
+                                reject(inerr);
                             } else {
                                 if(UserData !== null){
                                     FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
@@ -184,33 +185,47 @@ exports.GetPostList = function(req, res) {
                                                                     res.send({status:"Fale", Error:commentErr });
                                                                     reject(err);
                                                                 }else{ 
-                                                                    var newArray = [];
-                                                                    newArray.push( {
-                                                                                    UserId: UserData._id,
-                                                                                    UserName: UserData.UserName,
-                                                                                    UserCategoryId: UserData.UserCategoryId,
-                                                                                    UserCategoryName: UserData.UserCategoryName,
-                                                                                    UserImage: UserData.UserImage,
-                                                                                    UserCompany: UserData.UserCompany,
-                                                                                    UserProfession: UserData.UserProfession,
-                                                                                    Followers:count,
-                                                                                    _id: info._id,
-                                                                                    PostType: info.PostType,
-                                                                                    PostDate: info.PostDate,
-                                                                                    PostText: info.PostText ,
-                                                                                    PostLink: info.PostLink,
-                                                                                    PostImage: info.PostImage,
-                                                                                    PostVideo: info.PostVideo,
-                                                                                    LikesCount: NewCount,
-                                                                                    UserLiked: UserLiked,
-                                                                                    UserLikeId: UserLikedId,
-                                                                                    comments: [],
-                                                                                    commentsCount : commentCount
-                                                                                }
-                                                                    );
-                                                                    PostsArray.push(newArray[0]);
-                                                                    resolve(UserData);
 
+                                                                    CommentModel.HighlightsComment.find({'UserId':req.params.UserId, 'PostId': info._id}, function(nowerr, CommantData) {
+                                                                        if(nowerr){
+                                                                            res.send({status:"Fale", Error:nowerr });
+                                                                            reject(nowerr);
+                                                                        }else{
+                                                                            var alreadyCommentuser = true;
+                                                                            if(CommantData.length <= 0 ){
+                                                                                alreadyCommentuser = false;
+                                                                            }else{
+                                                                                alreadyCommentuser = true;
+                                                                            }
+                                                                            var newArray = [];
+                                                                            newArray.push( {
+                                                                                            UserId: UserData._id,
+                                                                                            UserName: UserData.UserName,
+                                                                                            UserCategoryId: UserData.UserCategoryId,
+                                                                                            UserCategoryName: UserData.UserCategoryName,
+                                                                                            UserImage: UserData.UserImage,
+                                                                                            UserCompany: UserData.UserCompany,
+                                                                                            UserProfession: UserData.UserProfession,
+                                                                                            Followers:count,
+                                                                                            UserCommented: alreadyCommentuser,
+                                                                                            _id: info._id,
+                                                                                            PostType: info.PostType,
+                                                                                            PostDate: info.PostDate,
+                                                                                            PostText: info.PostText ,
+                                                                                            PostLink: info.PostLink,
+                                                                                            PostImage: info.PostImage,
+                                                                                            PostVideo: info.PostVideo,
+                                                                                            LikesCount: NewCount,
+                                                                                            UserLiked: UserLiked,
+                                                                                            UserLikeId: UserLikedId,
+                                                                                            comments: [],
+                                                                                            commentsCount : commentCount
+                                                                                        }
+                                                                            );
+                                                                            PostsArray.push(newArray[0]);
+                                                                            resolve(UserData);
+                                                                        }
+                                                                    });
                                                                 }
                                                             });
 
@@ -281,32 +296,46 @@ exports.ViewPost = function(req, res) {
                                             CommentModel.HighlightsComment.count({'PostId': result._id , 'ActiveStates':'Active' }, function(commentErr, commentCount) {
                                                 if(commentErr){
                                                     res.send({status:"Fale", Error:commentErr });
-                                                }else{ 
-                                                    var newArray = [];
-                                                    newArray.push( {
-                                                                    UserId: UserData._id,
-                                                                    UserName: UserData.UserName,
-                                                                    UserCategoryId: UserData.UserCategoryId,
-                                                                    UserCategoryName: UserData.UserCategoryName,
-                                                                    UserImage: UserData.UserImage,
-                                                                    UserCompany: UserData.UserCompany,
-                                                                    UserProfession: UserData.UserProfession,
-                                                                    Followers:count,
-                                                                    _id: result._id,
-                                                                    PostType: result.PostType,
-                                                                    PostDate: result.PostDate,
-                                                                    PostText: result.PostText ,
-                                                                    PostLink: result.PostLink,
-                                                                    PostImage: result.PostImage,
-                                                                    PostVideo: result.PostVideo,
-                                                                    LikesCount: NewCount,
-                                                                    UserLiked: UserLiked,
-                                                                    UserLikeId: UserLikedId,
-                                                                    comments: [],
-                                                                    commentsCount : commentCount
-                                                                }
-                                                    );
-                                                    res.send({status:"True", data: newArray });
+                                                }else{
+                                                    CommentModel.HighlightsComment.find({'UserId':req.params.UserId, 'PostId': result._id}, function(nowerr, CommantData) {
+                                                        if(nowerr){
+                                                            res.send({status:"Fale", Error:nowerr });
+                                                            reject(nowerr);
+                                                        }else{
+                                                            var alreadyCommentuser = true;
+                                                            if(CommantData.length <= 0 ){
+                                                                alreadyCommentuser = false;
+                                                            }else{
+                                                                alreadyCommentuser = true;
+                                                            }
+                                                            var newArray = [];
+                                                            newArray.push( {
+                                                                            UserId: UserData._id,
+                                                                            UserName: UserData.UserName,
+                                                                            UserCategoryId: UserData.UserCategoryId,
+                                                                            UserCategoryName: UserData.UserCategoryName,
+                                                                            UserImage: UserData.UserImage,
+                                                                            UserCompany: UserData.UserCompany,
+                                                                            UserProfession: UserData.UserProfession,
+                                                                            UserCommented: alreadyCommentuser,
+                                                                            Followers:count,
+                                                                            _id: result._id,
+                                                                            PostType: result.PostType,
+                                                                            PostDate: result.PostDate,
+                                                                            PostText: result.PostText ,
+                                                                            PostLink: result.PostLink,
+                                                                            PostImage: result.PostImage,
+                                                                            PostVideo: result.PostVideo,
+                                                                            LikesCount: NewCount,
+                                                                            UserLiked: UserLiked,
+                                                                            UserLikeId: UserLikedId,
+                                                                            comments: [],
+                                                                            commentsCount : commentCount
+                                                                        }
+                                                            );
+                                                            res.send({status:"True", data: newArray });
+                                                        }
+                                                    });
                                                 }
                                             });
 

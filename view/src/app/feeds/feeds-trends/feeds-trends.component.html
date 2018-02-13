@@ -21,7 +21,7 @@
                 </div>
                 <div class="mt-10" fxFlex>
                     <p class="coinlistname">{{item.FullName}} </p>
-                    <p class="coinlistamt"> $ {{item.Code}} </p>
+                    <p class="coinlistamt"> {{item.Code}} </p>
                 </div>
             </div>
 
@@ -78,27 +78,29 @@
             </div>
                 
             <div class="row">
-                <div class="col-sm-12"> <h5 class="preHeader"> B2C Network Prediction </h5> </div>
                 <div class="col-sm-12"> 
                     <div style="display:inline-flex; width:100% ">
-                        <div class="calValue"> <input type="text" readonly="true" value="{{Prediction.Prediction}}"> </div>
-                        <div class="accuracy"> 
-                            <p class="accuracyPercent"> Accuracy: 90%  </p>
-                            <p class="accuracyTime"> {{Prediction.UsersCount}} Users </p>
+                        <div class="accuracy">
+                            <h5 class="preHeader"> B2C Network Prediction </h5>
+                            <p class="accuracyPercent"> Accuracy: 90%  | {{Prediction.UsersCount}} Users </p>
+                            <p *ngIf="Prediction.UserDone" class="ourPrediction">Your Prediction  $:{{Prediction.UserPrediction}} </p>
+                            <p *ngIf="PredictionAddButton && !Prediction.UserDone " (click)="PredictionAddButton = false" class="PredictionButton"> + Add  Your Prediction </p>
                         </div>
+                        
+                        <div class="calValue"> <label style="font-size:20px"> $ <input type="text" readonly="true" value="{{Prediction.Prediction}}"> </label>  </div>
                         <div class="PredictionInfo">
-                            The Predictions are done bye the users of B2C Network and will be Calculated once in 6 hourse
+                            <p  matTooltip="The Predictions are done bye the users of B2C Network and will be Calculated once in 6 hourse" > ? </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12"> 
+                <div *ngIf="!Prediction.UserDone && !PredictionAddButton" class="col-sm-12"> 
                     <div style="display:inline-flex; width:100% ">
                         <div class="AddPrediction">
-                            <p> <span *ngIf="!Prediction.UserDone"> Add </span>  Your Prediction </p>
+                            <p> + Add  Your Prediction </p>
                         </div>
                         <div class="PredictionInput"> <input value="{{Prediction.UserPrediction}}" [readonly]="Prediction.UserDone" type="number" #predictionInput type="text"> </div>
                         <div class="PredictionSend">
-                            <img *ngIf="!Prediction.UserDone" (click)="AddPrediction(predictionInput.value); predictionInput.value =''" src="assets/images/icons/arrow.png" alt="">
+                            <img *ngIf="!Prediction.UserDone" (click)="AddPrediction(predictionInput.value); predictionInput.value =''" src="./../../../assets/images/icons/arrow.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -151,31 +153,32 @@
                         </div>
                         <hr class="m-0">
                         <div class="impressioninfo">
-                                <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
-                                        <div fxFlex>
-                                            <div class="leftSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="start center">
-                                                    <div fxFlex="45px">
-                                                        <img class="postuserImg" src="assets/images/users/{{item.UserImage}}" alt="">
-                                                    </div>
-                                                    <div class="mt-10" fxFlex>
-                                                        <p class="postusercategory"> <span class="postusername" style="cursor:pointer" (click)="GotoProfile(item.UserId)" > {{item.UserName}},  </span> {{item.UserCategoryName}}  &nbsp; | &nbsp; {{item.UserProfession | slice:0:15 }}{{ item.UserProfession?.length > 15 ? '...' : ' ' }} </p>
-                                                        <p class="postuserfollowers"> {{item.Followers}} Followers </p>
-                                                    </div>
-                                                </div>
+                            <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxFlex>
+                                    <div class="leftSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                            <div fxFlex="45px">
+                                                <img class="postuserImg" src="./../../../assets/images/users/{{item.UserImage}}" alt="">
                                             </div>
-                                        </div>
-                                        <div fxFlex="25%">
-                                            <div class="rightSide">
-                                                <div class="" fxLayout="row" fxLayoutAlign="end center">
-                                                    <div class="text-right" fxFlex>
-                                                        <p class="postaction"> ... </p>
-                                                        <p class="postdate"> {{item.PostDate | timeAgo}} </p>
-                                                    </div>
-                                                </div>
+                                            <div class="mt-10" fxFlex>
+                                                <p class="postusercategory"> <span class="postusername" style="cursor:pointer" (click)="GotoProfile(item.UserId)" > {{item.UserName}},  </span> {{item.UserCategoryName}}  &nbsp; | &nbsp; {{item.UserProfession | slice:0:15 }}{{ item.UserProfession?.length > 15 ? '...' : ' ' }} </p>
+                                                <p class="postuserfollowers"> {{item.Followers}} Followers </p>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                            <div class="text-right" fxFlex>
+                                                <p class="postaction"> ... </p>
+                                                <p class="postdate"> {{item.PostDate | timeAgo}} </p>
+                                                <p *ngIf="!item.AlreadyFollow" (click)="followUser(item.UserId, i)" class="postdate mt-o" style="cursor:pointer;"> Follow </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
