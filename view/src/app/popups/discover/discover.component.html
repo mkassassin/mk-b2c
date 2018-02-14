@@ -73,37 +73,40 @@
                 <div style="padding:0px 10%" *ngIf="DiscoverPeoples?.length <= 0 && !LoadingPeoples" class="col-sm-12">
                   <br>
                   <br>
-                  <h5 class="userlistname"> You Will Follow All The Users In This Category !</h5>
+                  <h5 class="userlistname"> You are Following all Users in this Category </h5>
                   <br>
                   <br>
                 </div>
 
                 <!-- follow peoples List  -->
-                <div style="padding:0px 10%" *ngFor="let user of DiscoverPeoples; let j=index" class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
-                  <div fxFlex="55px" class="text-center">
-                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="./../../../assets/images/users/{{user.UserImage}}" alt="">
-                  </div>
-                  <div fxFlex>
-                    <p class="userlistname">
-                      <span style="cursor:pointer" (click)="GotoProfile(user._id)"> {{user.UserName }} </span>
-                    </p>
-                    <p class="userlistcategory"> {{user.UserProfession + " @ " + user.UserCompany | slice:0:20 }}{{ (user.UserProfession + " @ " + user.UserCompany)?.length
-                      > 20 ? '...' : ' ' }} </p>
-                    <p class="userlistfollowers"> {{user.Followers }} Followers </p>
-                  </div>
-                  <div fxFlex="45px" class="text-center">
-                    <span class="userAddIcon">
-                      <i (click)="followUser(user._id)" class="material-icons">person_add</i>
-                    </span>
-                  </div>
+                <div class="row m-0" style="max-width: 900px;">
+                    <div class="col-sm-4 mt-20 max-width-300" *ngFor="let user of DiscoverPeoples; let j=index" fxLayout="row" fxLayoutAlign="space-evenly">
+                      <div fxFlex="55px" class="text-center">
+                        <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
+                      </div>
+                      <div fxFlex>
+                        <p class="userlistname">
+                          <span style="cursor:pointer" (click)="GotoProfile(user._id)"> {{user.UserName }} </span>
+                        </p>
+                        <p class="userlistcategory"> {{user.UserProfession + " @ " + user.UserCompany | slice:0:20 }}{{ (user.UserProfession + " @ " + user.UserCompany)?.length
+                          > 20 ? '...' : ' ' }} </p>
+                        <p class="userlistfollowers"> {{user.Followers }} Followers </p>
+                      </div>
+                      <div fxFlex="45px" class="text-center">
+                        <span class="userAddIcon">
+                          <i (click)="followUser(user._id)" class="material-icons">person_add</i>
+                        </span>
+                      </div>
+                    </div>
                 </div>
+                
 
               </div>
             </p-scrollPanel>
-            <hr class="m-5">
+            <!-- <hr class="m-5">
             <div class="text-center">
               <button class="btn-flat btn btn-cutom mb-5" disabled> You are Following all Users in this Category </button>
-            </div>
+            </div> -->
           </div>
           <!-- follow people  -->
         </div>

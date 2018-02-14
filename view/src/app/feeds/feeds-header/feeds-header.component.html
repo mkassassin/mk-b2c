@@ -47,7 +47,7 @@
 
                     <ng-template #customItemTemplate let-value="item" let-index="index">
                         <div *ngIf="value.Category === 'Users'" class="searchList">
-                            <img src="./../../../assets/images/users/{{value.UserImage}}" alt=""> 
+                            <img src="{{UserImageBaseUrl}}/{{value.UserImage}}" alt=""> 
                             <div class="usersInfo">
                                 <p>
                                     <span class="searchName"> {{value.UserName}}</span>
@@ -58,7 +58,7 @@
                             </div>     
                         </div>
                         <div  *ngIf="value.Category === 'Topics'" class="searchList">
-                            <img src="./../../../assets/images/topics/{{value.TopicImage}}" alt=""> 
+                            <img src="{{TopicImageBaseUrl}}/{{value.TopicImage}}" alt=""> 
                             <div class="usersInfo">
                                 <p>
                                     <span class="searchName"> {{value.TopicName}}</span>
@@ -85,7 +85,7 @@
                       <span *ngIf="NotificationList?.length > 0" class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
                   <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
-                      <img class="headeruserimg" src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt="">
+                      <img class="headeruserimg" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="">
                   </div>
               </div> 
           </div><!-- header right -->
@@ -122,7 +122,7 @@
                 <div class="notifylist" *ngFor="let Notify of NotificationList; let i=index">
                     <div style="position:relative" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                            <img (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg" src="./../../../assets/images/users/{{Notify.UserImage}}" alt="">
+                            <img (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg" src="{{UserImageBaseUrl}}/{{Notify.UserImage}}" alt="">
                         </div>
                         <div class="mt-10" fxFlex>
                             <p class="notifycategory"> <span class="username"> {{Notify.UserName}}  </span>

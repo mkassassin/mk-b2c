@@ -14,6 +14,12 @@ import { ProfilePictureCropperComponent } from './../../popups/profile-picture-c
 export class FeedsRightBarComponent implements OnInit {
 
 
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
+
   UserInfo: any;
   FollowingUsers: any[];
   FollowingTopics: any[];
@@ -79,7 +85,7 @@ export class FeedsRightBarComponent implements OnInit {
     if ( result === 'Close') {
       console.log(result);
     }else {
-      // this.UserInfo['data'].UserImage = result['data'].UserImage;
+      this.UserInfo['data'].UserImage = result['data'].UserImage;
     }
   }
 

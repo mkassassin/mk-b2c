@@ -12,6 +12,12 @@ import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 })
 export class DiscoverComponent implements OnInit {
 
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
+  
   UserInfo: any;
   DiscoverPeoples: any[];
   LoadingPeoples: Boolean = true;

@@ -27,7 +27,7 @@
 
 
         <div class="col-sm-4 topicPart" *ngFor="let Topic of (UnFollowingTopics ? UnFollowingTopics.slice(0,6): []); let i=index">
-          <img class="topicimg" src="./../../../assets/images/topics/{{Topic.TopicImage}}" alt="">
+          <img class="topicimg" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
           <p class="topicname">
             <span> {{Topic.TopicName | slice:0:15 }}{{ Topic.TopicName?.length > 15 ? '...' : ' ' }} </span>
           </p>
@@ -125,7 +125,7 @@
       <!-- follow peoples List  -->
       <div *ngFor="let user of (UnfollowingUsers ? UnfollowingUsers.slice(0,3): []); let j=index"  class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
         <div fxFlex="55px" class="text-center">
-          <img (click)="GotoProfile(user._id)" class="userlistImg" src="./../../../assets/images/users/{{user.UserImage}}" alt="">
+          <img (click)="GotoProfile(user._id)" class="userlistImg" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
         </div>
         <div fxFlex>
           <p class="userlistname">

@@ -11,6 +11,8 @@ import { FeedsMainComponent } from './feeds-main/feeds-main.component';
 import { ProfileMainComponent } from './profile-main/profile-main.component';
 import { PageRoutingComponent } from './page-routing/page-routing/page-routing.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { TermsComponent } from './terms/terms.component';
+import { PolicyComponent } from './policy/policy.component';
 
 const appRoutes: Routes = [
     { path: '',
@@ -34,6 +36,20 @@ const appRoutes: Routes = [
         },
         canActivate: [NotAuthGuard]
     },
+    { path: 'terms',
+        component: TermsComponent,
+        data: {
+            animation: { value: 'terms', }
+        },
+        canActivate: [NotAuthGuard]
+    },
+    { path: 'privacy',
+        component: PolicyComponent,
+        data: {
+            animation: { value: 'privacy', }
+        },
+        canActivate: [NotAuthGuard]
+    },
     { path: 'Feeds',
         component: FeedsMainComponent,
         data: {
@@ -54,7 +70,7 @@ const appRoutes: Routes = [
             animation: { value: 'ViewProfile', }
         },
         canActivate: [AuthGuard]
-    },
+    }
   ];
 
 

@@ -12,6 +12,7 @@ import { QuestionsPostComponent } from './../../popups/posts/questions-post/ques
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
+import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
 import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
 
@@ -23,6 +24,12 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
   styleUrls: ['./feeds-header.component.css']
 })
 export class FeedsHeaderComponent implements OnInit {
+
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
 
   UserInfo;
   NotificationList: any;
@@ -40,7 +47,8 @@ export class FeedsHeaderComponent implements OnInit {
     private searchService: SearchService,
     private ShareingService: DataSharedVarServiceService,
     private NotifyService: SigninSignupServiceService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private _componentConnectService: ComponentConnectServiceService) {
 
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -135,14 +143,14 @@ export class FeedsHeaderComponent implements OnInit {
     const HighlightsPostDialogRef = this.dialog.open(
       HighlightsPostComponent, {disableClose: true, minWidth: '60%', height: '90%', position: {top: '50px'},  data: { PostId: PostId } }
     );
-    HighlightsPostDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+    HighlightsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }
 
   OpenModelQuestionsPost(PostId) {
     const QuestionsPostDialogRef = this.dialog.open(
       QuestionsPostComponent, {disableClose: true, minWidth: '60%', height: '90%', position: {top: '50px'},  data: { PostId: PostId } }
     );
-    QuestionsPostDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+    QuestionsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }
 
 
@@ -153,6 +161,9 @@ export class FeedsHeaderComponent implements OnInit {
     CreatTopictDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
 
+  ReloadGalleryScript() {
+    this._componentConnectService.OnLoadGallery();
+  }
 
   DiscoverClose(result) {
     if (result === 'Close') {

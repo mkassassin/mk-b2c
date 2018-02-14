@@ -10,7 +10,7 @@
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <div fxFlex="50%">
                                     <div class="logodiv">
-                                        <img class="logoDesign-1" src="./../../assets/images/logo1.png" alt="">
+                                        <img class="logoDesign-1"  routerLink="/" style="cursor:pointer" src="./../../assets/images/logo1.png" alt="">
                                     </div>
                                 </div>
                                 <div fxFlex="50%">
@@ -40,7 +40,7 @@
                                         <a [ngClass]="{'Selected': ActivePage === '02'}" (click)="ActivePageChange('02')" class="linkStyle-5"> Mission </a>
                                         <a [ngClass]="{'Selected': ActivePage === '03'}" (click)="ActivePageChange('03')" class="linkStyle-5"> Platform </a>
                                         <a [ngClass]="{'Selected': ActivePage === '04'}" (click)="ActivePageChange('04')" class="linkStyle-5"> Careers </a>
-                                        <a [ngClass]="{'Selected': ActivePage === '05'}" (click)="ActivePageChange('05')" class="linkStyle-5"> Terms and Privacy </a>
+                                        <a [ngClass]="{'Selected': ActivePage === '05'}" (click)="ActivePageChange('05')" class="linkStyle-5"> Terms and Privacy  </a>
                                         <a [ngClass]="{'Selected': ActivePage === '06'}" (click)="ActivePageChange('06')" class="linkStyle-5"> Contact </a>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
 
 
 
-                    <!-- <div *ngIf="ActivePage === '04'" class="container">
+                    <div *ngIf="ActivePage === '04'" class="container">
                         <div class="row mt-20">
                             <div class="col-sm-12">
                               <p class="NewTextStyle3"> We are looking for dynamic individuals to work with B2C towards our mission of creating a better digital world together. Currently, we are looking for full time/part time interns on work from home/university basis. 
@@ -123,35 +123,46 @@
 
                     <div *ngIf="ActivePage === '05'" class="container">
                         <div class="row mt-20">
-                            <div class="col-sm-6 imgStyle2">
-                              <img src="./../../assets/images/icons/logo.png" alt="">
-                              <p class="ImgText"> Connect </p>
-                            </div>
-                            <div class="col-sm-6 imgStyle1">
-                                <p class="ImgTextNew"> Our <br> Misson </p>
-                            </div>
                             <div class="col-sm-12">
-                              <p class="NewTextStyle">  Creating a better digital world <span> TOGETHER </span> </p>
-                            </div>
+                                <p class="NewTextStyle4"> Check our Terms and Conditions <span  routerLink="/terms" style="cursor:pointer"> Here.. </span> </p>
+                              </div>
+                              <div class="col-sm-12">
+                                <p class="NewTextStyle4"> Check our Privacy Policy <span  routerLink="/privacy" style="cursor:pointer"> Here.. </span> </p>
+                              </div>
                         </div>
                     </div>
 
 
 
-                    <div *ngIf="ActivePage === '05'" class="container">
+                    <div *ngIf="ActivePage === '06'" class="container">
                         <div class="row mt-20">
-                            <div class="col-sm-6 imgStyle2">
-                              <img src="./../../assets/images/icons/logo.png" alt="">
-                              <p class="ImgText"> Connect </p>
+                            <div class="col-sm-6">
+                              <p class="NewTextStyle5">  General Queries: <span> info@b2c.network </span> </p>
+                              <p class="NewTextStyle5">  Partnerships: <span> arvi@b2c.network </span> </p>
+                              <p class="NewTextStyle5">  Platform related questions: <span> tech@b2c.network </span> </p>
+                              <p class="NewTextStyle5">  Advertise: <span> advertise@b2c.network </span> </p>
                             </div>
                             <div class="col-sm-6 imgStyle1">
-                                <p class="ImgTextNew"> Our <br> Misson </p>
-                            </div>
-                            <div class="col-sm-12">
-                              <p class="NewTextStyle">  Creating a better digital world <span> TOGETHER </span> </p>
+                                <div class="row">
+                                    <div class="col-sm-12 contactInput">
+                                        <input type="text" placeholder=" Your Name *">
+                                    </div>
+                                    <div class="col-sm-12 contactInput">
+                                        <input type="text" placeholder=" Your Email *">
+                                    </div>
+                                    <div class="col-sm-12 contactInput">
+                                        <input type="text" placeholder=" Subject">
+                                    </div>
+                                    <div class="col-sm-12 contactInput">
+                                        <textarea placeholder="Message..."></textarea>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button type="button" class="btn-flat btn btn-cutom"> Submit </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
 
                 </div>

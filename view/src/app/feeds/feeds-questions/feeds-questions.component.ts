@@ -8,6 +8,7 @@ import { PostServiceService } from './../../service/post-service/post-service.se
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
+import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
 @Component({
   selector: 'app-feeds-questions',
@@ -15,6 +16,13 @@ import { DataSharedVarServiceService } from './../../service/data-shared-var-ser
   styleUrls: ['./feeds-questions.component.css']
 })
 export class FeedsQuestionsComponent implements OnInit {
+
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
+
 
   ActiveAnswerInput;
   scrollHeight;
@@ -31,7 +39,8 @@ export class FeedsQuestionsComponent implements OnInit {
     private ratingService: LikeAndRatingServiceService,
     private Service: PostServiceService,
     public dialog: MatDialog,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private _componentConnectService: ComponentConnectServiceService
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -50,9 +59,24 @@ export class FeedsQuestionsComponent implements OnInit {
           console.log(datas);
         }
       });
+
+      this._componentConnectService.listen().subscribe(() => {
+        this.ReloadGalleryScript();
+    });
+
   }
 
-
+  ReloadGalleryScript() {
+    const tempPostList = this.PostsList;
+    this.PostsList = [];
+    setTimeout(() => {
+      this.PostsList = tempPostList;
+      const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = './../../../assets/html5gallery/html5gallery.js';
+          this.elementRef.nativeElement.appendChild(s);
+    }, 50);
+  }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 165;
@@ -72,10 +96,15 @@ export class FeedsQuestionsComponent implements OnInit {
       console.log('Post Not Submit Properly');
     }else {
       this.PostsList.splice(0 , 0, result);
-      const s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.src = './../../../assets/html5gallery/html5gallery.js';
-          this.elementRef.nativeElement.appendChild(s);
+      const tempPostList = this.PostsList;
+      this.PostsList = [];
+      setTimeout(() => {
+        this.PostsList = tempPostList;
+        const s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = './../../../assets/html5gallery/html5gallery.js';
+            this.elementRef.nativeElement.appendChild(s);
+      }, 50);
     }
   }
 

@@ -8,6 +8,7 @@ import { PostServiceService } from './../../service/post-service/post-service.se
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
+import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
 @Component({
   selector: 'app-feeds-highlights',
@@ -15,8 +16,13 @@ import { DataSharedVarServiceService } from './../../service/data-shared-var-ser
   styleUrls: ['./feeds-highlights.component.css']
 })
 export class FeedsHighlightsComponent implements OnInit {
-  clicked: Boolean = false;
-  clicked2: Boolean = false;
+
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
+
   scrollHeight;
   screenHeight: number;
   anotherHeight: number;
@@ -34,7 +40,8 @@ export class FeedsHighlightsComponent implements OnInit {
     private LikeService: LikeAndRatingServiceService,
     private commentservice: CommentAndAnswerService,
     public dialog: MatDialog,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private _componentConnectService: ComponentConnectServiceService
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -43,7 +50,6 @@ export class FeedsHighlightsComponent implements OnInit {
                         if (datas['status'] === 'True') {
                           this.PostsList = datas['data'];
                           this.PostsListLoder = false;
-
 
                           const s = document.createElement('script');
                           s.type = 'text/javascript';
@@ -55,8 +61,24 @@ export class FeedsHighlightsComponent implements OnInit {
                           this.PostsListLoder = false;
                         }
                       });
+
+                      this._componentConnectService.listen().subscribe(() => {
+                        this.ReloadGalleryScript();
+                    });
    }
 
+
+  ReloadGalleryScript() {
+    const tempPostList = this.PostsList;
+    this.PostsList = [];
+    setTimeout(() => {
+      this.PostsList = tempPostList;
+      const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = './../../../assets/html5gallery/html5gallery.js';
+          this.elementRef.nativeElement.appendChild(s);
+    }, 50);
+  }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 165;
@@ -75,12 +97,15 @@ export class FeedsHighlightsComponent implements OnInit {
       console.log('Post Not Submit Properly');
     }else {
       this.PostsList.splice(0 , 0, result);
+      const tempPostList = this.PostsList;
+      this.PostsList = [];
       setTimeout(() => {
+        this.PostsList = tempPostList;
         const s = document.createElement('script');
             s.type = 'text/javascript';
             s.src = './../../../assets/html5gallery/html5gallery.js';
             this.elementRef.nativeElement.appendChild(s);
-      }, 3000);
+      }, 50);
 
     }
   }

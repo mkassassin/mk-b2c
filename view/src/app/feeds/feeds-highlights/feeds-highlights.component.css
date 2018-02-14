@@ -262,3 +262,6 @@
     background:  #ffffff !important;
 }
 
+.DisplayNone{
+    display: none !important;
+}

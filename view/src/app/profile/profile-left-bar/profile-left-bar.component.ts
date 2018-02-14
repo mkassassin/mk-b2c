@@ -14,6 +14,11 @@ import { ProfilePictureCropperComponent } from './../../popups/profile-picture-c
 })
 export class ProfileLeftBarComponent implements OnInit {
 
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
 
   UserInfo: any[] = [];
   FollowingUsers: any[];
@@ -107,8 +112,8 @@ export class ProfileLeftBarComponent implements OnInit {
       if ( result === 'Close') {
         console.log(result);
       }else {
-        // this.UserInfo['data'].UserImage = result['data'].UserImage;
-        // this.cdRef.detectChanges();
+        this.UserInfo['data'].UserImage = result['data'].UserImage;
+        this.cdRef.detectChanges();
       }
     }
 

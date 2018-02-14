@@ -177,3 +177,84 @@
     color: #ffda00;
     margin-right: 10px;
 }
+
+.NewTextStyle3 {
+    font-size: 21px;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 0px 10%;
+    color: #333333;
+    line-height: 40px;
+}
+.NewTextStyle3 span{
+    color: #ffda00;
+    margin-left: 10px;
+}
+
+.NewTextStyle4{
+    text-align: center;
+    font-size: 23px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    margin-bottom: 10px;
+}
+.NewTextStyle4 span{
+    cursor: pointer;
+    color: #ffda00;
+    margin-left: 10px;
+}
+
+.NewTextStyle5{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 17px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.NewTextStyle5 span{
+    cursor: pointer;
+    color: #ffda00;
+    margin-left: 10px;
+}
+.contactInput textarea{
+    width: 72%;
+    height: 110px;
+    margin-bottom: 15px;
+    padding: 0px 8px;
+    font-size: 15px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #333333;
+    border: 1px solid #eae8e8;
+}
+.contactInput input{
+    width: 72%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 8px;
+    line-height: 40px;
+    font-size: 15px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #333333;
+    border: 1px solid #eae8e8;
+}
+
+
+
+
+
+ .btn-cutom{
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    font-size: 16px;
+    outline: transparent;
+}
+ .btn-cutom:hover{
+    color: #fff;
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+}
+ .btn-cutom:focus{
+    box-shadow: none;
+}

@@ -23,7 +23,7 @@ var usersProjection = {
 
 var ImageStore = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './view/src/assets/Uploads/Images');
+        cb(null, './uploads/images');
     },
     filename:function(req, file, cb){
         cb(null, Date.now() +"-"+ file.originalname);
@@ -32,7 +32,7 @@ var ImageStore = multer.diskStorage({
 
 var VideoStore = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './view/src/assets/Uploads/Videos');
+        cb(null, './uploads/videos');
     },
     filename:function(req, file, cb){
         cb(null, Date.now() +"-"+ file.originalname);
@@ -41,7 +41,7 @@ var VideoStore = multer.diskStorage({
 
 var UserStore = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './view/src/assets/images/users');
+        cb(null, './uploads/users');
     },
     filename:function(req, file, cb){
         cb(null, Date.now() +"-"+ file.originalname);
@@ -51,7 +51,7 @@ var UserStore = multer.diskStorage({
 
 var TopicsStore = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './view/src/assets/images/topics');
+        cb(null, './uploads/topics');
     },
     filename:function(req, file, cb){
         cb(null, Date.now() +"-"+ file.originalname);
@@ -71,6 +71,9 @@ var CreateTopic = multer({storage:TopicsStore}).single('file');
 
 exports.UploadImageFile = function(req, res) {
     ImageUpload(req, res, function(uploaderr){
+
+        console.log(req.file);
+        console.log(req.body);
         
         if(uploaderr){
             res.status(500).send({status:"False", Error:uploaderr});

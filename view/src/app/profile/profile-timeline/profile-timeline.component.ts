@@ -8,6 +8,7 @@ import { ProfileSerivceService } from './../../service/profile-service/profile-s
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
 import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
+import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
 @Component({
   selector: 'app-profile-timeline',
@@ -15,8 +16,13 @@ import { SigninSignupServiceService } from './../../service/signin-signup-servic
   styleUrls: ['./profile-timeline.component.css']
 })
 export class ProfileTimelineComponent implements OnInit {
-  clicked: Boolean = false;
-  clicked2: Boolean = false;
+
+  ImageBaseUrl: String = 'http://localhost:3000/static/images';
+  VideoBaseUrl: String = 'http://localhost:3000/static/videos';
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
+  TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
+  OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
+
   scrollHeight;
   screenHeight: number;
   anotherHeight: number;
@@ -38,7 +44,8 @@ export class ProfileTimelineComponent implements OnInit {
     private LikeService: LikeAndRatingServiceService,
     private commentservice: CommentAndAnswerService,
     private AnswerService: CommentAndAnswerService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private _componentConnectService: ComponentConnectServiceService
       ) {
 
         this.LoginUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -74,7 +81,24 @@ export class ProfileTimelineComponent implements OnInit {
             }
           });
 
+          this._componentConnectService.listen().subscribe(() => {
+            this.ReloadGalleryScript();
+        });
+
        }
+
+
+    ReloadGalleryScript() {
+        const tempPostList = this.PostsList;
+        this.PostsList = [];
+        setTimeout(() => {
+          this.PostsList = tempPostList;
+          const s = document.createElement('script');
+              s.type = 'text/javascript';
+              s.src = './../../../assets/html5gallery/html5gallery.js';
+              this.elementRef.nativeElement.appendChild(s);
+        }, 50);
+    }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 100;

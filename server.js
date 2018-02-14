@@ -1,8 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-const path = require('path');
-const axios = require("axios");
+var path = require('path');
+var axios = require("axios");
 
 var dbConfig = require('./app/config/database.config.js');
 var mongoose = require('mongoose');
@@ -31,9 +31,11 @@ app.use(cors({
 }));
 
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+app.use('/static', express.static('uploads'))
 
 // app.use(express.static(__dirname + '/view/dist/'));
 

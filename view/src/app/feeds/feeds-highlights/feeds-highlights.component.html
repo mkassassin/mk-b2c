@@ -35,7 +35,7 @@
               <div class="leftSide">
                 <div class="" fxLayout="row" fxLayoutAlign="start center">
                   <div fxFlex="50px">
-                    <img class="postuserImg" src="./../../../assets/images/users/{{Post.UserImage}}" alt="">
+                    <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-5" fxFlex>
                     <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
@@ -65,12 +65,12 @@
               <h5 class="text-left ml-20"> {{Post.PostText}}</h5>
               <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== ''">
                   <div style="text-align:center;">
-                      <div style="margin:0 auto;" class="html5gallery" data-skin="light" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fit">
+                      <div style="margin:0 auto;" class="html5gallery" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
                         <ng-container *ngIf="Post.PostImage[0] !== ''">
-                          <a *ngFor="let img of Post.PostImage" href="./../../../assets/Uploads/Images/{{img.ImageName}}"><img src="./../../../assets/Uploads/Images/{{img.ImageName}}"></a>
+                          <a *ngFor="let img of Post.PostImage" href="{{ImageBaseUrl}}/{{img.ImageName}}"><img src="{{ImageBaseUrl}}/{{img.ImageName}}"></a>
                         </ng-container>  
                         <ng-container *ngIf="Post.PostVideo[0] !== ''">
-                          <a *ngFor="let vid of Post.PostVideo" href="./../../../assets/Uploads/Videos/{{vid.VideoName}}"><img src="./../../../assets/images/videoSampleImg.jpg"></a>
+                          <a *ngFor="let vid of Post.PostVideo" href="{{VideoBaseUrl}}/{{vid.VideoName}}"><img src="{{OtherImageBaseUrl}}/videoSampleImg.jpg"></a>
                         </ng-container>
                       </div>
                   </div>
@@ -108,7 +108,7 @@
           <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex="50px" class="text-left">
               <div class="chatUserImg text-center">
-                <img src="./../../../assets/images/users/{{UserInfo.data.UserImage}}" alt=""> </div>
+                <img src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt=""> </div>
             </div>
             <div fxFlex class="text-center">
               <div class="chatInput">
@@ -152,7 +152,7 @@
                     <div class="leftSide">
                       <div class="" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                          <img class="postuserImg" src="./../../../assets/images/users/{{comment.UserImage}}" alt="">
+                          <img class="postuserImg" src="{{UserImageBaseUrl}}/{{comment.UserImage}}" alt="">
                         </div>
                         <div fxFlex>
                           <p class="postusercategory">

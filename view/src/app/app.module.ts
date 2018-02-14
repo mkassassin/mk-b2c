@@ -82,6 +82,9 @@ import { PageRoutingComponent } from './page-routing/page-routing/page-routing.c
 import { FbSignupComponent } from './popups/fb-signup/fb-signup.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CreatTopicComponent } from './popups/creat-topic/creat-topic.component';
+import { ComponentConnectServiceService } from './service/component-connect-service.service';
+import { TermsComponent } from './terms/terms.component';
+import { PolicyComponent } from './policy/policy.component';
 
 
 @NgModule({
@@ -118,7 +121,9 @@ import { CreatTopicComponent } from './popups/creat-topic/creat-topic.component'
     PageRoutingComponent,
     FbSignupComponent,
     AboutUsComponent,
-    CreatTopicComponent
+    CreatTopicComponent,
+    TermsComponent,
+    PolicyComponent
   ],
   imports: [
     CommonModule,
@@ -161,6 +166,7 @@ import { CreatTopicComponent } from './popups/creat-topic/creat-topic.component'
                 TrendsService,
                 ProfileSerivceService,
                 SearchService,
+                ComponentConnectServiceService,
                 {
                   provide: AuthServiceConfig,
                   useFactory: provideConfig
