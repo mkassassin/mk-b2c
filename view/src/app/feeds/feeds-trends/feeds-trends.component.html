@@ -82,14 +82,14 @@
                     <div style="display:inline-flex; width:100% ">
                         <div class="accuracy">
                             <h5 class="preHeader"> B2C Network Prediction </h5>
-                            <p class="accuracyPercent"> Accuracy: 90%  | {{Prediction.UsersCount}} Users </p>
+                            <p class="accuracyPercent"> Accuracy: 90% &nbsp;  | &nbsp; {{Prediction.UsersCount}} Users </p>
                             <p *ngIf="Prediction.UserDone" class="ourPrediction">Your Prediction  $:{{Prediction.UserPrediction}} </p>
                             <p *ngIf="PredictionAddButton && !Prediction.UserDone " (click)="PredictionAddButton = false" class="PredictionButton"> + Add  Your Prediction </p>
                         </div>
                         
                         <div class="calValue"> <label style="font-size:20px"> $ <input type="text" readonly="true" value="{{Prediction.Prediction}}"> </label>  </div>
                         <div class="PredictionInfo">
-                            <p  matTooltip="The Predictions are done bye the users of B2C Network and will be Calculated once in 6 hourse" > ? </p>
+                            <p  matTooltip="The Predictions are done by the users of B2C Network and will be calculated once in 6 hours" > ? </p>
                         </div>
                     </div>
                 </div>

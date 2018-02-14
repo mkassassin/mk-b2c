@@ -136,7 +136,7 @@
     line-height: 22px;
     font-weight: 500;
     letter-spacing: 0.5px;
-    margin-left: 10px;
+    margin-left: 0px;
     color: gray;
 }
 .accuracy .accuracyTime{
@@ -211,7 +211,7 @@
 }
 .PredictionButton{
     border: 2px solid #ffda00;
-    padding-left: 5px;
+    padding-left: 0px;
     border-radius: 0px;
     cursor: pointer;
     font-size: 13px;
@@ -219,7 +219,7 @@
     font-weight: 600;
     letter-spacing: 0.6px;
     font-family: 'Ubuntu', sans-serif;
-    margin: 0px 5px;
+    margin: 0px 0px;
 }
 
 .tooltipCustomClass{

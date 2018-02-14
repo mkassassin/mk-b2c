@@ -95,7 +95,7 @@
 
     <mat-menu #notifictionList="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuNotification" >
         
-        <div class="notifyheader">
+        <div class="notifyheader" style="min-width:300px">
             <div class="" fxLayout="row" fxLayoutAlign="start center">
                 <div fxFlex>
                     <p class="notifyheadertext"> Notifications <span> ( {{ NotificationList?.length}} ) </span> </p>
@@ -104,7 +104,7 @@
             </div>
         </div>
         <hr class="m-0">
-        <p-scrollPanel style="width:100%;" [style]="{height: '250px' }" styleClass="customscroll_1">
+        <p-scrollPanel style="width:100%;" [style]="{height: '250px'}" styleClass="customscroll_1">
 
             <div *ngIf="NotificationLoder">
                 <div style="height:210px" fxLayout="row" fxLayoutAlign="space-evenly center">

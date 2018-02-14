@@ -271,7 +271,6 @@ exports.RemoveNotification = function(req, res) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while User Find."});
         } else {
-            console.log(data);
             data.Viewed = 1;
             data.save(function (newerr, newresult) {
                 if (newerr){

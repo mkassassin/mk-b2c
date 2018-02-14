@@ -41,7 +41,7 @@ export class CreatTopicComponent implements OnInit {
         this.Imageuploader.onBuildItemForm = (fileItem, form) => {
           form.append('TopicName', this.TopicName);
           form.append('TopicDescription', this.TopicDescription);
-          
+
           return {fileItem, form};
         };
         this.Imageuploader.onAfterAddingFile = f => {
@@ -69,7 +69,7 @@ export class CreatTopicComponent implements OnInit {
           console.log(JSON.parse(response));
           if (JSON.parse(response).status === 'True') {
             this.dialogRef.close('Created');
-          }else{
+          }else {
             this.dialogRef.close('Close');
           }
         };

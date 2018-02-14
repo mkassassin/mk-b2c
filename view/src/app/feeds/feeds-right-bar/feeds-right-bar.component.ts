@@ -79,7 +79,7 @@ export class FeedsRightBarComponent implements OnInit {
     if ( result === 'Close') {
       console.log(result);
     }else {
-      this.UserInfo['data'].UserImage = result['data'].UserImage;
+      // this.UserInfo['data'].UserImage = result['data'].UserImage;
     }
   }
 
