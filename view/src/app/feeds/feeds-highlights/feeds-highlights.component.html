@@ -22,14 +22,14 @@
         </div>
       </div>
     </div>
-    <!-- Highlights Header Post Div  END-->
+    <!-- Highlights Header Post div  END-->
 
     <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:30px">
 
       <div class="postScroll">
-        <!-- Highlights Post Div -->
+        <!-- Highlights Post div -->
         <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 ">
-          <!-- Highlights Post Info Header Div -->
+          <!-- Highlights Post Info Header div -->
           <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex>
               <div class="leftSide">
@@ -49,7 +49,12 @@
               <div class="rightSide">
                 <div class="" fxLayout="row" fxLayoutAlign="end center">
                   <div class="text-right" fxFill>
-                    <p class="postaction"> ... </p>
+                    <p *ngIf="Post.UserId === UserInfo.data._id" class="postaction"> 
+                      <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportHighlightPostUser" class="material-icons">more_horiz</i>
+                    </p>
+                    <p *ngIf="Post.UserId !== UserInfo.data._id" class="postaction"> 
+                      <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportHighlightPost" class="material-icons">more_horiz</i>
+                    </p>
                     <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
                     <p class="posttopic"> {{Post.PostType}} </p>
                   </div>
@@ -57,13 +62,13 @@
               </div>
             </div>
           </div>
-          <!-- Highlights Post Info Header Div End -->
+          <!-- Highlights Post Info Header div End -->
           <hr class="m-5">
           <!-- Highlights Post -->
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-center">
               <h5 class="text-left ml-20"> {{Post.PostText}}</h5>
-              <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== ''">
+              <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1) ">
                   <div style="text-align:center;">
                       <div style="margin:0 auto;" class="html5gallery" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
                         <ng-container *ngIf="Post.PostImage[0] !== ''">
@@ -71,6 +76,9 @@
                         </ng-container>  
                         <ng-container *ngIf="Post.PostVideo[0] !== ''">
                           <a *ngFor="let vid of Post.PostVideo" href="{{VideoBaseUrl}}/{{vid.VideoName}}"><img src="{{OtherImageBaseUrl}}/videoSampleImg.jpg"></a>
+                        </ng-container>
+                        <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1">
+                          <a href="https://www.youtube.com/embed/{{Post.PostLink | slice:-11}}"><img src="https://img.youtube.com/vi/{{Post.PostLink | slice:-11}}/0.jpg"></a>
                         </ng-container>
                       </div>
                   </div>
@@ -166,7 +174,12 @@
                     <div class="rightSide">
                       <div class="" fxLayout="row" fxLayoutAlign="end center">
                         <div class="text-right" fxFlex>
-                          <p class="postaction"> ... </p>
+                          <p *ngIf="comment.UserId === UserInfo.data._id" class="postaction"> 
+                            <i (click)="TriggercommentInfo(i)" [matMenuTriggerFor]="ReportHighlightCommentUser" class="material-icons">more_horiz</i>
+                          </p>
+                          <p *ngIf="comment.UserId !== UserInfo.data._id" class="postaction"> 
+                            <i (click)="TriggercommentInfo(i)" [matMenuTriggerFor]="ReportHighlightComment" class="material-icons">more_horiz</i>
+                          </p>
                           <p class="postdate"> {{comment.Date | timeAgo}} </p>
                           <p  *ngIf="!comment.AlreadyFollow" style=" line-height: 10px; font-weight: 600; margin-top: 0px;" class="postdate" >
                             <span (click)="FollowUser(comment.UserId, i, k)" style="cursor:pointer"> Follow </span> </p>
@@ -193,7 +206,7 @@
 
 
         </div>
-        <!-- Highlights Post Div END -->
+        <!-- Highlights Post div END -->
 
 
       </div>
@@ -201,3 +214,93 @@
 
   </div>
 </div>
+
+
+<mat-menu #ReportHighlightPost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+    <div (click)="ReportPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">announcement</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text">Report Post </p>
+        </div>
+    </div>
+    <div class="dropdarrow"></div>
+    <hr class="m-0">
+    <div (click)="ReportUser()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">report</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text"> Report User </p>
+        </div>
+    </div>
+</mat-menu>
+
+
+<mat-menu #ReportHighlightPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">border_color</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text">Edit </p>
+        </div>
+    </div>
+    <div class="dropdarrow"></div>
+    <hr class="m-0">
+    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">delete_forever</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text"> Delete </p>
+        </div>
+    </div>
+</mat-menu>
+
+
+
+
+<mat-menu #ReportHighlightComment="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+    <div (click)="ReportPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">announcement</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text">Report Comment </p>
+        </div>
+    </div>
+    <div class="dropdarrow"></div>
+    <hr class="m-0">
+    <div (click)="ReportUser()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">report</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text"> Report User </p>
+        </div>
+    </div>
+</mat-menu>
+
+
+<mat-menu #ReportHighlightCommentUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">border_color</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text">Edit </p>
+        </div>
+    </div>
+    <div class="dropdarrow"></div>
+    <hr class="m-0">
+    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+        <div class="dropd_icon" fxFlex="30px">
+            <i class="material-icons">delete_forever</i>
+        </div>
+        <div fxFlex>
+            <p class="dropd_text"> Delete </p>
+        </div>
+    </div>
+</mat-menu>

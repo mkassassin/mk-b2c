@@ -86,6 +86,8 @@ import { ComponentConnectServiceService } from './service/component-connect-serv
 import { TermsComponent } from './terms/terms.component';
 import { PolicyComponent } from './policy/policy.component';
 import { SelectMoreTopicsComponent } from './popups/select-more-topics/select-more-topics.component';
+import { ReportUserComponent } from './popups/report-user/report-user.component';
+import { ReportPostComponent } from './popups/report-post/report-post.component';
 
 
 @NgModule({
@@ -125,7 +127,9 @@ import { SelectMoreTopicsComponent } from './popups/select-more-topics/select-mo
     CreatTopicComponent,
     TermsComponent,
     PolicyComponent,
-    SelectMoreTopicsComponent
+    SelectMoreTopicsComponent,
+    ReportUserComponent,
+    ReportPostComponent
   ],
   imports: [
     CommonModule,
@@ -185,7 +189,8 @@ import { SelectMoreTopicsComponent } from './popups/select-more-topics/select-mo
                     DiscoverTopicsComponent,
                     FbSignupComponent,
                     CreatTopicComponent,
-                    SelectMoreTopicsComponent
+                    SelectMoreTopicsComponent,
+                    ReportUserComponent
                   ]
 })
 export class AppModule { }

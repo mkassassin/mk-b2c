@@ -295,7 +295,16 @@ export class ProfileTimelineComponent implements OnInit {
   }
 
 
+  TriggerPostInfo(index) {
+    console.log(index);
+  }
 
+  TriggercommentInfo(index) {
+    console.log(index);
+  }
+  TriggerAnswerInfo(index) {
+    console.log(index);
+  }
 
   GotoProfile(Id) {
     this.ShareingService.SetProfilePage(Id);

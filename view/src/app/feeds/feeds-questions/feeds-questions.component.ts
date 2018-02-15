@@ -197,5 +197,12 @@ export class FeedsQuestionsComponent implements OnInit {
     this.router.navigate(['ViewProfile']);
   }
 
+  TriggerPostInfo(index) {
+    console.log(index);
+  }
+
+  TriggerAnswerInfo(index) {
+    console.log(index);
+  }
 
 }

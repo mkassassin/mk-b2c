@@ -42,16 +42,25 @@
 
 
 
+
 .Highlights .HighlightsPost .rightSide .postaction{
     line-height: 10px;
     font-size: 24px;
     margin: 0px;
     color: gray;
 }
+.Highlights .HighlightsPost .rightSide .postaction i{
+    height: 15px;
+    line-height: 15px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
+}
 .Highlights .HighlightsPost .rightSide .postdate{
     margin: 0px;
     line-height: 16px;
-    margin-top: 6px;
+    margin-top: -4px;
     color: #9c9a9a;
     font-size: 12px;
     letter-spacing: 0.4px;
@@ -211,10 +220,18 @@
     margin: 0px;
     color: gray;
 }
+.Highlights .commentPost .rightSide .postaction i{
+    height: 15px;
+    line-height: 15px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
+}
 .Highlights .commentPost .rightSide .postdate{
     margin: 0px;
     line-height: 18px;
-    margin-top: 5px;
+    margin-top: -4px;
     color: #9c9a9a;
     font-size: 11px;
     letter-spacing: 0.4px;
@@ -241,7 +258,35 @@
 }
 
 
+.dropd{
+    width: 150px;
+    padding: 3px 5px;
+    background-color: #f3f3f3;
+}
+.dropd .dropd_text{
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #666666a3;
+    line-height: 33px;
+    margin: 0px;
+}
 
+.dropd .dropd_icon i{
+    color: #666666a3;
+    font-size: 23px;
+    margin-top: 6px;
+}
+.dropdarrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #f3f3f3;
+    top: -3px;
+    left: 15px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}
 
 
 
@@ -307,16 +352,25 @@
 
 
 
+
 .Questions .QuestionPost .rightSide .postaction{
     line-height: 10px;
     font-size: 24px;
     margin: 0px;
     color: gray;
 }
+.Questions .QuestionPost .rightSide .postaction i{
+    height: 15px;
+    line-height: 15px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
+}
 .Questions .QuestionPost .rightSide .postdate{
     margin: 0px;
     line-height: 16px;
-    margin-top: 6px;
+    margin-top: -4px;
     color: #9c9a9a;
     font-size: 12px;
     letter-spacing: 0.4px;
@@ -481,19 +535,26 @@
     font-family: 'Ubuntu', sans-serif;
 }
 .Questions .PostAnsHeader .postansaction{
-    font-size: 20px;
     line-height: 10px;
-    margin-right: 10px;
-    color: #666666;
-    margin-bottom: 4px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Questions .PostAnsHeader .postansaction i{
+    height: 15px;
+    line-height: 15px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
 }
 .Questions .PostAnsHeader .postansdate{
     margin: 0px;
     line-height: 18px;
+    margin-top: -4px;
     color: #9c9a9a;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.4px;
-    font-family: 'Ubuntu', sans-serif;
 }
 .Questions .PostAnsHeader .postansfollowes{
     margin: 0px;

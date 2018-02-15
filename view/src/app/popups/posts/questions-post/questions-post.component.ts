@@ -154,7 +154,13 @@ export class QuestionsPostComponent implements OnInit {
   }
 
 
+  TriggerPostInfo(index) {
+    console.log(index);
+  }
 
+  TriggerAnswerInfo(index) {
+    console.log(index);
+  }
 
 
   close() {

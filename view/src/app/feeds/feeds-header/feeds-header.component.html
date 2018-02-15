@@ -80,11 +80,11 @@
                   <div fxFlex="25%" class="text-center">
                       <img (click)="OpenModelDiscoverTopics()" style="cursor:pointer ;height:32px" class="headericon" src="./../../../assets/images/icons/discovertopic.png" alt="">
                   </div>
-                  <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:40px">
+                  <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="notifictionList" style="line-height:50px">
                       <img  class="headericon" style="height:25px;" src="./../../../assets/images/icons/notification.png" alt="">
                       <span *ngIf="NotificationList?.length > 0" class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
-                  <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:40px">
+                  <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:50px">
                       <img class="headeruserimg" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="">
                   </div>
               </div> 

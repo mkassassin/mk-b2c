@@ -22,9 +22,9 @@ export class FeedsLeftBarComponent implements OnInit {
   UserInfo: any;
   UnfollowingUsers: any[];
   UnFollowingTopics: any[];
-  TimeOut: Boolean = true;
-  UserTimeOut: Boolean = true;
+  UserLoader: Boolean = true;
   ActiveCategory = '01';
+  TopicLoader: Boolean = true;
 
   constructor(private router: Router,
       private FollowService: FollowServiceService,
@@ -34,8 +34,10 @@ export class FeedsLeftBarComponent implements OnInit {
                     this.FollowService.UnFollowingTopics(this.UserInfo.data._id)
                     .subscribe( topicdatas => {
                         if (topicdatas['status'] === 'True') {
+                          this.TopicLoader = false;
                           this.UnFollowingTopics = topicdatas['data'];
                         }else {
+                          this.TopicLoader = false;
                           console.log(topicdatas);
                         }
                       });
@@ -43,19 +45,16 @@ export class FeedsLeftBarComponent implements OnInit {
                     this.FollowService.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
                     .subscribe( userdatas =>  {
                       if (userdatas['status'] === 'True') {
+                        this.UserLoader = false;
                         this.UnfollowingUsers = userdatas['data'];
                       }else {
+                        this.UserLoader = false;
                         console.log(userdatas);
                       }
                     });
 
-                    this.TimeOutFuction();
               }
 
-
-  TimeOutFuction() {
-      setTimeout(() => { this.TimeOut = false; this.UserTimeOut = false; }, 5000);
-  }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 70;
@@ -64,18 +63,19 @@ export class FeedsLeftBarComponent implements OnInit {
 
   ActiveCategorySelect(id) {
       if (this.ActiveCategory !== id) {
-        this.UserTimeOut = true;
+        this.UserLoader = true;
         this.UnfollowingUsers = [];
         this.ActiveCategory = id;
         this.FollowService.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
         .subscribe( userdatas =>  {
               if (userdatas['status'] === 'True') {
+                this.UserLoader = false;
                 this.UnfollowingUsers = userdatas['data'];
               }else {
+                this.UserLoader = false;
                 console.log(userdatas);
               }
         });
-        this.TimeOutFuction();
       }
   }
 

@@ -7,7 +7,7 @@
           <p class="topicheader"> Explore </p>
         </div>
         
-        <div *ngIf="UnFollowingTopics?.length <= 0 && TimeOut" class="col-sm-12" >
+        <div *ngIf="TopicLoader" class="col-sm-12" >
           <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
               <div fxFlex>
                   <div class="preloader-orbit-loading">
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div *ngIf="UnFollowingTopics?.length <= 0 && !TimeOut" class="col-sm-12" >
+        <div *ngIf="UnFollowingTopics?.length <= 0 && !TopicLoader" class="col-sm-12" >
           <br><br>
             <h5 class="userlistname"> You are Following All The Topics !</h5>
           <br><br>
@@ -104,7 +104,7 @@
 
       <hr class="m-5">
 
-      <div *ngIf="UnfollowingUsers?.length <= 0 && UserTimeOut" class="col-sm-12" >
+      <div *ngIf="UserLoader" class="col-sm-12" >
         <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
             <div fxFlex>
                 <div class="preloader-orbit-loading">
@@ -116,7 +116,7 @@
         </div>
       </div>
 
-      <div *ngIf="UnfollowingUsers?.length <= 0 && !UserTimeOut" class="col-sm-12" >
+      <div *ngIf="UnfollowingUsers?.length <= 0 && !UserLoader" class="col-sm-12" >
         <br><br>
           <h5 class="userlistname"> You are Following all Users In This Category !</h5>
         <br><br>

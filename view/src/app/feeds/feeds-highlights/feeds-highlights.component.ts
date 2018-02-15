@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { SlicePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
@@ -9,6 +10,9 @@ import { LikeAndRatingServiceService } from './../../service/like-and-rating-ser
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
+import { ReportUserComponent } from './../../popups/report-user/report-user.component';
+import { ReportPostComponent } from './../../popups/report-post/report-post.component';
+
 
 @Component({
   selector: 'app-feeds-highlights',
@@ -32,6 +36,8 @@ export class FeedsHighlightsComponent implements OnInit {
   ActiveComment;
   LoadingActiveComment;
   PostsListLoder: Boolean = true;
+
+  reportUserId;
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -215,5 +221,25 @@ export class FeedsHighlightsComponent implements OnInit {
   }
 
 
+  TriggerPostInfo(index) {
+    console.log(index);
+    this.reportUserId = this.PostsList[index].UserId;
+  }
+
+  TriggercommentInfo(index) {
+    console.log(index);
+  }
+
+  ReportUser() {
+    const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { ReportUserId: this.reportUserId } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+  ReportPost() {
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { ReportUserId: this.reportUserId } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
 
 }

@@ -262,4 +262,9 @@ export class FeedsTrendsComponent implements OnInit {
       });
   }
 
+
+  TriggerPostInfo(index) {
+    console.log(index);
+  }
+
 }

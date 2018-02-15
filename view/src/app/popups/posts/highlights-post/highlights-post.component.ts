@@ -171,6 +171,14 @@ export class HighlightsPostComponent implements OnInit {
       });
   }
 
+  TriggerPostInfo(index) {
+    console.log(index);
+  }
+
+  TriggercommentInfo(index) {
+    console.log(index);
+  }
+
   close() {
     this.dialogRef.close('Close');
   }

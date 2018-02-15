@@ -1,0 +1,41 @@
+<div class="Discover">
+    <div fxLayout="row" fxLayoutAlign="space-evenly start">
+
+      <div fxFlex="100%" class="DiscoverLefBar">
+        <div class="box-2">
+          <div class="row m-0">
+            <div class="col-sm-12 p-0">
+              <p class="followheader"> Report Post <span style="cursor:pointer; position:absolute; right:10px; font-size:20px" (click)="close()"> X </span> </p>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 tick" >
+                  <img class="ml-0" (click)="ActiveCategorySelect('01')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '01' }" src="./../../assets/images/tick.png" alt=""> <p> Harassment </p> 
+                </div>
+                <div class="col-sm-12 tick" >
+                  <img class="ml-0" (click)="ActiveCategorySelect('02')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '02' }" src="./../../assets/images/tick.png" alt=""> <p> Spam </p> 
+                </div>
+                <div class="col-sm-12 tick" >
+                  <img class="ml-0" (click)="ActiveCategorySelect('02')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '02' }" src="./../../assets/images/tick.png" alt=""> <p> Repeted Post </p> 
+                </div>
+                <div class="col-sm-12 tick" >
+                  <img class="ml-0" (click)="ActiveCategorySelect('02')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '02' }" src="./../../assets/images/tick.png" alt=""> <p> Other </p> 
+                </div>
+                <div class="col-sm-12 explain">
+                  <label> Explain </label>
+                  <input type="text" >
+                </div>
+            </div>
+            <!-- follow people End  -->
+          </div>
+
+          <hr class="m-5">
+          <div class="text-right mr-20">
+            <button (click)="close()" class="btn-flat btn btn-cutom mb-5"> Submit </button>
+          </div>
+        </div>
+        <!-- follow people  -->
+      </div>
+    </div>
+
+
+</div>

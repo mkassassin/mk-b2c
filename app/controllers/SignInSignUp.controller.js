@@ -85,7 +85,7 @@ exports.NameValidate = function(req, res) {
 exports.EmailValidate = function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, data) {
         if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while Validate The E-mail."});
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while Validate The E-mail."});
         } else {
             if(data === null){
                 res.send({ status:"True", available: "True", message: "( " + req.params.email + " ) This E-mail is Available." });

@@ -260,7 +260,7 @@ i.filter{
     height: 30px;
     background-color: #ffffff;
     top: -3px;
-    right: 25px;
+    right: 20px;
     transform: rotate(45DEG);
     z-index: -1;
 }
