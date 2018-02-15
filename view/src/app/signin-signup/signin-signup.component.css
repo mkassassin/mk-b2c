@@ -147,24 +147,30 @@
 }
 .SignInSignUp .gender-select{
     display: inline-flex;
-    margin-top: 7px;
+    width: 100%
 }
 .SignInSignUp .gender-select .tick{
     font-size: 11px;
     font-weight: 500;
     color: #333333;
+    width: 25%;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
 }
 .SignInSignUp .gender-select .tick img{
     width: 20px;
     height: 20px;
     padding: 4px;
     background: #fff;
-    margin-right: 0px;
-    margin-left: 8px;
+}
+.SignInSignUp .gender-select .tick p{
+    margin: 2px 0px 0px 0px;
 }
 .SignInSignUp .gender-select .tick img.p-13{
     padding: 13px;
 }
+
+
 .SignInSignUp .btn-cutom{
     color: #ffffff;
     background-color: #333333;

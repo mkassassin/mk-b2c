@@ -284,7 +284,7 @@
     font-size: 14px;
     letter-spacing: 0.5px;
     margin: 0px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
 }

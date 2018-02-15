@@ -62,16 +62,16 @@
                           <!-- input Name -->
                           <div class="text-center">
                             <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.controls.UserName.dirty &&  RegisterForm.value.UserName =='' "> Name Is Required </p>
-                            <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Name is Not Availabel </p>
-                            <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Name is Availabel </p>
+                            <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Not Availabel </p>
+                            <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Availabel </p>
                             <input type="text" formControlName="UserName" class="inputStyle-1" (blur)="ChekUserNameAvailabel()" placeholder="Name">
                           </div>
                 
                           <!-- input Email -->
                           <div class="text-center">
                             <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserEmail.dirty &&  RegisterForm.value.UserEmail =='' "> E-mail Is Required </p>
-                            <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel"> E-mail is Not Availabel </p>
-                            <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel"> E-mail is Availabel </p>
+                            <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel">  Not Availabel </p>
+                            <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel">  Availabel </p>
                             <input type="email" formControlName="UserEmail" class="inputStyle-1" (blur)="ChekUserEmailAvailabel()" placeholder="E-mail Address">
                           </div>
                 
@@ -130,16 +130,16 @@
                                 <div fxFlex="55%">
                                   <div class="gender-select">
                                     <div class="tick" (click)="genderSelect('Male')" style="cursor:pointer">
-                                      <img class="ml-0" [ngClass]="{ 'p-10': ActiveGender != 'Male' }" src="./../../assets/images/tick.png" alt=""> Male 
+                                      <img class="ml-0" [ngClass]="{ 'p-10': ActiveGender != 'Male' }" src="./../../assets/images/tick.png" alt=""> <p> Male </p> 
                                     </div>
                                     <div class="tick " (click)="genderSelect('Female')" style="cursor:pointer">
-                                      <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Female' }" src="./../../assets/images/tick.png" alt=""> Female 
+                                      <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Female' }" src="./../../assets/images/tick.png" alt=""> <p> Female </p>  
                                     </div>
                                     <div class="tick" (click)="genderSelect('Not Specify')" style="cursor:pointer">
-                                      <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Not Specify' }" src="./../../assets/images/tick.png" alt=""> Not Specify 
+                                      <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Not Specify' }" src="./../../assets/images/tick.png" alt=""> <p> Not Specify  </p> 
                                     </div>
                                     <div class="tick" (click)="genderSelect('Others')" style="cursor:pointer">
-                                      <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Others' }" src="./../../assets/images/tick.png" alt=""> Others 
+                                      <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Others' }" src="./../../assets/images/tick.png" alt=""> <p> Other </p> 
                                     </div>
                                   </div>
                                 </div>

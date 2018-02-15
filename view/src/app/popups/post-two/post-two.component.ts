@@ -1,10 +1,11 @@
 import { Component, Directive, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
+import { SelectMoreTopicsComponent } from './../../popups/select-more-topics/select-more-topics.component';
 import { PostServiceService } from './../../service/post-service/post-service.service';
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 
-import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
 
 const uriImage = 'http://localhost:3000/API/FileUpload/UploadImage';
@@ -24,7 +25,7 @@ export class PostTwoComponent implements OnInit {
   UserImageBaseUrl: String = 'http://localhost:3000/static/users';
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
-  
+
   ActiveIndex: number;
   UserInfo: any;
   PostForm: FormGroup;
@@ -65,6 +66,7 @@ export class PostTwoComponent implements OnInit {
     private FolowService: FollowServiceService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<PostTwoComponent>,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -136,6 +138,33 @@ export class PostTwoComponent implements OnInit {
       PostVideo: new FormControl('')
     });
 
+  }
+
+
+  OpenModelMoreTopics() {
+    const SelectMoreTopicDialogRef = this.dialog.open(
+      SelectMoreTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Select More Topics'} }
+    );
+    SelectMoreTopicDialogRef.afterClosed().subscribe(result => this.SelectMoreTopicClose(result));
+  }
+
+
+  SelectMoreTopicClose(result) {
+    if (result === 'Close') {
+      console.log('Selcted Empty');
+    }else {
+      const selectedindex = this.Topics.findIndex(topic => topic._id === result._id);
+      console.log(selectedindex);
+      if (selectedindex >= 0 &&  selectedindex < 6 ) {
+        this.ActiveTopicSelect(selectedindex);
+      }else {
+        this.Topics.splice(0, 0, result);
+        this.ActiveIndex = 0;
+        this.PostForm.controls['PostTopicId'].setValue(this.Topics[0]._id);
+        this.PostForm.controls['PostTopicName'].setValue(this.Topics[0].TopicName);
+      }
+
+    }
   }
 
   checking(item) {

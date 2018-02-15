@@ -96,9 +96,12 @@
           <div fxFlex="85%">
               <div class="mt-10" fxLayout fxLayoutAlign="start end">
 
-                <div *ngFor="let item of (Topics ? Topics.slice(0,12): []); let i=index" class="cat-img-item" [ngClass]="{'selected': ActiveIndex == i}">
+                <div *ngFor="let item of (Topics ? Topics.slice(0,6): []); let i=index" class="cat-img-item" [ngClass]="{'selected': ActiveIndex == i}">
                   <img (click)="ActiveTopicSelect(i)" src="{{TopicImageBaseUrl}}/{{item.TopicImage}}" alt="">
                   <p> {{item.TopicName}} </p>
+                </div>
+                <div *ngIf="Topics?.length > 6">
+                    <p (click)="OpenModelMoreTopics()" class="viewall"> View All...</p>
                 </div>
 
               </div>

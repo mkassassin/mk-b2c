@@ -61,7 +61,7 @@ exports.HighlightsCommentAdd = function(req, res) {
                             HighlightCommentId: result._id,
                             NotificationType: 7,
                             Viewed: 0,
-                            NotificationDate: new Date
+                            NotificationDate: new Date()
                     });
                     varNotification.save(function(Nofifyerr, Notifydata) {
                         if(Nofifyerr) {
@@ -158,7 +158,7 @@ exports.GetHighlightsComments = function(req, res) {
                                                                     Followers:count,
                                                                     _id: info._id,
                                                                     CommentText: info.CommentText,
-                                                                    CommentDate: info.Date,
+                                                                    Date: info.Date,
                                                                     PostId: req.params.PostId,
                                                                 }
                                                     );
@@ -233,7 +233,7 @@ exports.QuestionsAnwerAdd = function(req, res) {
                         QuestionAnswerId: result._id,
                         NotificationType: 11,
                         Viewed: 0,
-                        NotificationDate: new Date
+                        NotificationDate: new Date()
                     });
                     varNotification.save(function(Nofifyerr, Notifydata) {
                         if(Nofifyerr) {

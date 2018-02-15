@@ -82,7 +82,14 @@
  }
  
  
- 
+ .viewall{
+    font-size: 13px;
+    font-weight: 600;
+    color: #999999;
+    letter-spacing: 0.6px;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+ }
  
  
  

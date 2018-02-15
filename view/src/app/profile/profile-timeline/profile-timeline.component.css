@@ -18,10 +18,10 @@
 }
 .Highlights .HighlightsPost .leftSide .postusername{
     line-height: 14px;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.5px;
     margin: 0px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -60,7 +60,7 @@
 .Highlights .HighlightsPost .rightSide .posttopic{
     margin: 0px;
     line-height: 14px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #9c9a9a;
     letter-spacing: 0.6px;
     font-size: 13px;
@@ -188,7 +188,7 @@
     margin: 0px;
     line-height: 17px;
     font-size: 13px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #827f7f;
     letter-spacing: 0.5px;
 }
@@ -286,7 +286,7 @@
     font-size: 14px;
     letter-spacing: 0.5px;
     margin: 0px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -325,7 +325,7 @@
 .Questions .QuestionPost .rightSide .posttopic{
     margin: 0px;
     line-height: 14px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #9c9a9a;
     letter-spacing: 0.6px;
     font-size: 13px;
@@ -473,10 +473,10 @@
 }
 .Questions .PostAnsHeader .postansusername{
     line-height: 14px;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.5px;
     margin: 0px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -560,7 +560,7 @@
     margin: 0px;
     line-height: 17px;
     font-size: 13px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #827f7f;
     letter-spacing: 0.5px;
 }

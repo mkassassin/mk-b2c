@@ -17,7 +17,7 @@ export class DiscoverComponent implements OnInit {
   UserImageBaseUrl: String = 'http://localhost:3000/static/users';
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
-  
+
   UserInfo: any;
   DiscoverPeoples: any[];
   LoadingPeoples: Boolean = true;

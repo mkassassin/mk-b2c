@@ -95,8 +95,7 @@ exports.ImpressionAdd = function(req, res) {
      
     varImpressions.save(function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Impression Post."});
-            
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Impression Post."});    
         } else {
             UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
                 if(err) {

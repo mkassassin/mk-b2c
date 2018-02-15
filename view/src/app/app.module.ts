@@ -30,7 +30,7 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'ang
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('202967426952150')
+    provider: new FacebookLoginProvider('323054561538925')
   }
 ]);
 
@@ -85,6 +85,7 @@ import { CreatTopicComponent } from './popups/creat-topic/creat-topic.component'
 import { ComponentConnectServiceService } from './service/component-connect-service.service';
 import { TermsComponent } from './terms/terms.component';
 import { PolicyComponent } from './policy/policy.component';
+import { SelectMoreTopicsComponent } from './popups/select-more-topics/select-more-topics.component';
 
 
 @NgModule({
@@ -123,7 +124,8 @@ import { PolicyComponent } from './policy/policy.component';
     AboutUsComponent,
     CreatTopicComponent,
     TermsComponent,
-    PolicyComponent
+    PolicyComponent,
+    SelectMoreTopicsComponent
   ],
   imports: [
     CommonModule,
@@ -182,7 +184,8 @@ import { PolicyComponent } from './policy/policy.component';
                     ProfilePictureCropperComponent,
                     DiscoverTopicsComponent,
                     FbSignupComponent,
-                    CreatTopicComponent
+                    CreatTopicComponent,
+                    SelectMoreTopicsComponent
                   ]
 })
 export class AppModule { }

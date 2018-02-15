@@ -36,6 +36,11 @@ export class FollowServiceService {
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 
+    public AllFollowingTopics(Id: any): Observable<any[]>  {
+        return this.http.get(API_URL + 'AllFollowingTopics/' + Id)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
     public UserFollowingUsers(Id: any): Observable<any[]>  {
         return this.http.get(API_URL + 'UserFollowingUsers/' + Id)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);

@@ -377,6 +377,62 @@ exports.UnFollowTopic = function(req, res) {
 };
 
 exports.FollowingTopics = function(req, res) {
+    FollowModel.FollowTopicType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingTopicId' , {sort:{createdAt : -1}, skip: 0, limit: 7 }, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Following Topics." , Error:err});
+        } else {
+            if(result.length > 0){
+                var FollowingTopicsArray = new Array();
+                GetFollowesData();
+                async function GetFollowesData(){
+                    for (let info of result) {
+                        await getTopicData(info);
+                     }
+                    res.send({status:"True", data: FollowingTopicsArray });
+                  }
+                  
+                  function getTopicData(info){
+                    return new Promise((resolve, reject )=>{
+                        TopicsModel.TopicsType.findOne({'_id': info.FollowingTopicId }, function(err, FollowesData) {
+                            if(err) {
+                                res.send({status:"Fale", Error:err });
+                                reject(err);
+                            } else {
+                                if(FollowesData.length !== null){
+                                    FollowModel.FollowTopicType.count({'FollowingTopicId': FollowesData._id }, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: FollowesData._id,
+                                                            TopicName: FollowesData.TopicName,
+                                                            TopicImage: FollowesData.TopicImage,
+                                                            Followers:count
+                                                        }
+                                            );
+                                            FollowingTopicsArray.push(newArray[0]);
+                                            resolve(FollowesData);
+                                        }
+                                    }); 
+                                }else{
+                                    resolve(FollowesData);
+                                }
+                                
+                            }
+                        });
+                    });
+                  };
+        
+            }else{
+                res.send({status:"True", message:'No Followeing Topics In This User', data:result });
+            }
+        }
+    });
+};
+
+exports.AllFollowingTopics = function(req, res) {
     FollowModel.FollowTopicType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingTopicId' , {sort:{createdAt : -1}, skip: 0 }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Topics." , Error:err});
@@ -431,6 +487,7 @@ exports.FollowingTopics = function(req, res) {
         }
     });
 };
+
 
 exports.UnFollowingTopics = function(req, res) {
     TopicsModel.TopicsType.find({}, function(err, result) {
@@ -512,7 +569,7 @@ exports.DiscoverTopics = function(req, res) {
                                 res.send({status:"Fale", Error:err });
                                 reject(err);
                             } else {
-                                if(FollowesData.length < 0){
+                                if(FollowesData.length > 0){
                                     resolve(FollowesData);
                                 }
                                 else{

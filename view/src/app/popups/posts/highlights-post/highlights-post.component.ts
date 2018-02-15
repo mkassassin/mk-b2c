@@ -22,7 +22,7 @@ export class HighlightsPostComponent implements OnInit {
   UserImageBaseUrl: String = 'http://localhost:3000/static/users';
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
-  
+
   scrollHeight;
   screenHeight: number;
   anotherHeight: number;

@@ -17,35 +17,34 @@ export class FeedsLeftBarComponent implements OnInit {
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
 
-  
   scrollHeight;
-  screenHeight:number;
-  UserInfo:any;
-  UnfollowingUsers:any[];
-  UnFollowingTopics:any[];
-  TimeOut:boolean = true;
-  UserTimeOut:boolean = true;
+  screenHeight: number;
+  UserInfo: any;
+  UnfollowingUsers: any[];
+  UnFollowingTopics: any[];
+  TimeOut: Boolean = true;
+  UserTimeOut: Boolean = true;
   ActiveCategory = '01';
 
   constructor(private router: Router,
       private FollowService: FollowServiceService,
-      private ShareService: DataSharedVarServiceService) { 
-                    this.UserInfo = JSON.parse(localStorage.getItem('currentUser')); 
+      private ShareService: DataSharedVarServiceService) {
+                    this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
                     this.FollowService.UnFollowingTopics(this.UserInfo.data._id)
-                    .subscribe( topicdatas => {  
-                        if(topicdatas['status'] == 'True'){
+                    .subscribe( topicdatas => {
+                        if (topicdatas['status'] === 'True') {
                           this.UnFollowingTopics = topicdatas['data'];
-                        }else{
+                        }else {
                           console.log(topicdatas);
                         }
                       });
-                    
+
                     this.FollowService.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
-                    .subscribe( userdatas =>  {  
-                      if(userdatas['status'] == 'True'){
+                    .subscribe( userdatas =>  {
+                      if (userdatas['status'] === 'True') {
                         this.UnfollowingUsers = userdatas['data'];
-                      }else{
+                      }else {
                         console.log(userdatas);
                       }
                     });
@@ -54,8 +53,8 @@ export class FeedsLeftBarComponent implements OnInit {
               }
 
 
-  TimeOutFuction(){
-      setTimeout(()=>{ this.TimeOut = false; this.UserTimeOut = false; },5000);
+  TimeOutFuction() {
+      setTimeout(() => { this.TimeOut = false; this.UserTimeOut = false; }, 5000);
   }
 
   ngOnInit() {
@@ -63,16 +62,16 @@ export class FeedsLeftBarComponent implements OnInit {
     this.scrollHeight = this.screenHeight + 'px';
   }
 
-  ActiveCategorySelect(id){
-      if(this.ActiveCategory != id){
+  ActiveCategorySelect(id) {
+      if (this.ActiveCategory !== id) {
         this.UserTimeOut = true;
         this.UnfollowingUsers = [];
-        this.ActiveCategory = id; 
+        this.ActiveCategory = id;
         this.FollowService.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
-        .subscribe( userdatas =>  {  
-              if(userdatas['status'] == 'True'){
+        .subscribe( userdatas =>  {
+              if (userdatas['status'] === 'True') {
                 this.UnfollowingUsers = userdatas['data'];
-              }else{
+              }else {
                 console.log(userdatas);
               }
         });
@@ -80,27 +79,27 @@ export class FeedsLeftBarComponent implements OnInit {
       }
   }
 
-  followTopic(Id:String){
-    let data =  { 'UserId' : this.UserInfo.data._id, 'FollowingTopicId' : Id };
-    var index = this.UnFollowingTopics.findIndex(x => x._id == Id);
+  followTopic(Id: String) {
+    const data =  { 'UserId' : this.UserInfo.data._id, 'FollowingTopicId' : Id };
+    const index = this.UnFollowingTopics.findIndex(x => x._id === Id);
       this.FollowService.FollowTopic(data)
-        .subscribe( datas => { 
-          if(datas.status == 'True'){
+        .subscribe( datas => {
+          if (datas.status === 'True') {
             this.UnFollowingTopics.splice(index , 1);
-          }else{
+          }else {
             console.log(datas);
           }
       });
   }
 
-  followUser(Id:String){
-    let data =  { 'UserId' : this.UserInfo.data._id, 'FollowingUserId' : Id };
-    var index = this.UnfollowingUsers.findIndex(x => x._id == Id);
+  followUser(Id: String) {
+    const data =  { 'UserId' : this.UserInfo.data._id, 'FollowingUserId' : Id };
+    const index = this.UnfollowingUsers.findIndex(x => x._id === Id);
       this.FollowService.FollowUser(data)
-        .subscribe( datas => { 
-          if(datas.status == 'True'){
+        .subscribe( datas => {
+          if (datas.status === 'True') {
             this.UnfollowingUsers.splice(index , 1);
-          }else{
+          }else {
             console.log(datas);
           }
       });

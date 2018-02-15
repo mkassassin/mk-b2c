@@ -67,10 +67,18 @@
               </div>
               <div fxFlex="41%">
                 <div class="gender-select">
-                  <div class="tick ml-10" (click)="genderSelect('Male')" style="cursor:pointer">
-                    <img  [ngClass]="{ 'p-13': ActiveGender != 'Male' }" src="./../../../assets/images/tick.png" alt=""> Male </div>
-                  <div class="tick ml-20" (click)="genderSelect('Female')" style="cursor:pointer">
-                    <img class="p-13" [ngClass]="{ 'p-13': ActiveGender != 'Female' }" src="./../../../assets/images/tick.png" alt=""> Female </div>
+                  <div class="tick" (click)="genderSelect('Male')" style="cursor:pointer">
+                    <img class="ml-0" [ngClass]="{ 'p-10': ActiveGender != 'Male' }" src="./../../assets/images/tick.png" alt=""> <p> Male </p> 
+                  </div>
+                  <div class="tick " (click)="genderSelect('Female')" style="cursor:pointer">
+                    <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Female' }" src="./../../assets/images/tick.png" alt=""> <p> Female </p>  
+                  </div>
+                  <div class="tick" (click)="genderSelect('Not Specify')" style="cursor:pointer">
+                    <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Not Specify' }" src="./../../assets/images/tick.png" alt=""> <p> Not Specify  </p> 
+                  </div>
+                  <div class="tick" (click)="genderSelect('Others')" style="cursor:pointer">
+                    <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Others' }" src="./../../assets/images/tick.png" alt=""> <p> Other </p> 
+                  </div>
                 </div>
               </div>
             </div>
