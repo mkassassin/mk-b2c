@@ -10,6 +10,9 @@ import { LikeAndRatingServiceService } from './../../service/like-and-rating-ser
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
+import { ReportUserComponent } from './../../popups/report-user/report-user.component';
+import { ReportPostComponent } from './../../popups/report-post/report-post.component';
+
 @Component({
   selector: 'app-feeds-questions',
   templateUrl: './feeds-questions.component.html',
@@ -31,6 +34,11 @@ export class FeedsQuestionsComponent implements OnInit {
   UserInfo;
   PostsList: any;
   PostsListLoading: Boolean = true;
+
+
+  reportPostInfo;
+  reportUserId;
+  reportAnswerInfo;
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -86,7 +94,7 @@ export class FeedsQuestionsComponent implements OnInit {
 
   OpenModelQuestion() {
     const PostTwoDialogRef = this.dialog.open(PostTwoComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Creat Form' } });
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Create Form' } });
     PostTwoDialogRef.afterClosed().subscribe(result => this.postSubmit(result));
   }
 
@@ -191,18 +199,57 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
-
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);
     this.router.navigate(['ViewProfile']);
   }
 
+
+
+
   TriggerPostInfo(index) {
-    console.log(index);
+    this.reportPostInfo = this.PostsList[index];
+    this.reportUserId = this.reportPostInfo.UserId;
   }
 
-  TriggerAnswerInfo(index) {
-    console.log(index);
+  TriggerAnswerInfo(i, k) {
+    this.reportPostInfo = this.PostsList[i];
+    this.reportAnswerInfo = this.PostsList[i].Answers[k];
+    this.reportUserId = this.reportAnswerInfo.UserId;
   }
+
+  ReportUser() {
+    const ReportUser = {'UserId': this.UserInfo.data._id,
+                        'ReportUserId':  this.reportUserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+  ReportPost() {
+    const ReportPost = {'UserId': this.UserInfo.data._id,
+                        'PostType': 'Question',
+                        'PostId':  this.reportPostInfo._id,
+                        'PostUserId':  this.reportPostInfo.UserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+  ReportAnswer() {
+    const ReportComment = { 'UserId': this.UserInfo.data._id,
+                        'PostId':  this.reportPostInfo._id,
+                        'SecondLevelPostType': 'Answer',
+                        'SecondLevelPostId':  this.reportAnswerInfo._id,
+                        'SecondLevelPostUserId': this.reportAnswerInfo.UserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { exactType: 'Answer', type: 'SecondLevelPost', values: ReportComment } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
 
 }

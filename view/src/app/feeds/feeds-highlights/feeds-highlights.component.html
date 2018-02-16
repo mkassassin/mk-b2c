@@ -175,10 +175,10 @@
                       <div class="" fxLayout="row" fxLayoutAlign="end center">
                         <div class="text-right" fxFlex>
                           <p *ngIf="comment.UserId === UserInfo.data._id" class="postaction"> 
-                            <i (click)="TriggercommentInfo(i)" [matMenuTriggerFor]="ReportHighlightCommentUser" class="material-icons">more_horiz</i>
+                            <i (click)="TriggercommentInfo(k)" [matMenuTriggerFor]="ReportHighlightCommentUser" class="material-icons">more_horiz</i>
                           </p>
                           <p *ngIf="comment.UserId !== UserInfo.data._id" class="postaction"> 
-                            <i (click)="TriggercommentInfo(i)" [matMenuTriggerFor]="ReportHighlightComment" class="material-icons">more_horiz</i>
+                            <i (click)="TriggercommentInfo(k)" [matMenuTriggerFor]="ReportHighlightComment" class="material-icons">more_horiz</i>
                           </p>
                           <p class="postdate"> {{comment.Date | timeAgo}} </p>
                           <p  *ngIf="!comment.AlreadyFollow" style=" line-height:10px;font-weight:500;margin-top:0px;margin-bottom:3px" class="postdate" >
@@ -239,7 +239,7 @@
 
 
 <mat-menu #ReportHighlightPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+    <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="dropd_icon" fxFlex="30px">
             <i class="material-icons">border_color</i>
         </div>
@@ -249,7 +249,7 @@
     </div>
     <div class="dropdarrow"></div>
     <hr class="m-0">
-    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+    <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
         <div class="dropd_icon" fxFlex="30px">
             <i class="material-icons">delete_forever</i>
         </div>
@@ -263,7 +263,7 @@
 
 
 <mat-menu #ReportHighlightComment="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="ReportPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+    <div (click)="ReportComment()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="dropd_icon" fxFlex="30px">
             <i class="material-icons">announcement</i>
         </div>
@@ -285,7 +285,7 @@
 
 
 <mat-menu #ReportHighlightCommentUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+    <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="dropd_icon" fxFlex="30px">
             <i class="material-icons">border_color</i>
         </div>
@@ -295,7 +295,7 @@
     </div>
     <div class="dropdarrow"></div>
     <hr class="m-0">
-    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+    <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
         <div class="dropd_icon" fxFlex="30px">
             <i class="material-icons">delete_forever</i>
         </div>

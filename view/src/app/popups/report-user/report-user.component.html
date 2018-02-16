@@ -9,14 +9,15 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 tick" >
-                  <img class="ml-0" (click)="ActiveCategorySelect('01')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '01' }" src="./../../assets/images/tick.png" alt=""> <p> Fake Profile </p> 
+                  <img class="ml-0" (click)="ActiveCategorySelect('01', 'Fake Profile')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '01' }" src="./../../assets/images/tick.png" alt=""> <p> Fake Profile </p> 
                 </div>
                 <div class="col-sm-12 tick" >
-                  <img class="ml-0" (click)="ActiveCategorySelect('02')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '02' }" src="./../../assets/images/tick.png" alt=""> <p> Other </p> 
+                  <img class="ml-0" (click)="ActiveCategorySelect('02', 'Other')"  style="cursor:pointer" [ngClass]="{ 'p-10': ActiveCategory != '02' }" src="./../../assets/images/tick.png" alt=""> <p> Other </p> 
                 </div>
                 <div class="col-sm-12 explain">
                   <label> Explain </label>
-                  <input type="text" >
+                  <input #explain type="text" >
+                  <span *ngIf="ErrorShow" style="color:red;font-size:12px"> Explanation is Required </span>
                 </div>
             </div>
             <!-- follow people End  -->
@@ -24,7 +25,7 @@
 
           <hr class="m-5">
           <div class="text-right mr-20">
-            <button (click)="close()" class="btn-flat btn btn-cutom mb-5"> Submit </button>
+            <button [disabled]="DontSubmit" (click)="submit(explain.value)" class="btn-flat btn btn-cutom mb-5"> Submit </button>
           </div>
         </div>
         <!-- follow people  -->

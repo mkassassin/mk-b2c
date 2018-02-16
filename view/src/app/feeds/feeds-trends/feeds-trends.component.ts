@@ -7,6 +7,9 @@ import { PostThreeComponent } from './../../popups/post-three/post-three.compone
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { TrendsService } from './../../service/trends-service/trends.service';
 
+import { ReportUserComponent } from './../../popups/report-user/report-user.component';
+import { ReportPostComponent } from './../../popups/report-post/report-post.component';
+
 @Component({
   selector: 'app-feeds-trends',
   templateUrl: './feeds-trends.component.html',
@@ -53,6 +56,11 @@ export class FeedsTrendsComponent implements OnInit {
       pointHoverBorderColor: 'rgba(230, 176, 0, 0.5)'
     }
   ];
+
+
+  reportUserId;
+  reportImpressionInfo;
+
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -263,8 +271,34 @@ export class FeedsTrendsComponent implements OnInit {
   }
 
 
+
   TriggerPostInfo(index) {
-    console.log(index);
+    this.reportImpressionInfo = this.ListOfImpressions[index];
+    this.reportUserId = this.reportImpressionInfo.UserId;
   }
+
+  ReportUser() {
+    const ReportUser = {'UserId': this.UserInfo.data._id,
+                        'ReportUserId':  this.reportUserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+
+  ReportImpression() {
+    const ReportComment = { 'UserId': this.UserInfo.data._id,
+                        'PostId':  this.reportImpressionInfo.CoinId,
+                        'SecondLevelPostType': 'Impression',
+                        'SecondLevelPostId':  this.reportImpressionInfo._id,
+                        'SecondLevelPostUserId': this.reportImpressionInfo.UserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { exactType: 'Opinion', type: 'SecondLevelPost', values: ReportComment } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
 
 }

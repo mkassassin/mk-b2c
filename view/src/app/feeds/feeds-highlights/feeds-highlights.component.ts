@@ -37,7 +37,9 @@ export class FeedsHighlightsComponent implements OnInit {
   LoadingActiveComment;
   PostsListLoder: Boolean = true;
 
+  reportPostInfo;
   reportUserId;
+  reportCommentInfo;
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -93,7 +95,7 @@ export class FeedsHighlightsComponent implements OnInit {
 
   OpenModel() {
     const PostOneDialogRef = this.dialog.open( PostOneComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Creat Form' } });
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Create Form' } });
     PostOneDialogRef.afterClosed().subscribe(result => this.postSubmit(result));
   }
 
@@ -221,24 +223,56 @@ export class FeedsHighlightsComponent implements OnInit {
   }
 
 
+
+
+
+
+
+
+
+
+
+
   TriggerPostInfo(index) {
-    console.log(index);
-    this.reportUserId = this.PostsList[index].UserId;
+    this.reportPostInfo = this.PostsList[index];
+    this.reportUserId = this.reportPostInfo.UserId;
   }
 
   TriggercommentInfo(index) {
-    console.log(index);
+    this.reportCommentInfo = this.PostsList[this.ActiveComment].comments[index];
+    this.reportUserId = this.reportCommentInfo.UserId;
   }
 
   ReportUser() {
+    const ReportUser = {'UserId': this.UserInfo.data._id,
+                        'ReportUserId':  this.reportUserId
+                      };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { ReportUserId: this.reportUserId } });
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
   ReportPost() {
+    const ReportPost = {'UserId': this.UserInfo.data._id,
+                        'PostType': 'Highlights',
+                        'PostId':  this.reportPostInfo._id,
+                        'PostUserId':  this.reportPostInfo.UserId
+                      };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { ReportUserId: this.reportUserId } });
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+  ReportComment() {
+    const ReportComment = { 'UserId': this.UserInfo.data._id,
+                        'PostId':  this.reportCommentInfo.PostId,
+                        'SecondLevelPostType': 'Comment',
+                        'SecondLevelPostId':  this.reportCommentInfo._id,
+                        'SecondLevelPostUserId': this.reportCommentInfo.UserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { exactType: 'Comment', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 

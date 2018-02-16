@@ -88,6 +88,8 @@ import { PolicyComponent } from './policy/policy.component';
 import { SelectMoreTopicsComponent } from './popups/select-more-topics/select-more-topics.component';
 import { ReportUserComponent } from './popups/report-user/report-user.component';
 import { ReportPostComponent } from './popups/report-post/report-post.component';
+import { ReportAndDeleteService } from './service/report-and-delete-service/report-and-delete.service';
+import { DeleteConfirmComponent } from './popups/delete-confirm/delete-confirm.component';
 
 
 @NgModule({
@@ -129,7 +131,8 @@ import { ReportPostComponent } from './popups/report-post/report-post.component'
     PolicyComponent,
     SelectMoreTopicsComponent,
     ReportUserComponent,
-    ReportPostComponent
+    ReportPostComponent,
+    DeleteConfirmComponent
   ],
   imports: [
     CommonModule,
@@ -173,6 +176,7 @@ import { ReportPostComponent } from './popups/report-post/report-post.component'
                 ProfileSerivceService,
                 SearchService,
                 ComponentConnectServiceService,
+                ReportAndDeleteService,
                 {
                   provide: AuthServiceConfig,
                   useFactory: provideConfig
@@ -191,7 +195,8 @@ import { ReportPostComponent } from './popups/report-post/report-post.component'
                     CreatTopicComponent,
                     SelectMoreTopicsComponent,
                     ReportUserComponent,
-                    ReportPostComponent
+                    ReportPostComponent,
+                    DeleteConfirmComponent
                   ]
 })
 export class AppModule { }

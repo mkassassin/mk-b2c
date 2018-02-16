@@ -117,10 +117,10 @@
                                       </div>
                                       <div class="text-right mr-5" fxFlex="150px">
                                         <p *ngIf="Answer.UserId === UserInfo.data._id" class="postansaction"> 
-                                          <i (click)="TriggerAnswerInfo(i)" [matMenuTriggerFor]="ReportQuestionAnswerUser" class="material-icons">more_horiz</i>
+                                          <i (click)="TriggerAnswerInfo(i, k)" [matMenuTriggerFor]="ReportQuestionAnswerUser" class="material-icons">more_horiz</i>
                                         </p>
                                         <p *ngIf="Answer.UserId !== UserInfo.data._id" class="postansaction"> 
-                                          <i (click)="TriggerAnswerInfo(i)" [matMenuTriggerFor]="ReportQuestionAnswer" class="material-icons">more_horiz</i>
+                                          <i (click)="TriggerAnswerInfo(i, k)" [matMenuTriggerFor]="ReportQuestionAnswer" class="material-icons">more_horiz</i>
                                         </p>
                                         <p class="postansdate"> {{Answer.Date | timeAgo}} </p>
                                         <p  *ngIf="!Answer.AlreadyFollow" style=" line-height: 10px; font-weight: 600; margin-top: 0px;" class="postdate" >
@@ -220,90 +220,90 @@
 
 
 <mat-menu #ReportQuestionPost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">announcement</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text">Report Post </p>
-        </div>
-    </div>
-    <div class="dropdarrow"></div>
-    <hr class="m-0">
-    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">report</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text"> Report User </p>
-        </div>
-    </div>
+  <div (click)="ReportPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">announcement</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text">Report Post </p>
+      </div>
+  </div>
+  <div class="dropdarrow"></div>
+  <hr class="m-0">
+  <div (click)="ReportUser()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">report</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text"> Report User </p>
+      </div>
+  </div>
 </mat-menu>
 
 
 <mat-menu #ReportQuestionPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">border_color</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text">Edit </p>
-        </div>
-    </div>
-    <div class="dropdarrow"></div>
-    <hr class="m-0">
-    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">delete_forever</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text"> Delete </p>
-        </div>
-    </div>
+  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">border_color</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text">Edit </p>
+      </div>
+  </div>
+  <div class="dropdarrow"></div>
+  <hr class="m-0">
+  <div  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">delete_forever</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text"> Delete </p>
+      </div>
+  </div>
 </mat-menu>
 
 
 
 
 <mat-menu #ReportQuestionAnswer="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">announcement</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text">Report Answer </p>
-        </div>
-    </div>
-    <div class="dropdarrow"></div>
-    <hr class="m-0">
-    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">report</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text"> Report User </p>
-        </div>
-    </div>
+  <div (click)="ReportAnswer()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">announcement</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text">Report Answer </p>
+      </div>
+  </div>
+  <div class="dropdarrow"></div>
+  <hr class="m-0">
+  <div (click)="ReportUser()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">report</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text"> Report User </p>
+      </div>
+  </div>
 </mat-menu>
 
 
 <mat-menu #ReportQuestionAnswerUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-    <div (click)="GotoMyProfile()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">border_color</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text">Edit </p>
-        </div>
-    </div>
-    <div class="dropdarrow"></div>
-    <hr class="m-0">
-    <div (click)="LogOut()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
-        <div class="dropd_icon" fxFlex="30px">
-            <i class="material-icons">delete_forever</i>
-        </div>
-        <div fxFlex>
-            <p class="dropd_text"> Delete </p>
-        </div>
-    </div>
+  <div  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">border_color</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text">Edit </p>
+      </div>
+  </div>
+  <div class="dropdarrow"></div>
+  <hr class="m-0">
+  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+      <div class="dropd_icon" fxFlex="30px">
+          <i class="material-icons">delete_forever</i>
+      </div>
+      <div fxFlex>
+          <p class="dropd_text"> Delete </p>
+      </div>
+  </div>
 </mat-menu>

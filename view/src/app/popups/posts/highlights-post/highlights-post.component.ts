@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { FollowServiceService } from './../../../service/follow-service/follow-service.service';
@@ -8,7 +8,8 @@ import { PostServiceService } from './../../../service/post-service/post-service
 import { LikeAndRatingServiceService } from './../../../service/like-and-rating-service.service';
 import { CommentAndAnswerService } from './../../../service/comment-and-answer-service/comment-and-answer.service';
 import { DataSharedVarServiceService } from './../../../service/data-shared-var-service/data-shared-var-service.service';
-
+import { ReportUserComponent } from './../../../popups/report-user/report-user.component';
+import { ReportPostComponent } from './../../../popups/report-post/report-post.component';
 
 @Component({
   selector: 'app-highlights-post',
@@ -33,7 +34,12 @@ export class HighlightsPostComponent implements OnInit {
   LoadingActiveComment;
   PostsListLoder: Boolean = true;
 
+  reportPostInfo;
+  reportUserId;
+  reportCommentInfo;
+
   constructor(private router: Router,
+    public dialog: MatDialog,
     private FollowService: FollowServiceService,
     private ShareService: DataSharedVarServiceService,
     private Service: PostServiceService,
@@ -171,16 +177,58 @@ export class HighlightsPostComponent implements OnInit {
       });
   }
 
-  TriggerPostInfo(index) {
-    console.log(index);
-  }
-
-  TriggercommentInfo(index) {
-    console.log(index);
-  }
 
   close() {
     this.dialogRef.close('Close');
+  }
+
+
+
+
+
+
+
+  TriggerPostInfo(index) {
+    this.reportPostInfo = this.PostsList[index];
+    this.reportUserId = this.reportPostInfo.UserId;
+  }
+
+  TriggercommentInfo(index) {
+    this.reportCommentInfo = this.PostsList[this.ActiveComment].comments[index];
+    this.reportUserId = this.reportCommentInfo.UserId;
+  }
+
+  ReportUser() {
+    const ReportUser = {'UserId': this.UserInfo.data._id,
+                        'ReportUserId':  this.reportUserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+  ReportPost() {
+    const ReportPost = {'UserId': this.UserInfo.data._id,
+                        'PostType': 'Highlights',
+                        'PostId':  this.reportPostInfo._id,
+                        'PostUserId':  this.reportPostInfo.UserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+  ReportComment() {
+    const ReportComment = { 'UserId': this.UserInfo.data._id,
+                        'PostId':  this.reportCommentInfo.PostId,
+                        'SecondLevelPostType': 'Comment',
+                        'SecondLevelPostId':  this.reportCommentInfo._id,
+                        'SecondLevelPostUserId': this.reportCommentInfo.UserId
+                      };
+    const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { exactType: 'Comment', type: 'SecondLevelPost', values: ReportComment } });
+      ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
 }
