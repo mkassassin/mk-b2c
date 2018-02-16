@@ -166,9 +166,9 @@
     margin-top: 7px;
     cursor: pointer;
 }
-.AddPrediction{
+/* .AddPrediction{
     width: 37%;
-}
+} */
 .AddPrediction p{
     margin: 0px;
     font-family: 'Ubuntu', sans-serif;
@@ -178,10 +178,11 @@
     letter-spacing: 0.5px;
     margin-left: 10px;
     color: #666666;
+    margin-right: 10px;
 }
-.PredictionInput{
+/* .PredictionInput{
     width: 43%;
-}
+} */
 .PredictionInput input{
     width: 100%;
     height: 35px;
@@ -191,9 +192,10 @@
     padding: 5px;
 }
 .PredictionSend{
-    width: 20%;
+    /* width: 20%; */
     text-align: center;
     line-height: 40px;
+    margin-left: 10px
 }
 .PredictionSend img{
     width: 30px;
@@ -274,8 +276,8 @@
     padding: 0px 2px;
 }
 .Trends .impressionPost .leftSide .postuserImg{
-    height: 38px;
-    width: 38px;
+    height: 34px;
+    width: 34px;
     border-radius: 45px;
     margin-top: 5px;
 }
@@ -298,24 +300,65 @@
 .Trends .impressionPost .leftSide .postuserfollowers{
     margin: 0px;
     line-height: 16px;
-    font-size: 13px;
+    font-size: 11px;
     color: #9c9a9a;
     font-family: 'Ubuntu', sans-serif;
 }
 
 .Trends .impressionPost .rightSide .postaction{
-    line-height: 10px;
+    line-height: 5px;
     font-size: 24px;
-    margin: 0px;
+    margin: 4px;
     color: gray;
+}
+.Trends .impressionPost .rightSide .postaction i{
+    height: 11px;
+    line-height: 11px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    cursor: pointer;
+    font-size: 25px;
 }
 .Trends .impressionPost .rightSide .postdate{
     margin: 0px;
     line-height: 16px;
-    margin-top: 6px;
+    margin-top: 0px;
     color: #9c9a9a;
     font-size: 12px;
     letter-spacing: 0.4px;
     font-family: 'Ubuntu', sans-serif;
 }
 
+
+
+
+.dropd{
+    width: 150px;
+    padding: 3px 5px;
+    background-color: #f3f3f3;
+}
+
+.dropd .dropd_text{
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #666666a3;
+    line-height: 33px;
+    margin: 0px;
+}
+
+.dropd .dropd_icon i{
+    color: #666666a3;
+    font-size: 23px;
+    margin-top: 6px;
+}
+.dropdarrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #f3f3f3;
+    top: -3px;
+    left: 15px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}

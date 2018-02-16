@@ -46,7 +46,7 @@
     border: none;
     box-shadow: 0px 2px 4px #383636b5;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.4px;
     padding-left: 10px;
     color: #333333;
@@ -84,7 +84,7 @@
 }
 .SignInSignUp .cat-img-item .catName{
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 0px;
     font-family: 'Ubuntu', sans-serif;
     color: #333333;
@@ -116,7 +116,7 @@
     border: none;
     box-shadow: 0px 2px 4px #383636b5;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     padding-left: 10px;
     letter-spacing: 0.4px;
     color: #333333;
@@ -175,7 +175,7 @@
     color: #ffffff;
     background-color: #333333;
     border-color: #333333;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.8px;
     font-size: 16px;
     outline: transparent;
@@ -198,14 +198,15 @@
     font-weight: 700;
     color: #333333;
     word-spacing: 2px;
-    margin-top: 30px;
+    margin-top: 5px;
     text-align: justify;
     text-align-last: center;
     font-family: 'Ubuntu', sans-serif;
     letter-spacing: 0.4px;
+    margin-bottom: 50px;
 }
 .SignInSignUp .imgStyle-2{
-    width: 80px;
+    width: 90px;
 }
 
 
@@ -218,6 +219,7 @@
     border-radius: 40px;
     background-color: #fff;
     text-align: center;
+    cursor: pointer;
 }
 .SignInSignUp .linkStyle-4 i{
     background-color: royalblue;
@@ -267,7 +269,7 @@
 
 .SignInSignUp .textStyle-1{
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     color: gray;
 }
 .SignInSignUp .textStyle-3{

@@ -7,6 +7,10 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DataSharedVarServiceService } from './../service/data-shared-var-service/data-shared-var-service.service';
 import { SigninSignupServiceService } from './../service/signin-signup-service/signin-signup-service.service';
 
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
+
+import { FbSignupComponent } from './../popups/fb-signup/fb-signup.component';
 
 @Component({
   selector: 'app-signin-signup',
@@ -61,7 +65,9 @@ export class SigninSignupComponent implements OnInit {
 
   bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor(  private router: Router,
+  constructor(  public dialog: MatDialog,
+                private authService: AuthService,
+                private router: Router,
                 private Service: SigninSignupServiceService,
                 private ShareingService: DataSharedVarServiceService,
                 private formBuilder: FormBuilder
@@ -71,6 +77,10 @@ export class SigninSignupComponent implements OnInit {
 
                 this.SignUpType = this.ShareingService.GetSingUpType();
                }
+
+  user: SocialUser;
+
+
 
   ngOnInit() {
     this.RegisterForm = new FormGroup({
@@ -270,6 +280,68 @@ export class SigninSignupComponent implements OnInit {
       alert(data.message);
     }
 
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  goto(datas) {
+    if (datas.status === 'True') {
+        this.router.navigate(['Feeds']);
+    }else {
+      this.Service.EmailValidate(this.user.email).subscribe( newdatas => { this.EmailAnalyze(newdatas); } );
+    }
+  }
+
+  EmailAnalyze(newdatas: any) {
+    if (newdatas.available === 'False') {
+      alert('Your Facebook E-mail Already Registerd! please SignIn.');
+      this.ActiveTabIndex = 1;
+      this.SignInForm.controls['LoginUserEmail'].setValue(this.user.email);
+      this.authService.signOut();
+    }else {
+      this.FbSignUp();
+    }
+  }
+
+  FbSignUp() {
+    const FbSignUpDialogRef = this.dialog.open( FbSignupComponent,
+      { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: 'Facebook', Values: this.user } });
+      FbSignUpDialogRef.afterClosed().subscribe(result => this.FbSignUpComplete(result));
+  }
+
+  FbSignUpComplete(result) {
+    if (result === 'Success') {
+      this.router.navigate(['Feeds']);
+    }else {
+      this.authService.signOut();
+    }
+  }
+
+
+  signInWithFB(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      if ( this.user !== null ) {
+        this.Service.FBUserValidate(this.user.email, this.user.id)
+            .subscribe( datas => { this.goto(datas); } );
+      }
+    });
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
 

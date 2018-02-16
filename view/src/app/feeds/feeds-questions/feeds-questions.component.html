@@ -37,12 +37,12 @@
             <div fxFlex>
               <div class="leftSide">
                 <div class="" fxLayout="row" fxLayoutAlign="start center">
-                  <div fxFlex="60px">
+                  <div fxFlex="45px">
                     <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                   </div>
-                  <div class="mt-10" fxFlex>
+                  <div class="mt-5" fxFlex>
                     <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
-                    <p class="postusercategory"> {{Post.UserCategoryName}} &nbsp; | &nbsp; {{Post.UserProfession}} </p>
+                    <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
                     <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                   </div>
                 </div>
@@ -66,14 +66,14 @@
             </div>
           </div>
           <!-- Question Post Info Header Div End -->
-          <hr class="m-5">
+          <hr style="opacity:0.6; margin:0px 5px 5px 5px">
           <!-- Question Post -->
           <div class="postmain" fxLayout="row">
             <div fxFlex class="text-left">
               <h5 class="postquestion"> {{Post.PostText}} </h5>
               <div *ngIf=" ( Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' )  &&  Post.PostImage?.length > 0 || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1 )">
-                  <div style="text-align:center;">
-                      <div style="margin:0 auto;" class="html5gallery" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
+                  <div style="text-align:center;padding:10px;">
+                      <div class="html5gallery" data-padding="1" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
                         <ng-container *ngIf="Post.PostImage[0] !== '' &&  Post.PostImage?.length > 0 ">
                           <a *ngFor="let img of Post.PostImage" href="{{ImageBaseUrl}}/{{img.ImageName}}"><img src="{{ImageBaseUrl}}/{{img.ImageName}}"></a>
                         </ng-container>  
@@ -130,10 +130,10 @@
                     </div>
                   </div>
                 </div>
-                <hr class="m-0" style="border-color: #77778729;">
+                <hr class="m-0" style="margin-bottom:2px !important; opacity:0.8">
                 <div class="postAns" fxLayout="row" fxLayoutAlign="start">
                   <div fxFlex>
-                    <p class="postAnsText"> &emsp;  {{Answer.AnswerText}}.</p>
+                    <p class="postAnsText"> {{Answer.AnswerText}}.</p>
                   </div>
                 </div>
               </div>
@@ -147,10 +147,10 @@
           </div>
 
           <!-- Question Post END -->
-          <hr class="m-5">
+          <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
           <!-- Question Post Share Like And More -->
           <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxFlex="40%" class="text-left">
+            <div fxFlex="40%" class="text-left" style="height:25px">
               <div class="like">
                 <ngl-rating style="max-width:100px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
                     <ng-template nglRatingIcon let-active>
@@ -162,16 +162,20 @@
                       <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
                     </ng-template>
                 </ngl-rating>
-                <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <small> ( Your Rating {{Post.userRating}} ) </small> </small> </p>
+                <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <span style="font-size:11px"> (Your Rating {{Post.userRating}})</span> </small> </p>
               </div>
             </div>
-            <div fxFlex="20%" class="text-center">
-              <div class="chat" (click)="ChangeActiveAnswerInput(i)">
+            <div fxFlex="30%" class="text-center" style="height:25px">
+              <div class="chat">
+                <div (click)="ChangeActiveAnswerInput(i)" class="write" [ngClass]="{'answerd': Post.UserAnswered}">
+                  <i class="material-icons">edit</i>
+                  <p>Write</p>
+                </div>
                 <p class="count"> {{Post.AnswersCount}} </p>
-                <p class="answer"> Answer </p>
+                <p class="answer"> Answer<span *ngIf="Post.AnswersCount > 1">s</span> </p>
               </div>
             </div>
-            <div fxFlex="40%" class="text-right">
+            <div fxFlex="30%" class="text-right" style="height:25px">
               <div class="share">
                 <img src="./../../../assets/images/icons/share.png" alt="">
                 <p class="count"> 100 </p>
@@ -179,7 +183,7 @@
             </div>
           </div>
           <!-- Question Post Share Like And More  END-->
-          <hr class="m-5">
+          <!-- <hr class="m-5"> -->
           <!-- Question Post Share Like And More -->
           <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex="60px" class="text-left">

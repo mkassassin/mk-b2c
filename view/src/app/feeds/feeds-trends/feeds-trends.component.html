@@ -175,7 +175,7 @@
                                                     <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportPostUser" class="material-icons">more_horiz</i>
                                                 </p>
                                                 <p *ngIf="item.UserId !== UserInfo.data._id" class="postaction"> 
-                                                    <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReporPost" class="material-icons">more_horiz</i>
+                                                    <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportPost" class="material-icons">more_horiz</i>
                                                 </p>
                                                 <p class="postdate"> {{item.PostDate | timeAgo}} </p>
                                                 <p *ngIf="!item.AlreadyFollow" (click)="followUser(item.UserId, i)" class="postdate mt-o" style="cursor:pointer;"> Follow </p>

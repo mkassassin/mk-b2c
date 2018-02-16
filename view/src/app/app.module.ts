@@ -190,7 +190,8 @@ import { ReportPostComponent } from './popups/report-post/report-post.component'
                     FbSignupComponent,
                     CreatTopicComponent,
                     SelectMoreTopicsComponent,
-                    ReportUserComponent
+                    ReportUserComponent,
+                    ReportPostComponent
                   ]
 })
 export class AppModule { }

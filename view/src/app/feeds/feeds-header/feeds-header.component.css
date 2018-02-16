@@ -1,13 +1,13 @@
 
 .SearchOptions{
     position: absolute;
-    top: 4px;
-    height: 26px;
+    top: 10px;
+    height: 23px;
 }
 i.filter{
-    font-size: 30px;
+    font-size: 23px;
     color: #333333;
-    font-weight: 900;
+    font-weight: 600;
 }
 .dropdown-menu.searchFilter{
     padding: 0px;
@@ -57,14 +57,14 @@ i.filter{
     height: 45px;
 }
 .searchList img{
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     border-radius: 50px;
-    margin: 4px 8px 0px 8px;
+    margin: 3px 8px 0px 8px;
 }
 .searchList p{
-   font-size: 13px;
-   font-weight: 600;
+   font-size: 12px;
+   font-weight: 500;
    color: #888888;
    font-family: 'Ubuntu', sans-serif;
    line-height: 18px;
@@ -73,15 +73,15 @@ i.filter{
 }
 .searchList p .searchName{
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #333333;
 }
 .searchList p.searchFollowers{
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     color: #999999;
     font-family: 'Ubuntu', sans-serif;
-    line-height: 15px;
+    line-height: 6px;
     margin-bottom: 0px;
  }
 
@@ -121,12 +121,13 @@ i.filter{
     outline: transparent;
     border: none;
     border-bottom: 1px solid #999999b0;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 500;
     color: #333333 !important;
     letter-spacing: 0.4px;
     font-family: 'Ubuntu', sans-serif;
     padding-left: 40px;
+    padding-top: 8px;
 }
 .feedsHeader .SearchStyle:-ms-input-placeholder ,
 .feedsHeader .SearchStyle::-webkit-input-placeholder,
@@ -139,10 +140,10 @@ i.filter{
 .feedsHeader  .searchIncon{
     position: absolute;
     top: 5px;
-    right: 0px;
+    right: 3px;
 }
 .feedsHeader  .searchIncon .icon{
-    height: 20px;
+    height: 18px;
 }
 
 .feedsHeader .headeruserimg{

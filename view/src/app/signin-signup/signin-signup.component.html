@@ -1,44 +1,38 @@
 <div class="SignInSignUp">
 
-  <div class="" fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-evenly" fxLayoutGap="5%" fxLayoutGap.sm="0">
-    <!-- Left Bar -->
-    <div fxFlex="40%" class="">
-      <div class="mb-20 height-60" style="margin-left:-10%" >
+  <div fxLayout="row"  fxLayoutAlign="space-evenly">
+      <div fxFlex="95%" class="height-60">
         <div class="row" style="padding:15px 0px;" >
           <div class="col-sm-12">
             <img class="logoDesign-1 mr-5" routerLink="/" style="cursor:pointer" src="./../../assets/images/logo1.png" alt="" >
           </div>
         </div>
       </div>
+  </div>
+  <div class="" fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-evenly" fxLayoutGap="5%" fxLayoutGap.sm="0">
+    <!-- Left Bar -->
+    <div fxFlex="40%" class="">
 
-      <div style="height:400px" fxLayout="column" fxLayoutAlign="space-evenly center" >
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+            <div fxFlex="100%" class="text-center">
+              <img class="imgStyle-2" src="./../../assets/images/icons/explainer1.png" alt="">
+              <h4 class="textStyle-2"> Discover people, Connect and Share stories, opinions, ideas and more... </h4>
+            </div>
+        </div>
 
-          <div class="right-part mb-30" fxLayout fxLayoutAlign="center" >
-              <div fxFlex="120px" class="text-center">
-                <img class="imgStyle-2" src="./../../assets/images/icons/explainer1.png" alt="">
-              </div>
-              <div>
-                <h4 class="textStyle-2"> Discover people, Connect and Share stories, opinions, ideas and more... </h4>
-              </div>
-          </div>
-          <div class="right-part mb-30" fxLayout fxLayoutAlign="center">
-              <div fxFlex="120px" class="text-center">
-                <img class="imgStyle-2" src="./../../assets/images/icons/explainer2.png" alt="">
-              </div>
-              <div>
-                <h4 class="textStyle-2"> Discover topics, ask questions with investor or experts and expand your knowledge  </h4>
-              </div>
-          </div>
-          <div class="right-part"  fxLayout fxLayoutAlign="center">
-              <div fxFlex="120px" class="text-center">
-                <img class="imgStyle-2" src="./../../assets/images/icons/explainer3.png" alt="">
-              </div >
-              <div>
-                <h4 class="textStyle-2">Be up-to-date with the trends, exchange rates, ICOs and more...  </h4>
-              </div>
-          </div>
-        
-      </div>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+            <div fxFlex="100%" class="text-center">
+              <img class="imgStyle-2" src="./../../assets/images/icons/explainer2.png" alt="">
+              <h4 class="textStyle-2"> Discover topics, ask questions with investor or experts and expand your knowledge </h4>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+            <div fxFlex="100%" class="text-center">
+              <img class="imgStyle-2" src="./../../assets/images/icons/explainer3.png" alt="">
+              <h4 class="textStyle-2"> Be up-to-date with the trends, exchange rates, ICOs and more...  </h4>
+            </div>
+        </div>
 
 
 
@@ -62,16 +56,16 @@
                           <!-- input Name -->
                           <div class="text-center">
                             <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.controls.UserName.dirty &&  RegisterForm.value.UserName =='' "> Name Is Required </p>
-                            <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Not Availabel </p>
-                            <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Availabel </p>
+                            <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Not Available </p>
+                            <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Available </p>
                             <input type="text" formControlName="UserName" class="inputStyle-1" (blur)="ChekUserNameAvailabel()" placeholder="Name">
                           </div>
                 
                           <!-- input Email -->
                           <div class="text-center">
                             <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserEmail.dirty &&  RegisterForm.value.UserEmail =='' "> E-mail Is Required </p>
-                            <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel">  Not Availabel </p>
-                            <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel">  Availabel </p>
+                            <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel">  Not Available </p>
+                            <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel">  Available </p>
                             <input type="email" formControlName="UserEmail" class="inputStyle-1" (blur)="ChekUserEmailAvailabel()" placeholder="E-mail Address">
                           </div>
                 
@@ -112,7 +106,7 @@
                           </div>
                 
                           <div *ngIf="SelectedCategory != ''">
-                              <!-- Input Company And Professioin -->
+                              <!-- Input Company And Profession -->
                               <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
                                 <div fxFlex="41%" [ngClass]="{ 'maxwidth-82': SelectedCategory === 'Media' }">
                                   <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Industry">
@@ -173,7 +167,7 @@
                 
                           <!--  Submit Button -->
                           <div class="text-center mt-10 pb-10">
-                              <p class="textStyle-3 mb-0"> <small> By signing up, you agree to the terms and privacy policy. </small> </p>
+                              <p class="textStyle-3 mb-5"> <small> By signing up, you agree to the <span routerLink="/terms" style="cursor:pointer; color:#fff"> terms </span> and <span routerLink="/privacy" style="cursor:pointer; color:#fff"> privacy policy </span> . </small> </p>
                             <button [disabled]="!formValid" type="submit" [ngClass]="{'disabled': !formValid}" class="btn-flat btn btn-cutom"> Register </button>
                           </div>
 
@@ -183,18 +177,18 @@
                               <div class="col-sm-12 text-center">
                                       <p class="textStyle-1 mb-0"> <small>  Or Sign Up Using </small> </p>
                                   <div style="display:inline-flex">
-                                      <a href="#" class="linkStyle-4 facebook">
+                                      <a (click)="signInWithFB()" class="linkStyle-4 facebook">
                                           <i class="fa fa-facebook" aria-hidden="true"></i>
                                       </a>
-                                      <a href="#" class="linkStyle-4 twitter">
+                                      <!-- <a  class="linkStyle-4 twitter">
                                           <i class="fa fa-twitter" aria-hidden="true"></i>
                                       </a>
-                                      <a href="#" class="linkStyle-4 googlePlus">
+                                      <a  class="linkStyle-4 googlePlus">
                                           <i class="fa fa-google-plus" aria-hidden="true"></i>
                                       </a>
-                                      <a href="#" class="linkStyle-4 linkedin">
+                                      <a  class="linkStyle-4 linkedin">
                                           <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                      </a>
+                                      </a> -->
                                   </div>
                               </div>
                           </div>
@@ -219,7 +213,7 @@
                               <input type="password" formControlName="LoginUserPassword" class="inputStyle-1" placeholder="Password">
                             </div>
               
-                            <!--  Submi Button -->
+                            <!--  Submit Button -->
                             <div class="text-center mt-10 mb-10">
                                 <button  [disabled]="SignInForm.value.LoginUserEmail =='' || SignInForm.value.LoginUserPassword ==''" type="submit" [ngClass]="{'disabled': SignInForm.value.LoginUserEmail =='' || SignInForm.value.LoginUserPassword =='' }" class="btn-flat btn btn-cutom"> Sign In </button>
                             </div>
@@ -235,18 +229,18 @@
                                 <div class="col-sm-12 text-center">
                                         <p class="textStyle-1 mb-0"> <small>  Or Sign In Using </small> </p>
                                     <div style="display:inline-flex">
-                                        <a href="#" class="linkStyle-4 facebook">
+                                        <a (click)="signInWithFB()"  class="linkStyle-4 facebook">
                                             <i class="fa fa-facebook" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="linkStyle-4 twitter">
+                                        <!-- <a class="linkStyle-4 twitter">
                                             <i class="fa fa-twitter" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="linkStyle-4 googlePlus">
+                                        <a class="linkStyle-4 googlePlus">
                                             <i class="fa fa-google-plus" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="linkStyle-4 linkedin">
+                                        <a class="linkStyle-4 linkedin">
                                             <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                             </div>

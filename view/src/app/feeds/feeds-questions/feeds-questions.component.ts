@@ -79,7 +79,7 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.screenHeight = window.innerHeight - 165;
+    this.screenHeight = window.innerHeight - 175;
     this.scrollHeight = this.screenHeight + 'px';
 
   }

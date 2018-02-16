@@ -19,7 +19,7 @@
 }
 .ProfilrLeftBar .userfollowers{
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #888888;
     margin: 0px;
     line-height: 18px;
@@ -31,7 +31,7 @@
 .ProfilrLeftBar .headerstyle{
     text-align: left;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     padding-left: 10px;
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
@@ -62,7 +62,7 @@
 .ProfilrLeftBar .followname{
     font-size: 11px;
     margin: 0px;
-    font-weight: 700;
+    font-weight: 500;
     color: #666666;
     font-family: 'Ubuntu', sans-serif;
     letter-spacing: 0.3px;
@@ -75,8 +75,8 @@
 
 .ProfilrLeftBar .viewAll{
     margin: 0px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
     color: #999999;
     letter-spacing: 0.6px;
     margin-right: 5px;

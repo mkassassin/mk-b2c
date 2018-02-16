@@ -191,7 +191,6 @@ exports.GetHighlightsComments = function(req, res) {
 
 exports.QuestionsAnwerAdd = function(req, res) {
 
-    console.log(req.body);
     if(!req.body.UserId) {
         res.status(400).send({status:"False", message: " UserId can not be Empty! "});
     }

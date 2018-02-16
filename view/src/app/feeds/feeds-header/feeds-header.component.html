@@ -6,10 +6,10 @@
                       <img class="headerLogo" style="margin: 0px; height: 35px;" src="./../../../assets/images/icons/logo.png" alt="">
                   </div>
                   <div style="cursor:pointer">
-                      <img style=" width: 27px;height: 27px;" (click)="OpenHighlightsModel()" class="headerLogo" src="./../../../assets/images/icons/highlights.png" alt="">
+                      <img style=" width: 33px;height: 33px;" (click)="OpenHighlightsModel()" class="headerLogo" src="./../../../assets/images/icons/highlights.png" alt="">
                   </div>
                   <div style="cursor:pointer">
-                      <img style=" width: 30px;height: 27px;" (click)="OpenQuestionModel()" class="headerLogo" src="./../../../assets/images/icons/question.png" alt="">
+                      <img style=" width: 33px;height: 33px;" (click)="OpenQuestionModel()" class="headerLogo" src="./../../../assets/images/icons/question.png" alt="">
                 </div>
               </div>  
           </div><!-- header left -->
@@ -46,7 +46,7 @@
                                                 placeholder="{{Placeholder}}">
 
                     <ng-template #customItemTemplate let-value="item" let-index="index">
-                        <div *ngIf="value.Category === 'Users'" class="searchList">
+                        <div *ngIf="value.Category === 'Users'" class="searchList" (click)="GotoProfile(value._id)">
                             <img src="{{UserImageBaseUrl}}/{{value.UserImage}}" alt=""> 
                             <div class="usersInfo">
                                 <p>

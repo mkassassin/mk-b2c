@@ -1,4 +1,6 @@
 
+
+
 .Questions .QuestionPost{
     background-color:#ffffff;
     box-shadow: 0px 0px 5px 1px #607d8b63;
@@ -11,36 +13,34 @@
     padding: 0px 10px;
 }
 .Questions .QuestionPost .leftSide .postuserImg{
-    height: 40px;
-    width: 40px;
-    margin-top: 3px;
+    height: 35px;
+    width: 35px;
+    margin-top: 0px;
     cursor: pointer;
     border-radius: 60px;
 }
 .Questions .QuestionPost .leftSide .postusername{
-    line-height: 14px;
-    font-size: 14px;
+    line-height: 12px;
+    font-size: 12px;
     letter-spacing: 0.5px;
     margin: 0px;
-    /* font-weight: 600; */
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
 }
 .Questions .QuestionPost .leftSide .postusercategory{
     margin: 0px;
-    line-height: 15px;
-    font-size: 13px;
+    line-height: 13px;
+    font-size: 11px;
     color: #9c9a9a;
     font-family: 'Ubuntu', sans-serif;
 }
 .Questions .QuestionPost .leftSide .postuserfollowers{
     margin: 0px;
     line-height: 14px;
-    font-size: 13px;
+    font-size: 10px;
     color: #9c9a9a;
     font-family: 'Ubuntu', sans-serif;
 }
-
 
 
 .Questions .QuestionPost .rightSide .postaction{
@@ -50,8 +50,8 @@
     color: gray;
 }
 .Questions .QuestionPost .rightSide .postaction i{
-    height: 15px;
-    line-height: 15px;
+    height: 11px;
+    line-height: 11px;
     margin-bottom: 0px;
     margin-top: 4px;
     cursor: pointer;
@@ -59,20 +59,19 @@
 }
 .Questions .QuestionPost .rightSide .postdate{
     margin: 0px;
-    line-height: 16px;
+    line-height: 10px;
     margin-top: -4px;
     color: #9c9a9a;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.4px;
     font-family: 'Ubuntu', sans-serif;
 }
 .Questions .QuestionPost .rightSide .posttopic{
     margin: 0px;
     line-height: 14px;
-    /* font-weight: 600; */
     color: #9c9a9a;
     letter-spacing: 0.6px;
-    font-size: 13px;
+    font-size: 11px;
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -102,54 +101,76 @@
 
 .Questions .QuestionPost .postLikes .like{
     display: inline-flex;
-    /* cursor: pointer; */
-    margin-top: 5px;
-    /* max-width: 125px; */
+    margin-top: 0px;
 }
 .Questions .QuestionPost .postLikes {
-    padding: 0px 15px;
+    padding: 3px 15px;
 }
 .Questions .QuestionPost .postLikes .like img{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 .Questions .QuestionPost .postLikes .like .count{
-    line-height: 35px;
-    font-size: 15px;
+    line-height: 30px;
+    font-size: 13px;
     letter-spacing: 0.7px;
     font-weight: 600;
     margin: 0px 5px;
     color: #666666cf;
 }
+.Questions .QuestionPost .postLikes .write{
+    display: inline-flex;
+    margin-right: 15px;
+    color: #666666; 
+    cursor: pointer;
+}
+.Questions .QuestionPost .postLikes .write.answerd{
+    color: #ffda00;
+}
+.Questions .QuestionPost .postLikes .write i{
+    transform: rotate(-90DEG);
+    font-size: 23px;
+}
+.Questions .QuestionPost .postLikes .write p{
+    margin-left: 0px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    margin: 0px 5px;
+    line-height: 25px;
+}
 .Questions .QuestionPost .postLikes .chat{
     display: inline-flex;
-    cursor: pointer;
-    margin-top: 5px;
+    margin-top: 0px;
 }
-.Questions .QuestionPost .postLikes .chat img{
-    width: 30px;
-    height: 30px;
+.Questions .QuestionPost .postLikes .chat .answer{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    margin: 0px 5px;
+    line-height: 25px;
+    color: #555555;
 }
 .Questions .QuestionPost .postLikes .chat .count{
-    line-height: 30px;
-    font-size: 15px;
+    line-height: 25px;
+    font-size: 13px;
     letter-spacing: 0.7px;
     font-weight: 600;
-    margin: 0px 5px;
+    margin: 0px 0px;
     color: #666666cf;
 }
 .Questions .QuestionPost .postLikes .share{
     display: inline-flex;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 .Questions .QuestionPost .postLikes .share img{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 .Questions .QuestionPost .postLikes .share .count{
-    line-height: 35px;
-    font-size: 15px;
+    line-height: 25px;
+    font-size: 13px;
     letter-spacing: 0.7px;
     font-weight: 600;
     margin: 0px 5px;
@@ -157,32 +178,34 @@
 }
 
 .Questions .QuestionPost .postchat {
-    padding: 5px;
+    padding: 0px;
+    padding-top: 5px;
 }
 
 .Questions .QuestionPost .postchat .chatUserImg img{
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50px;
 }
 
 .Questions .QuestionPost .postchat .chatInput input{
-    width: 98%;
-    height: 35px;
+    width: 100%;
+    height: 32px;
     outline: transparent;
     border: 1px solid #333f4f3b;
     padding: 0px 10px;
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Ubuntu', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.5px;
     color: #333333;
 }
 
 .Questions .QuestionPost .postchat .chatsend i{
-    font-size: 32px;
+    font-size: 26px;
     color: #333333;
     transform: rotate(-35deg);
+    cursor: pointer;
 }
 
 
@@ -204,16 +227,16 @@
     box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
 }
 .Questions .PostAnsHeader{
-    height: 45px;
+    height: 38px;
 }
 .Questions .PostAnsHeader .postansuserImg{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 40px;
 }
 .Questions .PostAnsHeader .postansusername{
     line-height: 14px;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 0.5px;
     margin: 0px;
     /* font-weight: 600; */
@@ -242,15 +265,17 @@
     font-size: 11px;
     letter-spacing: 0.4px;
 }
+
+
 .Questions .PostAnsHeader .postansfollowes{
     margin: 0px;
     line-height: 16px;
-    font-size: 13px;
+    font-size: 11px;
     color: #9c9a9a;
     font-family: 'Ubuntu', sans-serif;
 }
 .Questions .PostAnsHeader .postansuserinfo{
-    height: 45px;
+    height: 38px;
     margin: 0px 0px 0px 5px;
 }
 .Questions .postAnswer .postAns{
@@ -343,8 +368,8 @@
 
 .viewAll{
     margin: 0px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
     color: #999999;
     letter-spacing: 0.6px;
     margin-right: 5px;
@@ -356,9 +381,10 @@
 .rating{
     display: inline-flex;
 }
-.rating .ratingpart img{
-    width: 25px;
-    height: 25px;
+.rating img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 1px;
 }
 
 

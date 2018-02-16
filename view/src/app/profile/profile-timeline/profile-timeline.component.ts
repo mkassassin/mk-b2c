@@ -101,7 +101,7 @@ export class ProfileTimelineComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.screenHeight = window.innerHeight - 100;
+    this.screenHeight = window.innerHeight - 80;
     this.scrollHeight = this.screenHeight + 'px';
   }
 

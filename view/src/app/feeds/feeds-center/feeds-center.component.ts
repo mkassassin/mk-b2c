@@ -8,16 +8,11 @@ import { Component, OnInit, ElementRef  } from '@angular/core';
 export class FeedsCenterComponent implements OnInit {
 
     ActiveIndex: Number = 0;
-    scrollHeight;
-    screenHeight: number;
-    anotherHeight: number;
     constructor(private elementRef: ElementRef
     ) { }
 
 
     ngOnInit() {
-      this.screenHeight = window.screen.height - 305;
-      this.scrollHeight = this.screenHeight + 'px';
     }
 
 

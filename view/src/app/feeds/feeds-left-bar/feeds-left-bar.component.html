@@ -124,7 +124,7 @@
 
       <!-- follow peoples List  -->
       <div *ngFor="let user of (UnfollowingUsers ? UnfollowingUsers.slice(0,3): []); let j=index"  class="mt-10" fxLayout="row" fxLayoutAlign="space-evenly">
-        <div fxFlex="55px" class="text-center">
+        <div fxFlex="50px" class="text-center">
           <img (click)="GotoProfile(user._id)" class="userlistImg" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
         </div>
         <div fxFlex>
