@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
@@ -9,9 +10,10 @@ import { CommentAndAnswerService } from './../../service/comment-and-answer-serv
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
-
 import { ReportUserComponent } from './../../popups/report-user/report-user.component';
 import { ReportPostComponent } from './../../popups/report-post/report-post.component';
+import { DeleteConfirmComponent } from './../../popups/delete-confirm/delete-confirm.component';
+import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
 
 @Component({
   selector: 'app-feeds-questions',
@@ -48,7 +50,9 @@ export class FeedsQuestionsComponent implements OnInit {
     private Service: PostServiceService,
     public dialog: MatDialog,
     private elementRef: ElementRef,
-    private _componentConnectService: ComponentConnectServiceService
+    private _componentConnectService: ComponentConnectServiceService,
+    private DeleteService: ReportAndDeleteService,
+    public snackBar: MatSnackBar,
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -251,5 +255,67 @@ export class FeedsQuestionsComponent implements OnInit {
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
+
+
+  DeletePost() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: { text: 'Are You Sure You Want To Permanently Delete This Post?'  } });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo.data._id, 'PostId' : this.reportPostInfo._id };
+          this.DeleteService.DeleteQuestionPost(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                this.PostsList.splice(index , 1);
+                this.snackBar.open( 'Your Question Post Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Post Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
+
+
+  DeleteAnswer() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: {text: 'Are You Sure You Want To Permanently Delete This Answer?'} });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo.data._id, 'AnswerId' : this.reportAnswerInfo._id };
+          this.DeleteService.DeleteAnswer(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const Postindex = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                const index = this.reportPostInfo.Answers.findIndex(x => x._id === this.reportAnswerInfo._id);
+                this.PostsList[Postindex].Answers.splice(index , 1);
+                this.PostsList[Postindex].AnswersCount = this.PostsList[Postindex].AnswersCount - 1;
+                this.snackBar.open( 'Your Answer Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Answer Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
 
 }

@@ -2,6 +2,7 @@ import { Component, Directive, Inject, OnInit } from '@angular/core';
 
 import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
 import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-report-user',
@@ -16,7 +17,7 @@ export class ReportUserComponent implements OnInit {
   ErrorShow: Boolean = false;
   DontSubmit: Boolean = true;
 
-  constructor(
+  constructor(public snackBar: MatSnackBar,
     private ReportService: ReportAndDeleteService,
     private dialogRef: MatDialogRef<ReportUserComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
@@ -28,7 +29,11 @@ export class ReportUserComponent implements OnInit {
                   if (datas.ValidReport === 'True') {
                     this.DontSubmit = false;
                   }else {
-                    alert('You are Already Reported This User');
+                    this.snackBar.open( 'You are Already Reported This User', ' ', {
+                      horizontalPosition: 'center',
+                      duration: 3000,
+                      verticalPosition: 'top',
+                    });
                     this.dialogRef.close('Close');
                   }
                 }else {
@@ -70,10 +75,18 @@ export class ReportUserComponent implements OnInit {
       this.ReportService.ReportUser(ReportUser)
                   .subscribe( datas => {
                     if (datas.status === 'True') {
-                      alert('Your Report Send To Our Team.');
+                      this.snackBar.open( 'Your Report Send To Our Team.', ' ', {
+                        horizontalPosition: 'center',
+                        duration: 3000,
+                        verticalPosition: 'top',
+                      });
                         this.dialogRef.close('Close');
                     }else {
-                      alert(' Failed To Report The User Please Try Again! ');
+                      this.snackBar.open( 'Failed To Report The User Please Try Again!', ' ', {
+                        horizontalPosition: 'center',
+                        duration: 3000,
+                        verticalPosition: 'top',
+                      });
                       this.dialogRef.close('Close');
                     }
                 });

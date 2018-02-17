@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostThreeComponent } from './../../popups/post-three/post-three.component';
@@ -9,6 +10,9 @@ import { TrendsService } from './../../service/trends-service/trends.service';
 
 import { ReportUserComponent } from './../../popups/report-user/report-user.component';
 import { ReportPostComponent } from './../../popups/report-post/report-post.component';
+import { DeleteConfirmComponent } from './../../popups/delete-confirm/delete-confirm.component';
+import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
+
 
 @Component({
   selector: 'app-feeds-trends',
@@ -66,7 +70,9 @@ export class FeedsTrendsComponent implements OnInit {
     private FollowService: FollowServiceService,
     private ShareService: DataSharedVarServiceService,
     public dialog: MatDialog,
-    private trendsService: TrendsService
+    private trendsService: TrendsService,
+    private DeleteService: ReportAndDeleteService,
+    public snackBar: MatSnackBar,
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -298,6 +304,37 @@ export class FeedsTrendsComponent implements OnInit {
       {disableClose: true, minWidth: '50%', position: {top: '50px'},
       data: { exactType: 'Opinion', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+
+
+  DeleteImpression() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: {text: 'Are You Sure You Want To Permanently Delete This Opinion?'} });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo.data._id, 'ImpressionId' : this.reportImpressionInfo._id };
+          this.DeleteService.DeleteImpression(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.ListOfImpressions.findIndex(x => x['_id'] === this.reportImpressionInfo._id);
+                this.ListOfImpressions.splice(index, 1);
+                this.snackBar.open( 'Your Opinion Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Opinion Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
   }
 
 

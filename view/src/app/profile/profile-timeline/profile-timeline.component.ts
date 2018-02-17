@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
-
+import { MatSnackBar } from '@angular/material';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
@@ -10,9 +10,11 @@ import { LikeAndRatingServiceService } from './../../service/like-and-rating-ser
 import { CommentAndAnswerService } from './../../service/comment-and-answer-service/comment-and-answer.service';
 import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
-
 import { ReportUserComponent } from './../../popups/report-user/report-user.component';
 import { ReportPostComponent } from './../../popups/report-post/report-post.component';
+import { DeleteConfirmComponent } from './../../popups/delete-confirm/delete-confirm.component';
+import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
+
 
 @Component({
   selector: 'app-profile-timeline',
@@ -57,60 +59,62 @@ export class ProfileTimelineComponent implements OnInit {
     private AnswerService: CommentAndAnswerService,
     private elementRef: ElementRef,
     public dialog: MatDialog,
-    private _componentConnectService: ComponentConnectServiceService
-      ) {
+    private _componentConnectService: ComponentConnectServiceService,
+    private DeleteService: ReportAndDeleteService,
+    public snackBar: MatSnackBar,
+    ) {
 
         this.LoginUser = JSON.parse(localStorage.getItem('currentUser'));
-      const ProfilePage =  this.ShareingService.GetProfilePage();
+        const ProfilePage =  this.ShareingService.GetProfilePage();
 
-      if (ProfilePage.UserId !== '') {
-        this.UserId = ProfilePage.UserId;
+        if (ProfilePage.UserId !== '') {
+          this.UserId = ProfilePage.UserId;
 
-        this.UserService.GetUserInfo(this.UserId, this.LoginUser['data']._id )
+          this.UserService.GetUserInfo(this.UserId, this.LoginUser['data']._id )
+            .subscribe( datas => {
+                if (datas['status'] === 'True') {
+                  this.UserInfo = datas;
+                }else {
+                  console.log(datas);
+                }
+            });
+        }else {
+          this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+          this.UserId = this.UserInfo['data']._id;
+        }
+
+          this.Service.Timeline(this.UserId)
           .subscribe( datas => {
               if (datas['status'] === 'True') {
-                this.UserInfo = datas;
+                this.PostsList = datas['data'];
+                this.PostsListLoder = false;
+                const s = document.createElement('script');
+                            s.type = 'text/javascript';
+                            s.src = './../../../assets/html5gallery/html5gallery.js';
+                            this.elementRef.nativeElement.appendChild(s);
               }else {
                 console.log(datas);
               }
-          });
-      }else {
-        this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
-        this.UserId = this.UserInfo['data']._id;
-      }
+            });
 
-        this.Service.Timeline(this.UserId)
-        .subscribe( datas => {
-            if (datas['status'] === 'True') {
-              this.PostsList = datas['data'];
-              this.PostsListLoder = false;
-              const s = document.createElement('script');
-                          s.type = 'text/javascript';
-                          s.src = './../../../assets/html5gallery/html5gallery.js';
-                          this.elementRef.nativeElement.appendChild(s);
-            }else {
-              console.log(datas);
-            }
+            this._componentConnectService.listen().subscribe(() => {
+              this.ReloadGalleryScript();
           });
 
-          this._componentConnectService.listen().subscribe(() => {
-            this.ReloadGalleryScript();
-        });
-
-       }
-
-
-    ReloadGalleryScript() {
-        const tempPostList = this.PostsList;
-        this.PostsList = [];
-        setTimeout(() => {
-          this.PostsList = tempPostList;
-          const s = document.createElement('script');
-              s.type = 'text/javascript';
-              s.src = './../../../assets/html5gallery/html5gallery.js';
-              this.elementRef.nativeElement.appendChild(s);
-        }, 50);
     }
+
+
+  ReloadGalleryScript() {
+    const tempPostList = this.PostsList;
+    this.PostsList = [];
+    setTimeout(() => {
+      this.PostsList = tempPostList;
+      const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = './../../../assets/html5gallery/html5gallery.js';
+          this.elementRef.nativeElement.appendChild(s);
+    }, 50);
+  }
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 80;
@@ -202,7 +206,6 @@ export class ProfileTimelineComponent implements OnInit {
   }
 
 
-
   FollowUser(UserId, postIndex, commentIndex) {
     const data =  { 'UserId' : this.UserInfo['data']._id, 'FollowingUserId' : UserId };
       this.FollowService.FollowUser(data)
@@ -229,8 +232,6 @@ export class ProfileTimelineComponent implements OnInit {
     return `assets/images/icons/like${isActive ? 'd' : ''}.png`;
   }
 
-
-
   ChangeActiveAnswerInput(index: string) {
     if (this.ActiveAnswerInput === index ) {
       this.ActiveAnswerInput = -1;
@@ -238,7 +239,6 @@ export class ProfileTimelineComponent implements OnInit {
       this.ActiveAnswerInput = index;
     }
   }
-
 
   rateChanging(index) {
     const data = {'UserId': this.UserInfo['data']._id,
@@ -262,10 +262,6 @@ export class ProfileTimelineComponent implements OnInit {
     });
 
   }
-
-
-
-
 
   SubmitAnswer(answer, index) {
     if (answer !== '') {
@@ -293,7 +289,6 @@ export class ProfileTimelineComponent implements OnInit {
     }
   }
 
-
   FollowUserQuestion(UserId, postIndex, answerIndex) {
     const data =  { 'UserId' : this.UserInfo['data']._id, 'FollowingUserId' : UserId };
       this.FollowService.FollowUser(data)
@@ -305,8 +300,6 @@ export class ProfileTimelineComponent implements OnInit {
           }
       });
   }
-
-
 
   GotoProfile(Id) {
     this.ShareingService.SetProfilePage(Id);
@@ -386,4 +379,136 @@ export class ProfileTimelineComponent implements OnInit {
       data: { exactType: 'Answer', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
+
+
+  DeleteHipost() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: { text: 'Are You Sure You Want To Permanently Delete This Post?'  } });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.LoginUser['data']._id, 'PostId' : this.reportPostInfo._id };
+          this.DeleteService.DeleteHighlightPost(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                this.PostsList.splice(index , 1);
+                this.snackBar.open( 'Your Highlight Post Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Post Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
+
+
+
+  DeleteComment() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: {text: 'Are You Sure You Want To Permanently Delete This Comment?'} });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo['data']._id, 'CommentId' : this.reportCommentInfo._id };
+          this.DeleteService.DeleteComment(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.PostsList[this.ActiveComment].comments.findIndex(x => x._id === this.reportCommentInfo._id);
+                this.PostsList[this.ActiveComment].comments.splice(index , 1);
+                this.PostsList[this.ActiveComment].commentsCount = this.PostsList[this.ActiveComment].commentsCount - 1;
+                const OldActiveComment = this.ActiveComment;
+                this.ActiveComment = -1;
+                this.ChangeActiveComment(OldActiveComment);
+                this.snackBar.open( 'Your Comment Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Comment Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
+
+
+
+  DeleteQusPost() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: { text: 'Are You Sure You Want To Permanently Delete This Post?'  } });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo['data']._id, 'PostId' : this.reportPostInfo._id };
+          this.DeleteService.DeleteQuestionPost(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                this.PostsList.splice(index , 1);
+                this.snackBar.open( 'Your Question Post Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Post Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
+
+
+  DeleteAnswer() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: {text: 'Are You Sure You Want To Permanently Delete This Answer?'} });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo['data']._id, 'AnswerId' : this.reportAnswerInfo._id };
+          this.DeleteService.DeleteAnswer(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const Postindex = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                const index = this.reportPostInfo.Answers.findIndex(x => x._id === this.reportAnswerInfo._id);
+                this.PostsList[Postindex].Answers.splice(index , 1);
+                this.PostsList[Postindex].AnswersCount = this.PostsList[Postindex].AnswersCount - 1;
+                this.snackBar.open( 'Your Answer Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Answer Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
+
+
+
+
 }

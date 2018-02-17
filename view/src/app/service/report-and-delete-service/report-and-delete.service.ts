@@ -53,5 +53,34 @@ export class ReportAndDeleteService {
         .catch(this.handleError);
     }
 
+    public DeleteHighlightPost(data: any) {
+        return this.http.post(API_URL + 'DeleteHighlightPost', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public DeleteQuestionPost(data: any) {
+        return this.http.post(API_URL + 'DeleteQuestionPost', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public DeleteComment(data: any) {
+        return this.http.post(API_URL + 'DeleteComment', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public DeleteAnswer(data: any) {
+        return this.http.post(API_URL + 'DeleteAnswer', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public DeleteImpression(data: any) {
+        return this.http.post(API_URL + 'DeleteImpression', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 
 }

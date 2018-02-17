@@ -1,5 +1,9 @@
 var ReportModel = require('../models/ReportAndDelete.model.js');
-
+var HighlightsPostModel = require('../models/HighlightsPost.model.js');
+var NotificationModel = require('../models/Notificatio.model.js');
+var QuestionsPostModel = require('../models/QuestionsPost.model.js');
+var CommentAndAnswerModel = require('../models/CommentAndAnswer.model.js');
+var TrendsModel = require('../models/Trends.model.js');
 
 exports.ReportUser = function(req, res) {
     if(!req.body.UserId) {  res.status(400).send({status:"False", message: " UserId can not be Empty! "}); }
@@ -140,4 +144,233 @@ exports.ReportSecondLevelPostValidate = function(req, res) {
                 } 
             }
         });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+exports.DeleteHighlightPost = function(req, res) {
+    HighlightsPostModel.HighlightsPostType.findOne({'_id': req.body.PostId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Post Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Post."});
+                }else{
+                    NotificationModel.Notification.find({'HighlightPostId': req.body.PostId, 'Viewed': { $ne: 2 },}, function(Notifyerr, Notifydata) {
+                        if(Notifyerr) {
+                            res.status(500).send({status:"False", Error: Notifyerr,  message: "Some error occurred while Notification Find ."});
+                        }else {
+                            if (Notifydata.length > 0) {
+                                UpdateNoftifyData();
+                                async function UpdateNoftifyData(){
+                                    for (let info of Notifydata) {
+                                        await NoftifyInfo(info);
+                                     }
+                                     res.send({status:"True", message:'Post Successfully Deleted' });
+                                  }
+                                  
+                                  function NoftifyInfo(info){
+                                    return new Promise(( resolve, reject ) => {
+                                        info.Viewed = 2;
+                                        info.save(function (newerr, newresult) {
+                                            if (newerr){
+                                                reject(newerr);
+                                                res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Notify."});
+                                            }else{
+                                                resolve(newresult);
+                                            }
+                                        });
+                                    });
+                                  }
+                        
+                            }else {
+                                res.send({status:"True", message:'Post Successfully Deleted' });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+
+
+exports.DeleteQuestionPost = function(req, res) {
+    QuestionsPostModel.QuestionsPostType.findOne({'_id': req.body.PostId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Post Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Post."});
+                }else{
+                    NotificationModel.Notification.find({'QuestionPostId': req.body.PostId, 'Viewed': { $ne: 2 },}, function(Notifyerr, Notifydata) {
+                        if(Notifyerr) {
+                            res.status(500).send({status:"False", Error: Notifyerr,  message: "Some error occurred while Notification Find ."});
+                        }else {
+                            if (Notifydata.length > 0) {
+                                UpdateNoftifyData();
+                                async function UpdateNoftifyData(){
+                                    for (let info of Notifydata) {
+                                        await NoftifyInfo(info);
+                                     }
+                                     res.send({status:"True", message:'Post Successfully Deleted' });
+                                  }
+                                  
+                                  function NoftifyInfo(info){
+                                    return new Promise(( resolve, reject ) => {
+                                        info.Viewed = 2;
+                                        info.save(function (newerr, newresult) {
+                                            if (newerr){
+                                                reject(newerr);
+                                                res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Notify."});
+                                            }else{
+                                                resolve(newresult);
+                                            }
+                                        });
+                                    });
+                                  }
+                        
+                            }else {
+                                res.send({status:"True", message:'Post Successfully Deleted' });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+
+exports.DeleteComment = function(req, res) {
+    CommentAndAnswerModel.HighlightsComment.findOne({'_id': req.body.CommentId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Comment Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Comment."});
+                }else{
+                    NotificationModel.Notification.find({'HighlightCommentId': req.body.CommentId, 'Viewed': { $ne: 2 },}, function(Notifyerr, Notifydata) {
+                        if(Notifyerr) {
+                            res.status(500).send({status:"False", Error: Notifyerr,  message: "Some error occurred while Notification Find ."});
+                        }else {
+                            if (Notifydata.length > 0) {
+                                UpdateNoftifyData();
+                                async function UpdateNoftifyData(){
+                                    for (let info of Notifydata) {
+                                        await NoftifyInfo(info);
+                                     }
+                                     res.send({status:"True", message:'Comment Successfully Deleted' });
+                                  }
+                                  
+                                  function NoftifyInfo(info){
+                                    return new Promise(( resolve, reject ) => {
+                                        info.Viewed = 2;
+                                        info.save(function (newerr, newresult) {
+                                            if (newerr){
+                                                reject(newerr);
+                                                res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Notify."});
+                                            }else{
+                                                resolve(newresult);
+                                            }
+                                        });
+                                    });
+                                  }
+                        
+                            }else {
+                                res.send({status:"True", message:'Comment Successfully Deleted' });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+
+exports.DeleteAnswer = function(req, res) {
+    CommentAndAnswerModel.QuestionsAnwer.findOne({'_id': req.body.AnswerId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Answer Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Answer."});
+                }else{
+                    NotificationModel.Notification.find({'QuestionAnswerId': req.body.AnswerId, 'Viewed': { $ne: 2 },}, function(Notifyerr, Notifydata) {
+                        if(Notifyerr) {
+                            res.status(500).send({status:"False", Error: Notifyerr,  message: "Some error occurred while Notification Find ."});
+                        }else {
+                            if (Notifydata.length > 0) {
+                                UpdateNoftifyData();
+                                async function UpdateNoftifyData(){
+                                    for (let info of Notifydata) {
+                                        await NoftifyInfo(info);
+                                     }
+                                     res.send({status:"True", message:'Answer Successfully Deleted' });
+                                  }
+                                  
+                                  function NoftifyInfo(info){
+                                    return new Promise(( resolve, reject ) => {
+                                        info.Viewed = 2;
+                                        info.save(function (newerr, newresult) {
+                                            if (newerr){
+                                                reject(newerr);
+                                                res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Notify."});
+                                            }else{
+                                                resolve(newresult);
+                                            }
+                                        });
+                                    });
+                                  }
+                        
+                            }else {
+                                res.send({status:"True", message:'Answer Successfully Deleted' });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+
+exports.DeleteImpression = function(req, res) {
+    TrendsModel.Impressions.findOne({'_id': req.body.ImpressionId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Impression Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Post."});
+                }else {
+                    res.send({status:"True", message:'Impression Successfully Deleted' });
+                }
+            });
+        }
+    });
 };

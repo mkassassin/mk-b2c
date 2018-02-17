@@ -6,6 +6,7 @@ var HighlightsPostTypeSchema = mongoose.Schema({
     PostDate: { type : String , required : true },
     PostText:{ type : String},
     PostLink:{ type : String},
+    PostLinkInfo:{ type : Object},
     PostImage: Array,
     PostVideo: Array,
     ActiveStates: String

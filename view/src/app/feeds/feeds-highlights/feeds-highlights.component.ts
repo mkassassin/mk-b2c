@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SlicePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
@@ -12,7 +13,8 @@ import { DataSharedVarServiceService } from './../../service/data-shared-var-ser
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 import { ReportUserComponent } from './../../popups/report-user/report-user.component';
 import { ReportPostComponent } from './../../popups/report-post/report-post.component';
-
+import { DeleteConfirmComponent } from './../../popups/delete-confirm/delete-confirm.component';
+import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
 
 @Component({
   selector: 'app-feeds-highlights',
@@ -49,7 +51,9 @@ export class FeedsHighlightsComponent implements OnInit {
     private commentservice: CommentAndAnswerService,
     public dialog: MatDialog,
     private elementRef: ElementRef,
-    private _componentConnectService: ComponentConnectServiceService
+    private _componentConnectService: ComponentConnectServiceService,
+    private DeleteService: ReportAndDeleteService,
+    public snackBar: MatSnackBar,
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -274,6 +278,71 @@ export class FeedsHighlightsComponent implements OnInit {
       {disableClose: true, minWidth: '50%', position: {top: '50px'},
       data: { exactType: 'Comment', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+
+
+  DeletePost() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: { text: 'Are You Sure You Want To Permanently Delete This Post?'  } });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo.data._id, 'PostId' : this.reportPostInfo._id };
+          this.DeleteService.DeleteHighlightPost(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                this.PostsList.splice(index , 1);
+                this.snackBar.open( 'Your Highlight Post Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Post Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
+  }
+
+
+
+  DeleteComment() {
+    const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
+      {disableClose: true, width: '350px', minHeight: '300px', data: {text: 'Are You Sure You Want To Permanently Delete This Comment?'} });
+      DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+        if (result === 'Yes' ) {
+          const DeletePostdata =  { 'UserId' : this.UserInfo.data._id, 'CommentId' : this.reportCommentInfo._id };
+          this.DeleteService.DeleteComment(DeletePostdata)
+            .subscribe( datas => {
+              if (datas.status === 'True') {
+                const index = this.PostsList[this.ActiveComment].comments.findIndex(x => x._id === this.reportCommentInfo._id);
+                this.PostsList[this.ActiveComment].comments.splice(index , 1);
+                this.PostsList[this.ActiveComment].commentsCount = this.PostsList[this.ActiveComment].commentsCount - 1;
+                const OldActiveComment = this.ActiveComment;
+                this.ActiveComment = -1;
+                this.ChangeActiveComment(OldActiveComment);
+                this.snackBar.open( 'Your Comment Deleted Successfully', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+              }else {
+                this.snackBar.open( ' Comment Delete Failed', ' ', {
+                  horizontalPosition: 'center',
+                  duration: 3000,
+                  verticalPosition: 'top',
+                });
+                console.log(datas);
+              }
+          });
+        }
+      });
   }
 
 }

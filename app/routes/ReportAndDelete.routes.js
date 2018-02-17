@@ -15,4 +15,13 @@ module.exports = function(app) {
 
     app.post('/API/ReportAndDelete/ReportSecondLevelPostValidate', ReportAndDelete.ReportSecondLevelPostValidate);
 
+    app.post('/API/ReportAndDelete/DeleteHighlightPost', ReportAndDelete.DeleteHighlightPost);
+
+    app.post('/API/ReportAndDelete/DeleteQuestionPost', ReportAndDelete.DeleteQuestionPost);
+
+    app.post('/API/ReportAndDelete/DeleteComment', ReportAndDelete.DeleteComment);
+
+    app.post('/API/ReportAndDelete/DeleteAnswer', ReportAndDelete.DeleteAnswer);
+
+    app.post('/API/ReportAndDelete/DeleteImpression', ReportAndDelete.DeleteImpression);
 };

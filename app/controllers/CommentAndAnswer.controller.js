@@ -52,7 +52,7 @@ exports.HighlightsCommentAdd = function(req, res) {
         } else {
             UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
                 if(err) {
-                    res.send({status:"Fale", Error:err });
+                    res.send({status:"False", Error:err });
                 } else {
                     var varNotification = new NotificationModel.Notification({
                             UserId:  req.body.UserId,
@@ -70,7 +70,7 @@ exports.HighlightsCommentAdd = function(req, res) {
                         } else {
                             FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                                 if(newerr){
-                                    res.send({status:"Fale", Error:newerr });
+                                    res.send({status:"False", Error:newerr });
                                 }else{
                                     var newArray = [];
                                     newArray.push( {
@@ -107,9 +107,9 @@ exports.HighlightsCommentAdd = function(req, res) {
 
 
 exports.GetHighlightsComments = function(req, res) {
-    Model.HighlightsComment.find({'PostId': req.params.PostId }, {} , {sort:{createdAt : -1}, limit: 3}, function(err, result) {
+    Model.HighlightsComment.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, limit: 3}, function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while Find Commants ."});
+            res.status(500).send({status:"False", message: "Some error occurred while Find Comments ."});
         } else {
             if(result.length > 0){
                 var CommentsArray = new Array();
@@ -125,18 +125,18 @@ exports.GetHighlightsComments = function(req, res) {
                     return new Promise(( resolve, reject )=>{
                         UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
                             if(err) {
-                                res.send({status:"Fale", Error:err });
+                                res.send({status:"False", Error:err });
                                 reject(err);
                             } else {
                                 if(UserData.length !== null){
                                     FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                                         if(newerr){
-                                            res.send({status:"Fale", Error:newerr });
+                                            res.send({status:"False", Error:newerr });
                                             reject(newerr);
                                         }else{
                                             FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': UserData._id}, function(nowerr, FollowesData) {
                                                 if(nowerr){
-                                                    res.send({status:"Fale", Error:nowerr });
+                                                    res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
                                                     var alreadyfollowuser = true;
@@ -223,7 +223,7 @@ exports.QuestionsAnwerAdd = function(req, res) {
         } else {
             UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
                 if(err) {
-                    res.send({status:"Fale", Error:err });
+                    res.send({status:"False", Error:err });
                 } else {
                     var varNotification = new NotificationModel.Notification({
                         UserId:  req.body.UserId,
@@ -241,7 +241,7 @@ exports.QuestionsAnwerAdd = function(req, res) {
                         } else {
                             FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
                                 if(newerr){
-                                    res.send({status:"Fale", Error:newerr });
+                                    res.send({status:"False", Error:newerr });
                                 }else{
                                     var newArray = [];
                                     newArray.push( {

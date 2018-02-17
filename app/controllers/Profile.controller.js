@@ -22,11 +22,11 @@ var usersProjection = {
 
 
 exports.Timeline = function (req, res) {
-    QuestionsPostModel.QuestionsPostType.find({'UserId' : req.params.UserId }, {} , { sort: { createdAt: -1 } }, function (queserr, QuesData) {
+    QuestionsPostModel.QuestionsPostType.find({'UserId' : req.params.UserId, 'ActiveStates': 'Active' }, {} , { sort: { createdAt: -1 } }, function (queserr, QuesData) {
         if (queserr) {
             res.status(500).send({ status: "False", Error: queserr,  message: "Some error occurred while Find Question Post ." });
         } else {
-            HighlightsPostModel.HighlightsPostType.find({'UserId' : req.params.UserId }, {} , { sort: { createdAt: -1 } }, function (anserr, AnsData) {
+            HighlightsPostModel.HighlightsPostType.find({'UserId' : req.params.UserId, 'ActiveStates': 'Active' }, {} , { sort: { createdAt: -1 } }, function (anserr, AnsData) {
                 if (anserr) {
                     res.status(500).send({ status: "False", Error: anserr, message: "Some error occurred while Find Answers Post ." });
                 } else {
@@ -49,8 +49,8 @@ exports.Timeline = function (req, res) {
                         LikeAndRating.HighlightsLike.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.HighlightsComment.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                        CommentAndAnswer.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec(),
-                        CommentAndAnswer.HighlightsComment.find({'UserId': req.params.UserId, 'PostId': info._id}).exec(),
+                        CommentAndAnswer.QuestionsAnwer.find({ 'PostId': info._id, 'ActiveStates': 'Active' }, 'AnswerText UserId Date').exec(),
+                        CommentAndAnswer.HighlightsComment.find({'UserId': req.params.UserId, 'PostId': info._id, 'ActiveStates': 'Active'}).exec(),
                     ]).then(data => {
                         var UserData = data[0];
                         var followCount = data[1];
@@ -89,6 +89,7 @@ exports.Timeline = function (req, res) {
                                 PostDate: info.PostDate,
                                 PostText: info.PostText ,
                                 PostLink: info.PostLink,
+                                PostLinkInfo: info.PostLinkInfo || '',
                                 PostImage: info.PostImage,
                                 PostVideo: info.PostVideo,
                                 RatingCount: ratingCount,
@@ -103,17 +104,17 @@ exports.Timeline = function (req, res) {
                             return new Promise(( resolve, reject )=>{
                                 UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
                                     if(err) {
-                                        res.send({status:"Fale", Error:err });
+                                        res.send({status:"False", Error:err });
                                         reject(err);
                                     } else {
                                         FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
                                             if(newerr){
-                                                res.send({status:"Fale", Error:newerr });
+                                                res.send({status:"False", Error:newerr });
                                                 reject(newerr);
                                             }else{
                                                 FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': AnsUserData._id}, function(nowerr, FollowesData) {
                                                     if(nowerr){
-                                                        res.send({status:"Fale", Error:nowerr });
+                                                        res.send({status:"False", Error:nowerr });
                                                         reject(nowerr);
                                                     }else{
                                                         var alreadyfollowuser = true;
@@ -185,6 +186,7 @@ exports.Timeline = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
+                                        PostLinkInfo: info.PostLinkInfo || '',
                                         PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
                                         LikesCount: LikingCount,

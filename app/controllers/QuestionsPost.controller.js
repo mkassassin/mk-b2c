@@ -4,6 +4,8 @@ var FollowModel = require('../models/Follow.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
 var RatingModel = require('../models/LikeAndRating.model.js');
 var AnswerModel = require('../models/CommentAndAnswer.model.js');
+var axios = require("axios");
+
 
 var usersProjection = { 
     __v: false,
@@ -29,103 +31,133 @@ exports.Submit = function(req, res) {
         res.status(400).send({status:"False", message: " Post Date can not be Empty! "});
     }
 
-    var QuestionsPostType = new QuestionsPostModel.QuestionsPostType({
-            UserId: req.body.UserId,
-            PostTopicId: req.body.PostTopicId,
-            PostTopicName: req.body.PostTopicName,
-            PostDate: req.body.PostDate,
-            PostText: req.body.PostText || '',
-            PostLink: req.body.PostLink || '',
-            PostImage: req.body.PostImage || '',
-            PostVideo: req.body.PostVideo || '',
-            ActiveStates: 'Active'
-    });
 
-     
-    QuestionsPostType.save(function(err, result) {
-        if(err) {
-            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Post."});
-        } else {
-            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
-                if(err) {
-                    res.send({status:"Fale", Error:err });
-                } else {
-                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
-                        if(newerr){
-                            res.send({status:"Fale", Error:newerr });
-                        }else{
-                            var newArray = [];
-                            var images = [];
-                            newArray.push( {
-                                            _id: result._id,
-                                            UserId: UserData._id,
-                                            UserName: UserData.UserName,
-                                            UserCategoryId: UserData.UserCategoryId,
-                                            UserCategoryName: UserData.UserCategoryName,
-                                            UserImage: UserData.UserImage,
-                                            UserCompany: UserData.UserCompany,
-                                            UserProfession: UserData.UserProfession,
-                                            Followers: count,
-                                            PostTopicId: result.PostTopicId,
-                                            PostTopicName: result.PostTopicName,
-                                            PostDate: result.PostDate,
-                                            PostText: result.PostText ,
-                                            PostLink: result.PostLink,
-                                            PostImage: result.PostImage,
-                                            PostVideo: result.PostVideo,
-                                            RatingCount: 0,
-                                            userRated: false,
-                                            UserRating: 0,
-                                            Answers: [],
-                                            AnswersCount: 0,
-                                        }
-                            );
-                            
-                            if(count > 0){
-                                FollowModel.FollowUserType.find({'FollowingUserId': UserData._id},  function(someerr, followUsers) {
-                                    if(someerr){
-                                        res.send({status:"Fale", Error:someerr });
-                                    }else{
-                                        SetNofifiction();
-                                        async function SetNofifiction(){
-                                            for (let info of followUsers) {
-                                                await SetNotify(info);
-                                            }
-                                            res.send({status:"True", data:newArray[0] });
-                                        }
+    if(req.body.PostLink !== '') {
+        var LinkInfo = '';
+        var str = req.body.PostLink;
+        var n = str.indexOf('http://www.youtube');
+        var n1 = str.indexOf('https://www.youtube');
+        var n2 = str.indexOf('https://youtu');
 
-                                        function SetNotify(info){
-                                            return new Promise(( resolve, reject )=>{
-                                                var varNotification = new NotificationModel.Notification({
-                                                    UserId:  req.body.UserId,
-                                                    QuestionPostId: result._id,
-                                                    ResponseUserId: info.UserId,
-                                                    NotificationType: 9,
-                                                    Viewed: 0,
-                                                    NotificationDate: new Date
-                                                });
-                                                varNotification.save(function(Nofifyerr, Notifydata) {
-                                                    if(Nofifyerr) {
-                                                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
-                                                        reject(Nofifyerr);
-                                                    } else {
-                                                       resolve(Notifydata);
-                                                    }
-                                                });
-                                            })
-                                        }
-                                    }
-                                 });
-                                
-                            }else{
-                                res.send({status:"True", data: newArray[0] });
-                            }
-                        }
-                    });
-                 }
+        if( n !== -1 || n1 !== -1 || n2 !== -1  ) {
+            gotonext();
+        }else{
+            axios.get('http://api.linkpreview.net/?key=5a883a1e4c1cd65a5a1d19ec7011bb4a8ee7426a5cdcb&q='+ req.body.PostLink )
+            .then(response => {
+                 LinkInfo = response.data;
+                gotonext();
+            })
+            .catch(error => {
+                gotonext();
             });
         }
-    });
+
+    }else{
+        gotonext();
+    }
+
+    function gotonext() {
+        
+        var QuestionsPostType = new QuestionsPostModel.QuestionsPostType({
+                UserId: req.body.UserId,
+                PostTopicId: req.body.PostTopicId,
+                PostTopicName: req.body.PostTopicName,
+                PostDate: req.body.PostDate,
+                PostText: req.body.PostText || '',
+                PostLink: req.body.PostLink || '',
+                PostLinkInfo: LinkInfo,
+                PostImage: req.body.PostImage || '',
+                PostVideo: req.body.PostVideo || '',
+                ActiveStates: 'Active'
+        });
+
+        
+        QuestionsPostType.save(function(err, result) {
+            if(err) {
+                res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Post."});
+            } else {
+                UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                    if(err) {
+                        res.send({status:"False", Error:err });
+                    } else {
+                        FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                            if(newerr){
+                                res.send({status:"False", Error:newerr });
+                            }else{
+                                var newArray = [];
+                                var images = [];
+                                newArray.push( {
+                                                _id: result._id,
+                                                UserId: UserData._id,
+                                                UserName: UserData.UserName,
+                                                UserCategoryId: UserData.UserCategoryId,
+                                                UserCategoryName: UserData.UserCategoryName,
+                                                UserImage: UserData.UserImage,
+                                                UserCompany: UserData.UserCompany,
+                                                UserProfession: UserData.UserProfession,
+                                                Followers: count,
+                                                PostTopicId: result.PostTopicId,
+                                                PostTopicName: result.PostTopicName,
+                                                PostDate: result.PostDate,
+                                                PostText: result.PostText ,
+                                                PostLink: result.PostLink,
+                                                PostLinkInfo: result.PostLinkInfo || '',
+                                                PostImage: result.PostImage,
+                                                PostVideo: result.PostVideo,
+                                                RatingCount: 0,
+                                                userRated: false,
+                                                UserRating: 0,
+                                                Answers: [],
+                                                AnswersCount: 0,
+                                            }
+                                );
+                                
+                                if(count > 0){
+                                    FollowModel.FollowUserType.find({'FollowingUserId': UserData._id},  function(someerr, followUsers) {
+                                        if(someerr){
+                                            res.send({status:"False", Error:someerr });
+                                        }else{
+                                            SetNofifiction();
+                                            async function SetNofifiction(){
+                                                for (let info of followUsers) {
+                                                    await SetNotify(info);
+                                                }
+                                                res.send({status:"True", data:newArray[0] });
+                                            }
+
+                                            function SetNotify(info){
+                                                return new Promise(( resolve, reject )=>{
+                                                    var varNotification = new NotificationModel.Notification({
+                                                        UserId:  req.body.UserId,
+                                                        QuestionPostId: result._id,
+                                                        ResponseUserId: info.UserId,
+                                                        NotificationType: 9,
+                                                        Viewed: 0,
+                                                        NotificationDate: new Date
+                                                    });
+                                                    varNotification.save(function(Nofifyerr, Notifydata) {
+                                                        if(Nofifyerr) {
+                                                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                                            reject(Nofifyerr);
+                                                        } else {
+                                                        resolve(Notifydata);
+                                                        }
+                                                    });
+                                                })
+                                            }
+                                        }
+                                    });
+                                    
+                                }else{
+                                    res.send({status:"True", data: newArray[0] });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 };
 
 
@@ -135,7 +167,7 @@ exports.Submit = function(req, res) {
 exports.GetPostList = function (req, res) {
     var SkipCoun = 0;
     SkipCoun = parseInt(req.params.Limit) * 10;
-    QuestionsPostModel.QuestionsPostType.find({}, {}, { sort: { createdAt: -1 }, skip: SkipCoun, limit: 10 }, function (err, result) {
+    QuestionsPostModel.QuestionsPostType.find({'ActiveStates': 'Active'}, {}, { sort: { createdAt: -1 }, skip: SkipCoun, limit: 10 }, function (err, result) {
         if (err) {
             res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });
         } else {
@@ -155,7 +187,7 @@ exports.GetPostList = function (req, res) {
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec(),
+                    AnswerModel.QuestionsAnwer.find({ 'PostId': info._id , 'ActiveStates': 'Active'}, 'AnswerText UserId Date').exec(),
                     RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                 ]).then(data => {
                     let UserData = data[0];
@@ -205,6 +237,7 @@ exports.GetPostList = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
+                                        PostLinkInfo: info.PostLinkInfo || '',
                                         PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
                                         RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
@@ -222,7 +255,7 @@ exports.GetPostList = function (req, res) {
                         return new Promise(( resolve, reject )=>{
                             RatingModel.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
                                 if(Rateerr) {
-                                    res.send({status:"Fale", Error:Rateerr });
+                                    res.send({status:"False", Error:Rateerr });
                                     reject(Rateerr);
                                 } else {
                                     RatingCal += JSON.parse(RateData.Rating);
@@ -237,17 +270,17 @@ exports.GetPostList = function (req, res) {
                         return new Promise(( resolve, reject )=>{
                             UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
                                 if(err) {
-                                    res.send({status:"Fale", Error:err });
+                                    res.send({status:"False", Error:err });
                                     reject(err);
                                 } else {
                                     FollowModel.FollowUserType.count({'FollowingUserId': AnsUserData._id}, function(newerr, count) {
                                         if(newerr){
-                                            res.send({status:"Fale", Error:newerr });
+                                            res.send({status:"False", Error:newerr });
                                             reject(newerr);
                                         }else{
                                             FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': AnsUserData._id}, function(nowerr, FollowesData) {
                                                 if(nowerr){
-                                                    res.send({status:"Fale", Error:nowerr });
+                                                    res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
                                                     var alreadyfollowuser = true;
@@ -372,6 +405,7 @@ exports.ViewPost = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
+                                        PostLinkInfo: info.PostLinkInfo || '',
                                         PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
                                         RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
@@ -389,7 +423,7 @@ exports.ViewPost = function (req, res) {
                         return new Promise(( resolve, reject )=>{
                             RatingModel.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
                                 if(Rateerr) {
-                                    res.send({status:"Fale", Error:Rateerr });
+                                    res.send({status:"False", Error:Rateerr });
                                     reject(Rateerr);
                                 } else {
                                     RatingCal += JSON.parse(RateData.Rating);
@@ -404,17 +438,17 @@ exports.ViewPost = function (req, res) {
                         return new Promise(( resolve, reject )=>{
                             UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
                                 if(err) {
-                                    res.send({status:"Fale", Error:err });
+                                    res.send({status:"False", Error:err });
                                     reject(err);
                                 } else {
                                     FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
                                         if(newerr){
-                                            res.send({status:"Fale", Error:newerr });
+                                            res.send({status:"False", Error:newerr });
                                             reject(newerr);
                                         }else{
                                             FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': AnsUserData._id}, function(nowerr, FollowesData) {
                                                 if(nowerr){
-                                                    res.send({status:"Fale", Error:nowerr });
+                                                    res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
                                                     var alreadyfollowuser = true;

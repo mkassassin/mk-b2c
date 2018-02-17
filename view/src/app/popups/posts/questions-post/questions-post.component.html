@@ -71,6 +71,28 @@
                         <div class="postmain" fxLayout="row">
                           <div fxFlex class="text-left">
                             <h5 class="postquestion"> {{Post.PostText}} </h5>
+
+                            <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                              <div *ngIf="Post.PostLinkInfo !== ''" class="row thumpnailbox">
+                                <div class="col-sm-4 thumpnailbox-left">
+                                    <img *ngIf="Post.PostLinkInfo.image !== ''" class="thumpnailbox-img" src="{{Post.PostLinkInfo.image}}" alt="">
+                                    <img *ngIf="Post.PostLinkInfo.image === ''" class="thumpnailbox-img" src="{{OtherImageBaseUrl}}/empty.jpg" alt="">
+                                </div>
+                                <div class="col-sm-8 thumpnailbox-right">
+                                  <div class="thumpnailbox-textField">
+                                      <p class="thumpnailbox-header"> {{Post.PostLinkInfo.title}} </p>
+                                      <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description}} </p>
+                                  </div>
+                                  <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
+                                </div>
+                              </div>
+                            </ng-container>
+              
+                            <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                              <p class="postLink"> <a href="{{Post.PostLink}}" target="blanck"> {{Post.PostLink}} </a> </p> 
+                            </ng-container>
+
+                            
                             <div *ngIf=" ( Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' )  &&  Post.PostImage?.length > 0 || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1 )">
                                 <div style="text-align:center;padding:10px;">
                                     <div class="html5gallery" data-padding="1" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
@@ -176,10 +198,10 @@
                             </div>
                           </div>
                           <div fxFlex="30%" class="text-right" style="height:25px">
-                            <div class="share">
+                            <!-- <div class="share">
                               <img src="./../../../assets/images/icons/share.png" alt="">
                               <p class="count"> 100 </p>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                         <!-- Question Post Share Like And More  END-->
@@ -252,7 +274,7 @@
   </div>
   <div class="dropdarrow"></div>
   <hr class="m-0">
-  <div  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+  <div (click)="DeletePost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">delete_forever</i>
       </div>
@@ -298,7 +320,7 @@
   </div>
   <div class="dropdarrow"></div>
   <hr class="m-0">
-  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+  <div (click)="DeleteAnswer" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">delete_forever</i>
       </div>

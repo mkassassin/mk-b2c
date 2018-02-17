@@ -1,3 +1,31 @@
-<p>
-  delete-confirm works!
-</p>
+
+
+      <div class="Discover">
+        <div fxLayout="row" fxLayoutAlign="space-evenly start">
+  
+          <div fxFlex="100%" class="DiscoverLefBar">
+            <div class="box-2">
+              <div class="row m-0">
+                <div class="col-sm-12 p-0">
+                  <p class="followheader"> Confirmation Message </p>
+                </div>
+                <h5 class="text-center m-30"> {{text}} </h5>
+              </div>
+  
+              <hr class="m-5">
+              <div class="row m-0 mb-10">
+                <div class="col-sm-6 text-center">
+                    <button mat-button (click)="onClickYes()" > Yes </button>
+                </div>
+                <div class="col-sm-6">
+                    <button mat-button  (click)="onClickNo()" cdkFocusInitial > No </button>
+                </div>
+                
+              </div>
+            </div>
+            <!-- follow people  -->
+          </div>
+        </div>
+  
+  
+  </div>

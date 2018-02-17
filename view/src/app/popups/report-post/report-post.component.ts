@@ -2,6 +2,7 @@ import { Component, Directive, Inject, OnInit } from '@angular/core';
 
 import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
 import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-report-post',
@@ -16,7 +17,7 @@ export class ReportPostComponent implements OnInit {
   ErrorShow: Boolean = false;
   DontSubmit: Boolean = true;
 
-  constructor(
+  constructor(public snackBar: MatSnackBar,
     private ReportService: ReportAndDeleteService,
     private dialogRef: MatDialogRef<ReportPostComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
@@ -29,7 +30,11 @@ export class ReportPostComponent implements OnInit {
                   if (datas.ValidReport === 'True') {
                     this.DontSubmit = false;
                   }else {
-                    alert('You are Already Reported This Post');
+                      this.snackBar.open( 'You are Already Reported This Post', ' ', {
+                        horizontalPosition: 'center',
+                        duration: 3000,
+                        verticalPosition: 'top',
+                      });
                     this.dialogRef.close('Close');
                   }
                 }else {
@@ -46,7 +51,11 @@ export class ReportPostComponent implements OnInit {
                   if (datas.ValidReport === 'True') {
                     this.DontSubmit = false;
                   }else {
-                    alert('You are Already Reported This ' + this.data.exactType);
+                    this.snackBar.open( 'You are Already Reported This ' + this.data.exactType , '', {
+                      horizontalPosition: 'center',
+                      duration: 3000,
+                      verticalPosition: 'top',
+                    });
                     this.dialogRef.close('Close');
                   }
                 }else {
@@ -91,10 +100,18 @@ export class ReportPostComponent implements OnInit {
           this.ReportService.ReportPost(ReportData)
                       .subscribe( datas => {
                         if (datas.status === 'True') {
-                          alert('Your Report Send To Our Team.');
+                          this.snackBar.open( 'Your Report Send To Our Team ', '', {
+                              horizontalPosition: 'center',
+                              duration: 3000,
+                              verticalPosition: 'top',
+                            });
                            this.dialogRef.close('Close');
                         }else {
-                          alert(' Failed To Report The Post Please Try Again! ');
+                          this.snackBar.open( 'Failed To Report The Post Please Try Again! ', '', {
+                            horizontalPosition: 'center',
+                            duration: 3000,
+                            verticalPosition: 'top',
+                          });
                           this.dialogRef.close('Close');
                         }
                     });
@@ -115,10 +132,18 @@ export class ReportPostComponent implements OnInit {
         this.ReportService.ReportSecondLevelPost(ReportData)
                     .subscribe( datas => {
                       if (datas.status === 'True') {
-                        alert('Your Report Send To Our Team.');
+                        this.snackBar.open( 'Your Report Send To Our Team.', '', {
+                          horizontalPosition: 'center',
+                          duration: 3000,
+                          verticalPosition: 'top',
+                        });
                          this.dialogRef.close('Close');
                       }else {
-                        alert(' Failed To Report Please Try Again! ');
+                        this.snackBar.open( 'Failed To Report Please Try Again!', '', {
+                          horizontalPosition: 'center',
+                          duration: 3000,
+                          verticalPosition: 'top',
+                        });
                         this.dialogRef.close('Close');
                       }
                   });

@@ -99,11 +99,11 @@ exports.ImpressionAdd = function(req, res) {
         } else {
             UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
                 if(err) {
-                    res.send({status:"Fale", Error:err });
+                    res.send({status:"False", Error:err });
                 } else {
                     FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
                         if(newerr){
-                            res.send({status:"Fale", Error:newerr });
+                            res.send({status:"False", Error:newerr });
                         }else{
                             var newArray = [];
                             newArray.push( {
@@ -132,9 +132,9 @@ exports.ImpressionAdd = function(req, res) {
 
 
 exports.ImpressionPosts = function(req, res) {
-    TrendsModel.Impressions.find({'CoinId': req.params.CoinId }, {} , {sort:{createdAt : -1}}, function(err, result) {
+    TrendsModel.Impressions.find({'CoinId': req.params.CoinId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}}, function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while Find Commants ."});
+            res.status(500).send({status:"False", message: "Some error occurred while Find Comments ."});
         } else {
             if(result.length > 0){
                 var ImpressionsArray = new Array();
@@ -150,18 +150,18 @@ exports.ImpressionPosts = function(req, res) {
                     return new Promise(( resolve, reject )=>{
                         UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
                             if(err) {
-                                res.send({status:"Fale", Error:err });
+                                res.send({status:"False", Error:err });
                                 reject(err);
                             } else {
                                 if(UserData.length !== null){
                                     FollowModel.FollowUserType.count({'UserId': UserData._id}, function(newerr, count) {
                                         if(newerr){
-                                            res.send({status:"Fale", Error:newerr });
+                                            res.send({status:"False", Error:newerr });
                                             reject(err);
                                         }else{
                                             FollowModel.FollowUserType.find({'UserId': req.params.UserId, 'FollowingUserId': UserData._id }, function(dataerr, FollowesData) { 
                                                 if(dataerr){
-                                                    res.send({status:"Fale", Error:dataerr });
+                                                    res.send({status:"False", Error:dataerr });
                                                     reject(err);
                                                 }else{
                                                     var alreadyfollowuser = true;
@@ -209,7 +209,7 @@ exports.ImpressionPosts = function(req, res) {
 
 
 exports.ChartInfo = function(req, res) {
-    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym='+ req.params.CoinCode +'&tsym=USD&limit=24&aggregate=60')
+    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym='+ req.params.CoinCode +'&tsym=USD&limit=12&aggregate=60')
         .then(response => {
             const Result = response['data'].Data;
 
@@ -257,7 +257,7 @@ exports.PredictionAdd = function(req, res) {
         res.status(400).send({status:"False", message: " User Id can not be Empty! "});
     }
     if(!req.body.Value) {
-        res.status(400).send({status:"False", message: " Prediction Valu can not be Empty! "});
+        res.status(400).send({status:"False", message: " Prediction Value can not be Empty! "});
     }
 
     console.log(new Date());
@@ -290,15 +290,15 @@ exports.GetPrediction = function(req, res) {
 
     PredictionModel.Prediction.find({'CoinId': req.params.CoinId, 'createdAt': { $gt: NewDate } }, {} , {}, function(err, result) {
         if(err) {
-            res.status(500).send({status:"False", Error:err, message: "Some error occurred while Find Commants ."});
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while Find Comments ."});
         } else {
             PredictionModel.Prediction.count({'CoinId': req.params.CoinId, 'createdAt': { $gt: NewDate }  }, function(newerr, count) {
                 if(newerr) {
-                    res.status(500).send({status:"False", Error:newerr, message: "Some error occurred while Find Commants ."});
+                    res.status(500).send({status:"False", Error:newerr, message: "Some error occurred while Find Comments ."});
                 } else {
                     PredictionModel.Prediction.find({'CoinId': req.params.CoinId, 'createdAt': { $gt: NewDate }, 'UserId': req.params.UserId  }, function(FindErr, findUser) {
                         if(FindErr) {
-                            res.status(500).send({status:"False", Error:FindErr, message: "Some error occurred while Find Commants."});
+                            res.status(500).send({status:"False", Error:FindErr, message: "Some error occurred while Find Comments."});
                         } else {
                             var UserValue = 0;
                             var UserRated = false;
