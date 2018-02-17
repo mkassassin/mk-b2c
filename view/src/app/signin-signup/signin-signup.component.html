@@ -108,10 +108,10 @@
                           <div *ngIf="SelectedCategory != ''">
                               <!-- Input Company And Profession -->
                               <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
-                                <div fxFlex="41%" [ngClass]="{ 'maxwidth-82': SelectedCategory === 'Media' }">
+                                <div fxFlex="41%" [ngClass]="{ 'maxwidth-82': SelectedCategory === 'Media' || SelectedCategory === 'Company' }">
                                   <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Industry">
                                 </div>
-                                <div *ngIf="SelectedCategory !== 'Media'" fxFlex="41%">
+                                <div *ngIf="SelectedCategory !== 'Media' && SelectedCategory !== 'Company' " fxFlex="41%">
                                   <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession">
                                 </div>
                               </div>
