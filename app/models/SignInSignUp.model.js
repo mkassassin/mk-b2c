@@ -6,6 +6,7 @@ var UserTypeSchema = mongoose.Schema({
     UserPassword: { type : String },
     UserCategoryId:{ type : String , required : true},
     UserCategoryName:{ type : String , required : true},
+    UserEmailVerifyToken: String,
     ProviderType: String,
     ProviderId:String,
     UserImage:String,

@@ -13,6 +13,7 @@ import { PageRoutingComponent } from './page-routing/page-routing/page-routing.c
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TermsComponent } from './terms/terms.component';
 import { PolicyComponent } from './policy/policy.component';
+import { SetNewpasswordComponent } from './page-routing/set-newpassword/set-newpassword.component';
 
 const appRoutes: Routes = [
     { path: '',
@@ -26,6 +27,13 @@ const appRoutes: Routes = [
         component: SigninSignupComponent,
         data: {
             animation: { value: 'SignInSignUp', }
+        },
+        canActivate: [NotAuthGuard]
+    },
+    { path: 'SetNewpassword/:UserId/:Token',
+        component: SetNewpasswordComponent,
+        data: {
+            animation: { value: 'SetNewpassword', }
         },
         canActivate: [NotAuthGuard]
     },

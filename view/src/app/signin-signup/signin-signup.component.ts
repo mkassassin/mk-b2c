@@ -11,6 +11,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
 
 import { FbSignupComponent } from './../popups/fb-signup/fb-signup.component';
+import { ForgotPasswordComponent } from './../popups/forgot-password/forgot-password.component';
+
 
 @Component({
   selector: 'app-signin-signup',
@@ -32,6 +34,7 @@ export class SigninSignupComponent implements OnInit {
   formValid: Boolean = false;
   LoginformValid: Boolean = false;
   SignUpType: any;
+  NewPasswordSet: any;
 
   countries: any[]= [{'name': 'Country One', 'code': '01'},
                     {'name': 'Country Two', 'code': '02'}];
@@ -76,6 +79,8 @@ export class SigninSignupComponent implements OnInit {
                 this.bsConfig = Object.assign({}, { containerClass: this.colorTheme, dateInputFormat: 'DD/MM/YYYY' });
 
                 this.SignUpType = this.ShareingService.GetSingUpType();
+
+                this.NewPasswordSet = this.ShareingService.GetNewPassword();
                }
 
   user: SocialUser;
@@ -115,6 +120,20 @@ export class SigninSignupComponent implements OnInit {
         this.UserEmailAvailabel = false;
         this.RegisterForm.controls['UserEmail'].setValue(this.ActiveTab['Email']);
       }
+    }
+
+    if (this.NewPasswordSet['UserId'] !== '' && this.NewPasswordSet['Token'] !== '') {
+      const ForgotPasswordDialogRef = this.dialog.open( ForgotPasswordComponent,
+        { disableClose: true, minWidth: '40%', position: {top: '50px'},
+        data: { Type: 'SetNewPassword', UserId: this.NewPasswordSet['UserId'], Token: this.NewPasswordSet['Token']  } });
+        ForgotPasswordDialogRef.afterClosed().subscribe(result => {
+          if ( result === 'SinginSuccess' ) {
+            this.router.navigate(['Feeds']);
+          } else {
+            this.ActiveTabIndex = 1;
+          }
+          this.ShareingService.SetNewPassword('', '');
+        });
     }
 
   }
@@ -263,8 +282,9 @@ export class SigninSignupComponent implements OnInit {
 
   FormSubmitStatus(data) {
     if (data.status === 'True') {
-      this.ActiveTabIndex = 1;
-      this.SignInForm.controls['UserEmail'].setValue(data.UserEmail);
+      this.SignInForm.controls['LoginUserEmail'].setValue(this.RegisterForm.value.UserE);
+      this.SignInForm.controls['LoginUserPassword'].setValue(this.RegisterForm.value.UserPassword);
+      this.LoginFormsubmit();
     }
   }
 
@@ -280,6 +300,19 @@ export class SigninSignupComponent implements OnInit {
       alert(data.message);
     }
 
+  }
+
+
+
+  ForgotPassword() {
+
+    let userEmailAdd = '';
+    if (this.SignInForm.value.LoginUserEmail !== '') {
+       userEmailAdd = this.SignInForm.value.LoginUserEmail;
+    }
+    const ForgotPasswordDialogRef = this.dialog.open( ForgotPasswordComponent,
+      { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: 'ForgotPassword', Email: userEmailAdd } });
+      ForgotPasswordDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
 
@@ -309,7 +342,7 @@ export class SigninSignupComponent implements OnInit {
 
   EmailAnalyze(newdatas: any) {
     if (newdatas.available === 'False') {
-      alert('Your Facebook E-mail Already Registerd! please SignIn.');
+      alert('Your Facebook E-mail Already Registered! please SignIn.');
       this.ActiveTabIndex = 1;
       this.SignInForm.controls['LoginUserEmail'].setValue(this.user.email);
       this.authService.signOut();

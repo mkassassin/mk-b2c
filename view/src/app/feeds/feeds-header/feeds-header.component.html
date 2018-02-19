@@ -127,7 +127,7 @@
                         <div class="mt-10" fxFlex>
                             <p class="notifycategory"> <span class="username"> {{Notify.UserName}}  </span>
                                     <span *ngIf="Notify.NotificationType == 0"> Followed You 
-                                            <span (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View User... </span> 
+                                            <span (click)="RemoveNotifyAfterProfile(Notify._id, i, Notify.UserId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View User... </span> 
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 5" > Written a New Highlight Post  
                                         <span (click)="OpenModelHighlightsPost(Notify.HighlightPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
@@ -148,7 +148,7 @@
                                             <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
                                     <span *ngIf="Notify.NotificationType == 1"> Unfollow to You
-                                            <span (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View User... </span> 
+                                            <span (click)="RemoveNotifyAfterProfile(Notify._id, i, Notify.UserId)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View User... </span> 
                                     </span>
                             </p>
                             <p class="notifydate"> {{Notify.NotificationDate | timeAgo }}  </p>

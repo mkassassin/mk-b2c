@@ -9,7 +9,7 @@
         </div>
       </div>
   </div>
-  <div class="" fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-evenly" fxLayoutGap="5%" fxLayoutGap.sm="0">
+  <div class="" fxLayout="row" fxLayoutAlign="space-evenly" fxLayoutGap="5%" fxLayoutGap.sm="0">
     <!-- Left Bar -->
     <div fxFlex="40%" class="">
 
@@ -167,7 +167,7 @@
                 
                           <!--  Submit Button -->
                           <div class="text-center mt-10 pb-10">
-                              <p class="textStyle-3 mb-5"> <small> By signing up, you agree to the <span routerLink="/terms" style="cursor:pointer; color:#fff"> terms </span> and <span routerLink="/privacy" style="cursor:pointer; color:#fff"> privacy policy </span> . </small> </p>
+                              <p class="textStyle-3 mb-5"> <small> By signing up, you agree to the <span routerLink="/terms" style="cursor:pointer;text-decoration: underline;"> terms </span> and <span routerLink="/privacy" style="cursor:pointer; text-decoration: underline;"> privacy policy </span> . </small> </p>
                             <button [disabled]="!formValid" type="submit" [ngClass]="{'disabled': !formValid}" class="btn-flat btn btn-cutom"> Register </button>
                           </div>
 
@@ -219,7 +219,7 @@
                             </div>
               
                             <div class="col-sm-12 text-center">
-                                <p class="textStyle-1 text-white"> Forgot Password !!  </p>
+                                <p (click)="ForgotPassword()" class="textStyle-1 text-white" style="cursor:pointer"> Forgot Password !!  </p>
                             </div>
                           
                             </form>

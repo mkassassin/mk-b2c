@@ -133,7 +133,7 @@
 }
 
 /* Example Media Queries */
-@media screen and (max-width: 65.375em) {
+/* @media screen and (max-width: 65.375em) {
 
 	.cbp_tmtimeline > li .cbp_tmtime span:last-child {
 		font-size: 1.5em;
@@ -182,4 +182,4 @@
 		margin: -55px 5px 0 0px;
 	}	
 }
-
+ */

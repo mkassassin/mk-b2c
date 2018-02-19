@@ -91,6 +91,10 @@ import { ReportUserComponent } from './popups/report-user/report-user.component'
 import { ReportPostComponent } from './popups/report-post/report-post.component';
 import { ReportAndDeleteService } from './service/report-and-delete-service/report-and-delete.service';
 import { DeleteConfirmComponent } from './popups/delete-confirm/delete-confirm.component';
+import { ForgotPasswordComponent } from './popups/forgot-password/forgot-password.component';
+import { SetNewpasswordComponent } from './page-routing/set-newpassword/set-newpassword.component';
+import { EditProfileComponent } from './popups/edit-profile/edit-profile.component';
+import { ProfilePrivacyComponent } from './popups/profile-privacy/profile-privacy.component';
 
 
 @NgModule({
@@ -133,7 +137,11 @@ import { DeleteConfirmComponent } from './popups/delete-confirm/delete-confirm.c
     SelectMoreTopicsComponent,
     ReportUserComponent,
     ReportPostComponent,
-    DeleteConfirmComponent
+    DeleteConfirmComponent,
+    ForgotPasswordComponent,
+    SetNewpasswordComponent,
+    EditProfileComponent,
+    ProfilePrivacyComponent
   ],
   imports: [
     CommonModule,
@@ -198,7 +206,10 @@ import { DeleteConfirmComponent } from './popups/delete-confirm/delete-confirm.c
                     SelectMoreTopicsComponent,
                     ReportUserComponent,
                     ReportPostComponent,
-                    DeleteConfirmComponent
+                    DeleteConfirmComponent,
+                    ForgotPasswordComponent,
+                    EditProfileComponent,
+                    ProfilePrivacyComponent
                   ]
 })
 export class AppModule { }

@@ -1,0 +1,317 @@
+
+.EditProfile .text-color{
+    color: #333333;
+}
+
+.headerInfo{
+    text-align: center;
+    margin-top: -17px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.EditProfile{
+    color: #666666;
+    position: relative;
+}
+    
+    /* Index Page Header Design  */
+    
+.EditProfile .logoDesign-1{
+        height: 40px;;
+    }
+.EditProfile .linkStyle-1{
+        font-weight: 700;
+        font-size: 16px;
+        margin-right: 20px;
+        border: 1px solid #ffffff;
+        padding: 2px 12px;
+        letter-spacing: 1px;
+    }
+.EditProfile .linkStyle-1:hover,
+.EditProfile .linkStyle-1:active,
+.EditProfile .linkStyle-1:focus{
+    background-color: #ffffff;
+    color: #FFDA00;
+    }
+
+.EditProfile .form-header{
+    font-size: 25px;
+    font-weight: 800;
+    color: #666666;
+}
+
+.EditProfile .form-header.inActive{
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 40px;
+}
+
+.EditProfile .inputStyle-1{
+    margin-bottom: 15px;
+    height: 42px;
+    width: 85%;
+    border: none;
+    box-shadow: 0px 2px 4px #383636b5;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding-left: 10px;
+    color: #333333;
+}
+.EditProfile .inputStyle-1::-webkit-input-placeholder {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}   
+.EditProfile .inputStyle-1:-moz-placeholder { /* Firefox 18- */
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+} 
+.EditProfile .inputStyle-1::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important; 
+}    
+.EditProfile .inputStyle-1:-ms-input-placeholder {  
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}
+
+.EditProfile .cat-img-item img{
+    width: 45px;
+    height: 45px;
+    margin-bottom: 0px;
+    border-radius: 50px;
+}
+.EditProfile .cat-img-item .catName{
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #333333;
+    letter-spacing: 0.2px;
+}
+.EditProfile .cat-img-item .catSelect{
+    right: -5px;
+    position: absolute;
+    top: -5px;
+}
+.EditProfile .cat-img-item{
+    position: relative;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    background-color: #c1bb9640;
+    line-height: 20px;
+    border-radius: 50px;
+}
+
+.EditProfile .cat-img-item.selected img{
+    border: 5px double #333333;
+}
+
+.EditProfile .inputStyle-2{
+    margin-bottom: 5px;
+    height: 38px;
+    width: 100%;
+    border: none;
+    box-shadow: 0px 2px 4px #383636b5;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+    letter-spacing: 0.4px;
+    color: #333333;
+}
+.EditProfile .inputStyle-2::-webkit-input-placeholder {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}   
+.EditProfile .inputStyle-2:-moz-placeholder { /* Firefox 18- */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+} 
+.EditProfile .inputStyle-2::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important; 
+}    
+.EditProfile .inputStyle-2:-ms-input-placeholder {  
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #33333354 !important;
+    font-family: unset !important;
+}
+.EditProfile .gender-select{
+    display: inline-flex;
+    width: 100%
+}
+.EditProfile .gender-select .tick{
+    font-size: 11px;
+    font-weight: 500;
+    color: #333333;
+    width: 25%;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+}
+.EditProfile .gender-select .tick img{
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    background: #fff;
+}
+.EditProfile .gender-select .tick p{
+    margin: 2px 0px 0px 0px;
+}
+.EditProfile .gender-select .tick img.p-13{
+    padding: 13px;
+}
+.EditProfile .btn-cutom{
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    font-size: 16px;
+    outline: transparent;
+}
+.EditProfile .btn-cutom:hover{
+    color: #fff;
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+}
+.EditProfile .btn-cutom:focus{
+    box-shadow: none;
+}
+.height-60{
+    height: 60px
+}
+
+
+.EditProfile .textStyle-2{
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    word-spacing: 2px;
+    margin-top: 30px;
+    text-align: justify;
+    text-align-last: center;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+.EditProfile .imgStyle-2{
+    width: 80px;
+}
+
+
+
+.EditProfile .linkStyle-4{
+    margin: 5px;
+    width: 45px;
+    height: 45px;
+    border: 3px solid royalblue;
+    border-radius: 40px;
+    background-color: #fff;
+    text-align: center;
+}
+.EditProfile .linkStyle-4 i{
+    background-color: royalblue;
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    line-height: 35px;
+    font-size: 17px;
+    margin-top: 2px;
+    color: #ffffff;
+}
+.EditProfile .linkStyle-4.facebook i{
+    background-color: #3B5999 !important;
+}
+.EditProfile .linkStyle-4.twitter i{
+    background-color: #1DA1F2 !important;
+}
+.EditProfile .linkStyle-4.linkedin i{
+    background-color: #0077B5 !important;
+}
+.EditProfile .linkStyle-4.googlePlus i{
+    background-color: #DC4437 !important;
+}
+
+
+.EditProfile .linkStyle-4.facebook{
+    border-color: #3B5999 !important;
+}
+.EditProfile .linkStyle-4.twitter{
+    border-color: #1DA1F2 !important;
+}
+.EditProfile .linkStyle-4.linkedin{
+    border-color: #0077B5 !important;
+}
+.EditProfile .linkStyle-4.googlePlus{
+    border-color: #DC4437 !important;
+}
+
+
+.EditProfile .linkStyle-3{
+    text-decoration: none;
+    color: #666666;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.EditProfile .textStyle-1{
+    font-size: 15px;
+    font-weight: 600;
+    color: gray;
+}
+.EditProfile .textStyle-3{
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.btn.disabled, .btn:disabled{
+    cursor: not-allowed
+}
+
+.textgreen{
+    color: green;
+}
+.alertStyle-1{
+    text-align: left;
+    font-size: 13px;
+    margin-left: 8% !important;
+    margin-bottom: 0px;
+    margin-top: -5px;
+}

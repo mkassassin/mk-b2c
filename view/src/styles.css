@@ -170,3 +170,53 @@ html, body {
 .html5gallery>div{
     background:  #ffffff !important;
 }
+
+
+
+.mat-dialog-container{
+    min-width: 700px;
+    overflow: scroll;
+}
+.cdk-global-overlay-wrapper{
+    overflow: scroll;
+}
+
+@media screen and (max-width: 1202px) {
+    .cdk-overlay-pane {
+       right: 30px !important;
+    }
+    .MatMenuUserView{
+        margin-right: 22px;
+    }
+    .MatMenuNotification{
+        margin-right: 75px;
+    }
+    .MatMenuReportView{
+        max-width: 150px !important;
+    }
+    .col-sm-4 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+    .col-sm-8 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+    }
+}
+
+
+
+
+
+.mat-expansion-panel-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 24px;
+    background-color: #ffda00 !important;
+    height: 50px !important;
+}

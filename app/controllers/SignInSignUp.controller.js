@@ -4,15 +4,17 @@ var FollowModel = require('../models/Follow.model.js');
 
 
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
+
+var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
     auth: {
-      user: 'kathiraashi@gmail.com',
-      pass: 'kathiraashi123'
+        user: "kathiraashi@gmail.com",
+        pass: "kathiraashi123"
     }
-  });
-  
-  var usersProjection = { 
+});
+
+var rand,mailOptions,host,link;
+  var usersProjection = {
     __v: false,
     UserEmail: false,
     UserPassword: false,
@@ -20,12 +22,89 @@ var transporter = nodemailer.createTransport({
     UserState: false,
     UserCity: false,
     UserDateOfBirth: false,
+    UserEmailVerifyToken: false,
     UserGender: false,
     createdAt: false,
     updatedAt: false,
     Provider: false,
     ProviderType: false,
     ProviderId: false,
+};
+
+exports.SendFPVerifyEmail = function(req, res) {
+        UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, data) {
+            if(err) {
+                res.status(500).send({status:"False", Error:err, message: "Some error occurred while Validate The E-mail."});
+            } else {
+                if(data === null){
+                    res.send({ status:"False", message: "Account is Not Available." });
+                }else{
+                   var rand=Math.floor((Math.random() * 100) + 54);
+                    link = "http://localhost:4200/SetNewpassword/" + data._id + "/" + rand;
+                    mailOptions = {
+                        to: req.params.email,
+                        subject: "Please confirm your Email account",
+                        html: "Hello,<br> Please Click on the link to verify your email And Reset Your Password.<br><a href=" + link + ">Click here to verify</a>"
+                    }
+                    smtpTransport.sendMail(mailOptions, function (error, response) {
+                        if (error) {
+                            res.send({ status:"False", Error: error,  message: "Some error occurred" });
+                        } else {
+                            data.UserEmailVerifyToken = rand;
+                            data.save(function (newerr, newresult) {
+                                if (newerr){
+                                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UserEmailVerifyToken ."});
+                                }else{
+                                    res.send({ status:"True", data:response });
+                                }
+                            });
+                        }
+                    });
+                } 
+            }
+        }); 
+};
+
+exports.NewPasswordEmailValidate = function(req, res) {
+    UserModel.UserType.findOne({'_id': req.params.UserId, 'UserEmailVerifyToken': req.params.token}, "_id UserEmail UserPassword ", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null){
+                UserModel.UserType.findOne({'_id': req.params.UserId}, function(err, result) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while Validate The User."});
+                    } else {
+                        if(result !== null){
+                            res.send({ status:"False", message: " Token Expired! " });
+                        }else{
+                            res.send({ status:"False", message: " User Not Find! " });
+                        } 
+                    }
+                });
+            }else{
+                res.send({ status:"True", data:data });
+            } 
+        }
+    });
+};
+
+exports.UpdatePassword = function(req, res) {
+    UserModel.UserType.findOne({'_id': req.body.UserId, 'UserEmailVerifyToken': req.body.token}, "_id UserEmail UserPassword UserEmailVerifyToken", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            data.UserEmailVerifyToken = '';
+            data.UserPassword = req.body.NewPassword;
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UserEmailVerifyToken ."});
+                }else{
+                    res.send({ status:"True" });
+                }
+            });
+        }
+    });
 };
 
 exports.Register = function(req, res) {
@@ -67,6 +146,38 @@ exports.Register = function(req, res) {
     });
 };
 
+exports.ProfileUpdate = function(req, res) {
+    if(!req.body.UserName) {
+        res.status(400).send({status:"False", message: " Name can not be Empty! " });
+    }
+    if(!req.body.UserEmail){
+        res.status(400).send({status:"False", message: " E-mail can not be Empty! " });
+    }
+
+    UserModel.UserType.findOne({'_id': req.body.UserId}, {}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            
+            data.UserName = req.body.UserName;
+            data.UserCompany = req.body.UserCompany;
+            data.UserProfession = req.body.UserProfession;
+            data.UserDateOfBirth = req.body.UserDateOfBirth;
+            data.UserGender = req.body.UserGender;
+            data.UserCountry = req.body.UserCountry;
+            data.UserState = req.body.UserState;
+            data.UserCity = req.body.UserCity;
+
+            data.save(function(err, result) {
+                if(err) {
+                    res.status(500).send({status:"False", Error:err, message: "Some error occurred while Update the Account."});            
+                } else {
+                    res.send({status:"True", data: result });
+                }
+            });
+        }
+    });
+};
 
 exports.NameValidate = function(req, res) {
         UserModel.UserType.findOne({'UserName': req.params.name.toLowerCase()}, function(err, data) {
@@ -116,6 +227,16 @@ exports.UserValidate = function(req, res) {
             }else{
                 res.send({ status:"True", message: "Sign In Successfully", data:data });
             } 
+        }
+    });
+};
+
+exports.UserInfo = function(req, res) {
+    UserModel.UserType.findOne({'_id': req.params.UserId}, "_id UserName UserEmail UserCategoryId UserGender UserDateOfBirth UserCountry UserState UserCity UserCategoryName UserImage UserProfession UserCompany UserGender", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            res.send({ status:"True", data: data });
         }
     });
 };
@@ -180,7 +301,7 @@ exports.GetNotification = function(req, res) {
                         return new Promise(( resolve, reject )=>{
                             UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, FollowesData) {
                                 if(err) {
-                                    res.send({status:"Fale", Error:err });
+                                    res.send({status:"False", Error:err });
                                     reject(err);
                                 } else {
                                     var newArray = [];
@@ -216,7 +337,7 @@ exports.GetNotification = function(req, res) {
                       };
             
                 }else{
-                res.send({status:"True", message:'Un Read Notifications Empty.' });
+                res.send({status:"True", message:'Unread Notifications Empty.' });
                 }
             }
         });
@@ -229,11 +350,11 @@ exports.GetUserInfo = function(req, res) {
         } else {
             FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
                 if(newerr){
-                    res.send({status:"Fale", Error:newerr });
+                    res.send({status:"False", Error:newerr });
                 }else{
                     FollowModel.FollowUserType.find({'UserId': req.params.LoginUserId, 'FollowingUserId': data._id }, function(someerr, findresult) {
                         if(someerr){
-                            res.send({status:"Fale", Error:someerr });
+                            res.send({status:"False", Error:someerr });
                         }else{
                             var UserFollow = false;
                             var FollowDbId = '';
@@ -264,7 +385,6 @@ exports.GetUserInfo = function(req, res) {
         }
     });
 };
-
 
 exports.RemoveNotification = function(req, res) {
     NotificationModel.Notification.findOne({'_id': req.params.NotifyId}, {}, function(err, data) {

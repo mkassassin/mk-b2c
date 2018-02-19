@@ -11,6 +11,16 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/UserValidate/:email/:password', user.UserValidate);
 
+    app.get('/API/SigninSignup/UserInfo/:UserId', user.UserInfo);
+
+    app.post('/API/SigninSignup/ProfileUpdate', user.ProfileUpdate);
+
+    app.get('/API/SigninSignup/SendFPVerifyEmail/:email', user.SendFPVerifyEmail);
+
+    app.get('/API/SigninSignup/NewPasswordEmailValidate/:UserId/:token', user.NewPasswordEmailValidate);
+
+    app.post('/API/SigninSignup/UpdatePassword', user.UpdatePassword);
+
     app.get('/API/SigninSignup/FBUserValidate/:email/:fbid', user.FBUserValidate);
 
     app.get('/API/SigninSignup/GetNotification/:UserId', user.GetNotification);

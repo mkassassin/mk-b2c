@@ -65,6 +65,35 @@ export class SigninSignupServiceService {
         .catch(this.handleError);
     }
 
+    public SendFPVerifyEmail(email: any) {
+        return this.http .get(API_URL + 'SendFPVerifyEmail/' + email)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public NewPasswordEmailValidate(email: any, token: any) {
+        return this.http .get(API_URL + 'NewPasswordEmailValidate/' + email + '/' + token)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public UpdatePassword( data: any) {
+        return this.http .post(API_URL + 'UpdatePassword', data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public ProfileUpdate( data: any) {
+        return this.http .post(API_URL + 'ProfileUpdate', data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public UserInfo(UserId: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'UserInfo/' + UserId )
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
     public GetUserInfo(UserId: any, LoginUserId: any): Observable<any[]>  {
         return this.http .get(API_URL + 'GetUserInfo/' + UserId + '/' + LoginUserId)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);

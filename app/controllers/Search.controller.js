@@ -16,6 +16,7 @@ var usersProjection = {
     UserCountry: false,
     UserState: false,
     UserCity: false,
+    UserEmailVerifyToken: false,
     UserDateOfBirth: false,
     UserGender: false,
     createdAt: false,

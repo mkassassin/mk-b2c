@@ -112,14 +112,14 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenQuestionModel() {
     const PostTwoDialogRef = this.dialog.open(PostTwoComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Creat Form' } });
+      {disableClose: true, position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Create Form' } });
     PostTwoDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
 
 
   OpenHighlightsModel() {
     const PostOneDialogRef = this.dialog.open( PostOneComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Creat Form' } });
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Create Form' } });
     PostOneDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
 
@@ -173,7 +173,7 @@ export class FeedsHeaderComponent implements OnInit {
     }else if (result === 'Created') {
       alert('Topic Created Successfully');
     }else {
-      console.log('Post Submited');
+      console.log('Post Submitted');
     }
   }
 
@@ -207,6 +207,19 @@ RemoveNotify(Id, arrIndex) {
       }
     });
 }
+
+RemoveNotifyAfterProfile(Id, arrIndex, UserId) {
+  this.NotifyService.RemoveNotification(Id)
+  .subscribe( datas => {
+      if (datas['status'] === 'True') {
+        this.NotificationList.splice(arrIndex, 1);
+        this.GotoProfile(UserId);
+      }else {
+        console.log(datas);
+      }
+    });
+}
+
   GotoMyProfile() {
     this.ShareingService.SetProfilePage('');
     this.router.navigate(['ViewProfile']);

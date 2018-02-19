@@ -101,3 +101,17 @@
     font-size: 32px;
     cursor: pointer;
 }
+
+
+.settingsButton{
+    width: 50%;
+    text-align: center;
+}
+.settingsButton p{
+    margin: 10% 5%;
+    border: 2px solid #ffda00;
+    font-size: 13px;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 3px 0px;
+    cursor: pointer;
+}

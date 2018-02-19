@@ -6,6 +6,10 @@ import { DataSharedVarServiceService } from './../../service/data-shared-var-ser
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
 import { ProfilePictureCropperComponent } from './../../popups/profile-picture-cropper/profile-picture-cropper.component';
+import { EditProfileComponent } from './../../popups/edit-profile/edit-profile.component';
+import { ProfilePrivacyComponent } from './../../popups/profile-privacy/profile-privacy.component';
+
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-profile-left-bar',
@@ -32,7 +36,10 @@ export class ProfileLeftBarComponent implements OnInit {
   LoginUserFollow: Boolean = false;
   UserInfoLoading: Boolean = true;
 
+  LoginUserInfo;
+
   constructor(private cdRef: ChangeDetectorRef,
+    public snackBar: MatSnackBar,
       private router: Router,
       private FollowService: FollowServiceService,
       private ShareingService: DataSharedVarServiceService,
@@ -42,13 +49,12 @@ export class ProfileLeftBarComponent implements OnInit {
 
       const ProfilePage =  this.ShareingService.GetProfilePage();
 
-      console.log(ProfilePage);
+       this.LoginUserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
-      const LoginUserIn = JSON.parse(localStorage.getItem('currentUser'));
-      if (ProfilePage.UserId !== '' && ProfilePage.UserId !== LoginUserIn.data._id ) {
+      if (ProfilePage.UserId !== '' && ProfilePage.UserId !== this.LoginUserInfo.data._id ) {
         this.UserId = ProfilePage.UserId;
         this.LoginUser = false;
-          this.UserService.GetUserInfo(this.UserId, LoginUserIn.data._id )
+          this.UserService.GetUserInfo(this.UserId, this.LoginUserInfo.data._id )
           .subscribe( datas => {
               if (datas['status'] === 'True') {
                 this.UserInfo = datas;
@@ -84,7 +90,6 @@ export class ProfileLeftBarComponent implements OnInit {
               this.LoderTwo = false ;
             }else {
               this.LoderTwo = false ;
-              console.log(userdatas);
             }
         });
 
@@ -95,7 +100,6 @@ export class ProfileLeftBarComponent implements OnInit {
               this.LoderOne = false ;
             }else {
               this.LoderOne = false ;
-              console.log(userFollowdatas);
             }
         });
 
@@ -120,8 +124,8 @@ export class ProfileLeftBarComponent implements OnInit {
 
 
     followUser(Id: String) {
-      const LoginUserInfo = JSON.parse(localStorage.getItem('currentUser'));
-      const data =  { 'UserId' : LoginUserInfo.data._id, 'FollowingUserId' : this.UserInfo['data']._id };
+      this.LoginUserInfo = JSON.parse(localStorage.getItem('currentUser'));
+      const data =  { 'UserId' : this.LoginUserInfo.data._id, 'FollowingUserId' : this.UserInfo['data']._id };
         this.FollowService.FollowUser(data)
           .subscribe( datas => {
             if (datas['status'] === 'True') {
@@ -155,6 +159,56 @@ export class ProfileLeftBarComponent implements OnInit {
     this.router.navigate(['ViewProfile']);
   }
 
+
+  EditProfile() {
+    const EditProfileDialogRef = this.dialog.open( EditProfileComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+      EditProfileDialogRef.afterClosed().subscribe( result => {
+        if ( result === 'Success' ) {
+          this.LoginUserInfo.data.UserCompany = result.data.UserCompany;
+          this.LoginUserInfo.data.UserCompany = result.data.UserProfession;
+        }else if ( result === 'Close' ) {
+          this.snackBar.open( 'Profile Edit Closed ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }else {
+          this.snackBar.open( 'Profile Update Failed ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }
+      });
+  }
+
+
+  PrivacySettings() {
+    const ProfilePrivacyDialogRef = this.dialog.open( ProfilePrivacyComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+      ProfilePrivacyDialogRef.afterClosed().subscribe( result => {
+        if ( result === 'Success' ) {
+          this.snackBar.open( 'Profile Privacy Updated ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }else if ( result === 'Close' ) {
+          this.snackBar.open( 'Profile Edit Closed ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }else {
+          this.snackBar.open( 'Profile Update Failed ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }
+      });
+  }
 
 
 }

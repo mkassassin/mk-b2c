@@ -1,15 +1,18 @@
 import { Component, Directive, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
-import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+
+import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
 
 @Component({
-  selector: 'app-fb-signup',
-  templateUrl: './fb-signup.component.html',
-  styleUrls: ['./fb-signup.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class FbSignupComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
+
+  colorTheme = 'theme-orange';
 
   ActiveGender: String = 'Male';
   SelectedCategory: String = '';
@@ -48,25 +51,25 @@ export class FbSignupComponent implements OnInit {
   filteredcities: any[];
   city: String;
 
-  RegisterForm: FormGroup;
+  Form: FormGroup;
+  UserInfo;
 
-  constructor(private router: Router,
+  bsConfig: Partial<BsDatepickerConfig>;
+
+  constructor(
     private Service: SigninSignupServiceService,
-    private dialogRef: MatDialogRef<FbSignupComponent>,
+    private dialogRef: MatDialogRef<EditProfileComponent>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private data: any) {
-
+      this.bsConfig = Object.assign({}, { containerClass: this.colorTheme, dateInputFormat: 'DD/MM/YYYY' });
+      this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
      }
 
   ngOnInit() {
-    this.RegisterForm = new FormGroup({
-      UserName: new FormControl(this.data['Values'].name, Validators.required ),
-      UserEmail: new FormControl(this.data['Values'].email, Validators.required),
-      UserCategoryId: new FormControl('',  Validators.required),
-      UserCategoryName: new FormControl('', Validators.required),
-      ProviderType: new FormControl('FaceBook', Validators.required),
-      ProviderId: new FormControl(this.data['Values'].id, Validators.required),
-      UserImage: new FormControl(this.data['Values'].photoUrl),
+    this.Form = new FormGroup({
+      UserId: new FormControl(this.UserInfo.data._id, Validators.required ),
+      UserName: new FormControl('', Validators.required ),
+      UserEmail: new FormControl('', Validators.required),
       UserCompany: new FormControl(''),
       UserProfession: new FormControl(''),
       UserDateOfBirth: new FormControl(''),
@@ -75,64 +78,37 @@ export class FbSignupComponent implements OnInit {
       UserState: new FormControl(''),
       UserCity: new FormControl('')
     });
-    this.ChekUserNameAvailabel();
-    this.ChekUserEmailAvailabel();
+    this.Service.UserInfo(this.UserInfo.data._id).subscribe( datas => { this.setFormValues(datas); } );
   }
 
 
-  ChekUserNameAvailabel() {
-    if (this.RegisterForm.value.UserName !== '') {
-      this.Service.NameValidate(this.RegisterForm.value.UserName).subscribe( datas => { this.gotoNameAnalyze(datas); } );
-    }
+  setFormValues(datas) {
+    this.Form.controls['UserName'].setValue(datas.data.UserName);
+    this.Form.controls['UserEmail'].setValue(datas.data.UserEmail);
+    this.Form.controls['UserCompany'].setValue(datas.data.UserCompany);
+    this.Form.controls['UserProfession'].setValue(datas.data.UserProfession);
+    this.Form.controls['UserDateOfBirth'].setValue(datas.data.UserDateOfBirth);
+    this.Form.controls['UserGender'].setValue(datas.data.UserGender);
+    this.Form.controls['UserCountry'].setValue(datas.data.UserCountry);
+    this.Form.controls['UserState'].setValue(datas.data.UserState);
+    this.Form.controls['UserCity'].setValue(datas.data.UserCity);
+
+    this.CategorySelect(datas.data.UserCategoryName, datas.data.UserCategoryId);
+    this.genderSelect(datas.data.UserGender);
   }
 
-  ChekUserEmailAvailabel() {
-    if (this.RegisterForm.value.UserEmail !== '') {
-      this.Service.EmailValidate(this.RegisterForm.value.UserEmail).subscribe( datas => { this.gotoEmailAnalyze(datas); } );
-    }
-  }
 
-  gotoNameAnalyze(datas: any) {
-    if (datas.available === 'False') {
-      this.UserNameNotAvailabel = true;
-      this.UserNameAvailabel = false;
-    }else {
-      this.UserNameNotAvailabel = false;
-      this.UserNameAvailabel = true;
-      this.checkFormValidation();
-    }
-  }
 
-  gotoEmailAnalyze(datas: any) {
-    if (datas.available === 'False') {
-      this.UserEmailNotAvailabel = true;
-      this.UserEmailAvailabel = false;
-    }else {
-      this.UserEmailNotAvailabel = false;
-      this.UserEmailAvailabel = true;
-      this.checkFormValidation();
-    }
-  }
+
 
 
   CategorySelect(name: String, id: Number) {
-    this.RegisterForm.controls['UserGender'].setValue('Male');
-    if (this.SelectedCategory === name) {
-      this.SelectedCategory = '';
-      this.RegisterForm.controls['UserCategoryName'].setValue('');
-      this.RegisterForm.controls['UserCategoryId'].setValue('');
-      this.checkFormValidation();
-    }else {
       this.SelectedCategory = name;
-      this.RegisterForm.controls['UserCategoryName'].setValue(name);
-      this.RegisterForm.controls['UserCategoryId'].setValue(id);
-      this.checkFormValidation();
-    }
   }
 
   genderSelect(Gender) {
     this.ActiveGender = Gender;
-    this.RegisterForm.controls['UserGender'].setValue(Gender);
+    this.Form.controls['UserGender'].setValue(Gender);
     this.checkFormValidation();
   }
 
@@ -200,14 +176,11 @@ export class FbSignupComponent implements OnInit {
   }
 
   checkFormValidation() {
-    if ( this.RegisterForm.value.UserName !== '' &&
-        this.RegisterForm.value.UserEmail !== '' &&
-        this.RegisterForm.value.UserCategoryId !== '' &&
-        this.RegisterForm.value.UserCategoryName !== '' &&
-        this.UserEmailAvailabel && this.UserNameAvailabel ) {
-          this.formValid = true;
+    if ( this.Form.value.UserName !== '' &&
+        this.Form.value.UserEmail !== '') {
+        this.formValid = true;
     }else {
-      this.formValid = false;
+        this.formValid = false;
     }
   }
 
@@ -215,16 +188,10 @@ export class FbSignupComponent implements OnInit {
     this.checkFormValidation();
     if (this.formValid) {
       this.formValid = true;
-      this.Service.Register(this.RegisterForm.value).subscribe( datas => { this.FormSubmitStatus(datas); } );
+      this.Service.ProfileUpdate(this.Form.value).subscribe( datas => { this.goto(datas); } );
     }
   }
 
-  FormSubmitStatus(datas) {
-    if (datas.status === 'True') {
-      this.Service.FBUserValidate(datas.data.UserEmail, datas.data.ProviderId)
-      .subscribe( newdatas => { this.goto(newdatas); } );
-    }
-  }
 
   goto(datas) {
     if (datas.status === 'True') {
@@ -239,5 +206,4 @@ export class FbSignupComponent implements OnInit {
   close() {
     this.dialogRef.close('Close');
   }
-
 }

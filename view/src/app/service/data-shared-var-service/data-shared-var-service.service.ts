@@ -6,6 +6,7 @@ export interface ActiveSinInsignUpTab { ActiveTab: String; Email: String; }
 
 export interface SingUpType { Type: String; Values: any; }
 
+export interface NewPassword { UserId: String; Token: any; }
 export interface ProfilePage { UserId: String; Other: String; }
 
 @Injectable()
@@ -33,6 +34,10 @@ export class DataSharedVarServiceService {
   GetProfilePage() { return this.StoreProfilePage; }
 
 
+
+  StoreNewPassword: NewPassword = { UserId : '', Token : '' };
+  SetNewPassword(UserId, Token) {this.StoreNewPassword.UserId = UserId; this.StoreNewPassword.Token = Token; }
+  GetNewPassword() { return this.StoreNewPassword; }
 
 
 }
