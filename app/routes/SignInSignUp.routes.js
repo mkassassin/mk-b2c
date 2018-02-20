@@ -21,6 +21,10 @@ module.exports = function(app) {
 
     app.post('/API/SigninSignup/UpdatePassword', user.UpdatePassword);
 
+    app.post('/API/SigninSignup/ChangePassword', user.ChangePassword);
+
+    app.post('/API/SigninSignup/PrivacyUpdate', user.PrivacyUpdate);
+
     app.get('/API/SigninSignup/FBUserValidate/:email/:fbid', user.FBUserValidate);
 
     app.get('/API/SigninSignup/GetNotification/:UserId', user.GetNotification);

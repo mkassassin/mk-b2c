@@ -31,6 +31,12 @@ export class TrendsService {
         .catch(this.handleError);
     }
 
+    public ImpressionUpdate(data: any) {
+        return this.http.post(API_URL + 'ImpressionUpdate', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
     public ImpressionPosts(CoinId: any, UserId: any): Observable<any[]> {
         return this.http.get(API_URL + 'ImpressionPosts/' + CoinId + '/' + UserId )
         .map(response => { const datas = response.json(); return datas; })

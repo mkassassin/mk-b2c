@@ -16,7 +16,10 @@ var UserTypeSchema = mongoose.Schema({
     UserGender:String,
     UserCountry:Array,
     UserState:Array,
-    UserCity:Array
+    UserCity:Array,
+    ShowEmail:String,
+    ShowDOB:String,
+    ShowLocation:String
     }, 
     { timestamps: true }
 );

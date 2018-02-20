@@ -6,6 +6,8 @@ module.exports = function(app) {
 
     app.post('/API/Trends/ImpressionAdd', Trends.ImpressionAdd);
 
+    app.post('/API/Trends/ImpressionUpdate', Trends.ImpressionUpdate);
+
     app.get('/API/Trends/ImpressionPosts/:CoinId/:UserId', Trends.ImpressionPosts);
 
     app.get('/API/Trends/ChartInfo/:CoinCode', Trends.ChartInfo);

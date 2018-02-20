@@ -102,7 +102,29 @@ exports.HighlightsCommentAdd = function(req, res) {
     });   
 };
 
+exports.CommentUpdate = function(req, res) {
+    if(!req.body._id) {
+        res.status(400).send({status:"False", message: " Post can not be Empty! "});
+    }
+    if(!req.body.CommentText) {
+        res.status(400).send({status:"False", message: " Comment Text can not be Empty! "});
+    }
 
+    Model.HighlightsComment.findOne({'_id': req.body._id }, {},  function(err, data) {
+            if(err) {
+                res.send({status:"False", Error:err });
+            } else {
+                data.CommentText = req.body.CommentText,
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Post ."});
+                    }else{
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        });
+};
 
 
 
@@ -273,4 +295,29 @@ exports.QuestionsAnwerAdd = function(req, res) {
     });
 
      
+};
+
+
+exports.AnswerUpdate = function(req, res) {
+    if(!req.body._id) {
+        res.status(400).send({status:"False", message: " Post can not be Empty! "});
+    }
+    if(!req.body.AnswerText) {
+        res.status(400).send({status:"False", message: " Answer Text can not be Empty! "});
+    }
+
+    Model.QuestionsAnwer.findOne({'_id': req.body._id }, {},  function(err, data) {
+            if(err) {
+                res.send({status:"False", Error:err });
+            } else {
+                data.AnswerText = req.body.AnswerText,
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Post ."});
+                    }else{
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        });
 };

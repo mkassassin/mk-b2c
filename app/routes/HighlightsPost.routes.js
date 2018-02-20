@@ -5,6 +5,8 @@ module.exports = function(app) {
 
     app.post('/API/HighlightsPost/Submit', HighlightsPost.Submit);
 
+    app.post('/API/HighlightsPost/Update', HighlightsPost.Update);
+
     app.get('/API/HighlightsPost/GetPostList/:UserId/:Limit', HighlightsPost.GetPostList);
 
     app.get('/API/HighlightsPost/ViewPost/:UserId/:PostId', HighlightsPost.ViewPost);

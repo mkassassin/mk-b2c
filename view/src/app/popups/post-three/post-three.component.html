@@ -4,7 +4,7 @@
         <img class="userimg" src="{{UserImageBaseUrl}}/{{this.UserInfo.data.UserImage}}" alt="">
       </div>
       <div fxFlex class="text-left">
-        <h5 class="m-0 posttype"> Write Your Opinion </h5>
+        <h5 class="m-0 posttype"> {{title}} </h5>
       </div>
       <div fxFlex class="text-left">
           <h5 class="m-0 posttype text-right" >
@@ -24,7 +24,7 @@
         <div fxFlex="85%">
         </div>
         <div fxFlex="15%" style="line-height:75px;">
-            <button type="button" mat-raised-button (click)="Submit()" color="primary"> Post </button>
+            <button [disabled]="PostText === ''" type="button" mat-raised-button (click)="Submit()" color="primary"> Post </button>
         </div>
       </div>
   

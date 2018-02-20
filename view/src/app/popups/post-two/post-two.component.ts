@@ -43,9 +43,6 @@ export class PostTwoComponent implements OnInit {
   Imageuploader: FileUploader = new FileUploader({
                               url: uriImage,
                               disableMultipart: false,
-                              additionalParameter: {
-                                comments: 'sdfsfsdfsdfsdfsdf'
-                              },
                               allowedMimeType: this.ImageAllowedType,
                               autoUpload: false,
                               maxFileSize: this.MaxImageFileSize});
@@ -151,7 +148,7 @@ export class PostTwoComponent implements OnInit {
 
   SelectMoreTopicClose(result) {
     if (result === 'Close') {
-      console.log('Selcted Empty');
+      console.log('Selected Empty');
     }else {
       const selectedindex = this.Topics.findIndex(topic => topic._id === result._id);
       console.log(selectedindex);
@@ -203,7 +200,9 @@ export class PostTwoComponent implements OnInit {
               this.VideosList.push({'VideoId': QueueItemId, 'VideoName': QueueItemName});
             }
           }
-        this.PostForm.controls['PostVideo'].setValue(this.VideosList);
+          if (this.VideosList.length > 0 ) {
+            this.PostForm.controls['PostVideo'].setValue(this.VideosList);
+          }
       }
       if  (this.ImageInputActive) {
         const ImageQueue = this.Imageuploader.queue;
@@ -214,7 +213,9 @@ export class PostTwoComponent implements OnInit {
               this.ImagesList.push({'ImageId': QueueItemId, 'ImageName': QueueItemName});
             }
           }
-        this.PostForm.controls['PostImage'].setValue(this.ImagesList);
+          if (this.ImagesList.length > 0 ) {
+            this.PostForm.controls['PostImage'].setValue(this.ImagesList);
+          }
       }
       this.Service.QuestionsSubmit(this.PostForm.value).subscribe(datas => this.ValidateData(datas));
     }else {

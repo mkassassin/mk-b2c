@@ -193,7 +193,8 @@ export class FeedsTrendsComponent implements OnInit {
 
   OpenModel() {
     const PostThreeDialogRef = this.dialog.open(PostThreeComponent, {
-      disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { CoinId : this.ListOfCoins[this.ActiveCoin].CoinId } });
+      disableClose: true, minWidth: '50%', position: {top: '50px'},
+       data: { type: 'Add', CoinId : this.ListOfCoins[this.ActiveCoin].CoinId } });
     PostThreeDialogRef.afterClosed().subscribe(result => this.GoToAnalize(result));
   }
 
@@ -310,7 +311,8 @@ export class FeedsTrendsComponent implements OnInit {
 
   DeleteImpression() {
     const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
-      {disableClose: true, width: '350px', minHeight: '300px', data: {text: 'Are You Sure You Want To Permanently Delete This Opinion?'} });
+      {disableClose: true, minWidth: '50%', position: {top: '50px'}, minHeight: '300px',
+      data: {text: 'Are You Sure You Want To Permanently Delete This Opinion?'} });
       DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
         if (result === 'Yes' ) {
           const DeletePostdata =  { 'UserId' : this.UserInfo.data._id, 'ImpressionId' : this.reportImpressionInfo._id };
@@ -337,5 +339,16 @@ export class FeedsTrendsComponent implements OnInit {
       });
   }
 
+
+  EditImpression() {
+    const EditDialogRef = this.dialog.open( PostThreeComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: {type: 'Edit', data: this.reportImpressionInfo } });
+      EditDialogRef.afterClosed().subscribe( result => {
+        if ( result !== 'Close') {
+          const index = this.ListOfImpressions.findIndex(x => x['_id'] === this.reportImpressionInfo._id);
+          this.ListOfImpressions[index]['PostText'] = result.PostText;
+        }
+      });
+  }
 
 }

@@ -1,0 +1,137 @@
+<div class="postTwo">
+    <div class="postheader" fxLayout="row" fxLayoutAlign="start" >
+      <div fxFlex="65px" class="text-center">
+        <img class="userimg" src="{{UserImageBaseUrl}}/{{this.UserInfo.data.UserImage}}" alt="">
+      </div>
+      <div fxFlex class="text-left">
+        <h5 class="m-0 posttype"> Edit Question </h5>
+      </div>
+      <div fxFlex class="text-left">
+          <h5 class="m-0 posttype text-right" >
+            <span style="cursor:pointer" (click)="close()"> X </span>
+          </h5>
+        </div>
+    </div>
+  
+    <hr style="margin-top:10px;">
+  
+    <mat-dialog-content class="postbody">
+      <form [formGroup]="PostForm" (ngSubmit)="submit()" enctype="multipart/form-data">
+          <textarea class="posttext" formControlName="PostText" placeholder="Ask Your Question..."></textarea>
+  
+          <input *ngIf="LinkInputActive" class="postlink mb-20" formControlName="PostLink" placeholder="Enter Link...">
+  
+          <div *ngIf="ImageInputActive" class="imgUpload mb-20" id="hide">
+            <div style="display:inline-flex;">
+              <label for="imguploadinput">
+                  <input id="imguploadinput" *ngIf="ImageInputActive" type="file" multiple ng2FileSelect [uploader]='Imageuploader'>
+                  <span> <i class="material-icons">add</i>  <span> Select Image </span> </span>
+              </label>
+              <ul class="ImgselectedList">
+                <li *ngFor="let item of Imageuploader.queue">
+                  <div class="selectedImg">
+                    <img src="" imgPreview [image]="item?._file" />
+                    <div class="imgname"> {{item.file.rawFile.name}} </div>
+                    <div class="imgprog"> {{item.progress}}% </div>
+                    <div *ngIf="!item.isUploaded" (click)="item.remove()" class="clearbutton"> <i class="material-icons">clear</i> </div>
+                    <div *ngIf="item.isUploaded && item.progress == 100" class="donebutton" (click)="checking(item)" > <i class="material-icons">done</i> </div>
+                    <button *ngIf="!item.isUploaded" class="upload" [disabled]="item.isUploaded && item.progress != 100" type="button" (click)="item.upload()"> 
+                        <span *ngIf="item.isUploaded && item.progress != 100" > Uploading... </span>
+                        <span *ngIf="!item.isUploaded && item.progress == 0" > Upload </span>
+                     </button> 
+                    <button *ngIf="item.isUploaded && item.progress == 100" class="remove" type="button" (click)="item.remove()"> Remove </button>
+                  </div>
+                </li>
+                <ng-container *ngIf="OldImageList !== ''">
+                  <li *ngFor="let item of OldImageList; let i=index">
+                      <div class="selectedImg">
+                          <img src="{{ImageBaseUrl}}/{{item.ImageName}}" />
+                        <div  class="donebutton"> <i class="material-icons">done</i> </div>
+                        <button class="remove" type="button" (click)="removeImg(i)"> Remove </button>
+                      </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+  
+  
+          <div *ngIf="VideoInputActive" class="vidUpload" id="hide">
+          <div style="display:inline-flex;">
+            <label for="viduploadinput">
+                <input id="viduploadinput" type="file" multiple ng2FileSelect [uploader]='Videouploader'>
+                <span><i class="material-icons">add</i> <span> Select Video </span></span>
+            </label>
+            <ul class="vidselectedList">
+              <li *ngFor="let item of Videouploader.queue">
+                <div class="selectedvid">
+                    <video width="210px" height="130px" src="" videoPreview [video]="item?._file"></video>
+                    <div class="vidname"> {{item.file.rawFile.name}} </div>
+                    <div class="vidprog"> {{item.progress}}% </div>
+                    <div *ngIf="!item.isUploaded" (click)="item.remove()" class="clearbutton"> <i class="material-icons">clear</i> </div>
+                    <div *ngIf="item.isUploaded && item.progress == 100" class="donebutton" (click)="checking(item)" > <i class="material-icons">done</i> </div>
+                    <button *ngIf="!item.isUploaded" class="upload" [disabled]="item.isUploaded && item.progress != 100" type="button" (click)="item.upload()"> 
+                        <span *ngIf="item.isUploaded && item.progress != 100" > Uploading... </span>
+                        <span *ngIf="!item.isUploaded && item.progress == 0" > Upload </span>
+                     </button> 
+                    <button *ngIf="item.isUploaded && item.progress == 100" class="remove" type="button" (click)="item.remove()"> Remove </button>
+                  </div>
+              </li>
+              <ng-container *ngIf="OldVideosList !== ''">
+                  <li *ngFor="let item of OldVideosList; let j=index">
+                      <div class="selectedvid">
+                        <video preload="metadata" width="210px" height="130px">
+                          <source src="{{VideoBaseUrl}}/{{item.VideoName}}" type="video/{{item.VideoName | slice:-3}}">
+                        </video>
+                        <div  class="donebutton"> <i class="material-icons">done</i> </div>
+                        <button class="remove" type="button" (click)="removeVid(j)"> Remove </button>
+                      </div>
+                  </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+          
+  
+          
+  
+  
+  
+  
+  
+          <div class="postaddon mt-5" fxLayout="row" fxLayoutAlign="start" >
+            <div fxFlex="50px" class="text-center postaddon_icon">
+                <i (click)="ImageInputActiveToggle()" class="material-icons">burst_mode</i>
+            </div>
+            <div fxFlex="50px" class="text-center postaddon_icon">
+                <i (click)="VideoInputActiveToggle()" class="material-icons" style="transform:rotate(90deg)">local_movies</i>
+            </div>
+            <div fxFlex="50px" class="text-center postaddon_icon">
+                <i (click)="LinkInputActiveToggle()" class="material-icons">insert_link</i>
+            </div>
+          </div>
+  
+  
+          <div fxLayout fxLayoutAlign="space-between">
+            <div fxFlex="85%">
+                <div class="mt-10" fxLayout fxLayoutAlign="start end">
+  
+                  <div *ngFor="let item of (Topics ? Topics.slice(0,6): []); let i=index" class="cat-img-item" [ngClass]="{'selected': ActiveIndex == i}">
+                    <img (click)="ActiveTopicSelect(i)" src="{{TopicImageBaseUrl}}/{{item.TopicImage}}" alt="">
+                    <p> {{item.TopicName}} </p>
+                  </div>
+                  <div *ngIf="Topics?.length > 6">
+                      <p (click)="OpenModelMoreTopics()" class="viewall"> View All...</p>
+                  </div>
+  
+                </div>
+            </div>
+            <div fxFlex="15%" style="line-height:75px;">
+                <button type="submit" mat-raised-button color="primary"> Post </button>
+            </div>
+          </div>
+  
+      </form>
+  
+    </mat-dialog-content>
+  </div>

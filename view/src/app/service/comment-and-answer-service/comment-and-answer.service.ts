@@ -25,6 +25,12 @@ export class CommentAndAnswerService {
         .catch(this.handleError);
     }
 
+    public CommentUpdate(data: any) {
+        return this.http .post(API_URL + 'CommentUpdate' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
     public GetHighlightsComments(PostId: any, UserId: any): Observable<any> {
         return this.http .get(API_URL + 'GetHighlightsComments/' + PostId + '/' + UserId)
         .map(response => { const datas = response.json(); return datas; })
@@ -37,4 +43,9 @@ export class CommentAndAnswerService {
         .catch(this.handleError);
     }
 
+    public AnswerUpdate(data: any) {
+        return this.http .post(API_URL + 'AnswerUpdate' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 }

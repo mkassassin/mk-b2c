@@ -29,6 +29,9 @@ var rand,mailOptions,host,link;
     Provider: false,
     ProviderType: false,
     ProviderId: false,
+    ShowEmail: false,
+    ShowDOB: false,
+    ShowLocation: false
 };
 
 exports.SendFPVerifyEmail = function(req, res) {
@@ -107,6 +110,47 @@ exports.UpdatePassword = function(req, res) {
     });
 };
 
+exports.ChangePassword = function(req, res) {
+    UserModel.UserType.findOne({'_id': req.body.UserId, 'UserPassword': req.body.oldPassword}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null) {
+                res.send({ status:"False", PassMatch: "False", message: " Password Not Match! " });
+            }else {
+                data.UserPassword = req.body.newPassword;
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Password ."});
+                    }else{
+                        res.send({ status:"True" });
+                    }
+                });
+            } 
+        }
+    });
+};
+
+exports.PrivacyUpdate = function(req, res) {
+    UserModel.UserType.findOne({'_id': req.body.UserId}, "_id ShowEmail ShowDOB ShowLocation", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
+        } else {
+            data.ShowEmail = req.body.ShowEmail;
+            data.ShowDOB = req.body.ShowDOB;
+            data.ShowLocation = req.body.ShowLocation;
+
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Privacy Settings ."});
+                }else{
+                    res.send({ status:"True" });
+                }
+            });
+        }
+    });
+};
+
 exports.Register = function(req, res) {
     if(!req.body.UserName) {
         res.status(400).send({status:"False", message: " Name can not be Empty! "});
@@ -133,7 +177,10 @@ exports.Register = function(req, res) {
             UserGender:req.body.UserGender || "",
             UserCountry:req.body.UserCountry || "",
             UserState:req.body.UserState || "",
-            UserCity:req.body.UserCity || ""
+            UserCity:req.body.UserCity || "",
+            ShowEmail: 'EveryOne',
+            ShowDOB: 'EveryOne',
+            ShowLocation: 'EveryOne'
     });
 
 
@@ -232,7 +279,7 @@ exports.UserValidate = function(req, res) {
 };
 
 exports.UserInfo = function(req, res) {
-    UserModel.UserType.findOne({'_id': req.params.UserId}, "_id UserName UserEmail UserCategoryId UserGender UserDateOfBirth UserCountry UserState UserCity UserCategoryName UserImage UserProfession UserCompany UserGender", function(err, data) {
+    UserModel.UserType.findOne({'_id': req.params.UserId}, "_id UserName UserEmail UserCategoryId UserGender UserDateOfBirth UserCountry UserState UserCity UserCategoryName UserImage UserProfession UserCompany UserGender ShowEmail ShowDOB ShowLocation", function(err, data) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
         } else {

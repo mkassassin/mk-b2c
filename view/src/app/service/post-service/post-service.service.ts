@@ -22,6 +22,11 @@ export class PostServiceService {
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
+    public HighlightsUpdate(data: any) {
+        return this.http .post(API_URL + 'HighlightsPost/Update' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 
     public GetHighlightsList(UserId: any, Limit: any): Observable<any[]> {
         return this.http .get(API_URL + 'HighlightsPost/GetPostList/' + UserId + '/' + Limit)
@@ -38,6 +43,12 @@ export class PostServiceService {
 
     public QuestionsSubmit(data: any) {
         return this.http .post(API_URL + 'QuestionsPost/Submit' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public QuestionsUpdate(data: any) {
+        return this.http .post(API_URL + 'QuestionsPost/Update' , data)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }

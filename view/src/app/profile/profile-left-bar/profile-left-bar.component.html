@@ -11,6 +11,8 @@
         </div>
     </div>
 
+    <div *ngIf="LoginUser" style="left:10px;" class="PictureChange" (click)="EditProfile()"> <i style="padding:5px;font-size:22px;" class="material-icons">border_color</i> </div>
+
     <div *ngIf="LoginUser" class="PictureChange" (click)="EditProfilePic()"> <i class="material-icons">wallpaper</i> </div>
     <!-- UserDetails End -->
 
@@ -135,12 +137,12 @@
       </div>
     </div>
 
-    <div class="row m-0">
-        <div class="col-xs-6 settingsButton">
-            <p (click)="EditProfile()"> Edit Profile </p>
-        </div>
-        <div class="col-xs-6 settingsButton">
+    <div class="row m-0" *ngIf="LoginUser">
+        <div class="col-xs-4 settingsButton">
             <p (click)="PrivacySettings()"> Privacy Settings </p>
+        </div>
+        <div class="col-xs-4 settingsButton">
+            <p (click)="PasswordChange()"> Change Password </p>
         </div>
     </div>
     

@@ -132,6 +132,36 @@ exports.ImpressionAdd = function(req, res) {
 };
 
 
+
+exports.ImpressionUpdate = function(req, res) {
+    if(!req.body._id) {
+        res.status(400).send({status:"False", message: " Post can not be Empty! "});
+    }
+    if(!req.body.PostText) {
+        res.status(400).send({status:"False", message: " Post Text can not be Empty! "});
+    }
+
+    TrendsModel.Impressions.findOne({'_id': req.body._id }, {},  function(err, data) {
+            if(err) {
+                res.send({status:"False", Error:err });
+            } else {
+                data.PostText = req.body.PostText,
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Post ."});
+                    }else{
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        });
+};
+
+
+
+
+
+
 exports.ImpressionPosts = function(req, res) {
     TrendsModel.Impressions.find({'CoinId': req.params.CoinId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}}, function(err, result) {
         if(err) {

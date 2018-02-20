@@ -83,6 +83,18 @@ export class SigninSignupServiceService {
         .catch(this.handleError);
     }
 
+    public PrivacyUpdate( data: any) {
+        return this.http .post(API_URL + 'PrivacyUpdate', data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public ChangePassword( data: any) {
+        return this.http .post(API_URL + 'ChangePassword', data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
     public ProfileUpdate( data: any) {
         return this.http .post(API_URL + 'ProfileUpdate', data)
         .map(response => { const datas = response.json(); return datas; })

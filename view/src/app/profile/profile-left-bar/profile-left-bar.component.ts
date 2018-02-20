@@ -8,6 +8,7 @@ import { SigninSignupServiceService } from './../../service/signin-signup-servic
 import { ProfilePictureCropperComponent } from './../../popups/profile-picture-cropper/profile-picture-cropper.component';
 import { EditProfileComponent } from './../../popups/edit-profile/edit-profile.component';
 import { ProfilePrivacyComponent } from './../../popups/profile-privacy/profile-privacy.component';
+import { ChangePasswordComponent } from './../../popups/change-password/change-password.component';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -165,12 +166,17 @@ export class ProfileLeftBarComponent implements OnInit {
       {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
       EditProfileDialogRef.afterClosed().subscribe( result => {
         if ( result === 'Success' ) {
-          this.LoginUserInfo.data.UserCompany = result.data.UserCompany;
-          this.LoginUserInfo.data.UserCompany = result.data.UserProfession;
+          this.snackBar.open( 'Profile Successfully Updated ', '', {
+            horizontalPosition: 'center',
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+          this.UserInfo['data'].UserProfession = result.data.UserProfession;
+          this.UserInfo['data'].UserCompany = result.data.UserCompany;
         }else if ( result === 'Close' ) {
           this.snackBar.open( 'Profile Edit Closed ', '', {
             horizontalPosition: 'center',
-            duration: 3000,
+            duration: 1000,
             verticalPosition: 'top',
           });
         }else {
@@ -189,19 +195,19 @@ export class ProfileLeftBarComponent implements OnInit {
       {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
       ProfilePrivacyDialogRef.afterClosed().subscribe( result => {
         if ( result === 'Success' ) {
-          this.snackBar.open( 'Profile Privacy Updated ', '', {
+          this.snackBar.open( ' Privacy Settings Updated ', '', {
             horizontalPosition: 'center',
             duration: 3000,
             verticalPosition: 'top',
           });
         }else if ( result === 'Close' ) {
-          this.snackBar.open( 'Profile Edit Closed ', '', {
+          this.snackBar.open( 'Privacy Settings Closed ', '', {
             horizontalPosition: 'center',
-            duration: 3000,
+            duration: 1000,
             verticalPosition: 'top',
           });
         }else {
-          this.snackBar.open( 'Profile Update Failed ', '', {
+          this.snackBar.open( 'Privacy Settings Update Failed ', '', {
             horizontalPosition: 'center',
             duration: 3000,
             verticalPosition: 'top',
@@ -210,5 +216,31 @@ export class ProfileLeftBarComponent implements OnInit {
       });
   }
 
+
+  PasswordChange() {
+    const ChangePasswordDialogRef = this.dialog.open( ChangePasswordComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+      ChangePasswordDialogRef.afterClosed().subscribe( result => {
+        if ( result === 'Success' ) {
+          this.snackBar.open( ' New Password Updated ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }else if ( result === 'Close' ) {
+          this.snackBar.open( 'Password Change Closed ', '', {
+            horizontalPosition: 'center',
+            duration: 1000,
+            verticalPosition: 'top',
+          });
+        }else {
+          this.snackBar.open( 'New Password Update Failed ', '', {
+            horizontalPosition: 'center',
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }
+      });
+  }
 
 }

@@ -95,6 +95,11 @@ import { ForgotPasswordComponent } from './popups/forgot-password/forgot-passwor
 import { SetNewpasswordComponent } from './page-routing/set-newpassword/set-newpassword.component';
 import { EditProfileComponent } from './popups/edit-profile/edit-profile.component';
 import { ProfilePrivacyComponent } from './popups/profile-privacy/profile-privacy.component';
+import { ChangePasswordComponent } from './popups/change-password/change-password.component';
+import { EditPostOneComponent } from './popups/edit-post-one/edit-post-one.component';
+import { EditPostTwoComponent } from './popups/edit-post-two/edit-post-two.component';
+import { EditCommentComponent } from './popups/edit-comment/edit-comment.component';
+import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component';
 
 
 @NgModule({
@@ -141,7 +146,12 @@ import { ProfilePrivacyComponent } from './popups/profile-privacy/profile-privac
     ForgotPasswordComponent,
     SetNewpasswordComponent,
     EditProfileComponent,
-    ProfilePrivacyComponent
+    ProfilePrivacyComponent,
+    ChangePasswordComponent,
+    EditPostOneComponent,
+    EditPostTwoComponent,
+    EditCommentComponent,
+    EditAnswerComponent
   ],
   imports: [
     CommonModule,
@@ -209,7 +219,12 @@ import { ProfilePrivacyComponent } from './popups/profile-privacy/profile-privac
                     DeleteConfirmComponent,
                     ForgotPasswordComponent,
                     EditProfileComponent,
-                    ProfilePrivacyComponent
+                    ProfilePrivacyComponent,
+                    ChangePasswordComponent,
+                    EditPostOneComponent,
+                    EditPostTwoComponent,
+                    EditCommentComponent,
+                    EditAnswerComponent
                   ]
 })
 export class AppModule { }

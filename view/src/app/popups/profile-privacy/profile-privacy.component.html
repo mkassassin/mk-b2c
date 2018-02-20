@@ -1,19 +1,11 @@
 <div class="ProfilePrivacy pt-20">
 
-  <p class="headerInfo"> <span style="position:absolute; right:10px; top:-23px;font-size:23px;cursor:pointer; font-weight: 900; " (click)="close()"  > X </span> </p>
+  <p class="headerInfo"> Privacy Settings <span style="position:absolute; right:0px; top:-24px;font-size:23px;cursor:pointer; font-weight: 900; " (click)="close()"  > X </span> </p>
   
-  <mat-accordion>
-      <mat-expansion-panel [expanded]="true">
 
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Account Seetings
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+        <div class="mt-10 mb-20" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
             <div fxFlex="31%">
-              <h5 class="text-right mr-20"> Show Email </h5>
+              <h5 class="text-right mr-20 mt-5"> Show Email </h5>
             </div>
             <div fxFlex="41%">
               <div class="gender-select">
@@ -27,9 +19,9 @@
             </div>
         </div>
 
-        <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+        <div class="mt-10 mb-20" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
             <div fxFlex="31%">
-              <h5 class="text-right mr-20"> Show Date Of Birth </h5>
+              <h5 class="text-right mr-20 mt-5"> Show Date Of Birth </h5>
             </div>
             <div fxFlex="41%">
               <div class="gender-select">
@@ -46,7 +38,7 @@
 
         <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
             <div fxFlex="31%">
-              <h5 class="text-right mr-20"> Show Location </h5>
+              <h5 class="text-right mr-20 mt-5"> Show Location </h5>
             </div>
             <div fxFlex="41%">
               <div class="gender-select">
@@ -63,23 +55,10 @@
         <hr>
         <div class="row">
           <div class="col-sm-12 text-right">
-            <button (click)="close()" class="btn-flat btn btn-cutom" type="button"> Submit </button>
+            <button (click)="submit()" class="btn-flat btn btn-cutom" type="button">
+              <span *ngIf="updateing"> Updating... </span> <span *ngIf="!updateing"> Submit </span> </button>
           </div> 
       </div>
 
-      </mat-expansion-panel>
-
-      <!-- <mat-expansion-panel >
-
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Password Change
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-          <p>I'm visible because I am open</p>
-
-        </mat-expansion-panel> -->
-  </mat-accordion>
 
 </div>

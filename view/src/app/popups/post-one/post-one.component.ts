@@ -164,7 +164,9 @@ export class PostOneComponent implements OnInit {
             this.VideosList.push({'VideoId': QueueItemId, 'VideoName': QueueItemName});
           }
         }
-      this.PostForm.controls['PostVideo'].setValue(this.VideosList);
+        if ( this.VideosList.length > 0 ) {
+          this.PostForm.controls['PostVideo'].setValue(this.VideosList);
+        }
     }
     if (this.ImageInputActive) {
       const ImageQueue = this.Imageuploader.queue;
@@ -175,7 +177,9 @@ export class PostOneComponent implements OnInit {
             this.ImagesList.push({'ImageId': QueueItemId, 'ImageName': QueueItemName});
           }
         }
-      this.PostForm.controls['PostImage'].setValue(this.ImagesList);
+        if ( this.ImagesList.length > 0 ) {
+          this.PostForm.controls['PostImage'].setValue(this.ImagesList);
+        }
     }
 
     this.Service.HighlightsSubmit(this.PostForm.value).subscribe(datas => this.ValidateData(datas));

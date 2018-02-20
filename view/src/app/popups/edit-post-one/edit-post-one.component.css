@@ -1,0 +1,365 @@
+.postOne .postheader{
+    margin-left: -14px;
+    margin-top: -14px;
+ }
+ .postOne .userimg{
+     width: 45px;
+     height: 45px;
+     border-radius: 45px;
+ }
+ .postOne .posttype{
+     line-height: 45px;
+     font-size: 19px;
+     font-weight: 700;
+     color: #333333;
+     letter-spacing: 0.7px;
+     font-family: 'Ubuntu', sans-serif;
+ }
+ 
+ .postOne .postlink{
+     border: none;
+     border-radius: 5px;
+     width: 90%;
+     height: 40px;
+     padding: 5px;
+     color: #333333;
+     font-weight: 600;
+     font-size: 14px;
+     letter-spacing: 0.7px;
+     font-family: 'Ubuntu', sans-serif;
+     border: 1px solid #dedede;
+ }
+ 
+ .postOne .posttext{
+     border-radius: 5px;
+     width: 100%;
+     min-height: 100px;
+     padding: 5px;
+     border-color: #dedede;
+     color: #333333;
+     font-weight: 600;
+     font-size: 14px;
+     letter-spacing: 0.7px;
+     font-family: 'Ubuntu', sans-serif;
+ }
+ 
+ .postOne .postaddon_icon i{
+     font-size: 30px;
+     color: #333333;
+     cursor: pointer;
+ }
+ 
+ 
+ .postOne .cat-img-item img{
+     width: 40px;
+     height: 40px;
+     border-radius: 50px;
+     cursor: pointer;
+ }
+ .postOne .cat-img-item p{
+     font-size: 12px;
+     font-weight: 600;
+     font-family: 'Ubuntu', sans-serif;
+     letter-spacing: 0.4px;
+     margin: 0px
+ }
+ .postOne .cat-img-item{
+     width: 40px;
+     height: 40px;
+     text-align: center;
+     border-radius: 50px;
+     margin-right: 15px;
+ }
+ 
+ .postOne .cat-img-item.selected{
+     width: 45px;
+     height: 45px;
+ }
+ .postOne .cat-img-item.selected img{
+     width: 42px;
+     height: 42px;
+     border:3px solid #333333;
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #hide input[type=file] {
+   display: none;
+   margin: 10px;
+ }
+ 
+ #hide input[type=file]+label {
+   display: inline-block;
+   margin: 20px;
+   padding: 4px 32px;
+   background-color: #FFFFFF;
+   border: solid 1px #666F77;
+   border-radius: 6px;
+   color: #666F77;
+ }
+ 
+ #hide input[type=file]:active+label {
+   background-image: none;
+   background-color: #2D6C7A;
+   color: #FFFFFF;
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ .imgUpload label{
+     width: 140px;
+     text-align: center;
+     height: 140px;
+     background-color: #dadada40;
+     box-shadow: 0px 0px 3px 1px rgba(158, 157, 157, 0.7);
+     color: #333333;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ .imgUpload label span i{
+     font-size: 70px;
+     font-weight: 900;
+     margin-top: 40px;
+     line-height: 20px;
+     width: 100%
+ }
+ .ImgselectedList{
+     display: inline-block;
+     max-width: 800px;
+ }
+ .ImgselectedList li{
+     position: relative;
+     width: 140px;
+     height: 140px;
+     margin: 0px 10px;
+     border: 1px solid #8080801f;
+     padding: 5px;
+     float: left;
+     margin-bottom: 20px;
+ }
+ .ImgselectedList li .selectedImg{
+     text-align: center;
+     box-shadow: 0px 0px 1px 1px silver;
+ }
+ .ImgselectedList li .selectedImg img{
+     height: 101px;
+     width: auto;
+ }
+ .ImgselectedList li .selectedImg .imgname{
+     position: absolute;
+     font-size: 13px;
+     padding: 0px;
+     letter-spacing: 0.3px;
+     width: 128px;
+     overflow: hidden;
+     bottom: 30px;
+     background-color: #ebe9e224;
+ }
+ .ImgselectedList li .selectedImg .imgprog{
+     position: absolute;
+     top: 35px;
+     left: 48px;
+     width: 40px;
+     height: 40px;
+     text-align: center;
+     background-color: #e7e5e5c7;
+     font-size: 14px;
+     line-height: 40px;
+     border-radius: 50px;
+ }
+ .ImgselectedList li .selectedImg .clearbutton{
+     position: absolute;
+     top: -7px;
+     right: -7px;
+     background-color: #e7e5e5;
+     height: 25px;
+     width: 25px;
+     border-radius: 50px;
+     color: red;
+     cursor: pointer;
+ }
+ .ImgselectedList li .selectedImg .donebutton{
+     position: absolute;
+     top: -7px;
+     right: -7px;
+     background-color: #e7e5e5;
+     height: 25px;
+     width: 25px;
+     border-radius: 50px;
+     color: green;
+ }
+ .ImgselectedList li .selectedImg .upload{
+     width: 130px;
+     margin-left: -1px;
+     font-size: 15px;
+     height: 26px;
+     border: none;
+     background-color: #046204;
+     color: #ffffff;
+     font-weight: 600;
+     font-family: 'Ubuntu', sans-serif;
+     letter-spacing: 0.5px;
+ }
+ .ImgselectedList li .selectedImg .remove{
+     width: 130px;
+     margin-left: -1px;
+     font-size: 15px;
+     height: 26px;
+     border: none;
+     background-color:#cf0505;
+     color: #ffffff;
+     font-weight: 600;
+     font-family: 'Ubuntu', sans-serif;
+     letter-spacing: 0.5px;
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ .vidUpload label{
+     width: 210px;
+     text-align: center;
+     height: 120px;
+     background-color: #dadada40;
+     box-shadow: 0px 0px 3px 1px rgba(158, 157, 157, 0.7);
+     color: #333333;
+     border-radius: 5px;
+     cursor: pointer;
+     display: inline-block;
+     max-width: 800px;
+ }
+ .vidUpload label span i{
+     font-size: 70px;
+     font-weight: 900;
+     margin-top: 40px;
+     line-height: 20px;
+     width: 100%
+ }
+ .vidselectedList{
+     display: inline-block;
+     max-width: 800px;
+ }
+ .vidselectedList li{
+     position: relative;
+     width: 210px;
+     height: 122px;
+     margin: 0px 10px;
+     border: 1px solid #8080801f;
+     padding: 5px;
+     float: left;
+     margin-bottom: 20px;
+ }
+ .vidselectedList li .selectedvid{
+     text-align: center;
+     box-shadow: 0px 0px 1px 1px silver;
+ }
+ .vidselectedList li .selectedvid video{
+     height: 77px;
+     width: 190px;
+     margin-top: 2px;
+ }
+ .vidselectedList li .selectedvid .vidname{
+     position: absolute;
+     font-size: 13px;
+     padding: 0px;
+     letter-spacing: 0.3px;
+     width: 198px;
+     overflow: hidden;
+     bottom: 30px;
+     background-color: #ebe9e2a1;
+ }
+ .vidselectedList li .selectedvid .vidprog{
+     position: absolute;
+     top: 16px;
+     left: 85px;
+     width: 40px;
+     height: 40px;
+     text-align: center;
+     background-color: #e7e5e5a1;
+     font-size: 14px;
+     line-height: 40px;
+     border-radius: 50px;
+ }
+ .vidselectedList li .selectedvid .clearbutton{
+     position: absolute;
+     top: -7px;
+     right: -7px;
+     background-color: #e7e5e5;
+     height: 25px;
+     width: 25px;
+     border-radius: 50px;
+     color: red;
+     cursor: pointer;
+ }
+ .vidselectedList li .selectedvid .donebutton{
+     position: absolute;
+     top: -7px;
+     right: -7px;
+     background-color: #e7e5e5;
+     height: 25px;
+     width: 25px;
+     border-radius: 50px;
+     color: green;
+ }
+ .vidselectedList li .selectedvid .upload{
+     width: 199px;
+     margin-left: -1px;
+     font-size: 15px;
+     height: 26px;
+     border: none;
+     background-color: #046204;
+     color: #ffffff;
+     font-weight: 600;
+     font-family: 'Ubuntu', sans-serif;
+     letter-spacing: 0.5px;
+ }
+ .vidselectedList li .selectedvid .remove{
+     width: 199px;
+     margin-left: -1px;
+     font-size: 15px;
+     height: 26px;
+     border: none;
+     background-color: #cf0505;
+     color: #ffffff;
+     font-weight: 600;
+     font-family: 'Ubuntu', sans-serif;
+     letter-spacing: 0.5px;
+ }

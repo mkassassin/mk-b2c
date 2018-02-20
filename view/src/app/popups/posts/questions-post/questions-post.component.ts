@@ -13,8 +13,8 @@ import { ReportUserComponent } from './../../../popups/report-user/report-user.c
 import { ReportPostComponent } from './../../../popups/report-post/report-post.component';
 import { DeleteConfirmComponent } from './../../../popups/delete-confirm/delete-confirm.component';
 import { ReportAndDeleteService } from './../../../service/report-and-delete-service/report-and-delete.service';
-
-
+import { EditPostTwoComponent } from './../../../popups/edit-post-two/edit-post-two.component';
+import { EditAnswerComponent } from './../../../popups/edit-answer/edit-answer.component';
 
 @Component({
   selector: 'app-questions-post',
@@ -77,6 +77,18 @@ export class QuestionsPostComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  ReloadGalleryScript() {
+    const tempPostList = this.PostsList;
+    this.PostsList = [];
+    setTimeout(() => {
+      this.PostsList = tempPostList;
+      const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = './../../../assets/html5gallery/html5gallery.js';
+          this.elementRef.nativeElement.appendChild(s);
+    }, 50);
+  }
 
   RatingImage(isActive: boolean) {
     return `assets/images/icons/like${isActive ? 'd' : ''}.png`;
@@ -277,6 +289,38 @@ export class QuestionsPostComponent implements OnInit {
                 console.log(datas);
               }
           });
+        }
+      });
+  }
+
+
+  EditPost() {
+    const EditPostDialogRef = this.dialog.open( EditPostTwoComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      EditPostDialogRef.afterClosed().subscribe( result => {
+        if ( result !== 'Close') {
+          const index = this.PostsList.findIndex(x => x._id === result._id);
+          this.PostsList[index].PostTopicId = result.PostTopicId;
+          this.PostsList[index].PostTopicName = result.PostTopicName;
+          this.PostsList[index].PostDate = result.PostDate;
+          this.PostsList[index].PostText = result.PostText;
+          this.PostsList[index].PostLink = result.PostLink;
+          this.PostsList[index].PostImage = result.PostImage;
+          this.PostsList[index].PostVideo = result.PostVideo;
+          this.PostsList[index].PostLinkInfo = result.PostLinkInfo;
+          this.ReloadGalleryScript();
+        }
+      });
+  }
+
+  EditAnswer() {
+    const EditCommentDialogRef = this.dialog.open( EditAnswerComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
+      EditCommentDialogRef.afterClosed().subscribe( result => {
+        if ( result !== 'Close') {
+          const Postindex = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+          const index = this.reportPostInfo.Answers.findIndex(x => x._id === result._id);
+          this.PostsList[Postindex].Answers[index].AnswerText = result.AnswerText;
         }
       });
   }

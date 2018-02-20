@@ -15,6 +15,8 @@ import { ReportUserComponent } from './../../popups/report-user/report-user.comp
 import { ReportPostComponent } from './../../popups/report-post/report-post.component';
 import { DeleteConfirmComponent } from './../../popups/delete-confirm/delete-confirm.component';
 import { ReportAndDeleteService } from './../../service/report-and-delete-service/report-and-delete.service';
+import { EditPostOneComponent } from './../../popups/edit-post-one/edit-post-one.component';
+import { EditCommentComponent } from './../../popups/edit-comment/edit-comment.component';
 
 @Component({
   selector: 'app-feeds-highlights',
@@ -104,7 +106,6 @@ export class FeedsHighlightsComponent implements OnInit {
   }
 
   postSubmit(result) {
-    console.log(result);
     if (result === 'Close') {
       console.log('Post Not Submit Properly');
     }else {
@@ -341,6 +342,39 @@ export class FeedsHighlightsComponent implements OnInit {
                 console.log(datas);
               }
           });
+        }
+      });
+  }
+
+
+
+
+
+  EditPost() {
+    const EditPostDialogRef = this.dialog.open( EditPostOneComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      EditPostDialogRef.afterClosed().subscribe( result => {
+        if ( result !== 'Close') {
+          const index = this.PostsList.findIndex(x => x._id === result._id);
+          this.PostsList[index].PostType = result.PostType;
+          this.PostsList[index].PostDate = result.PostDate;
+          this.PostsList[index].PostText = result.PostText;
+          this.PostsList[index].PostLink = result.PostLink;
+          this.PostsList[index].PostImage = result.PostImage;
+          this.PostsList[index].PostVideo = result.PostVideo;
+          this.PostsList[index].PostLinkInfo = result.PostLinkInfo;
+          this.ReloadGalleryScript();
+        }
+      });
+  }
+
+  EditComment() {
+    const EditCommentDialogRef = this.dialog.open( EditCommentComponent,
+      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportCommentInfo } });
+      EditCommentDialogRef.afterClosed().subscribe( result => {
+        if ( result !== 'Close') {
+          const index = this.PostsList[this.ActiveComment].comments.findIndex(x => x._id === result._id);
+          this.PostsList[this.ActiveComment].comments[index].CommentText = result.CommentText;
         }
       });
   }

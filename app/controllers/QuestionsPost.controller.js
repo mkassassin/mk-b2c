@@ -163,6 +163,66 @@ exports.Submit = function(req, res) {
 
 
 
+exports.Update = function(req, res) {
+    if(!req.body._id) {
+        res.status(400).send({status:"False", message: " Post can not be Empty! "});
+    }
+    if(!req.body.PostTopicName) {
+        res.status(400).send({status:"False", message: " Post Topic Name can not be Empty! "});
+    }
+    if(!req.body.PostDate) {
+        res.status(400).send({status:"False", message: " Post Date can not be Empty! "});
+    }
+
+    if(req.body.PostLink !== '') {
+        var LinkInfo = '';
+        var str = req.body.PostLink;
+        var n = str.indexOf('http://www.youtube');
+        var n1 = str.indexOf('https://www.youtube');
+        var n2 = str.indexOf('https://youtu');
+
+        if( n !== -1 || n1 !== -1 || n2 !== -1  ) {
+            gotonext();
+        }else{
+            axios.get('http://api.linkpreview.net/?key=5a883a1e4c1cd65a5a1d19ec7011bb4a8ee7426a5cdcb&q='+ req.body.PostLink )
+            .then(response => {
+                 LinkInfo = response.data;
+                gotonext();
+            })
+            .catch(error => {
+                gotonext();
+            });
+        }
+
+    }else{
+        gotonext();
+    }
+
+    function gotonext() {
+        QuestionsPostModel.QuestionsPostType.findOne({'_id': req.body._id }, {},  function(err, data) {
+            if(err) {
+                res.send({status:"False", Error:err });
+            } else {
+                data.PostTopicId = req.body.PostTopicId;
+                data.PostTopicName = req.body.PostTopicName;
+                data.PostDate = req.body.PostDate;
+                data.PostText = req.body.PostText || '';
+                data.PostLink = req.body.PostLink || '';
+                data.PostLinkInfo = LinkInfo;
+                data.PostImage = req.body.PostImage || '';
+                data.PostVideo = req.body.PostVideo || '';
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Post ."});
+                    }else{
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        });
+    }
+};
+
 
 
 exports.GetPostList = function (req, res) {
@@ -330,7 +390,6 @@ exports.GetPostList = function (req, res) {
         }
     });
 };
-
 
 
 

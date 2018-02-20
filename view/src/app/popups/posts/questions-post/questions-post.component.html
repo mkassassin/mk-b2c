@@ -264,7 +264,7 @@
 
 
 <mat-menu #ReportQuestionPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+  <div (click)="EditPost()"  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">border_color</i>
       </div>
@@ -310,7 +310,7 @@
 
 
 <mat-menu #ReportQuestionAnswerUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-  <div  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+  <div (click)="ReportAnswer()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">border_color</i>
       </div>

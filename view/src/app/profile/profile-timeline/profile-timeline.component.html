@@ -457,7 +457,7 @@
 
 
 <mat-menu #ReportHighlightPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+  <div (click)="EditHighlightPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">border_color</i>
       </div>
@@ -503,7 +503,7 @@
 
 
 <mat-menu #ReportHighlightCommentUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+  <div (click)="EditComment()"  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">border_color</i>
       </div>
@@ -558,7 +558,7 @@
 
 
 <mat-menu #ReportQuestionPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-  <div style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+  <div (click)="EditQuestionPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">border_color</i>
       </div>
@@ -604,7 +604,7 @@
 
 
 <mat-menu #ReportQuestionAnswerUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
-  <div  style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+  <div (click)="EditAnswer()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="dropd_icon" fxFlex="30px">
           <i class="material-icons">border_color</i>
       </div>
