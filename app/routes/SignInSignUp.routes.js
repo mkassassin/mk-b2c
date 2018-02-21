@@ -27,6 +27,8 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/FBUserValidate/:email/:fbid', user.FBUserValidate);
 
+    app.get('/API/SigninSignup/SocialUserValidate/:email/:uid/:type', user.SocialUserValidate);
+
     app.get('/API/SigninSignup/GetNotification/:UserId', user.GetNotification);
 
     app.get('/API/SigninSignup/RemoveNotification/:NotifyId', user.RemoveNotification);

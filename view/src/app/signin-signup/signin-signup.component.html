@@ -177,18 +177,18 @@
                               <div class="col-sm-12 text-center">
                                       <p class="textStyle-1 mb-0"> <small>  Or Sign Up Using </small> </p>
                                   <div style="display:inline-flex">
-                                      <a (click)="signInWithFB()" class="linkStyle-4 facebook">
-                                          <i class="fa fa-facebook" aria-hidden="true"></i>
-                                      </a>
-                                      <!-- <a  class="linkStyle-4 twitter">
-                                          <i class="fa fa-twitter" aria-hidden="true"></i>
-                                      </a>
-                                      <a  class="linkStyle-4 googlePlus">
-                                          <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                      </a>
-                                      <a  class="linkStyle-4 linkedin">
-                                          <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                      </a> -->
+                                    <a class="linkStyle-4 facebook">
+                                      <i (click)="signIn('facebook')" class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                    <!-- <a href="#" class="linkStyle-4 twitter">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a> -->
+                                    <a class="linkStyle-4 googlePlus">
+                                        <i (click)="signIn('google')"  class="fa fa-google-plus" aria-hidden="true"></i>
+                                    </a>
+                                    <a  class="linkStyle-4 linkedin">
+                                        <i (click)="signIn('linkedin')" class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
                                   </div>
                               </div>
                           </div>
@@ -229,18 +229,18 @@
                                 <div class="col-sm-12 text-center">
                                         <p class="textStyle-1 mb-0"> <small>  Or Sign In Using </small> </p>
                                     <div style="display:inline-flex">
-                                        <a (click)="signInWithFB()"  class="linkStyle-4 facebook">
-                                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                                        </a>
-                                        <!-- <a class="linkStyle-4 twitter">
-                                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="linkStyle-4 googlePlus">
-                                            <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="linkStyle-4 linkedin">
-                                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                        </a> -->
+                                      <a class="linkStyle-4 facebook">
+                                        <i (click)="signIn('facebook')" class="fa fa-facebook" aria-hidden="true"></i>
+                                      </a>
+                                      <!-- <a href="#" class="linkStyle-4 twitter">
+                                          <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a> -->
+                                      <a class="linkStyle-4 googlePlus">
+                                          <i (click)="signIn('google')"  class="fa fa-google-plus" aria-hidden="true"></i>
+                                      </a>
+                                      <a class="linkStyle-4 linkedin">
+                                          <i (click)="signIn('linkedin')" class="fa fa-linkedin" aria-hidden="true"></i>
+                                      </a>
                                     </div>
                                 </div>
                             </div>

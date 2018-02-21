@@ -141,7 +141,7 @@
         <div class="col-xs-4 settingsButton">
             <p (click)="PrivacySettings()"> Privacy Settings </p>
         </div>
-        <div class="col-xs-4 settingsButton">
+        <div *ngIf="!LoginUserInfo.data.ProviderType" class="col-xs-4 settingsButton">
             <p (click)="PasswordChange()"> Change Password </p>
         </div>
     </div>

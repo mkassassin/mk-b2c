@@ -8,11 +8,12 @@ import { DataSharedVarServiceService } from './../service/data-shared-var-servic
 import { SigninSignupServiceService } from './../service/signin-signup-service/signin-signup-service.service';
 
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
-
+// import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
+import { MatSnackBar } from '@angular/material';
 import { FbSignupComponent } from './../popups/fb-signup/fb-signup.component';
 import { ForgotPasswordComponent } from './../popups/forgot-password/forgot-password.component';
 
+import { AuthService } from 'angular2-social-login';
 
 @Component({
   selector: 'app-signin-signup',
@@ -68,8 +69,12 @@ export class SigninSignupComponent implements OnInit {
 
   bsConfig: Partial<BsDatepickerConfig>;
 
+  sub;
+
+
   constructor(  public dialog: MatDialog,
-                private authService: AuthService,
+                private _auth: AuthService,
+                public snackBar: MatSnackBar,
                 private router: Router,
                 private Service: SigninSignupServiceService,
                 private ShareingService: DataSharedVarServiceService,
@@ -83,8 +88,7 @@ export class SigninSignupComponent implements OnInit {
                 this.NewPasswordSet = this.ShareingService.GetNewPassword();
                }
 
-  user: SocialUser;
-
+  // user: SocialUser;
 
 
   ngOnInit() {
@@ -282,7 +286,7 @@ export class SigninSignupComponent implements OnInit {
 
   FormSubmitStatus(data) {
     if (data.status === 'True') {
-      this.SignInForm.controls['LoginUserEmail'].setValue(this.RegisterForm.value.UserE);
+      this.SignInForm.controls['LoginUserEmail'].setValue(this.RegisterForm.value.UserEmail);
       this.SignInForm.controls['LoginUserPassword'].setValue(this.RegisterForm.value.UserPassword);
       this.LoginFormsubmit();
     }
@@ -332,50 +336,107 @@ export class SigninSignupComponent implements OnInit {
 
 
 
-  goto(datas) {
-    if (datas.status === 'True') {
-        this.router.navigate(['Feeds']);
-    }else {
-      this.Service.EmailValidate(this.user.email).subscribe( newdatas => { this.EmailAnalyze(newdatas); } );
-    }
+
+  signIn(provider) {
+    this.sub = this._auth.login(provider)
+      .subscribe((data) => {
+            if ( data !== null ) {
+                if (data['email'] !== '' && data['email'] !== undefined && data['email'] !== null ) {
+                this.Service.SocialUserValidate(data['email'], data['uid'], data['provider'])
+                  .subscribe( datas => {
+                        if (datas['status'] === 'True') {
+                            this.router.navigate(['Feeds']);
+                        }else {
+                            this.Service.EmailValidate(data['email'])
+                              .subscribe( newdatas => {
+                                    if (newdatas['available'] === 'False') {
+                                    this.snackBar.open('Your ' + data['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
+                                        horizontalPosition: 'center',
+                                        duration: 3000,
+                                        verticalPosition: 'top',
+                                      });
+                                        this.ActiveTab = 1;
+                                        this.SignInForm.controls['LoginUserEmail'].setValue(data['email']);
+                                    }else {
+                                      this.SocialSignUp(data);
+                                    }
+                              });
+                        }
+                  });
+                }
+            }
+      });
+
   }
 
-  EmailAnalyze(newdatas: any) {
-    if (newdatas.available === 'False') {
-      alert('Your Facebook E-mail Already Registered! please SignIn.');
-      this.ActiveTabIndex = 1;
-      this.SignInForm.controls['LoginUserEmail'].setValue(this.user.email);
-      this.authService.signOut();
-    }else {
-      this.FbSignUp();
-    }
-  }
 
-  FbSignUp() {
+
+  SocialSignUp(data) {
     const FbSignUpDialogRef = this.dialog.open( FbSignupComponent,
-      { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: 'Facebook', Values: this.user } });
-      FbSignUpDialogRef.afterClosed().subscribe(result => this.FbSignUpComplete(result));
+      { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: data['provider'], Values: data } });
+      FbSignUpDialogRef.afterClosed().subscribe(result => this.SocialSignUpComplete(result));
   }
 
-  FbSignUpComplete(result) {
+  SocialSignUpComplete(result) {
     if (result === 'Success') {
       this.router.navigate(['Feeds']);
     }else {
-      this.authService.signOut();
+      console.log(result);
     }
   }
 
 
-  signInWithFB(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      if ( this.user !== null ) {
-        this.Service.FBUserValidate(this.user.email, this.user.id)
-            .subscribe( datas => { this.goto(datas); } );
-      }
-    });
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
+
+
+
+
+
+
+
+  // goto(datas) {
+  //   if (datas.status === 'True') {
+  //       this.router.navigate(['Feeds']);
+  //   }else {
+  //     this.Service.EmailValidate(this.user.email).subscribe( newdatas => { this.EmailAnalyze(newdatas); } );
+  //   }
+  // }
+
+  // EmailAnalyze(newdatas: any) {
+  //   if (newdatas.available === 'False') {
+  //     alert('Your Facebook E-mail Already Registered! please SignIn.');
+  //     this.ActiveTabIndex = 1;
+  //     this.SignInForm.controls['LoginUserEmail'].setValue(this.user.email);
+  //     this.authService.signOut();
+  //   }else {
+  //     this.FbSignUp();
+  //   }
+  // }
+
+  // FbSignUp() {
+  //   const FbSignUpDialogRef = this.dialog.open( FbSignupComponent,
+  //     { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: 'Facebook', Values: this.user } });
+  //     FbSignUpDialogRef.afterClosed().subscribe(result => this.FbSignUpComplete(result));
+  // }
+
+  // FbSignUpComplete(result) {
+  //   if (result === 'Success') {
+  //     this.router.navigate(['Feeds']);
+  //   }else {
+  //     this.authService.signOut();
+  //   }
+  // }
+
+
+  // signInWithFB(): void {
+  //   this.authService.authState.subscribe((user) => {
+  //     this.user = user;
+  //     if ( this.user !== null ) {
+  //       this.Service.FBUserValidate(this.user.email, this.user.id)
+  //           .subscribe( datas => { this.goto(datas); } );
+  //     }
+  //   });
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
 
 
 }

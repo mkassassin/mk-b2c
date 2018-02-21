@@ -59,6 +59,21 @@ export class SigninSignupServiceService {
     }
 
 
+    public SocialUserValidate(email: any, uid: any, type: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'SocialUserValidate/' + email + '/' + uid + '/' + type)
+        .map(response => {
+                        const result = response.json();
+                            if (result.status === 'True' && result.data._id) {
+                                const encodedata = btoa(Date());
+                                localStorage.setItem('UserToken', btoa(Date()));
+                                localStorage.setItem('currentUser', JSON.stringify(result));
+                            }else {
+                                localStorage.removeItem('currentUser');
+                            }
+                        return result;
+                    }) .catch(this.handleError);
+    }
+
     public Register(data: any) {
         return this.http .post(API_URL + 'Register' , data)
         .map(response => { const datas = response.json(); return datas; })

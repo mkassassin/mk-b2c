@@ -60,13 +60,13 @@ export class FbSignupComponent implements OnInit {
 
   ngOnInit() {
     this.RegisterForm = new FormGroup({
-      UserName: new FormControl(this.data['Values'].name, Validators.required ),
-      UserEmail: new FormControl(this.data['Values'].email, Validators.required),
+      UserName: new FormControl(this.data.Values.name, Validators.required ),
+      UserEmail: new FormControl(this.data.Values.email, Validators.required),
       UserCategoryId: new FormControl('',  Validators.required),
       UserCategoryName: new FormControl('', Validators.required),
-      ProviderType: new FormControl('FaceBook', Validators.required),
-      ProviderId: new FormControl(this.data['Values'].id, Validators.required),
-      UserImage: new FormControl(this.data['Values'].photoUrl),
+      ProviderType: new FormControl(this.data.Values.provider, Validators.required),
+      ProviderId: new FormControl(this.data.Values.uid, Validators.required),
+      UserImage: new FormControl(this.data.Values.image),
       UserCompany: new FormControl(''),
       UserProfession: new FormControl(''),
       UserDateOfBirth: new FormControl(''),

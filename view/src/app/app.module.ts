@@ -29,11 +29,41 @@ import { ChartsModule } from 'ng2-charts';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 const config = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('323054561538925')
-  }
+  // {
+  //   id: FacebookLoginProvider.PROVIDER_ID,
+  //   provider: new FacebookLoginProvider('323054561538925')
+  // }
 ]);
+
+import { Angular2SocialLoginModule } from 'angular2-social-login';
+
+// live
+// const providers = {
+//   'google': {
+//         'clientId': '1094825930149-ng8c24eb830qmcutfebpb9u47d1f0cq9.apps.googleusercontent.com'
+//       },
+//       'linkedin': {
+//         'clientId': '814ivvgus3ol7y'
+//       },
+//       'facebook': {
+//         'clientId': '323054561538925',
+//         'apiVersion': 'v2.11'
+//       }
+//   };
+
+  // local
+const providers = {
+  'google': {
+        'clientId': '885069936725-0ej2kk1e7nt2fnrtbdma970l9rli75jc.apps.googleusercontent.com'
+      },
+      'linkedin': {
+        'clientId': '814ivvgus3ol7y'
+      },
+      'facebook': {
+        'clientId': '202967426952150',
+        'apiVersion': 'v2.11'
+      }
+  };
 
 export function provideConfig() {
   return config;
@@ -181,7 +211,8 @@ import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component'
     FileUploadModule,
     NglModule.forRoot(),
     ChartsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    Angular2SocialLoginModule
   ],
   providers: [
                 AuthGuard,
@@ -228,3 +259,5 @@ import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component'
                   ]
 })
 export class AppModule { }
+
+Angular2SocialLoginModule.loadProvidersScripts(providers);

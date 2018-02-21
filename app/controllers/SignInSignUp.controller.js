@@ -302,6 +302,23 @@ exports.FBUserValidate = function(req, res) {
     });
 };
 
+
+exports.SocialUserValidate = function(req, res) {
+    UserModel.UserType.findOne({'ProviderType': req.params.type, 'UserEmail': req.params.email.toLowerCase(), 'ProviderId': req.params.uid}, "_id UserName ProviderType UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null){
+                res.send({ status:"False", message: " Invalid Username and Password  " });
+            }else{
+                res.send({ status:"True", data:data });
+            } 
+        }
+    });
+};
+
+
+
 exports.MobileUserValidate= function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase(), 'UserPassword': req.body.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
         if(err) {

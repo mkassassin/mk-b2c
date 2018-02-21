@@ -186,15 +186,18 @@ export class FeedsHeaderComponent implements OnInit {
 
     const localDataString = localStorage.getItem('currentUser');
     const localData = JSON.parse(localDataString);
-    this.ShareingService.SetActiveSinInsignUpTab('SingIn', localData.data.UserEmail);
 
-    if (localData.data.Provider === 'Facebook') {
-      this.authService.signOut();
+    if (localData.data.ProviderType) {
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('UserToken');
+      this.router.navigate(['/']);
+    }else {
+     this.ShareingService.SetActiveSinInsignUpTab('SingIn', localData.data.UserEmail);
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('UserToken');
+      this.router.navigate(['SignInSignUp']);
     }
 
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('UserToken');
-    this.router.navigate(['SignInSignUp']);
   }
 
 RemoveNotify(Id, arrIndex) {
