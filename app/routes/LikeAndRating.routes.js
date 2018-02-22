@@ -5,7 +5,11 @@ module.exports = function(app) {
 
     app.post('/API/LikeAndRating/HighlightsLikeAdd', Countroll.HighlightsLikeAdd);
 
+<<<<<<< HEAD
     app.post('/API/LikeAndRating/CommentsLikeAdd', Countroll.CommentsLikeAdd);
+=======
+    pp.post('/API/LikeAndRating/CommentsLikeAdd', Countroll.CommentsLikeAdd);
+>>>>>>> d895031baad09dedd1c7ff2977d80c3ed65d8407
 
     app.get('/API/LikeAndRating/HighlightsUnLike/:LikeId', Countroll.HighlightsUnLike);
 

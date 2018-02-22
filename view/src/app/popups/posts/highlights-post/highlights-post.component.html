@@ -252,8 +252,19 @@
                         </div>
                       </div>
           
+<<<<<<< HEAD
                       <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
                         <div class="col-sm-12">
+=======
+                      <div *ngIf="Post.commentsCount > 2 && !CommentViewLess && LoadingActiveComment != i" class="row">
+                        <div class="col-sm-12">
+                          <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ViewAllComments(i)">  View All... </span></p>
+                        </div>
+                      </div>
+          
+                      <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
+                        <div class="col-sm-12">
+>>>>>>> d895031baad09dedd1c7ff2977d80c3ed65d8407
                           <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ChangeActiveComment(i)"> Hide Comments </span> </p>
                         </div>
                       </div>
