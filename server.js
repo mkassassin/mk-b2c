@@ -62,7 +62,7 @@ require('./app/routes/QuestionsPost.routes.js')(app);
 
 require('./app/routes/FileUpload.routes.js')(app);
 
-require('./app/routes//LikeAndRating.routes.js')(app);
+require('./app/routes/LikeAndRating.routes.js')(app);
 
 require('./app/routes/CommentAndAnswer.routes.js')(app);
 

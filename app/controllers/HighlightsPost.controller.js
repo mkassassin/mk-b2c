@@ -272,13 +272,14 @@ exports.GetPostList = function(req, res) {
                                                             res.send({status:"False", Error:someerr });
                                                             reject(err);
                                                         }else{
-        
+                                                            var UserLiked = false;
+                                                            var UserLikedId = '';
                                                             if(newResult.length > 0){
-                                                                var UserLiked = true;
-                                                                var UserLikedId = newResult[0]._id;
+                                                                 UserLiked = true;
+                                                                 UserLikedId = newResult[0]._id;
                                                             }else{
-                                                                var UserLiked = false;
-                                                                var UserLikedId = '';
+                                                                 UserLiked = false;
+                                                                 UserLikedId = '';
                                                             }
 
                                                             CommentModel.HighlightsComment.count({'PostId': info._id , 'ActiveStates':'Active' }, function(commentErr, commentCount) {

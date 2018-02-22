@@ -143,7 +143,7 @@ exports.CommentsLikeAdd = function(req, res) {
             ActiveStates: 'Active'
     });
 
-    Model.varCommentLike.find({'UserId': req.body.UserId, 'CommentId': req.body.CommentId, 'CommentUserId': req.body.CommentUserId }, function(err, result) {
+    Model.CommentLike.find({'UserId': req.body.UserId, 'CommentId': req.body.CommentId, 'CommentUserId': req.body.CommentUserId }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error: err,  message: "Some error occurred while Find Following Users ."});
         } else {

@@ -140,6 +140,30 @@ export class FeedsQuestionsComponent implements OnInit {
   }
 
 
+  AnswerRateChanging(index, AnsIndex) {
+    const data = {'UserId': this.UserInfo.data._id,
+          'PostId': this.PostsList[index]._id,
+          'AnswerId': this.PostsList[index].Answers[AnsIndex]._id,
+          'AnswerUserId':  this.PostsList[index].Answers[AnsIndex].UserId,
+          'Rating': this.PostsList[index].Answers[AnsIndex].RatingCount,
+          'Date':  new Date(),
+        };
+    this.ratingService.AnswerRatingAdd(data).subscribe( datas => {
+      if (datas['status'] === 'True' && !datas['message']) {
+              if (datas['status'] === 'True') {
+                this.PostsList[index].Answers[AnsIndex].userRated = true;
+                this.PostsList[index].Answers[AnsIndex].userRating = datas['data'].Rating;
+                this.PostsList[index].Answers[AnsIndex].RatingCount = datas['data'].OverallRating;
+              }else {
+                console.log(datas);
+              }
+      }else {
+          console.log(datas);
+      }
+    });
+  }
+
+
   rateChanging(index) {
     const data = {'UserId': this.UserInfo.data._id,
       'PostId': this.PostsList[index]._id,
@@ -160,7 +184,6 @@ export class FeedsQuestionsComponent implements OnInit {
           console.log(datas);
       }
     });
-
   }
 
 

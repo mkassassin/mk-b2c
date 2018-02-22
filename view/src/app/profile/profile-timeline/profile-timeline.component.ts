@@ -127,6 +127,35 @@ export class ProfileTimelineComponent implements OnInit {
     this.scrollHeight = this.screenHeight + 'px';
   }
 
+  AddCommentLike(index, commentIndex) {
+    const data = {'UserId': this.UserInfo['data']._id,
+                'PostId': this.PostsList[index]._id,
+                'CommentId': this.PostsList[index].comments[commentIndex]._id,
+                'CommentUserId':  this.PostsList[index].comments[commentIndex].UserId,
+                'Date':  new Date(),
+              };
+    this.LikeService.CommentsLikeAdd(data).subscribe( datas => {
+          if (datas['status'] === 'True' && !datas['message']) {
+            this.PostsList[index].comments[commentIndex].UserLiked = true;
+            this.PostsList[index].comments[commentIndex].UserLikeId = datas['data']._id;
+            this.PostsList[index].comments[commentIndex].LikesCount =  this.PostsList[index].comments[commentIndex].LikesCount + 1;
+          }else {
+            console.log(datas);
+          }
+        });
+  }
+
+
+  RemoveCommentLike(index, commentIndex) {
+    this.LikeService.CommentsUnLike(this.PostsList[index].comments[commentIndex].UserLikeId).subscribe( datas => {
+          if (datas['status'] === 'True' && !datas['message']) {
+            this.PostsList[index].comments[commentIndex].UserLiked = false;
+            this.PostsList[index].comments[commentIndex].LikesCount = this.PostsList[index].LikesCount - 1;
+          }else {
+            console.log(datas);
+          }
+      });
+  }
 
   AddLike(index) {
     const data = {'UserId': this.UserInfo['data']._id,
@@ -263,6 +292,30 @@ export class ProfileTimelineComponent implements OnInit {
     }else {
       this.ActiveAnswerInput = index;
     }
+  }
+
+
+  AnswerRateChanging(index, AnsIndex) {
+    const data = {'UserId': this.UserInfo['data']._id,
+          'PostId': this.PostsList[index]._id,
+          'AnswerId': this.PostsList[index].Answers[AnsIndex]._id,
+          'AnswerUserId':  this.PostsList[index].Answers[AnsIndex].UserId,
+          'Rating': this.PostsList[index].Answers[AnsIndex].RatingCount,
+          'Date':  new Date(),
+        };
+    this.LikeService.AnswerRatingAdd(data).subscribe( datas => {
+      if (datas['status'] === 'True' && !datas['message']) {
+              if (datas['status'] === 'True') {
+                this.PostsList[index].Answers[AnsIndex].userRated = true;
+                this.PostsList[index].Answers[AnsIndex].userRating = datas['data'].Rating;
+                this.PostsList[index].Answers[AnsIndex].RatingCount = datas['data'].OverallRating;
+              }else {
+                console.log(datas);
+              }
+      }else {
+          console.log(datas);
+      }
+    });
   }
 
   rateChanging(index) {

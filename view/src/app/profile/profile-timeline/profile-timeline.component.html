@@ -240,19 +240,8 @@
                     </div>
                   </div>
       
-<<<<<<< HEAD
                   <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
                     <div class="col-sm-12">
-=======
-                  <div *ngIf="Post.commentsCount > 2 && !CommentViewLess && LoadingActiveComment != i" class="row">
-                    <div class="col-sm-12">
-                      <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ViewAllComments(i)">  View All... </span></p>
-                    </div>
-                  </div>
-      
-                  <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
-                    <div class="col-sm-12">
->>>>>>> d895031baad09dedd1c7ff2977d80c3ed65d8407
                       <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ChangeActiveComment(i)"> Hide Comments </span> </p>
                     </div>
                   </div>
@@ -409,17 +398,17 @@
                         <div class="postLikesLevel2" fxLayout="row" fxLayoutAlign="space-between center">
                           <div fxFlex="40%" class="text-left" style="height:20px">
                             <div class="like">
-                              <ngl-rating style="max-width:80px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
+                              <ngl-rating style="max-width:80px;" *ngIf="Answer.userRated" [isReadonly]="true" [(rate)]="Answer.RatingCount" [size]="x-small" class="rating" >
                                   <ng-template nglRatingIcon let-active>
                                     <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
                                   </ng-template>
                               </ngl-rating>
-                              <ngl-rating style="max-width:80px;cursor:pointer" *ngIf="!Post.userRated" [isReadonly]="false" [(rate)]="Post.RatingCount" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                              <ngl-rating style="max-width:80px;cursor:pointer" *ngIf="!Answer.userRated" [isReadonly]="false" [(rate)]="Answer.RatingCount" (click)="AnswerRateChanging(i, k)" [size]="x-small" class="rating" >
                                   <ng-template nglRatingIcon let-active>
                                     <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
                                   </ng-template>
                               </ngl-rating>
-                              <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <span style="font-size:9px"> (Your Rating {{Post.userRating}})</span> </small> </p>
+                              <p class="count"> {{Answer.RatingCount | number:'1.0-2'}} <small *ngIf="Answer.userRated" > <span style="font-size:9px"> (Your Rating {{Answer.userRating}})</span> </small> </p>
                             </div>
                           </div>
                           <div fxFlex="30%" class="text-center" style="height:20px">

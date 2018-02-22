@@ -248,7 +248,7 @@ exports.GetPostList = function (req, res) {
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id , 'ActiveStates': 'Active'}, 'AnswerText UserId Date', { limit: 2 }).exec(),
+                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id , 'ActiveStates': 'Active'}, 'AnswerText UserId Date', { sort: { createdAt: -1 }, limit: 2 }).exec(),
                     RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                 ]).then(data => {
                     let UserData = data[0];
@@ -344,33 +344,115 @@ exports.GetPostList = function (req, res) {
                                                     res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
-                                                    var alreadyfollowuser = true;
-                                                    if(FollowesData.length <= 0 && req.params.UserId != AnsUserData._id){
-                                                        alreadyfollowuser = false;
-                                                    }else{
-                                                        alreadyfollowuser = true;
-                                                    }
-                                                    
-                                                    var newArray = [];
-                                                    newArray.push( {
-                                                                    _id: ansInfo._id,
-                                                                    UserId: AnsUserData._id,
-                                                                    UserName: AnsUserData.UserName,
-                                                                    UserCategoryId: AnsUserData.UserCategoryId,
-                                                                    UserCategoryName: AnsUserData.UserCategoryName,
-                                                                    UserImage: AnsUserData.UserImage,
-                                                                    UserCompany: AnsUserData.UserCompany,
-                                                                    UserProfession: AnsUserData.UserProfession,
-                                                                    AlreadyFollow: alreadyfollowuser,
-                                                                    Followers: count,
-                                                                    Date: ansInfo.Date,
-                                                                    PostId: ansInfo.PostId,
-                                                                    PostUserId: ansInfo.PostUserId ,
-                                                                    AnswerText: ansInfo.AnswerText
+                                                    RatingModel.AnswerRating.count({'AnswerId': ansInfo._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                        if(NewErr){
+                                                            res.send({status:"False", Error:NewErr });
+                                                            reject(err);
+                                                        }else{
+                                                            RatingModel.AnswerRating.find({'UserId': req.params.UserId, 'AnswerId': ansInfo._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                                if(someerr){
+                                                                    res.send({status:"False", Error:someerr });
+                                                                    reject(err);
+                                                                }else{
+                                                                    var userRated = false;
+                                                                    var userRating = 0 ;
+                                                                        if(newResult.length > 0){
+                                                                            userRated = true;
+                                                                            userRating = newResult[0].Rating;
+                                                                            
+                                                                        }else{
+                                                                            userRated = false;
+                                                                            userRating = 0;
+                                                                        }
+
+                                                                        var alreadyfollowuser = true;
+                                                                        if(FollowesData.length <= 0 && req.params.UserId != AnsUserData._id){
+                                                                            alreadyfollowuser = false;
+                                                                        }else{
+                                                                            alreadyfollowuser = true;
+                                                                        }
+                                                                    var AnsRatingCal = 0;
+                                                                    if(NewCount > 0) {
+                                                                        RatingModel.AnswerRating.find({'AnswerId': ansInfo._id , 'ActiveStates':'Active' }, function(NewErrAns, AnsRatings) {
+                                                                            if(NewErrAns){
+                                                                                res.send({status:"False", Error:NewErrAns });
+                                                                                reject(NewErrAns);
+                                                                            }else{
+                                                                                AswerRatingCount();
+                                                                                    async function AswerRatingCount() {
+                                                                                        for (let rateInfo of AnsRatings) {
+                                                                                             await getAnsRatingInfo(rateInfo);
+                                                                                        }
+                                                                                    var newArray = [];
+                                                                                    newArray.push( {
+                                                                                                    _id: ansInfo._id,
+                                                                                                    UserId: AnsUserData._id,
+                                                                                                    UserName: AnsUserData.UserName,
+                                                                                                    UserCategoryId: AnsUserData.UserCategoryId,
+                                                                                                    UserCategoryName: AnsUserData.UserCategoryName,
+                                                                                                    UserImage: AnsUserData.UserImage,
+                                                                                                    UserCompany: AnsUserData.UserCompany,
+                                                                                                    UserProfession: AnsUserData.UserProfession,
+                                                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                                                    Followers: count,
+                                                                                                    Date: ansInfo.Date,
+                                                                                                    RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
+                                                                                                    userRated: userRated,
+                                                                                                    userRating: userRating,
+                                                                                                    PostId: ansInfo.PostId,
+                                                                                                    PostUserId: ansInfo.PostUserId ,
+                                                                                                    AnswerText: ansInfo.AnswerText
+                                                                                                }
+                                                                                    );
+                                                                                    AnswersArray.push(newArray[0]);
+                                                                                    resolve(newArray[0]);
+                                                                                }
+
+                                                                                function getAnsRatingInfo(rateInfo){
+                                                                                    return new Promise(( resolve, reject )=>{
+                                                                                        RatingModel.AnswerRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                                                                            if(Rateerr) {
+                                                                                                res.send({status:"False", Error:Rateerr });
+                                                                                                reject(Rateerr);
+                                                                                            } else {
+                                                                                                AnsRatingCal += JSON.parse(RateData.Rating);
+                                                                                                resolve(AnsRatingCal);
+                                                                                            }
+                                                                                        });
+                                                                                    });
+                                                                                }
+
+                                                                            }
+                                                                        });
+                                                                    }else{
+                                                                        var newArray = [];
+                                                                        newArray.push( {
+                                                                                        _id: ansInfo._id,
+                                                                                        UserId: AnsUserData._id,
+                                                                                        UserName: AnsUserData.UserName,
+                                                                                        UserCategoryId: AnsUserData.UserCategoryId,
+                                                                                        UserCategoryName: AnsUserData.UserCategoryName,
+                                                                                        UserImage: AnsUserData.UserImage,
+                                                                                        UserCompany: AnsUserData.UserCompany,
+                                                                                        UserProfession: AnsUserData.UserProfession,
+                                                                                        AlreadyFollow: alreadyfollowuser,
+                                                                                        Followers: count,
+                                                                                        Date: ansInfo.Date,
+                                                                                        RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
+                                                                                        userRated: userRated,
+                                                                                        userRating: userRating,
+                                                                                        PostId: ansInfo.PostId,
+                                                                                        PostUserId: ansInfo.PostUserId ,
+                                                                                        AnswerText: ansInfo.AnswerText
+                                                                                    }
+                                                                        );
+                                                                        AnswersArray.push(newArray[0]);
+                                                                        resolve(newArray[0]);
+                                                                    }
                                                                 }
-                                                    );
-                                                    AnswersArray.push(newArray[0]);
-                                                    resolve(newArray[0]);
+                                                            });
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
@@ -415,7 +497,7 @@ exports.ViewPost = function (req, res) {
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id }, 'AnswerText UserId Date', {limit: 2 }).exec(),
+                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id }, 'AnswerText UserId Date', {sort: { createdAt: -1 }, limit: 2 }).exec(),
                     RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                 ]).then(data => {
                     let UserData = data[0];
@@ -511,32 +593,115 @@ exports.ViewPost = function (req, res) {
                                                     res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
-                                                    var alreadyfollowuser = true;
-                                                    if(FollowesData.length <= 0 && req.params.UserId != AnsUserData._id){
-                                                        alreadyfollowuser = false;
-                                                    }else{
-                                                        alreadyfollowuser = true;
-                                                    }
-                                                    var newArray = [];
-                                                    newArray.push( {
-                                                                    _id: ansInfo._id,
-                                                                    UserId: AnsUserData._id,
-                                                                    UserName: AnsUserData.UserName,
-                                                                    UserCategoryId: AnsUserData.UserCategoryId,
-                                                                    UserCategoryName: AnsUserData.UserCategoryName,
-                                                                    UserImage: AnsUserData.UserImage,
-                                                                    UserCompany: AnsUserData.UserCompany,
-                                                                    UserProfession: AnsUserData.UserProfession,
-                                                                    AlreadyFollow: alreadyfollowuser,
-                                                                    Followers: count,
-                                                                    Date: ansInfo.Date,
-                                                                    PostId: ansInfo.PostId,
-                                                                    PostUserId: ansInfo.PostUserId ,
-                                                                    AnswerText: ansInfo.AnswerText
+                                                    RatingModel.AnswerRating.count({'AnswerId': ansInfo._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                        if(NewErr){
+                                                            res.send({status:"False", Error:NewErr });
+                                                            reject(err);
+                                                        }else{
+                                                            RatingModel.AnswerRating.find({'UserId': req.params.UserId, 'AnswerId': ansInfo._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                                if(someerr){
+                                                                    res.send({status:"False", Error:someerr });
+                                                                    reject(err);
+                                                                }else{
+                                                                    var userRated = false;
+                                                                    var userRating = 0 ;
+                                                                        if(newResult.length > 0){
+                                                                            userRated = true;
+                                                                            userRating = newResult[0].Rating;
+                                                                            
+                                                                        }else{
+                                                                            userRated = false;
+                                                                            userRating = 0;
+                                                                        }
+
+                                                                        var alreadyfollowuser = true;
+                                                                        if(FollowesData.length <= 0 && req.params.UserId != AnsUserData._id){
+                                                                            alreadyfollowuser = false;
+                                                                        }else{
+                                                                            alreadyfollowuser = true;
+                                                                        }
+                                                                    var AnsRatingCal = 0;
+                                                                    if(NewCount > 0) {
+                                                                        RatingModel.AnswerRating.find({'AnswerId': ansInfo._id , 'ActiveStates':'Active' }, function(NewErrAns, AnsRatings) {
+                                                                            if(NewErrAns){
+                                                                                res.send({status:"False", Error:NewErrAns });
+                                                                                reject(NewErrAns);
+                                                                            }else{
+                                                                                AswerRatingCount();
+                                                                                    async function AswerRatingCount() {
+                                                                                        for (let rateInfo of AnsRatings) {
+                                                                                             await getAnsRatingInfo(rateInfo);
+                                                                                        }
+                                                                                    var newArray = [];
+                                                                                    newArray.push( {
+                                                                                                    _id: ansInfo._id,
+                                                                                                    UserId: AnsUserData._id,
+                                                                                                    UserName: AnsUserData.UserName,
+                                                                                                    UserCategoryId: AnsUserData.UserCategoryId,
+                                                                                                    UserCategoryName: AnsUserData.UserCategoryName,
+                                                                                                    UserImage: AnsUserData.UserImage,
+                                                                                                    UserCompany: AnsUserData.UserCompany,
+                                                                                                    UserProfession: AnsUserData.UserProfession,
+                                                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                                                    Followers: count,
+                                                                                                    Date: ansInfo.Date,
+                                                                                                    RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
+                                                                                                    userRated: userRated,
+                                                                                                    userRating: userRating,
+                                                                                                    PostId: ansInfo.PostId,
+                                                                                                    PostUserId: ansInfo.PostUserId ,
+                                                                                                    AnswerText: ansInfo.AnswerText
+                                                                                                }
+                                                                                    );
+                                                                                    AnswersArray.push(newArray[0]);
+                                                                                    resolve(newArray[0]);
+                                                                                }
+
+                                                                                function getAnsRatingInfo(rateInfo){
+                                                                                    return new Promise(( resolve, reject )=>{
+                                                                                        RatingModel.AnswerRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                                                                            if(Rateerr) {
+                                                                                                res.send({status:"False", Error:Rateerr });
+                                                                                                reject(Rateerr);
+                                                                                            } else {
+                                                                                                AnsRatingCal += JSON.parse(RateData.Rating);
+                                                                                                resolve(AnsRatingCal);
+                                                                                            }
+                                                                                        });
+                                                                                    });
+                                                                                }
+
+                                                                            }
+                                                                        });
+                                                                    }else{
+                                                                        var newArray = [];
+                                                                        newArray.push( {
+                                                                                        _id: ansInfo._id,
+                                                                                        UserId: AnsUserData._id,
+                                                                                        UserName: AnsUserData.UserName,
+                                                                                        UserCategoryId: AnsUserData.UserCategoryId,
+                                                                                        UserCategoryName: AnsUserData.UserCategoryName,
+                                                                                        UserImage: AnsUserData.UserImage,
+                                                                                        UserCompany: AnsUserData.UserCompany,
+                                                                                        UserProfession: AnsUserData.UserProfession,
+                                                                                        AlreadyFollow: alreadyfollowuser,
+                                                                                        Followers: count,
+                                                                                        Date: ansInfo.Date,
+                                                                                        RatingCount: 0,
+                                                                                        userRated: userRated,
+                                                                                        userRating: userRating,
+                                                                                        PostId: ansInfo.PostId,
+                                                                                        PostUserId: ansInfo.PostUserId ,
+                                                                                        AnswerText: ansInfo.AnswerText
+                                                                                    }
+                                                                        );
+                                                                        AnswersArray.push(newArray[0]);
+                                                                        resolve(newArray[0]);
+                                                                    }
                                                                 }
-                                                    );
-                                                    AnswersArray.push(newArray[0]);
-                                                    resolve(newArray[0]);
+                                                            });
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
