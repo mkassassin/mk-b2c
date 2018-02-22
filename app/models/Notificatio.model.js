@@ -11,10 +11,12 @@ var NotificationSchema = mongoose.Schema({
     HighlightLikeId: { type : String },
     HighlightCommentId: { type : String },
     HighlightShareId: { type : String },
+    CommentLikeId: { type : String },
     QuestionPostId: { type : String },
     QuestionRatingId: { type : String },
     QuestionShareId: { type : String },
     QuestionAnswerId: { type : String },
+    AnswerRatingId: { type : String },
     ImpressionPostId: { type : String },
     ImpressionFolllowId: { type : String },
     Viewed: Number,
@@ -47,6 +49,8 @@ module.exports = {
     // 12 == Question Post Share
     // 13 == New Impression Post
     // 14 == Impression Follow
+    // 15 == Comment Like
+    // 16 == Answer Rating
 
 
 

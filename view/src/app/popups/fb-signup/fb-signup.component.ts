@@ -50,6 +50,8 @@ export class FbSignupComponent implements OnInit {
 
   RegisterForm: FormGroup;
 
+  SocialData;
+
   constructor(private router: Router,
     private Service: SigninSignupServiceService,
     private dialogRef: MatDialogRef<FbSignupComponent>,

@@ -22,6 +22,7 @@ export class DiscoverComponent implements OnInit {
   DiscoverPeoples: any[];
   LoadingPeoples: Boolean = true;
   ActiveCategory = '01';
+  Header;
 
   constructor(private router: Router,
     private ShareService: DataSharedVarServiceService,
@@ -29,7 +30,8 @@ export class DiscoverComponent implements OnInit {
     private dialogRef: MatDialogRef<DiscoverComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
-
+        this.ActiveCategory = this.data.ActiveCategory;
+        this.Header = this.data.Header;
         this.Service.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
         .subscribe( userdatas =>  {
           if (userdatas['status'] === 'True') {
@@ -81,13 +83,13 @@ export class DiscoverComponent implements OnInit {
 
 
   close() {
-    this.dialogRef.close('Close');
+    this.dialogRef.close({status: 'Close'});
   }
 
 
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);
-    this.dialogRef.close('GoToProfile');
+    this.dialogRef.close({status: 'GoToProfile', Id: Id});
   }
 
 }

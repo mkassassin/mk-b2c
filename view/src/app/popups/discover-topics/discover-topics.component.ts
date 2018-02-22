@@ -21,13 +21,15 @@ export class DiscoverTopicsComponent implements OnInit {
   DiscoverTopics: any[];
   LoadingTopics: Boolean = true;
 
+  Header;
+
   constructor(
     private Service: FollowServiceService,
     private dialogRef: MatDialogRef<DiscoverTopicsComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
-
-        this.Service.DiscoverTopics(this.UserInfo.data._id)
+        this.Header = this.data.Header;
+        this.Service.AllUnFollowingTopics(this.UserInfo.data._id)
         .subscribe( datas =>  {
           if (datas['status'] === 'True') {
             this.LoadingTopics = false;
@@ -61,6 +63,6 @@ export class DiscoverTopicsComponent implements OnInit {
 
 
   close() {
-    this.dialogRef.close('Close');
+    this.dialogRef.close({status: 'Close'});
   }
 }

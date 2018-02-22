@@ -109,7 +109,66 @@ exports.UnFollowUser = function(req, res) {
 };
 
 exports.FollowingUsers = function(req, res) {
-    FollowModel.FollowUserType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id FollowingUserId' , {sort:{createdAt : -1}, skip: 0 }, function(err, result) {
+    FollowModel.FollowUserType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id FollowingUserId' , { limit: 5 }, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+        } else {
+            if(result.length > 0){
+                var FollowersArray = new Array();
+                GetFollowesData();
+                async function GetFollowesData(){
+                    for (let info of result) {
+                        await getfollowData(info);
+                     }
+                    res.send({status:"True", data: FollowersArray });
+                  }
+                  
+                  function getfollowData(info){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': info.FollowingUserId }, usersProjection, function(err, FollowesData) {
+                            if(err) {
+                                res.send({status:"Fale", Error:err });
+                                reject(err);
+                            } else {
+                                if(FollowesData.length !== null){
+                                    FollowModel.FollowUserType.count({'FollowingUserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                            reject(err);
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: FollowesData._id,
+                                                            UserName: FollowesData.UserName,
+                                                            UserCategoryId: FollowesData.UserCategoryId,
+                                                            UserCategoryName: FollowesData.UserCategoryName,
+                                                            UserImage: FollowesData.UserImage,
+                                                            UserCompany: FollowesData.UserCompany,
+                                                            UserProfession: FollowesData.UserProfession,
+                                                            Followers:count
+                                                        }
+                                            );
+                                            FollowersArray.push(newArray[0]);
+                                            resolve(FollowesData);
+                                        }
+                                    });
+                                }else{
+                                    resolve(FollowesData);
+                                }
+                            }
+                        });
+                    });
+                  };
+        
+            }else{
+            res.send({status:"True", message:'No Followeing Users In This User', data: result });
+            }
+        }
+    });
+};
+
+exports.AllFollowingUsers = function(req, res) {
+    FollowModel.FollowUserType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id FollowingUserId' , {}, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
         } else {
@@ -168,7 +227,73 @@ exports.FollowingUsers = function(req, res) {
 };
 
 exports.UnFollowingUsers = function(req, res) {
-    UserModel.UserType.find({'_id': { $ne: req.params.UserId }, 'UserCategoryId':req.params.UserCategoryId }, usersProjection, function(err, result) {
+    UserModel.UserType.find({'_id': { $ne: req.params.UserId }, 'UserCategoryId':req.params.UserCategoryId }, usersProjection,  {}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Following Users."});
+        } else {
+            if(result.length > 0){
+                var UnFollowersArray = new Array() ;
+                GetUnFollowesData();
+                var Listcount = 0;
+                async function GetUnFollowesData(){
+                    for (let info of result) {
+                        await getUnfollowData(info);
+                     }
+                    res.send({status:"True", data: UnFollowersArray });
+                  }
+                  
+                  function getUnfollowData(info){
+                    return new Promise(( resolve, reject )=>{
+                        if ( Listcount < 6 ) {                      
+                            FollowModel.FollowUserType.find({'UserId': req.params.UserId, 'FollowingUserId': info._id }, function(err, FollowesData) {
+                                if(err) {
+                                    res.send({status:"Fale", Error:err });
+                                    reject(err);
+                                } else {
+                                    if(FollowesData.length > 0){
+                                        resolve(FollowesData);
+                                    }
+                                    else{
+                                        FollowModel.FollowUserType.count({'FollowingUserId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                            if(newerr){
+                                                res.send({status:"Fale", Error:newerr });
+                                                reject(newerr);
+                                            }else{
+                                                var newArray = [];
+                                                newArray.push( {
+                                                                _id: info._id,
+                                                                UserName: info.UserName,
+                                                                UserCategoryId: info.UserCategoryId,
+                                                                UserCategoryName: info.UserCategoryName,
+                                                                UserImage: info.UserImage,
+                                                                UserCompany: info.UserCompany,
+                                                                UserProfession: info.UserProfession,
+                                                                Followers:count
+                                                            }
+                                                );
+                                                Listcount++;
+                                                UnFollowersArray.push(newArray[0]);
+                                                resolve(info);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }else {
+                            resolve(info);
+                        }
+                    });
+                  };
+        
+            }else{
+            res.send({status:"True", message:'No Un Followeing Users In This User', data: result });
+            }
+        }
+    });
+};
+
+exports.AllUnFollowingUsers = function(req, res) {
+    UserModel.UserType.find({'_id': { $ne: req.params.UserId }, 'UserCategoryId':req.params.UserCategoryId }, usersProjection,  { }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Following Users."});
         } else {
@@ -228,7 +353,67 @@ exports.UnFollowingUsers = function(req, res) {
 };
 
 exports.UserFollowingUsers = function(req, res) {
-    FollowModel.FollowUserType.find({'FollowingUserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingUserId' , {sort:{createdAt : -1}, skip: 0 }, function(err, result) {
+    FollowModel.FollowUserType.find({'FollowingUserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingUserId' , { limit: 5 }, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+        } else {
+            if(result.length > 0){
+                var FollowersArray = new Array();
+                GetFollowingUserData();
+                async function GetFollowingUserData(){
+                    for (let info of result) {
+                        await getfollowingData(info);
+                     }
+                    res.send({status:"True", data: FollowersArray });
+                  }
+                  
+                  function getfollowingData(info){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, FollowesData) {
+                            if(err) {
+                                res.send({status:"Fale", Error:err });
+                                reject(err);
+                            } else {
+                                if(FollowesData.length !== null){
+                                    FollowModel.FollowUserType.count({'FollowingUserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"Fale", Error:newerr });
+                                            reject(err);
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: FollowesData._id,
+                                                            UserName: FollowesData.UserName,
+                                                            UserCategoryId: FollowesData.UserCategoryId,
+                                                            UserCategoryName: FollowesData.UserCategoryName,
+                                                            UserImage: FollowesData.UserImage,
+                                                            UserCompany: FollowesData.UserCompany,
+                                                            UserProfession: FollowesData.UserProfession,
+                                                            Followers:count
+                                                        }
+                                            );
+                                            FollowersArray.push(newArray[0]);
+                                            resolve(FollowesData);
+                                        }
+                                    });
+                                }else{
+                                    resolve(FollowesData); 
+                                }
+                                
+                            }
+                        });
+                    });
+                  };
+        
+            }else{
+            res.send({status:"True", message:'No Followeing Users In This User', data: result });
+            }
+        }
+    });
+};
+
+exports.AllUserFollowingUsers = function(req, res) {
+    FollowModel.FollowUserType.find({'FollowingUserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingUserId' , { }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
         } else {
@@ -378,7 +563,7 @@ exports.UnFollowTopic = function(req, res) {
 };
 
 exports.FollowingTopics = function(req, res) {
-    FollowModel.FollowTopicType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingTopicId' , {sort:{createdAt : -1}, skip: 0, limit: 7 }, function(err, result) {
+    FollowModel.FollowTopicType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingTopicId' , { limit: 7 }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Topics." , Error:err});
         } else {
@@ -434,7 +619,7 @@ exports.FollowingTopics = function(req, res) {
 };
 
 exports.AllFollowingTopics = function(req, res) {
-    FollowModel.FollowTopicType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingTopicId' , {sort:{createdAt : -1}, skip: 0 }, function(err, result) {
+    FollowModel.FollowTopicType.find({'UserId': req.params.UserId , 'ActiveStates': 'Active' }, '_id UserId FollowingTopicId' , { }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Topics." , Error:err});
         } else {
@@ -489,7 +674,6 @@ exports.AllFollowingTopics = function(req, res) {
     });
 };
 
-
 exports.UnFollowingTopics = function(req, res) {
     TopicsModel.TopicsType.find({}, function(err, result) {
         if(err) {
@@ -497,15 +681,77 @@ exports.UnFollowingTopics = function(req, res) {
         } else { 
             if(result.length > 0){
                 var UnFollowingArray = new Array();
+                var Listcount = 0;
                 GetUnFollowesData();
-                async function GetUnFollowesData(){
+                async function GetUnFollowesData(){ 
                     for (let info of result) {
                         await getData(info);
                      }
                     res.send({status:"True", data: UnFollowingArray });
-                  }
+                }
                   
-                  function getData(info, i){
+                function getData(info){
+                    return new Promise(( resolve, reject )=>{
+                        if ( Listcount < 7 ) {
+                                FollowModel.FollowTopicType.find({'UserId': req.params.UserId, 'FollowingTopicId': info._id }, function(err, FollowesData) {
+                                    if(err) {
+                                        res.send({status:"Fale", Error:err });
+                                        reject(err);
+                                    } else {
+                                        if(FollowesData.length > 0){
+                                            resolve(FollowesData);
+                                        }
+                                        else{
+                                            FollowModel.FollowTopicType.count({'FollowingTopicId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                                                if(newerr){
+                                                    res.send({status:"Fale", Error:newerr });
+                                                    reject(newerr);
+                                                }else{
+                                                    var newArray = [];
+                                                    newArray.push( {
+                                                                    _id: info._id,
+                                                                    TopicName: info.TopicName,
+                                                                    TopicImage: info.TopicImage,
+                                                                    Followers:count
+                                                                }
+                                                    );
+                                                    Listcount++;
+                                                    UnFollowingArray.push(newArray[0]);
+                                                    resolve(FollowesData);
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                        }else {
+                            resolve(info);
+                        }
+                    });
+                };
+        
+            }else{
+            res.send({status:"True", message:'No Un Followeing Topics In This User', data:result});
+            }
+        }
+    });
+};
+
+exports.AllUnFollowingTopics = function(req, res) {
+    TopicsModel.TopicsType.find({}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Un Followed Topics."});
+        } else { 
+            if(result.length > 0){
+                var UnFollowingArray = new Array();
+                GetUnFollowesData();
+                async function GetUnFollowesData(){ 
+                    for (let info of result) {
+                        await getData(info);
+                     }
+                    res.send({status:"True", data: UnFollowingArray });
+                }
+                  
+                function getData(info){
                     return new Promise(( resolve, reject )=>{
                         FollowModel.FollowTopicType.find({'UserId': req.params.UserId, 'FollowingTopicId': info._id }, function(err, FollowesData) {
                             if(err) {
@@ -536,8 +782,9 @@ exports.UnFollowingTopics = function(req, res) {
                                 }
                             }
                         });
+
                     });
-                  };
+                };
         
             }else{
             res.send({status:"True", message:'No Un Followeing Topics In This User', data:result});
@@ -545,7 +792,6 @@ exports.UnFollowingTopics = function(req, res) {
         }
     });
 };
-
 
 
 exports.DiscoverTopics = function(req, res) {
@@ -612,7 +858,7 @@ exports.DiscoverTopics = function(req, res) {
 
                                                                     const getPostInfo = qusinfo =>
                                                                         Promise.all([
-                                                                            AnswerModel.QuestionsAnwer.count({ 'PostId': qusinfo._id, 'ActiveStates': 'Active' }).exec(),
+                                                                            AnswerModel.QuestionsAnswer.count({ 'PostId': qusinfo._id, 'ActiveStates': 'Active' }).exec(),
                                                                         ]).then(data => {
                                                                             AnsCount += JSON.parse(data);
                                                                             return data;

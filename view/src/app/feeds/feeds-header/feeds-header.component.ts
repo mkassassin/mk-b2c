@@ -126,16 +126,26 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenModelDiscover() {
     const DiscoverDialogRef = this.dialog.open(
-      DiscoverComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form'} }
+      DiscoverComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: {ActiveCategory: '01',  Header: 'Discover People'} }
     );
-    DiscoverDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToProfile') {
+        console.log('Go to Profile Page');
+        this.GotoProfile(result.Id);
+      }
+    });
   }
 
   OpenModelDiscoverTopics() {
     const DiscoverTopicDialogRef = this.dialog.open(
-      DiscoverTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form'} }
+      DiscoverTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Discover Topics'} }
     );
-    DiscoverTopicDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+    DiscoverTopicDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToTopic') {
+        console.log('Go to Topic Page');
+      }
+    });
   }
 
 
@@ -182,8 +192,6 @@ export class FeedsHeaderComponent implements OnInit {
   }
 
   LogOut() {
-
-
     const localDataString = localStorage.getItem('currentUser');
     const localData = JSON.parse(localDataString);
 

@@ -168,7 +168,7 @@
       
                 <!-- Highlights Post Comments-->
                 <div *ngIf="ActiveComment == i" class="Comments mt-20">
-                  <div *ngFor="let comment of (Post.comments ? Post.comments.slice(0,2): []); let k=index" class="commentPost">
+                  <div *ngFor="let comment of Post.comments; let k=index" class="commentPost">
                     <div class="commentinfo">
                       <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
                         <div fxFlex>
@@ -210,9 +210,15 @@
                     </div>
                   </div>
       
-                  <div *ngIf="Post.comments?.length > 2" class="row">
+                  <div *ngIf="Post.commentsCount > 2 && !CommentViewLess && LoadingActiveComment != i" class="row">
                     <div class="col-sm-12">
-                      <p class="viewAll text-right"> View All...</p>
+                      <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ViewAllComments(i)">  View All... </span></p>
+                    </div>
+                  </div>
+      
+                  <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
+                    <div class="col-sm-12">
+                      <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ChangeActiveComment(i)"> Hide Comments </span> </p>
                     </div>
                   </div>
       
@@ -308,9 +314,21 @@
                               </div>
                           </div>
                       </div>
+
+                      <div *ngIf="AnswerListLoadingIndex === i">
+                        <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                            <div fxFlex>
+                                <div class="preloader-orbit-loading">
+                                  <div class="cssload-inner cssload-one"></div>
+                                  <div class="cssload-inner cssload-two"></div>
+                                  <div class="cssload-inner cssload-three"></div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
         
-        
-                      <div *ngFor="let Answer of (Post.Answers ? Post.Answers.slice(0,2): []); let k=index" class="postAnswer">
+                    <ng-container *ngIf="AnswerListLoadingIndex !== i">
+                      <div *ngFor="let Answer of Post.Answers; let k=index" class="postAnswer">
                         <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
                           <div fxFlex>
                             <div class="leftSide">
@@ -352,10 +370,14 @@
                           </div>
                         </div>
                       </div>
+                    </ng-container>
         
         
-                      <div *ngIf="Post.Answers?.length > 2" class="text-right">
-                        <p class="viewAll">View All...</p>
+                      <div *ngIf="Post.AnswersCount > 2 && !AnswersViewLess && AnswerListLoadingIndex !== i" class="text-right">
+                        <p class="viewAll"> <span style="cursor:pointer" (click)="ViewAllAnswers(i)"> View All... </span></p>
+                      </div>
+                      <div *ngIf="AnswersViewLess && AnswerListLoadingIndex !== i" class="text-right">
+                        <p class="viewAll"> <span style="cursor:pointer" (click)="ViewLessAnswers(i)"> View Less... </span></p>
                       </div>
                     </div>
         

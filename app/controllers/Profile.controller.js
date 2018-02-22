@@ -49,9 +49,9 @@ exports.Timeline = function (req, res) {
                         LikeAndRating.HighlightsLike.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         LikeAndRating.HighlightsLike.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.HighlightsComment.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                        CommentAndAnswer.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                        CommentAndAnswer.QuestionsAnwer.find({ 'PostId': info._id, 'ActiveStates': 'Active' }, 'AnswerText UserId Date').exec(),
-                        CommentAndAnswer.HighlightsComment.find({'UserId': req.params.UserId, 'PostId': info._id, 'ActiveStates': 'Active'}).exec(),
+                        CommentAndAnswer.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                        CommentAndAnswer.QuestionsAnswer.find({ 'PostId': info._id, 'ActiveStates': 'Active' }, 'AnswerText UserId Date', { limit: 2 }).exec(),
+                        CommentAndAnswer.HighlightsComment.find({'UserId': req.params.UserId, 'PostId': info._id, 'ActiveStates': 'Active'},{ limit: 2 }).exec(),
                     ]).then(data => {
                         var UserData = data[0];
                         var followCount = data[1];

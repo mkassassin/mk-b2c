@@ -1,0 +1,187 @@
+
+
+
+.box-2{
+    background-color: #ffffff;
+    margin-top: -24px;
+    margin-left: -24px;
+    margin-right: -24px;
+    margin-bottom: -24px;
+}
+.DiscoverLefBar .followheader{
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 0px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #ffda00;
+}
+.DiscoverPeoples .userlistImg{
+    height: 40px;
+    width: 40px;
+    padding: 0px;
+    background-color: #e2e2e2;
+    border-radius: 50px;
+    margin: 0px;
+    cursor: pointer;
+}
+.DiscoverPeoples .userlistname {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 13px;
+    color: #333333;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverPeoples .userlistname span{
+    cursor: pointer;
+}
+
+.DiscoverPeoples .userlistcategory {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.4px;
+    color: #666666;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverPeoples .userlistfollowers {
+    margin: 0px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    color: #999999;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.3px;
+}
+.DiscoverPeoples .userAddIcon {
+    margin: 0px;
+}
+.DiscoverPeoples .userAddIcon i{
+    font-size: 30px;
+    color: #99999991;
+    line-height: 40px;
+    width: 40px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+ .btn-cutom{
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    outline: transparent;
+    padding: 5px 22px;
+}
+ .btn-cutom:hover{
+    color: #fff;
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+}
+ .btn-cutom:focus{
+    box-shadow: none;
+}
+
+
+.max-width-300{
+    max-width: 300px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.box-1{
+    background-color: #ffffff;
+    margin-top: -24px;
+    margin-left: -24px;
+    margin-right: -24px;
+    margin-bottom: -24px;
+}
+.DiscoverTopics .followheader{
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 0px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #ffda00;
+}
+.DiscoverTopics .userlistImg{
+    height: 45px;
+    width: 45px;
+    padding: 0px;
+    background-color: #e2e2e2;
+    border-radius: 50px;
+    margin: 0px;
+    cursor: pointer;
+}
+.DiscoverTopics .userlistname {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 13px;
+    color: #333333;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverTopics .userlistname span{
+    cursor: pointer;
+}
+
+.DiscoverTopics .userlistcategory {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px;
+    letter-spacing: 0.4px;
+    color: #666666;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.DiscoverTopics .topicAddIcon{
+    position: absolute;
+    top: -10px;
+    margin-left: 10px;
+}
+
+.DiscoverTopics .topicAddIcon i{
+    color: #66666673;
+    cursor: pointer;
+    font-size: 22px;
+}

@@ -52,7 +52,7 @@
     </div>
     <div *ngIf="UserFollowingUsers?.length > 4" class="row">
       <div class="col-sm-12 text-right">
-          <p class="viewAll"> <span> View All... </span> </p>
+          <p class="viewAll"> <span  (click)="AllUserFollowingUsers()" > View All... </span> </p>
       </div>
     </div>
 
@@ -94,7 +94,7 @@
     </div>
     <div *ngIf="FollowingUsers?.length > 4" class="row">
       <div class="col-sm-12 text-right">
-          <p class="viewAll"> <span> View All... </span>  </p>
+          <p class="viewAll"> <span (click)="AllFollowingUsers()"> View All... </span>  </p>
       </div>
     </div>
     
@@ -137,7 +137,7 @@
     </div>
     <div *ngIf="FollowingTopics?.length > 4" class="row">
         <div class="col-sm-12 text-right">
-            <p class="viewAll"> <span> View All... </span>  </p>
+            <p class="viewAll"> <span (click)="AllFollowingTopics()" > View All... </span>  </p>
         </div>
     </div>
     
