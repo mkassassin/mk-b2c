@@ -264,7 +264,7 @@
                             <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                           </div>
                           <div class="mt-5" fxFlex>
-                            <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
+                            <p class="postusername" > <span style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </span> </p>
                             <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
                             <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                           </div>
@@ -282,7 +282,7 @@
                               <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportQuestionPost" class="material-icons">more_horiz</i>
                             </p>
                             <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
-                            <p class="posttopic"> {{Post.PostTopicName}} </p>
+                            <p class="posttopic"> <span (click)="GotoTopic(Post.PostTopicId)" style="cursor:pointer">  {{Post.PostTopicName}} </span> </p>
                           </div>
                         </div>
                       </div>

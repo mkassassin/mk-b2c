@@ -131,6 +131,8 @@ import { EditPostTwoComponent } from './popups/edit-post-two/edit-post-two.compo
 import { EditCommentComponent } from './popups/edit-comment/edit-comment.component';
 import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component';
 import { FollowViewAllComponent } from './popups/follow-view-all/follow-view-all.component';
+import { TopicPageRoutingComponent } from './page-routing/topic-page-routing/topic-page-routing.component';
+import { TopicRoutingServiceService } from './service/topic-routing-service/topic-routing-service.service';
 
 
 @NgModule({
@@ -183,7 +185,8 @@ import { FollowViewAllComponent } from './popups/follow-view-all/follow-view-all
     EditPostTwoComponent,
     EditCommentComponent,
     EditAnswerComponent,
-    FollowViewAllComponent
+    FollowViewAllComponent,
+    TopicPageRoutingComponent
   ],
   imports: [
     CommonModule,
@@ -230,6 +233,7 @@ import { FollowViewAllComponent } from './popups/follow-view-all/follow-view-all
                 SearchService,
                 ComponentConnectServiceService,
                 ReportAndDeleteService,
+                TopicRoutingServiceService,
                 {
                   provide: AuthServiceConfig,
                   useFactory: provideConfig

@@ -1,14 +1,14 @@
 <div class="tabStyleOne FeedsCenter" style="margin-top:3px">
-    <p-tabView (onChange)="onTabChange($event)">
+    <p-tabView [activeIndex]="ActiveIndex" (onChange)="onTabChange($event)">
 
         <p-tabPanel header="Highlights">
-            <div *ngIf="ActiveIndex == '0'">
+            <div *ngIf="ActiveIndex === 0">
                 <app-feeds-highlights></app-feeds-highlights>
             </div>
         </p-tabPanel>
 
         <p-tabPanel header="Questions">
-            <div *ngIf="ActiveIndex == '1'">
+            <div *ngIf="ActiveIndex === 1">
                  <app-feeds-questions></app-feeds-questions>
             </div>
         </p-tabPanel>

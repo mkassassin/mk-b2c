@@ -37,4 +37,6 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/GetUserInfo/:UserId/:LoginUserId', user.GetUserInfo);
 
+    app.get('/API/SigninSignup/UserCoinCount/:UserId', user.UserCoinCount);
+
 }

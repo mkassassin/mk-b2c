@@ -65,4 +65,11 @@ export class PostServiceService {
         .catch(this.handleError);
     }
 
+
+    public GetTopicQuestionsList(UserId: any, Limit: any, TopicId: any): Observable<any[]> {
+        return this.http .get(API_URL + 'QuestionsPost/GetTopicPostList/' + UserId + '/' + Limit + '/' + TopicId)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

@@ -1,7 +1,7 @@
 var UserModel = require('../models/SignInSignUp.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
 var FollowModel = require('../models/Follow.model.js');
-
+var LikeAndRating = require('../models/LikeAndRating.model.js');
 
 var nodemailer = require('nodemailer');
 
@@ -288,6 +288,76 @@ exports.UserInfo = function(req, res) {
     });
 };
 
+exports.UserCoinCount= function(req, res) {
+    LikeAndRating.QuestionsRating.find({ 'PostUserId': req.params.UserId, 'ActiveStates': 'Active' }, function(QusRatingErr, QusRating) {
+        if(QusRatingErr) {
+            res.status(500).send({status:"False", Error: QusRatingErr, message: "Some error occurred while Rate the Post."}); 
+        } else {
+            var QusRatingTotalCount = 0 ;
+            QusRatingCount();
+             async function QusRatingCount(){
+                for (let Info of QusRating) {
+                    await QusRatingInfo(Info);
+                }
+                LikeAndRating.HighlightsLike.count({ 'PostUserId': req.params.UserId, 'ActiveStates': 'Active' }, function(HighlightsLikeErr, HighlightsLikeCount) {
+                    if(HighlightsLikeErr) {
+                        res.status(500).send({status:"False", Error: HighlightsLikeErr, message: "Some error occurred while Rate the Post."}); 
+                    } else {
+                        LikeAndRating.CommentLike.count({ 'CommentUserId': req.params.UserId, 'ActiveStates': 'Active' }, function(CommentLikeErr, CommentLikeCount) {
+                            if(CommentLikeErr) {
+                                res.status(500).send({status:"False", Error: CommentLikeErr, message: "Some error occurred while Rate the Post."}); 
+                            } else {
+                                LikeAndRating.AnswerRating.find({ 'AnswerUserId': req.params.UserId, 'ActiveStates': 'Active' }, function(AnswerRatingErr, AnswerRating) {
+                                    if(AnswerRatingErr) {
+                                        res.status(500).send({status:"False", Error: AnswerRatingErr, message: "Some error occurred while Rate the Post."}); 
+                                    } else {
+                                        var AnsRatingTotalCount = 0 ;
+                                        AnsRatingCount();
+                                         async function AnsRatingCount(){
+                                            for (let Info of AnswerRating) {
+                                                await AnsRatingInfo(Info);
+                                            }
+                                            res.send({ status:"True", HiLikes: HighlightsLikeCount, CommentLikes: CommentLikeCount, QusRatCount:QusRatingTotalCount, AnsRatCount: AnsRatingTotalCount  });
+                                        }
+                                        function AnsRatingInfo(Info){
+                                            return new Promise(( resolve, reject )=>{
+                                                LikeAndRating.AnswerRating.findOne({ '_id': Info._id}, function(ansRateerr, ansRateData) {
+                                                    if(ansRateerr) {
+                                                        res.send({status:"False", Error:ansRateerr });
+                                                        reject(ansRateerr);
+                                                    } else {
+                                                        AnsRatingTotalCount += JSON.parse(ansRateData.Rating);
+                                                        resolve(ansRateData);
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        function QusRatingInfo(rateInfo){
+            return new Promise(( resolve, reject )=>{
+                LikeAndRating.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                    if(Rateerr) {
+                        res.send({status:"False", Error:Rateerr });
+                        reject(Rateerr);
+                    } else {
+                        QusRatingTotalCount += JSON.parse(RateData.Rating);
+                        resolve(RateData);
+                    }
+                });
+            });
+        }
+    });
+
+};
+
 exports.FBUserValidate = function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase(), 'ProviderId': req.params.fbid}, "_id UserName ProviderType UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
         if(err) {
@@ -301,7 +371,6 @@ exports.FBUserValidate = function(req, res) {
         }
     });
 };
-
 
 exports.SocialUserValidate = function(req, res) {
     UserModel.UserType.findOne({'ProviderType': req.params.type, 'UserEmail': req.params.email.toLowerCase(), 'ProviderId': req.params.uid}, "_id UserName ProviderType UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
@@ -347,7 +416,7 @@ exports.GetNotification = function(req, res) {
     if(!req.params.UserId){
         res.status(500).send({status:"False", message: " User Id Is Missing!"});
     }
-    NotificationModel.Notification.find({'ResponseUserId': req.params.UserId, 'Viewed': 0 }, function(err, result) {
+    NotificationModel.Notification.find({'ResponseUserId': req.params.UserId, 'Viewed': 0 }, { }, { sort:{createdAt : -1} }, function(err, result) {
             if(err) {
                 res.status(500).send({status:"False", Error:err, message: "Follow User DB Error"});
             } else {
@@ -378,14 +447,24 @@ exports.GetNotification = function(req, res) {
                                                     NotificationType: info.NotificationType,
                                                     FollowUserId: info.FollowUserId,
                                                     FollowTopicId: info.FollowTopicId,
+                                                    HighlightPostType: info.HighlightPostType,
                                                     HighlightPostId: info.HighlightPostId,
                                                     HighlightLikeId: info.HighlightLikeId,
                                                     HighlightCommentId: info.HighlightCommentId,
+                                                    CommentText: info.CommentText,
                                                     HighlightShareId: info.HighlightShareId,
                                                     QuestionPostId: info.QuestionPostId,
+                                                    QuestionRating: info.QuestionRating,
+                                                    QuestionTopic: info.QuestionTopic,
+                                                    QuestionTopicId: info.QuestionTopicId,
+                                                    QuestionText: info.QuestionText,
                                                     QuestionRatingId: info.QuestionRatingId,
                                                     QuestionShareId: info.QuestionShareId,
                                                     QuestionAnswerId: info.QuestionAnswerId,
+                                                    AnswerRating: info.AnswerRating,
+                                                    AnswerTopic: info.AnswerTopic,
+                                                    AnswerTopicId: info.AnswerTopicId,
+                                                    AnswerText: info.AnswerText,
                                                     ImpressionPostId: info.ImpressionPostId,
                                                     ImpressionFolllowId: info.ImpressionFolllowId,
                                                     Viewed: info.Viewed,

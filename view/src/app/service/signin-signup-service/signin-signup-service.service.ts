@@ -121,6 +121,11 @@ export class SigninSignupServiceService {
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 
+    public UserCoinCount(UserId: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'UserCoinCount/' + UserId )
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
     public GetUserInfo(UserId: any, LoginUserId: any): Observable<any[]>  {
         return this.http .get(API_URL + 'GetUserInfo/' + UserId + '/' + LoginUserId)
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);

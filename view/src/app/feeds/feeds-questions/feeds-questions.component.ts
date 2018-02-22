@@ -17,6 +17,8 @@ import { ReportAndDeleteService } from './../../service/report-and-delete-servic
 import { EditPostTwoComponent } from './../../popups/edit-post-two/edit-post-two.component';
 import { EditAnswerComponent } from './../../popups/edit-answer/edit-answer.component';
 
+import { TopicRoutingServiceService } from './../../service/topic-routing-service/topic-routing-service.service';
+
 @Component({
   selector: 'app-feeds-questions',
   templateUrl: './feeds-questions.component.html',
@@ -30,6 +32,7 @@ export class FeedsQuestionsComponent implements OnInit {
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
 
+  ActiveTab: any;
 
   ActiveAnswerInput;
   scrollHeight;
@@ -41,6 +44,8 @@ export class FeedsQuestionsComponent implements OnInit {
   AnswerListLoadingIndex: Number = -1;
   AnswersViewLess: Boolean = false;
 
+  TopicFilter: Boolean = false;
+  TopicFilterName;
 
   reportPostInfo;
   reportUserId;
@@ -55,30 +60,62 @@ export class FeedsQuestionsComponent implements OnInit {
     public dialog: MatDialog,
     private elementRef: ElementRef,
     private _componentConnectService: ComponentConnectServiceService,
+    private _topicRoutingService: TopicRoutingServiceService,
     private DeleteService: ReportAndDeleteService,
     public snackBar: MatSnackBar,
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.Service.GetQuestionsList(this.UserInfo.data._id, '0')
-    .subscribe( datas => {
-        if (datas['status'] === 'True') {
-          this.PostsList = datas['data'];
-          this.PostsListLoading = false;
-
-          const s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.src = './../../../assets/html5gallery/html5gallery.js';
-          this.elementRef.nativeElement.appendChild(s);
-
-        }else {
-          console.log(datas);
-        }
+    this.ActiveTab = this.ShareService.GetTopicQuestions();
+    if (this.ActiveTab['TopicId'] !== '') {
+      this.Service.GetTopicQuestionsList(this.UserInfo.data._id, '0', this.ActiveTab['TopicId'])
+        .subscribe( datas => {
+            if (datas['status'] === 'True') {
+              this.TopicFilter = true;
+              this.PostsList = datas['data'];
+              this.TopicFilterName = this.PostsList[0].PostTopicName;
+              this.PostsListLoading = false;
+              this.ReloadGalleryScript();
+            }else {
+              console.log(datas);
+            }
+            this.ShareService.SetTopicQuestions('', '');
+        });
+    }else {
+      this.Service.GetQuestionsList(this.UserInfo.data._id, '0')
+      .subscribe( datas => {
+          if (datas['status'] === 'True') {
+            this.PostsList = datas['data'];
+            this.PostsListLoading = false;
+            this.ReloadGalleryScript();
+          }else {
+            console.log(datas);
+          }
       });
+    }
 
       this._componentConnectService.listen().subscribe(() => {
         this.ReloadGalleryScript();
-    });
+      });
+
+      this._topicRoutingService.listen().subscribe(() => {
+        this.PostsList = [];
+        this.PostsListLoading = true;
+        this.Service.GetTopicQuestionsList(this.UserInfo.data._id, '0', this.ActiveTab['TopicId'])
+        .subscribe( datas => {
+          this.TopicFilter = true;
+            if (datas['status'] === 'True') {
+              this.PostsList = datas['data'];
+              this.TopicFilterName = this.PostsList[0].PostTopicName;
+              this.PostsListLoading = false;
+              this.ReloadGalleryScript();
+            }else {
+              console.log(datas);
+            }
+            this.ShareService.SetTopicQuestions('', '');
+        });
+      });
+
 
   }
 
@@ -92,6 +129,22 @@ export class FeedsQuestionsComponent implements OnInit {
           s.src = './../../../assets/html5gallery/html5gallery.js';
           this.elementRef.nativeElement.appendChild(s);
     }, 50);
+  }
+
+  ViewAllQuestions() {
+    this.PostsList = [];
+    this.TopicFilter = false;
+    this.PostsListLoading = true;
+    this.Service.GetQuestionsList(this.UserInfo.data._id, '0')
+      .subscribe( datas => {
+          if (datas['status'] === 'True') {
+            this.PostsList = datas['data'];
+            this.PostsListLoading = false;
+            this.ReloadGalleryScript();
+          }else {
+            console.log(datas);
+          }
+      });
   }
 
   ngOnInit() {
@@ -257,6 +310,12 @@ export class FeedsQuestionsComponent implements OnInit {
     this.ShareService.SetProfilePage(Id);
     this.router.navigate(['ViewProfile']);
   }
+
+  GotoTopic(Id) {
+    this.ShareService.SetTopicQuestions(Id);
+    this._topicRoutingService.TopicRouting();
+  }
+
 
 
 

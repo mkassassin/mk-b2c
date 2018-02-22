@@ -109,7 +109,9 @@ export class FollowViewAllComponent implements OnInit {
     this.dialogRef.close({status: 'Close'});
   }
 
-
+  GotoTopic(Id) {
+    this.dialogRef.close({status: 'GoToTopic', topicId: Id});
+  }
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);
     this.dialogRef.close({status: 'GoToProfile', Id: Id});

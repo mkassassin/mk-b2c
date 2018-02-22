@@ -28,9 +28,9 @@
             <div *ngIf="data.type === 'FollowingTopics'" class="row m-0 DiscoverTopics">
               <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-sm-3 p-0">
                   <div class="text-center" style="position:relative">
-                    <img class="userlistImg" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
+                    <img class="userlistImg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
                     <p class="userlistname">
-                      <span> {{Topic.TopicName}} </span>
+                      <span (click)="GotoTopic(Topic._id)"> {{Topic.TopicName}} </span>
                     </p>
                     <p class="userlistcategory"> {{Topic.Followers}} Followers</p>
                     <p class="userlistcategory "> {{Topic.QuestionCount}} Qus &nbsp;| &nbsp; {{Topic.AnsCount}} Ans </p>

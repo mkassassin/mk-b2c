@@ -163,7 +163,8 @@ export class ProfileLeftBarComponent implements OnInit {
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
       if (result.status === 'GoToTopic') {
-        console.log('Go to Topic Page');
+        this.ShareingService.SetTopicQuestions(result.topicId);
+        this.router.navigate(['TopicPage']);
       }
     });
   }
@@ -284,5 +285,13 @@ export class ProfileLeftBarComponent implements OnInit {
         }
       });
   }
+
+
+
+  GotoTopic(Id) {
+    this.ShareingService.SetTopicQuestions(Id);
+    this.router.navigate(['TopicPage']);
+  }
+
 
 }

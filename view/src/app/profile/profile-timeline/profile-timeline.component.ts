@@ -410,7 +410,10 @@ export class ProfileTimelineComponent implements OnInit {
   }
 
 
-
+  GotoTopic(Id) {
+    this.ShareingService.SetTopicQuestions(Id);
+    this.router.navigate(['TopicPage']);
+  }
 
 
 

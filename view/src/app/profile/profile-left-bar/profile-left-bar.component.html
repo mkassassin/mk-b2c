@@ -127,8 +127,8 @@
             </div>
 
           <div *ngFor="let Topic of (FollowingTopics ? FollowingTopics.slice(0,4): []);" class="col-sm-3 followPart ">
-              <img class="followimg" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
-              <p class="followname"> <span (click)="GotoProfile(user._id)"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </span>  </p>
+              <img class="followimg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
+              <p class="followname"> <span (click)="GotoTopic(Topic._id)"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </span>  </p>
           </div>
         
       </div>

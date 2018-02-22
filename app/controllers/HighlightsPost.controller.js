@@ -85,9 +85,6 @@ exports.Submit = function(req, res) {
                                 res.send({status:"False", Error:newerr });
                             }else{
                                 var newArray = [];
-
-                                
-
                                 newArray.push( {
                                                 _id: result._id,
                                                 UserId: UserData._id,
@@ -131,6 +128,7 @@ exports.Submit = function(req, res) {
                                                     var varNotification = new NotificationModel.Notification({
                                                         UserId:  req.body.UserId,
                                                         HighlightPostId: result._id,
+                                                        HighlightPostType: result.PostType,
                                                         ResponseUserId: info.UserId,
                                                         NotificationType: 5,
                                                         Viewed: 0,

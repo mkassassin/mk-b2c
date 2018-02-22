@@ -22,11 +22,21 @@
         </div>
       </div>
     </div>
+
+    <div class="row" *ngIf="TopicFilter">
+      <div class="col-sm-6">
+        <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+          <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555" >  {{TopicFilterName}} </span> Question...</p>
+      </div>
+      <div class="col-sm-6 text-right">
+        <p style="cursor:pointer;margin-right: 10px;margin-top: 0px;margin-bottom: 3px; font-size:12px;color:#888" (click)="ViewAllQuestions()" > View All Questions... </p>
+      </div>
+    </div>
+
+
     <!-- Question Header Post Div  END-->
 
     <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
-
-
 
       <div class="postScroll">
 
@@ -59,7 +69,7 @@
                       <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportQuestionPost" class="material-icons">more_horiz</i>
                     </p>
                     <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
-                    <p class="posttopic"> {{Post.PostTopicName}} </p>
+                    <p class="posttopic"> <span style="cursor:pointer" (click)="GotoTopic(Post.PostTopicId)">  {{Post.PostTopicName}} </span> </p>
                   </div>
                 </div>
               </div>

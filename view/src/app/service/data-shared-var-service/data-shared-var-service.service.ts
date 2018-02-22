@@ -7,8 +7,11 @@ export interface ActiveSinInsignUpTab { ActiveTab: String; Email: String; }
 export interface SingUpType { Type: String; Values: any; }
 
 export interface NewPassword { UserId: String; Token: any; }
+
 export interface ProfilePage { UserId: String; Other: String; }
 
+
+export interface TopicQuestions { TopicId: String; Other: String; }
 @Injectable()
 export class DataSharedVarServiceService {
 
@@ -38,6 +41,12 @@ export class DataSharedVarServiceService {
   StoreNewPassword: NewPassword = { UserId : '', Token : '' };
   SetNewPassword(UserId, Token) {this.StoreNewPassword.UserId = UserId; this.StoreNewPassword.Token = Token; }
   GetNewPassword() { return this.StoreNewPassword; }
+
+
+
+  StoreTopicQuestions: TopicQuestions = { TopicId : '', Other : '' };
+  SetTopicQuestions(TopicId, Other= null) {this.StoreTopicQuestions.TopicId = TopicId; this.StoreTopicQuestions.Other = Other; }
+  GetTopicQuestions() { return this.StoreTopicQuestions; }
 
 
 }

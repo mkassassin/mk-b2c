@@ -8,6 +8,8 @@
         <div fxFlex="60px">
             <p class="username"> {{UserInfo.data.UserName}} </p>
             <p class="userfollowers"> {{UserInfo.data.UserCategoryName}} &nbsp; | &nbsp; {{UserInfo.data.UserProfession}} </p>
+            <p class="userfollowers"> Likes  <img src="./../../../assets/images/icons/liked.png" style="width:16px;height:16px" alt=""> {{UserCoinInfo.HiLikes + UserCoinInfo.CommentLikes}}
+                 &nbsp; | &nbsp; Ratings  <img src="./../../../assets/images/icons/liked.png" style="width:16px;height:16px" alt=""> {{UserCoinInfo.AnsRatCount + UserCoinInfo.QusRatCount}} </p>
         </div>
     </div>
     <!-- UserDetails End -->
@@ -129,8 +131,8 @@
             </div>
 
           <div *ngFor="let Topic of (FollowingTopics ? FollowingTopics.slice(0,4): []);" class="col-xs-3 followPart ">
-              <img class="followimg" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
-              <p class="followname"> {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }} </p>
+              <img class="followimg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
+              <p class="followname"> <span (click)="GotoTopic(Topic._id)">  {{Topic.TopicName | slice:0:7 }}{{ Topic.TopicName?.length > 7 ? '...' : ' ' }}  </span></p>
           </div>
         
         </div>

@@ -14,6 +14,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { TermsComponent } from './terms/terms.component';
 import { PolicyComponent } from './policy/policy.component';
 import { SetNewpasswordComponent } from './page-routing/set-newpassword/set-newpassword.component';
+import { TopicPageRoutingComponent } from './page-routing/topic-page-routing/topic-page-routing.component';
+
 
 const appRoutes: Routes = [
     { path: '',
@@ -76,6 +78,13 @@ const appRoutes: Routes = [
         component: PageRoutingComponent,
         data: {
             animation: { value: 'ViewProfile', }
+        },
+        canActivate: [AuthGuard]
+    },
+    { path: 'TopicPage',
+        component: TopicPageRoutingComponent,
+        data: {
+            animation: { value: 'TopicPage', }
         },
         canActivate: [AuthGuard]
     }

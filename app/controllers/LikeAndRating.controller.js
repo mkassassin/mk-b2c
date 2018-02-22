@@ -1,5 +1,8 @@
 var Model = require('../models/LikeAndRating.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
+var HighlightsPostModel = require('../models/HighlightsPost.model.js');
+var QuestionsPostModel = require('../models/QuestionsPost.model.js');
+var CommentAndAnswer = require('../models/CommentAndAnswer.model.js');
 
 exports.HighlightsLikeAdd = function(req, res) {
     if(!req.body.UserId) {
@@ -35,21 +38,28 @@ exports.HighlightsLikeAdd = function(req, res) {
                             res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UnLike ."});
                         }else{
                             if ( req.body.UserId !== req.body.PostUserId ) {
-                                var varNotification = new NotificationModel.Notification({
-                                    UserId:  req.body.UserId,
-                                    HighlightPostId: req.body.PostId,
-                                    ResponseUserId: req.body.PostUserId,
-                                    HighlightLikeId:newresult._id,
-                                    NotificationType: 6,
-                                    Viewed: 0,
-                                    NotificationDate: new Date()
-                                });
-                                varNotification.save(function(Nofifyerr, Notifydata) {
-                                    if(Nofifyerr) {
-                                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
-                                        
+                                HighlightsPostModel.HighlightsPostType.findOne({'_id':  req.body.PostId},  function(Posterr, Postresult) {
+                                    if(Posterr) {
+                                        res.status(500).send({status:"False", message: "Some error occurred ."});
                                     } else {
-                                        res.send({status:"True", data: newresult });
+                                        var varNotification = new NotificationModel.Notification({
+                                            UserId:  req.body.UserId,
+                                            HighlightPostId: req.body.PostId,
+                                            HighlightPostType: Postresult.PostType,
+                                            ResponseUserId: req.body.PostUserId,
+                                            HighlightLikeId:newresult._id,
+                                            NotificationType: 6,
+                                            Viewed: 0,
+                                            NotificationDate: new Date()
+                                        });
+                                        varNotification.save(function(Nofifyerr, Notifydata) {
+                                            if(Nofifyerr) {
+                                                res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                                
+                                            } else {
+                                                res.send({status:"True", data: newresult });
+                                            }
+                                        });
                                     }
                                 });
                             }else {
@@ -66,21 +76,28 @@ exports.HighlightsLikeAdd = function(req, res) {
                         res.status(500).send({status:"False", Error: newerr, message: "Some error occurred while Like the Post."});    
                     } else {
                         if ( req.body.UserId !== req.body.PostUserId ) {
-                            var varNotification = new NotificationModel.Notification({
-                                UserId:  req.body.UserId,
-                                ResponseUserId: req.body.PostUserId,
-                                HighlightPostId: req.body.PostId,
-                                HighlightLikeId:newresult._id,
-                                NotificationType: 6,
-                                Viewed: 0,
-                                NotificationDate: new Date()
-                            });
-                            varNotification.save(function(Nofifyerr, Notifydata) {
-                                if(Nofifyerr) {
-                                    res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
-                                    
+                            HighlightsPostModel.HighlightsPostType.findOne({'_id':  req.body.PostId},  function(Posterr, Postresult) {
+                                if(Posterr) {
+                                    res.status(500).send({status:"False", message: "Some error occurred ."});
                                 } else {
-                                    res.send({status:"True", data: newresult });
+                                    var varNotification = new NotificationModel.Notification({
+                                        UserId:  req.body.UserId,
+                                        ResponseUserId: req.body.PostUserId,
+                                        HighlightPostType: Postresult.PostType,
+                                        HighlightPostId: req.body.PostId,
+                                        HighlightLikeId:newresult._id,
+                                        NotificationType: 6,
+                                        Viewed: 0,
+                                        NotificationDate: new Date()
+                                    });
+                                    varNotification.save(function(Nofifyerr, Notifydata) {
+                                        if(Nofifyerr) {
+                                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                            
+                                        } else {
+                                            res.send({status:"True", data: newresult });
+                                        }
+                                    });
                                 }
                             });
                         }else {
@@ -155,22 +172,29 @@ exports.CommentsLikeAdd = function(req, res) {
                             res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UnLike ."});
                         }else{
                             if (req.body.UserId !== req.body.CommentUserId ) {
-                                var varNotification = new NotificationModel.Notification({
-                                    UserId:  req.body.UserId,
-                                    HighlightPostId: req.body.PostId,
-                                    ResponseUserId: req.body.CommentUserId,
-                                    HighlightCommentId: req.body.CommentId,
-                                    CommentLikeId:newresult._id,
-                                    NotificationType: 15,
-                                    Viewed: 0,
-                                    NotificationDate: new Date()
-                                });
-                                varNotification.save(function(Nofifyerr, Notifydata) {
-                                    if(Nofifyerr) {
-                                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
-                                        
+                                CommentAndAnswer.HighlightsComment.findOne({'_id': req.body.CommentId},  function(Posterr, Postresult) {
+                                    if(Posterr) {
+                                        res.status(500).send({status:"False", message: "Some error occurred ."});
                                     } else {
-                                        res.send({status:"True", data: newresult });
+                                        var varNotification = new NotificationModel.Notification({
+                                            UserId:  req.body.UserId,
+                                            HighlightPostId: req.body.PostId,
+                                            CommentText: Postresult.CommentText,
+                                            ResponseUserId: req.body.CommentUserId,
+                                            HighlightCommentId: req.body.CommentId,
+                                            CommentLikeId:newresult._id,
+                                            NotificationType: 15,
+                                            Viewed: 0,
+                                            NotificationDate: new Date()
+                                        });
+                                        varNotification.save(function(Nofifyerr, Notifydata) {
+                                            if(Nofifyerr) {
+                                                res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                                
+                                            } else {
+                                                res.send({status:"True", data: newresult });
+                                            }
+                                        });
                                     }
                                 });
                             }else{
@@ -187,22 +211,29 @@ exports.CommentsLikeAdd = function(req, res) {
                         res.status(500).send({status:"False", Error: newerr, message: "Some error occurred while Like the Post."});    
                     } else {
                         if (req.body.UserId !== req.body.CommentUserId ) {
-                            var varNotification = new NotificationModel.Notification({
-                                UserId:  req.body.UserId,
-                                HighlightPostId: req.body.PostId,
-                                ResponseUserId: req.body.CommentUserId,
-                                HighlightCommentId: req.body.CommentId,
-                                CommentLikeId:newresult._id,
-                                NotificationType: 15,
-                                Viewed: 0,
-                                NotificationDate: new Date()
-                            });
-                            varNotification.save(function(Nofifyerr, Notifydata) {
-                                if(Nofifyerr) {
-                                    res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
-                                    
+                            CommentAndAnswer.HighlightsComment.findOne({'_id':  req.body.CommentId},  function(Posterr, Postresult) {
+                                if(Posterr) {
+                                    res.status(500).send({status:"False", message: "Some error occurred ."});
                                 } else {
-                                    res.send({status:"True", data: newresult });
+                                    var varNotification = new NotificationModel.Notification({
+                                        UserId:  req.body.UserId,
+                                        HighlightPostId: req.body.PostId,
+                                        CommentText: Postresult.CommentText,
+                                        ResponseUserId: req.body.CommentUserId,
+                                        HighlightCommentId: req.body.CommentId,
+                                        CommentLikeId:newresult._id,
+                                        NotificationType: 15,
+                                        Viewed: 0,
+                                        NotificationDate: new Date()
+                                    });
+                                    varNotification.save(function(Nofifyerr, Notifydata) {
+                                        if(Nofifyerr) {
+                                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                            
+                                        } else {
+                                            res.send({status:"True", data: newresult });
+                                        }
+                                    });
                                 }
                             });
                         }else {
@@ -320,20 +351,29 @@ exports.QuestionsRatingAdd = function(req, res) {
                                                     });
                                                     
                                         if ( req.body.UserId !== req.body.PostUserId ) {
-                                            var varNotification = new NotificationModel.Notification({
-                                                UserId:  req.body.UserId,
-                                                ResponseUserId: req.body.PostUserId,
-                                                QuestionPostId: req.body.PostId,
-                                                QuestionRatingId:newresult._id,
-                                                NotificationType: 10,
-                                                Viewed: 0,
-                                                NotificationDate: new Date()
-                                            });
-                                            varNotification.save(function(Nofifyerr, Notifydata) {
-                                                if(Nofifyerr) {
-                                                    res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});   
+                                            QuestionsPostModel.QuestionsPostType.findOne({'_id': req.body.PostId}, function (Quserr, Qusresult) {
+                                                if (Quserr) {
+                                                    res.status(500).send({ status: "False", Error: Quserr, message: "Some error occurred ." });
                                                 } else {
-                                                    GetAnsData(FindRates);
+                                                    var varNotification = new NotificationModel.Notification({
+                                                        UserId:  req.body.UserId,
+                                                        QuestionTopic: Qusresult.PostTopicName,
+                                                        QuestionTopicId: Qusresult.PostTopicId,
+                                                        ResponseUserId: req.body.PostUserId,
+                                                        QuestionPostId: req.body.PostId,
+                                                        QuestionRating: req.body.Rating,
+                                                        QuestionRatingId:newresult._id,
+                                                        NotificationType: 10,
+                                                        Viewed: 0,
+                                                        NotificationDate: new Date()
+                                                    });
+                                                    varNotification.save(function(Nofifyerr, Notifydata) {
+                                                        if(Nofifyerr) {
+                                                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});   
+                                                        } else {
+                                                            GetAnsData(FindRates);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }else {
@@ -348,7 +388,6 @@ exports.QuestionsRatingAdd = function(req, res) {
             }
         }
     });
-
      
 };
 
@@ -435,21 +474,30 @@ exports.AnswerRatingAdd = function(req, res) {
                                                     });
                                                     
                                         if ( req.body.UserId !== req.body.AnswerUserId ) {
-                                            var varNotification = new NotificationModel.Notification({
-                                                UserId:  req.body.UserId,
-                                                ResponseUserId: req.body.AnswerUserId,
-                                                QuestionPostId: req.body.PostId,
-                                                QuestionAnswerId: req.body.AnswerId,
-                                                AnswerRatingId:newresult._id,
-                                                NotificationType: 16,
-                                                Viewed: 0,
-                                                NotificationDate: new Date()
-                                            });
-                                            varNotification.save(function(Nofifyerr, Notifydata) {
-                                                if(Nofifyerr) {
-                                                    res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});   
+                                            CommentAndAnswer.QuestionsAnswer.findOne({'_id': req.body.AnswerId}, function (Quserr, Qusresult) {
+                                                if (Quserr) {
+                                                    res.status(500).send({ status: "False", Error: Quserr, message: "Some error occurred ." });
                                                 } else {
-                                                    GetAnsData(FindRates);
+                                                    var anstext = Qusresult.AnswerText;
+                                                    var varNotification = new NotificationModel.Notification({
+                                                        UserId:  req.body.UserId,
+                                                        AnswerText: anstext,
+                                                        ResponseUserId: req.body.AnswerUserId,
+                                                        QuestionPostId: req.body.PostId,
+                                                        QuestionAnswerId: req.body.AnswerId,
+                                                        AnswerRating: req.body.Rating,
+                                                        AnswerRatingId:newresult._id,
+                                                        NotificationType: 16,
+                                                        Viewed: 0,
+                                                        NotificationDate: new Date()
+                                                    });
+                                                    varNotification.save(function(Nofifyerr, Notifydata) {
+                                                        if(Nofifyerr) {
+                                                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});   
+                                                        } else {
+                                                            GetAnsData(FindRates);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }else {

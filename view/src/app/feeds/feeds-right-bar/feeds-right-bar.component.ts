@@ -6,6 +6,11 @@ import { FollowServiceService } from './../../service/follow-service/follow-serv
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ProfilePictureCropperComponent } from './../../popups/profile-picture-cropper/profile-picture-cropper.component';
 import { FollowViewAllComponent } from './../../popups/follow-view-all/follow-view-all.component';
+
+import { SigninSignupServiceService } from './../../service/signin-signup-service/signin-signup-service.service';
+import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
+import { TopicRoutingServiceService } from './../../service/topic-routing-service/topic-routing-service.service';
+
 @Component({
   selector: 'app-feeds-right-bar',
   templateUrl: './feeds-right-bar.component.html',
@@ -28,9 +33,14 @@ export class FeedsRightBarComponent implements OnInit {
   LoderTwo: Boolean = true;
   LoderThree: Boolean = true;
 
+  UserCoinInfo: any[];
+
   constructor(private router: Router,
     private FollowService: FollowServiceService,
     private ShareService: DataSharedVarServiceService,
+    private _componentConnectService: ComponentConnectServiceService,
+    private _topicRoutingService: TopicRoutingServiceService,
+    private _signinService: SigninSignupServiceService,
     public dialog: MatDialog) {
                 this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -42,6 +52,15 @@ export class FeedsRightBarComponent implements OnInit {
                     }else {
                       this.LoderThree = false;
                       console.log(topicdatas);
+                    }
+                });
+
+                this._signinService.UserCoinCount(this.UserInfo.data._id)
+                .subscribe( datas => {
+                    if (datas['status'] === 'True') {
+                      this.UserCoinInfo = datas;
+                    }else {
+                      console.log(datas);
                     }
                 });
 
@@ -98,7 +117,8 @@ export class FeedsRightBarComponent implements OnInit {
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
       if (result.status === 'GoToTopic') {
-        console.log('Go to Topic Page');
+        this.ShareService.SetTopicQuestions(result.topicId);
+        this._topicRoutingService.TopicRouting();
       }
     });
   }
@@ -137,6 +157,10 @@ export class FeedsRightBarComponent implements OnInit {
     this.router.navigate(['Profile']);
   }
 
+  GotoTopic(Id) {
+    this.ShareService.SetTopicQuestions(Id);
+    this._topicRoutingService.TopicRouting();
+  }
 
 
 }
