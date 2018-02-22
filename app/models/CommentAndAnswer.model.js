@@ -11,7 +11,7 @@ var HighlightsCommentSchema = mongoose.Schema({
     { timestamps: true }
 );
 
-var QuestionsAnwerSchema = mongoose.Schema({
+var QuestionsAnswerSchema = mongoose.Schema({
     UserId: { type : String , required : true },
     PostId: { type : String , required : true },
     PostUserId: { type : String , required : true },
@@ -25,9 +25,9 @@ var QuestionsAnwerSchema = mongoose.Schema({
 
 var varHighlightsComment = mongoose.model('HighlightsComment', HighlightsCommentSchema, 'HighlightsComment');
 
-var varQuestionsAnwer = mongoose.model('QuestionsAnwer', QuestionsAnwerSchema, 'QuestionsAnwer');
+var varQuestionsAnswer = mongoose.model('QuestionsAnswer', QuestionsAnswerSchema, 'QuestionsAnswer');
 
 module.exports = {
     HighlightsComment : varHighlightsComment,
-    QuestionsAnwer : varQuestionsAnwer
+    QuestionsAnswer : varQuestionsAnswer
 };

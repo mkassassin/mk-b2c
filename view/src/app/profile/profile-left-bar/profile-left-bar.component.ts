@@ -9,6 +9,7 @@ import { ProfilePictureCropperComponent } from './../../popups/profile-picture-c
 import { EditProfileComponent } from './../../popups/edit-profile/edit-profile.component';
 import { ProfilePrivacyComponent } from './../../popups/profile-privacy/profile-privacy.component';
 import { ChangePasswordComponent } from './../../popups/change-password/change-password.component';
+import { FollowViewAllComponent } from './../../popups/follow-view-all/follow-view-all.component';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -153,6 +154,47 @@ export class ProfileLeftBarComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
+  AllFollowingTopics() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { Header: 'Following Topics', Userid: this.UserInfo['data']._id, type: 'FollowingTopics'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToTopic') {
+        console.log('Go to Topic Page');
+      }
+    });
+  }
+
+  AllFollowingUsers() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { Header: 'Following Peoples', Userid: this.UserInfo['data']._id, type: 'FollowingUsers'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToProfile') {
+        console.log('Go to Profile Page');
+        this.GotoProfile(result.Id);
+      }
+    });
+  }
+
+
+
+  AllUserFollowingUsers() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { Header: 'Followed By', Userid: this.UserInfo['data']._id, type: 'UserFollowingUsers'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToProfile') {
+        console.log('Go to Profile Page');
+        this.GotoProfile(result.Id);
+      }
+    });
+  }
 
 
   GotoProfile(Id) {

@@ -126,11 +126,85 @@ exports.CommentUpdate = function(req, res) {
         });
 };
 
-
-
-
 exports.GetHighlightsComments = function(req, res) {
-    Model.HighlightsComment.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, limit: 3}, function(err, result) {
+    Model.HighlightsComment.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, limit: 2}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Comments ."});
+        } else {
+            if(result.length > 0){
+                var CommentsArray = new Array();
+                GetUserData();
+                async function GetUserData(){
+                    for (let info of result) {
+                        await getUserInfo(info);
+                     }
+                    res.send({status:"True", data: CommentsArray });
+                  }
+                  
+                  function getUserInfo(info){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
+                            if(err) {
+                                res.send({status:"False", Error:err });
+                                reject(err);
+                            } else {
+                                if(UserData.length !== null){
+                                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"False", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': UserData._id}, function(nowerr, FollowesData) {
+                                                if(nowerr){
+                                                    res.send({status:"False", Error:nowerr });
+                                                    reject(nowerr);
+                                                }else{
+                                                    var alreadyfollowuser = true;
+                                                    if(FollowesData.length <= 0 && req.params.UserId != UserData._id){
+                                                        alreadyfollowuser = false;
+                                                    }else{
+                                                        alreadyfollowuser = true;
+                                                    }
+                                                    var newArray = [];
+                                                    newArray.push( {
+                                                                    UserId: UserData._id,
+                                                                    UserName: UserData.UserName,
+                                                                    UserCategoryId: UserData.UserCategoryId,
+                                                                    UserCategoryName: UserData.UserCategoryName,
+                                                                    UserImage: UserData.UserImage,
+                                                                    UserCompany: UserData.UserCompany,
+                                                                    UserProfession: UserData.UserProfession,
+                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                    Followers:count,
+                                                                    _id: info._id,
+                                                                    CommentText: info.CommentText,
+                                                                    Date: info.Date,
+                                                                    PostId: req.params.PostId,
+                                                                }
+                                                    );
+                                                    CommentsArray.push(newArray[0]);
+                                                    resolve(UserData);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }else{
+                                    resolve(UserData);
+                                }
+                            }
+                        });
+                    });
+                  };
+        
+            }else{
+            res.send({status:"True", message:'No More Comments' });
+            }
+        }
+    });
+};
+
+exports.GetHighlightsAllComments = function(req, res) {
+    Model.HighlightsComment.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}}, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Comments ."});
         } else {
@@ -210,9 +284,7 @@ exports.GetHighlightsComments = function(req, res) {
 
 
 
-
-
-exports.QuestionsAnwerAdd = function(req, res) {
+exports.QuestionsAnswerAdd = function(req, res) {
 
     if(!req.body.UserId) {
         res.status(400).send({status:"False", message: " UserId can not be Empty! "});
@@ -230,7 +302,7 @@ exports.QuestionsAnwerAdd = function(req, res) {
         res.status(400).send({status:"False", message: " Answer can not be Empty! "});
     }
 
-    var varQuestionsAnwer = new Model.QuestionsAnwer({
+    var varQuestionsAnswer = new Model.QuestionsAnswer({
             UserId: req.body.UserId,
             PostId: req.body.PostId,
             PostUserId: req.body.PostUserId,
@@ -239,7 +311,7 @@ exports.QuestionsAnwerAdd = function(req, res) {
             ActiveStates: 'Active'
     });
 
-    varQuestionsAnwer.save(function(err, result) {
+    varQuestionsAnswer.save(function(err, result) {
         if(err) {
             res.status(500).send({status:"False", Error: err, message: "Some error occurred while Like the Post."});
             
@@ -297,7 +369,6 @@ exports.QuestionsAnwerAdd = function(req, res) {
      
 };
 
-
 exports.AnswerUpdate = function(req, res) {
     if(!req.body._id) {
         res.status(400).send({status:"False", message: " Post can not be Empty! "});
@@ -306,7 +377,7 @@ exports.AnswerUpdate = function(req, res) {
         res.status(400).send({status:"False", message: " Answer Text can not be Empty! "});
     }
 
-    Model.QuestionsAnwer.findOne({'_id': req.body._id }, {},  function(err, data) {
+    Model.QuestionsAnswer.findOne({'_id': req.body._id }, {},  function(err, data) {
             if(err) {
                 res.send({status:"False", Error:err });
             } else {
@@ -320,4 +391,152 @@ exports.AnswerUpdate = function(req, res) {
                 });
             }
         });
+};
+
+exports.GetQuestionsAnswers = function(req, res) {
+    Model.QuestionsAnswer.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, limit: 3}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Answers ."});
+        } else {
+            if(result.length > 0){
+                var AnswersArray = new Array();
+                GetUserData();
+                async function GetUserData(){
+                    for (let info of result) {
+                        await getUserInfo(info);
+                     }
+                    res.send({status:"True", data: AnswersArray });
+                  }
+                  
+                  function getUserInfo(ansInfo){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
+                            if(err) {
+                                res.send({status:"False", Error:err });
+                                reject(err);
+                            } else {
+                                FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
+                                    if(newerr){
+                                        res.send({status:"False", Error:newerr });
+                                        reject(newerr);
+                                    }else{
+                                        FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': AnsUserData._id}, function(nowerr, FollowesData) {
+                                            if(nowerr){
+                                                res.send({status:"False", Error:nowerr });
+                                                reject(nowerr);
+                                            }else{
+                                                var alreadyfollowuser = true;
+                                                if(FollowesData.length <= 0 && req.params.UserId != AnsUserData._id){
+                                                    alreadyfollowuser = false;
+                                                }else{
+                                                    alreadyfollowuser = true;
+                                                }
+                                                var newArray = [];
+                                                newArray.push( {
+                                                                _id: ansInfo._id,
+                                                                UserId: AnsUserData._id,
+                                                                UserName: AnsUserData.UserName,
+                                                                UserCategoryId: AnsUserData.UserCategoryId,
+                                                                UserCategoryName: AnsUserData.UserCategoryName,
+                                                                UserImage: AnsUserData.UserImage,
+                                                                UserCompany: AnsUserData.UserCompany,
+                                                                UserProfession: AnsUserData.UserProfession,
+                                                                AlreadyFollow: alreadyfollowuser,
+                                                                Followers: count,
+                                                                Date: ansInfo.Date,
+                                                                PostId: ansInfo.PostId,
+                                                                PostUserId: ansInfo.PostUserId ,
+                                                                AnswerText: ansInfo.AnswerText
+                                                            }
+                                                );
+                                                AnswersArray.push(newArray[0]);
+                                                resolve(newArray[0]);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+        
+            }else{
+                res.send({status:"True", message:'No More Answers' });
+            }
+        }
+    });
+};
+
+exports.GetQuestionsAllAnswers = function(req, res) {
+    Model.QuestionsAnswer.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Answers ."});
+        } else {
+            if(result.length > 0){
+                var AnswersArray = new Array();
+                GetUserData();
+                async function GetUserData(){
+                    for (let info of result) {
+                        await getUserInfo(info);
+                     }
+                    res.send({status:"True", data: AnswersArray });
+                  }
+                  
+                  function getUserInfo(ansInfo){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
+                            if(err) {
+                                res.send({status:"False", Error:err });
+                                reject(err);
+                            } else {
+                                FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
+                                    if(newerr){
+                                        res.send({status:"False", Error:newerr });
+                                        reject(newerr);
+                                    }else{
+                                        FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': AnsUserData._id}, function(nowerr, FollowesData) {
+                                            if(nowerr){
+                                                res.send({status:"False", Error:nowerr });
+                                                reject(nowerr);
+                                            }else{
+                                                var alreadyfollowuser = true;
+                                                if(FollowesData.length <= 0 && req.params.UserId != AnsUserData._id){
+                                                    alreadyfollowuser = false;
+                                                }else{
+                                                    alreadyfollowuser = true;
+                                                }
+                                                var newArray = [];
+                                                newArray.push( {
+                                                                _id: ansInfo._id,
+                                                                UserId: AnsUserData._id,
+                                                                UserName: AnsUserData.UserName,
+                                                                UserCategoryId: AnsUserData.UserCategoryId,
+                                                                UserCategoryName: AnsUserData.UserCategoryName,
+                                                                UserImage: AnsUserData.UserImage,
+                                                                UserCompany: AnsUserData.UserCompany,
+                                                                UserProfession: AnsUserData.UserProfession,
+                                                                AlreadyFollow: alreadyfollowuser,
+                                                                Followers: count,
+                                                                Date: ansInfo.Date,
+                                                                PostId: ansInfo.PostId,
+                                                                PostUserId: ansInfo.PostUserId ,
+                                                                AnswerText: ansInfo.AnswerText
+                                                            }
+                                                );
+                                                AnswersArray.push(newArray[0]);
+                                                resolve(newArray[0]);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+        
+            }else{
+                res.send({status:"True", message:'No More Answers' });
+            }
+        }
+    });
 };

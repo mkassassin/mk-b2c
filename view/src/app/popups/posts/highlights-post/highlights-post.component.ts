@@ -44,6 +44,8 @@ export class HighlightsPostComponent implements OnInit {
   reportUserId;
   reportCommentInfo;
 
+  CommentViewLess: Boolean = false;
+
   constructor(private router: Router,
     public dialog: MatDialog,
     private FollowService: FollowServiceService,
@@ -126,6 +128,7 @@ export class HighlightsPostComponent implements OnInit {
 
 
   ChangeActiveComment(index: string) {
+    this.CommentViewLess = false;
     if (this.ActiveComment === index || this.LoadingActiveComment === index) {
       this.ActiveComment = -1;
       this.LoadingActiveComment = -1;
@@ -146,7 +149,26 @@ export class HighlightsPostComponent implements OnInit {
   }
 
 
+  ViewAllComments(index: string) {
+    this.ActiveComment = index;
+    this.LoadingActiveComment = index;
+    this.PostsList[index].comments = [];
+    this.commentservice.GetHighlightsAllComments(this.PostsList[index]._id, this.UserInfo.data._id)
+    .subscribe( newDatas => {
+      this.LoadingActiveComment = -1;
+      if (newDatas['status'] === 'True') {
+        this.CommentViewLess = true;
+        this.PostsList[index].comments = newDatas['data'];
+      }else {
+        console.log(newDatas);
+      }
+    });
+}
+
+
+
   SubmitComment(comment, index) {
+    this.CommentViewLess = false;
     if (comment !== '') {
     const data = {'UserId': this.UserInfo.data._id,
               'PostId': this.PostsList[index]._id,

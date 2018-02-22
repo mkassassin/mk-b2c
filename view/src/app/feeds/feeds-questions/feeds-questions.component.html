@@ -108,6 +108,7 @@
                       </div>
                   </div>
               </div>
+
               <div *ngIf="Post.Answers == undefined">
                   <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
                       <div fxFlex>
@@ -116,8 +117,20 @@
                   </div>
               </div>
 
-
-              <div *ngFor="let Answer of (Post.Answers ? Post.Answers.slice(0,2): []); let k=index" class="postAnswer">
+              <div *ngIf="AnswerListLoadingIndex === i">
+                <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                          <div class="cssload-inner cssload-one"></div>
+                          <div class="cssload-inner cssload-two"></div>
+                          <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <ng-container *ngIf="AnswerListLoadingIndex !== i">
+              <div *ngFor="let Answer of Post.Answers; let k=index" class="postAnswer">
                 <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
                   <div fxFlex>
                     <div class="leftSide">
@@ -158,11 +171,50 @@
                     <p class="postAnsText"> {{Answer.AnswerText}}.</p>
                   </div>
                 </div>
+                <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+                <!-- Question Post Share Like And More -->
+                <div class="postLikesLevel2" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div fxFlex="40%" class="text-left" style="height:20px">
+                    <div class="like">
+                      <ngl-rating style="max-width:80px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
+                          <ng-template nglRatingIcon let-active>
+                            <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                          </ng-template>
+                      </ngl-rating>
+                      <ngl-rating style="max-width:80px;cursor:pointer" *ngIf="!Post.userRated" [isReadonly]="false" [(rate)]="Post.RatingCount" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                          <ng-template nglRatingIcon let-active>
+                            <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                          </ng-template>
+                      </ngl-rating>
+                      <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <span style="font-size:9px"> (Your Rating {{Post.userRating}})</span> </small> </p>
+                    </div>
+                  </div>
+                  <div fxFlex="30%" class="text-center" style="height:20px">
+                    <!-- <div class="chat">
+                      <div (click)="ChangeActiveAnswerInput(i)" class="write" [ngClass]="{'answerd': Post.UserAnswered}">
+                        <i class="material-icons">edit</i>
+                        <p>Write</p>
+                      </div>
+                      <p class="count"> {{Post.AnswersCount}} </p>
+                      <p class="answer"> Answer<span *ngIf="Post.AnswersCount > 1">s</span> </p>
+                    </div> -->
+                  </div>
+                  <div fxFlex="30%" class="text-right" style="height:20px">
+                    <!-- <div class="share">
+                      <img src="./../../../assets/images/icons/share.png" alt="">
+                      <p class="count"> 100 </p>
+                    </div> -->
+                  </div>
+                </div>
               </div>
+            </ng-container>
 
 
-              <div *ngIf="Post.Answers?.length > 2" class="text-right">
-                <p class="viewAll">View All...</p>
+              <div *ngIf="Post.AnswersCount > 2 && !AnswersViewLess && AnswerListLoadingIndex !== i" class="text-right">
+                <p class="viewAll"> <span style="cursor:pointer" (click)="ViewAllAnswers(i)"> View All... </span></p>
+              </div>
+              <div *ngIf="AnswersViewLess && AnswerListLoadingIndex !== i" class="text-right">
+                <p class="viewAll"> <span style="cursor:pointer" (click)="ViewLessAnswers(i)"> View Less... </span></p>
               </div>
             </div>
 

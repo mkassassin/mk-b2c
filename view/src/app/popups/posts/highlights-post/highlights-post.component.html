@@ -180,7 +180,7 @@
           
                     <!-- Highlights Post Comments-->
                     <div *ngIf="ActiveComment == i" class="Comments mt-20">
-                      <div *ngFor="let comment of (Post.comments ? Post.comments.slice(0,2): []); let k=index" class="commentPost">
+                      <div *ngFor="let comment of Post.comments; let k=index" class="commentPost">
                         <div class="commentinfo">
                           <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
                             <div fxFlex>
@@ -220,11 +220,41 @@
                         <div class="commentbody">
                           <p class="commenttext"> {{comment.CommentText}} </p>
                         </div>
+                        <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+                        <!-- Highlights Post Share Like And More -->
+                        <div class="postLikesLevel2" fxLayout="row" fxLayoutAlign="space-between center">
+                          <div fxFlex class="text-left" style="height:20px">
+                            <div class="like">
+                              <img *ngIf="!comment.UserLiked" (click)="AddCommentLike(i, k)" src="./../../../assets/images/icons/like.png" alt="">
+                              <img *ngIf="comment.UserLiked" (click)="RemoveCommentLike(i, k)" src="./../../../assets/images/icons/liked.png" alt="">
+                              <p class="count"> {{comment.LikesCount}} <small *ngIf="comment.UserLiked" > <small> (You Also) </small> </small> </p>
+                            </div>
+                          </div>
+                          <div fxFlex class="text-center" style="height:20px">
+                            <!-- <div class="chat" (click)="ChangeActiveComment(i)">
+                              <img *ngIf="Post.UserCommented" src="./../../../assets/images/icons/commented.png" alt="">
+                              <img *ngIf="!Post.UserCommented" src="./../../../assets/images/icons/comment.png" alt="">
+                              <p class="count"> {{Post.commentsCount}} </p>
+                            </div> -->
+                          </div>
+                          <div fxFlex class="text-right" style="height:20px">
+                            <!-- <div class="share">
+                              <img src="./../../../assets/images/icons/share.png" alt="">
+                              <p class="count"> 100 </p>
+                            </div> -->
+                          </div>
+                        </div>
                       </div>
           
-                      <div *ngIf="Post.comments?.length > 2" class="row">
+                      <div *ngIf="Post.commentsCount > 2 && !CommentViewLess && LoadingActiveComment != i" class="row">
                         <div class="col-sm-12">
-                          <p class="viewAll text-right"> View All...</p>
+                          <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ViewAllComments(i)">  View All... </span></p>
+                        </div>
+                      </div>
+          
+                      <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
+                        <div class="col-sm-12">
+                          <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ChangeActiveComment(i)"> Hide Comments </span> </p>
                         </div>
                       </div>
           

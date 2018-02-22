@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ProfilePictureCropperComponent } from './../../popups/profile-picture-cropper/profile-picture-cropper.component';
-
+import { FollowViewAllComponent } from './../../popups/follow-view-all/follow-view-all.component';
 @Component({
   selector: 'app-feeds-right-bar',
   templateUrl: './feeds-right-bar.component.html',
@@ -88,6 +88,49 @@ export class FeedsRightBarComponent implements OnInit {
       this.UserInfo['data'].UserImage = result['data'].UserImage;
     }
   }
+
+
+
+  AllFollowingTopics() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { Header: 'Following Topics', Userid: this.UserInfo.data._id, type: 'FollowingTopics'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToTopic') {
+        console.log('Go to Topic Page');
+      }
+    });
+  }
+
+  AllFollowingUsers() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { Header: 'Following Peoples', Userid: this.UserInfo.data._id, type: 'FollowingUsers'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToProfile') {
+        console.log('Go to Profile Page');
+        this.GotoProfile(result.Id);
+      }
+    });
+  }
+
+
+
+  AllUserFollowingUsers() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: { Header: 'Followed By', Userid: this.UserInfo.data._id, type: 'UserFollowingUsers'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToProfile') {
+        console.log('Go to Profile Page');
+        this.GotoProfile(result.Id);
+      }
+    });
+  }
+
 
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);

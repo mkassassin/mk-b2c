@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
+import { DiscoverTopicsComponent } from './../../popups/discover-topics/discover-topics.component';
+import { DiscoverComponent } from './../../popups/discover/discover.component';
 
 @Component({
   selector: 'app-feeds-left-bar',
@@ -27,6 +30,7 @@ export class FeedsLeftBarComponent implements OnInit {
   TopicLoader: Boolean = true;
 
   constructor(private router: Router,
+      public dialog: MatDialog,
       private FollowService: FollowServiceService,
       private ShareService: DataSharedVarServiceService) {
                     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
@@ -85,7 +89,18 @@ export class FeedsLeftBarComponent implements OnInit {
       this.FollowService.FollowTopic(data)
         .subscribe( datas => {
           if (datas.status === 'True') {
-            this.UnFollowingTopics.splice(index , 1);
+            this.TopicLoader = true;
+            this.UnFollowingTopics = []
+;            this.FollowService.UnFollowingTopics(this.UserInfo.data._id)
+              .subscribe( topicdatas => {
+                  if (topicdatas['status'] === 'True') {
+                    this.TopicLoader = false;
+                    this.UnFollowingTopics = topicdatas['data'];
+                  }else {
+                    this.TopicLoader = false;
+                    console.log(topicdatas);
+                  }
+              });
           }else {
             console.log(datas);
           }
@@ -107,7 +122,30 @@ export class FeedsLeftBarComponent implements OnInit {
 
 
 
+  OpenModelDiscoverTopics() {
+    const DiscoverTopicDialogRef = this.dialog.open(
+      DiscoverTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { Header: 'Explore'} }
+    );
+    DiscoverTopicDialogRef.afterClosed().subscribe(result => {
+        if (result.status === 'GoToTopic') {
+          console.log('Go to Topic Page');
+        }
+      });
+  }
 
+
+  OpenModelDiscoverUser() {
+    const DiscoverDialogRef = this.dialog.open(
+      DiscoverComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      data: {ActiveCategory: this.ActiveCategory,  Header: 'Connect'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToProfile') {
+        console.log('Go to Profile Page');
+        this.GotoProfile(result.Id);
+      }
+    });
+  }
 
   GotoProfile(Id) {
     this.ShareService.SetProfilePage(Id);

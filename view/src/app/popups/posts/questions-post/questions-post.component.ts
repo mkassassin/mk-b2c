@@ -37,6 +37,8 @@ export class QuestionsPostComponent implements OnInit {
   UserInfo;
   PostsList: any;
   PostsListLoading: Boolean = true;
+  AnswerListLoadingIndex: Number = -1;
+  AnswersViewLess: Boolean = false;
 
   reportPostInfo;
   reportUserId;
@@ -130,7 +132,27 @@ export class QuestionsPostComponent implements OnInit {
 
 
 
+  ViewLessAnswers(index) {
+    this.AnswersViewLess = false;
+    this.PostsList[index].Answers.splice(2, (this.PostsList[index].Answers).length );
+ }
 
+
+  ViewAllAnswers(index) {
+     const PostId = this.PostsList[index]._id;
+     this.AnswerListLoadingIndex = index;
+      this.AnswerService.GetQuestionsAllAnswers(PostId, this.UserInfo.data._id).subscribe( datas => {
+        if (datas['status'] === 'True') {
+            let AnsData = new Array();
+            AnsData = datas['data'];
+            this.AnswerListLoadingIndex = -1;
+            this.AnswersViewLess = true;
+            this.PostsList[index].Answers = AnsData;
+        }else {
+            console.log(datas);
+        }
+      });
+  }
 
   SubmitAnswer(answer, index) {
     if (answer !== '') {
@@ -141,12 +163,13 @@ export class QuestionsPostComponent implements OnInit {
               'Date':  new Date(),
             };
 
-          this.AnswerService.QuestionsAnwerAdd(data).subscribe( datas => {
+          this.AnswerService.QuestionsAnswerAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
                     if (datas['status'] === 'True') {
                       let AnsData = new Array();
                       AnsData = datas['data'];
                       this.PostsList[index].Answers.splice(0, 0, AnsData);
+                      this.PostsList[index].Answers.splice(2, (this.PostsList[index].Answers).length );
                       this.PostsList[index].AnswersCount = this.PostsList[index].AnswersCount + 1;
                     }else {
                       console.log(datas);

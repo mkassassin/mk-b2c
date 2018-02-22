@@ -235,7 +235,61 @@
     font-size: 11px;
     letter-spacing: 0.4px;
 }
+.Highlights .commentPost .postLikesLevel2 {
+    padding: 2px 15px;
+}
+.Highlights .commentPost .postLikesLevel2 .like{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
 
+.Highlights .commentPost .postLikesLevel2 .like img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .like .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .commentPost .postLikesLevel2 .chat{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .commentPost .postLikesLevel2 .chat img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .chat .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .commentPost .postLikesLevel2 .share{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .commentPost .postLikesLevel2 .share img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .share .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
 
 
 
@@ -602,6 +656,26 @@
     word-spacing: 2.5px;
     color: #9c9a9a;
     line-height: 20px;
+}
+.Questions .postAnswer .postLikesLevel2 .like{
+    display: inline-flex;
+    margin-top: 0px;
+}
+.Questions .postAnswer .postLikesLevel2 {
+    padding: 0px 15px 6px 15px;
+    margin-top: -4px;
+}
+.Questions .postAnswer .postLikesLevel2 .like img{
+    width: 20px;
+    height: 20px;
+}
+.Questions .postAnswer .postLikesLevel2 .like .count{
+    line-height: 30px;
+    font-size: 11px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
 }
 .Questions .postmain .readmore{    
     font-size: 13px;

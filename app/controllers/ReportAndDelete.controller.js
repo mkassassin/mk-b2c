@@ -309,7 +309,7 @@ exports.DeleteComment = function(req, res) {
 
 
 exports.DeleteAnswer = function(req, res) {
-    CommentAndAnswerModel.QuestionsAnwer.findOne({'_id': req.body.AnswerId, 'UserId': req.body.UserId}, function(err, data) {
+    CommentAndAnswerModel.QuestionsAnswer.findOne({'_id': req.body.AnswerId, 'UserId': req.body.UserId}, function(err, data) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Answer Find."});
         } else {

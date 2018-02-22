@@ -1,0 +1,74 @@
+<div class="Discover">
+  <div fxLayout="row" fxLayoutAlign="space-evenly start">
+
+    <div fxFlex="100%" class="DiscoverLefBar">
+      <div class="box-2">
+        <div class="row m-0">
+          <div class="col-sm-12 p-0">
+            <p class="followheader"> {{Header}} <span style="cursor:pointer; position:absolute; right:10px; font-size:20px" (click)="close()"> X </span> </p>
+          </div>
+        </div>
+
+        <p-scrollPanel style="width:100%;" [style]="{height: '320px' }" styleClass="customscroll_1">
+          <!-- topic End -->
+          <div class="mb-30">
+            <div *ngIf="Loader" class="col-sm-12">
+              <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div fxFlex>
+                  <div class="preloader-orbit-loading">
+                    <div class="cssload-inner cssload-one"></div>
+                    <div class="cssload-inner cssload-two"></div>
+                    <div class="cssload-inner cssload-three"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div *ngIf="data.type === 'FollowingTopics'" class="row m-0 DiscoverTopics">
+              <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-sm-3 p-0">
+                  <div class="text-center" style="position:relative">
+                    <img class="userlistImg" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
+                    <p class="userlistname">
+                      <span> {{Topic.TopicName}} </span>
+                    </p>
+                    <p class="userlistcategory"> {{Topic.Followers}} Followers</p>
+                    <p class="userlistcategory "> {{Topic.QuestionCount}} Qus &nbsp;| &nbsp; {{Topic.AnsCount}} Ans </p>
+                    <!-- <span class="topicAddIcon">
+                      <i class="material-icons" (click)="followTopic(Topic._id)">add_circle</i>
+                    </span> -->
+                  </div>
+                </div>
+          </div>
+
+
+            <div *ngIf="data.type !== 'FollowingTopics'" class="row m-0 DiscoverPeoples" style="max-width: 900px;">
+                <div class="col-sm-4 mt-20 max-width-300" *ngFor="let user of DiscoverPeoples; let j=index" fxLayout="row" fxLayoutAlign="space-evenly">
+                  <div fxFlex="55px" class="text-center">
+                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
+                  </div>
+                  <div fxFlex>
+                    <p class="userlistname">
+                      <span style="cursor:pointer" (click)="GotoProfile(user._id)"> {{user.UserName }} </span>
+                    </p>
+                    <p class="userlistcategory"> {{user.UserProfession + " @ " + user.UserCompany | slice:0:20 }}{{ (user.UserProfession + " @ " + user.UserCompany)?.length
+                      > 20 ? '...' : ' ' }} </p>
+                    <p class="userlistfollowers"> {{user.Followers }} Followers </p>
+                  </div>
+                  <!-- <div fxFlex="45px" class="text-center">
+                    <span class="userAddIcon">
+                      <i (click)="followUser(user._id)" class="material-icons">person_add</i>
+                    </span>
+                  </div> -->
+                </div>
+            </div>
+            
+
+          </div>
+        </p-scrollPanel>
+      </div>
+    </div>
+  </div>
+
+
+</div>

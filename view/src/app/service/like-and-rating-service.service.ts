@@ -30,11 +30,30 @@ export class LikeAndRatingServiceService {
         .catch(this.handleError);
     }
 
+    public CommentsLikeAdd(data: any) {
+        return this.http .post(API_URL + 'CommentsLikeAdd' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public CommentsUnLike(LikeId: any): Observable<any[]> {
+        return this.http.get(API_URL + 'CommentsUnLike/' + LikeId )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+
+
     public QuestionsRatingAdd(data: any) {
         return this.http .post(API_URL + 'QuestionsRatingAdd' , data)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
 
+    public AnswerRatingAdd(data: any) {
+        return this.http .post(API_URL + 'AnswerRatingAdd' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 
 }

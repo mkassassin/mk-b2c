@@ -130,6 +130,7 @@ import { EditPostOneComponent } from './popups/edit-post-one/edit-post-one.compo
 import { EditPostTwoComponent } from './popups/edit-post-two/edit-post-two.component';
 import { EditCommentComponent } from './popups/edit-comment/edit-comment.component';
 import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component';
+import { FollowViewAllComponent } from './popups/follow-view-all/follow-view-all.component';
 
 
 @NgModule({
@@ -181,7 +182,8 @@ import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component'
     EditPostOneComponent,
     EditPostTwoComponent,
     EditCommentComponent,
-    EditAnswerComponent
+    EditAnswerComponent,
+    FollowViewAllComponent
   ],
   imports: [
     CommonModule,
@@ -255,7 +257,8 @@ import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component'
                     EditPostOneComponent,
                     EditPostTwoComponent,
                     EditCommentComponent,
-                    EditAnswerComponent
+                    EditAnswerComponent,
+                    FollowViewAllComponent
                   ]
 })
 export class AppModule { }

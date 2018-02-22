@@ -228,7 +228,7 @@ exports.Update = function(req, res) {
 exports.GetPostList = function (req, res) {
     var SkipCoun = 0;
     SkipCoun = parseInt(req.params.Limit) * 10;
-    QuestionsPostModel.QuestionsPostType.find({'ActiveStates': 'Active'}, {}, { sort: { createdAt: -1 }, skip: SkipCoun, limit: 10 }, function (err, result) {
+    QuestionsPostModel.QuestionsPostType.find({'ActiveStates': 'Active'}, {}, { sort: { createdAt: -1 }, skip: SkipCoun, limit: 5 }, function (err, result) {
         if (err) {
             res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });
         } else {
@@ -247,8 +247,8 @@ exports.GetPostList = function (req, res) {
                     FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnwer.find({ 'PostId': info._id , 'ActiveStates': 'Active'}, 'AnswerText UserId Date').exec(),
+                    AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id , 'ActiveStates': 'Active'}, 'AnswerText UserId Date', { limit: 2 }).exec(),
                     RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                 ]).then(data => {
                     let UserData = data[0];
@@ -414,8 +414,8 @@ exports.ViewPost = function (req, res) {
                     FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnwer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                    AnswerModel.QuestionsAnwer.find({ 'PostId': info._id }, 'AnswerText UserId Date').exec(),
+                    AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id }, 'AnswerText UserId Date', {limit: 2 }).exec(),
                     RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                 ]).then(data => {
                     let UserData = data[0];

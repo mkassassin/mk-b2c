@@ -50,7 +50,7 @@
         </div>
 
         <div *ngIf="SelectedCategory != ''">
-            <!-- Input Company And Professioin -->
+            <!-- Input Company And Profession -->
             <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
               <div fxFlex="41%">
                 <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Company">
@@ -116,4 +116,7 @@
         </div>
         
     </form>
+
+
+    {{SocialData | json }}
   </div>

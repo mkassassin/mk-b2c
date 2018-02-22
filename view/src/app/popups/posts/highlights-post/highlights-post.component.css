@@ -235,7 +235,61 @@
     font-size: 11px;
     letter-spacing: 0.4px;
 }
+.Highlights .commentPost .postLikesLevel2 {
+    padding: 2px 15px;
+}
+.Highlights .commentPost .postLikesLevel2 .like{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
 
+.Highlights .commentPost .postLikesLevel2 .like img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .like .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .commentPost .postLikesLevel2 .chat{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .commentPost .postLikesLevel2 .chat img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .chat .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .commentPost .postLikesLevel2 .share{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .commentPost .postLikesLevel2 .share img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .share .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
 
 
 

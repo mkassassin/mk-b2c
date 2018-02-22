@@ -75,6 +75,7 @@ export class WelcomeComponent implements OnInit {
                                         this.ShareingService.SetActiveSinInsignUpTab('SingIn', data['email'] );
                                         this.router.navigate(['SignInSignUp']);
                                     }else {
+                                      localStorage.setItem('SocialLoginData', JSON.stringify(data));
                                       this.SocialSignUp(data);
                                     }
                               });

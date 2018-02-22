@@ -44,6 +44,8 @@ export class ProfileTimelineComponent implements OnInit {
   ActiveAnswerInput;
   PostsListLoder: Boolean = true;
   UserId;
+  AnswerListLoadingIndex: Number = -1;
+  AnswersViewLess: Boolean = false;
 
 
   reportPostInfo;
@@ -51,6 +53,7 @@ export class ProfileTimelineComponent implements OnInit {
   reportCommentInfo;
   reportAnswerInfo;
 
+  CommentViewLess: Boolean = false;
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -157,6 +160,7 @@ export class ProfileTimelineComponent implements OnInit {
 
 
   ChangeActiveComment(index: string) {
+    this.CommentViewLess = false;
     if (this.ActiveComment === index || this.LoadingActiveComment === index) {
       this.ActiveComment = -1;
       this.LoadingActiveComment = -1;
@@ -177,7 +181,25 @@ export class ProfileTimelineComponent implements OnInit {
   }
 
 
+  ViewAllComments(index: string) {
+    this.ActiveComment = index;
+    this.LoadingActiveComment = index;
+    this.PostsList[index].comments = [];
+    this.commentservice.GetHighlightsAllComments(this.PostsList[index]._id, this.UserInfo['data']._id)
+    .subscribe( newDatas => {
+      this.LoadingActiveComment = -1;
+      if (newDatas['status'] === 'True') {
+        this.CommentViewLess = true;
+        this.PostsList[index].comments = newDatas['data'];
+      }else {
+        console.log(newDatas);
+      }
+    });
+}
+
+
   SubmitComment(comment, index) {
+    this.CommentViewLess = false;
     if (comment !== '') {
     const data = {'UserId': this.UserInfo['data']._id,
               'PostId': this.PostsList[index]._id,
@@ -266,6 +288,30 @@ export class ProfileTimelineComponent implements OnInit {
 
   }
 
+
+  ViewLessAnswers(index) {
+    this.AnswersViewLess = false;
+    this.PostsList[index].Answers.splice(2, (this.PostsList[index].Answers).length );
+ }
+
+
+  ViewAllAnswers(index) {
+     const PostId = this.PostsList[index]._id;
+     this.AnswerListLoadingIndex = index;
+      this.AnswerService.GetQuestionsAllAnswers(PostId, this.UserInfo['data']._id).subscribe( datas => {
+        if (datas['status'] === 'True') {
+            let AnsData = new Array();
+            AnsData = datas['data'];
+            this.AnswerListLoadingIndex = -1;
+            this.AnswersViewLess = true;
+            this.PostsList[index].Answers = AnsData;
+        }else {
+            console.log(datas);
+        }
+      });
+  }
+
+
   SubmitAnswer(answer, index) {
     if (answer !== '') {
     const data = {'UserId': this.UserInfo['data']._id,
@@ -275,12 +321,13 @@ export class ProfileTimelineComponent implements OnInit {
               'Date':  new Date(),
             };
 
-          this.AnswerService.QuestionsAnwerAdd(data).subscribe( datas => {
+          this.AnswerService.QuestionsAnswerAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
                     if (datas['status'] === 'True') {
                       let AnsData = new Array();
                       AnsData = datas['data'];
                       this.PostsList[index].Answers.splice(0, 0, AnsData);
+                      this.PostsList[index].Answers.splice(2, (this.PostsList[index].Answers).length );
                       this.PostsList[index].AnswersCount = this.PostsList[index].AnswersCount + 1;
                     }else {
                       console.log(datas);
