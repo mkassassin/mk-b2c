@@ -14,7 +14,7 @@ import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
-import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
+// import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
 
 import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
@@ -43,7 +43,7 @@ export class FeedsHeaderComponent implements OnInit {
   InputLoading: Boolean = true;
 
   constructor(private router: Router,
-    private authService: AuthService,
+    // private authService: AuthService,
     private searchService: SearchService,
     private ShareingService: DataSharedVarServiceService,
     private NotifyService: SigninSignupServiceService,

@@ -20,6 +20,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   FormOne: FormGroup;
   FormTwo: FormGroup;
+  SubmitLoading: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -69,14 +70,17 @@ export class ForgotPasswordComponent implements OnInit {
     }
     submitEmail () {
       if (this.FormOne.value.UserEmail !== '') {
+        this.SubmitLoading = true;
           this.Service.EmailValidate(this.FormOne.value.UserEmail)
           .subscribe( datas => {
             const data: any = datas;
             if (data['available'] === 'True') {
               this.UserEmailNotAvailable = true;
+              this.SubmitLoading = false;
             }else {
               this.Service.SendFPVerifyEmail(this.FormOne.value.UserEmail).subscribe( result => {
                 if (result.status === 'True' ) {
+                  this.SubmitLoading = false;
                   this.SuccessSend = true;
                   this.SendError = false;
                 }else {

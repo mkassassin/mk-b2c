@@ -26,16 +26,16 @@ import { NglModule } from 'ng-lightning/ng-lightning';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ChartsModule } from 'ng2-charts';
 
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+// import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
-const config = new AuthServiceConfig([
-  // {
-  //   id: FacebookLoginProvider.PROVIDER_ID,
-  //   provider: new FacebookLoginProvider('323054561538925')
-  // }
-]);
+// const config = new AuthServiceConfig([
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     provider: new FacebookLoginProvider('323054561538925')
+//   }
+// ]);
 
-import { Angular2SocialLoginModule } from 'angular2-social-login';
+// import { Angular2SocialLoginModule } from 'angular2-social-login';
 
 // live
 // const providers = {
@@ -52,22 +52,22 @@ import { Angular2SocialLoginModule } from 'angular2-social-login';
 //   };
 
   // local
-const providers = {
-  'google': {
-        'clientId': '885069936725-0ej2kk1e7nt2fnrtbdma970l9rli75jc.apps.googleusercontent.com'
-      },
-      'linkedin': {
-        'clientId': '814ivvgus3ol7y'
-      },
-      'facebook': {
-        'clientId': '202967426952150',
-        'apiVersion': 'v2.11'
-      }
-  };
+// const providers = {
+//   'google': {
+//         'clientId': '885069936725-0ej2kk1e7nt2fnrtbdma970l9rli75jc.apps.googleusercontent.com'
+//       },
+//       'linkedin': {
+//         'clientId': '814ivvgus3ol7y'
+//       },
+//       'facebook': {
+//         'clientId': '202967426952150',
+//         'apiVersion': 'v2.11'
+//       }
+//   };
 
-export function provideConfig() {
-  return config;
-}
+// export function provideConfig() {
+//   return config;
+// }
 
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
@@ -216,8 +216,8 @@ import { TopicRoutingServiceService } from './service/topic-routing-service/topi
     FileUploadModule,
     NglModule.forRoot(),
     ChartsModule,
-    SocialLoginModule,
-    Angular2SocialLoginModule
+    // SocialLoginModule,
+    // Angular2SocialLoginModule
   ],
   providers: [
                 AuthGuard,
@@ -234,10 +234,10 @@ import { TopicRoutingServiceService } from './service/topic-routing-service/topi
                 ComponentConnectServiceService,
                 ReportAndDeleteService,
                 TopicRoutingServiceService,
-                {
-                  provide: AuthServiceConfig,
-                  useFactory: provideConfig
-                }
+                // {
+                //   provide: AuthServiceConfig,
+                //   useFactory: provideConfig
+                // }
               ],
   bootstrap: [AppComponent],
   entryComponents: [ PostOneComponent,
@@ -267,4 +267,4 @@ import { TopicRoutingServiceService } from './service/topic-routing-service/topi
 })
 export class AppModule { }
 
-Angular2SocialLoginModule.loadProvidersScripts(providers);
+// Angular2SocialLoginModule.loadProvidersScripts(providers);

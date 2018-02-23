@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material';
 import { FbSignupComponent } from './../popups/fb-signup/fb-signup.component';
 import { ForgotPasswordComponent } from './../popups/forgot-password/forgot-password.component';
 
-import { AuthService } from 'angular2-social-login';
+// import { AuthService } from 'angular2-social-login';
 
 @Component({
   selector: 'app-signin-signup',
@@ -73,7 +73,7 @@ export class SigninSignupComponent implements OnInit {
 
 
   constructor(  public dialog: MatDialog,
-                private _auth: AuthService,
+                // private _auth: AuthService,
                 public snackBar: MatSnackBar,
                 private router: Router,
                 private Service: SigninSignupServiceService,
@@ -337,37 +337,37 @@ export class SigninSignupComponent implements OnInit {
 
 
 
-  signIn(provider) {
-    this.sub = this._auth.login(provider)
-      .subscribe((data) => {
-            if ( data !== null ) {
-                if (data['email'] !== '' && data['email'] !== undefined && data['email'] !== null ) {
-                this.Service.SocialUserValidate(data['email'], data['uid'], data['provider'])
-                  .subscribe( datas => {
-                        if (datas['status'] === 'True') {
-                            this.router.navigate(['Feeds']);
-                        }else {
-                            this.Service.EmailValidate(data['email'])
-                              .subscribe( newdatas => {
-                                    if (newdatas['available'] === 'False') {
-                                    this.snackBar.open('Your ' + data['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
-                                        horizontalPosition: 'center',
-                                        duration: 3000,
-                                        verticalPosition: 'top',
-                                      });
-                                        this.ActiveTab = 1;
-                                        this.SignInForm.controls['LoginUserEmail'].setValue(data['email']);
-                                    }else {
-                                      this.SocialSignUp(data);
-                                    }
-                              });
-                        }
-                  });
-                }
-            }
-      });
+  // signIn(provider) {
+  //   this.sub = this._auth.login(provider)
+  //     .subscribe((data) => {
+  //           if ( data !== null ) {
+  //               if (data['email'] !== '' && data['email'] !== undefined && data['email'] !== null ) {
+  //               this.Service.SocialUserValidate(data['email'], data['uid'], data['provider'])
+  //                 .subscribe( datas => {
+  //                       if (datas['status'] === 'True') {
+  //                           this.router.navigate(['Feeds']);
+  //                       }else {
+  //                           this.Service.EmailValidate(data['email'])
+  //                             .subscribe( newdatas => {
+  //                                   if (newdatas['available'] === 'False') {
+  //                                   this.snackBar.open('Your ' + data['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
+  //                                       horizontalPosition: 'center',
+  //                                       duration: 3000,
+  //                                       verticalPosition: 'top',
+  //                                     });
+  //                                       this.ActiveTab = 1;
+  //                                       this.SignInForm.controls['LoginUserEmail'].setValue(data['email']);
+  //                                   }else {
+  //                                     this.SocialSignUp(data);
+  //                                   }
+  //                             });
+  //                       }
+  //                 });
+  //               }
+  //           }
+  //     });
 
-  }
+  // }
 
 
 

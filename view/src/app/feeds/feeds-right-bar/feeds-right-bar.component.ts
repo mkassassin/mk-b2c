@@ -34,6 +34,7 @@ export class FeedsRightBarComponent implements OnInit {
   LoderThree: Boolean = true;
 
   UserCoinInfo: any[];
+  SowCoinCount: Boolean = false;
 
   constructor(private router: Router,
     private FollowService: FollowServiceService,
@@ -59,6 +60,7 @@ export class FeedsRightBarComponent implements OnInit {
                 .subscribe( datas => {
                     if (datas['status'] === 'True') {
                       this.UserCoinInfo = datas;
+                      this.SowCoinCount = true;
                     }else {
                       console.log(datas);
                     }

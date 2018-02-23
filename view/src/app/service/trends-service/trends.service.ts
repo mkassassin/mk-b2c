@@ -25,6 +25,12 @@ export class TrendsService {
         .catch(this.handleError);
     }
 
+    public CoinPriceInfo(CoinCode: any): Observable<any[]> {
+        return this.http.get(API_URL + 'CoinPriceInfo/' + CoinCode )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
     public ImpressionAdd(data: any) {
         return this.http.post(API_URL + 'ImpressionAdd', data )
         .map(response => { const datas = response.json(); return datas; })

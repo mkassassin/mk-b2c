@@ -81,10 +81,24 @@ export class FeedsTrendsComponent implements OnInit {
           if (datas['status'] === 'True') {
             this.ListOfCoins = datas['data'];
             this.CoinListLoader = false;
-            this.ListOfCoins = this.ListOfCoins.sort((a, b) => a.Rate - b.Rate ).reverse();
-            this.Info = this.ListOfCoins[this.ActiveCoin];
+            const Keys = Object.keys(datas['data']);
+            const Response = [];
+            Keys.forEach((item, index) => {
+                Response.push(this.ListOfCoins[item]);
+            });
+            this.ListOfCoins = Response.sort((a, b) => a.SortOrder - b.SortOrder);
+            this.ListOfCoins = this.ListOfCoins.splice(0, 100);
 
-            this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+            this.trendsService.CoinPriceInfo(this.ListOfCoins[this.ActiveCoin].Symbol)
+            .subscribe( priceInfo => {
+                if (priceInfo['status'] === 'True') {
+                  this.Info = priceInfo['data'][this.ListOfCoins[this.ActiveCoin].Symbol]['USD'];
+                }else {
+                  console.log(priceInfo);
+                }
+            });
+
+            this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].Symbol, this.UserInfo.data._id)
               .subscribe( posts => {
                   if (posts['status'] === 'True') {
                     this.ListOfImpressions = posts['data'];
@@ -95,7 +109,7 @@ export class FeedsTrendsComponent implements OnInit {
                   }
               });
 
-              this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+              this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].Symbol, this.UserInfo.data._id)
               .subscribe( data => {
                   if (data['status'] === 'True') {
                     this.Prediction = data['data'];
@@ -104,7 +118,7 @@ export class FeedsTrendsComponent implements OnInit {
                   }
               });
 
-              this.trendsService.ChartInfo( this.ListOfCoins[this.ActiveCoin].Code)
+              this.trendsService.ChartInfo( this.ListOfCoins[this.ActiveCoin].Symbol)
               .subscribe( posts => {
                   if (posts['status'] === 'True') {
                     this.lineChartData = posts['data'].Values;
@@ -123,9 +137,6 @@ export class FeedsTrendsComponent implements OnInit {
       });
 
    }
-
-
-
 
 
   chartClicked(e: any): void {
@@ -148,15 +159,23 @@ export class FeedsTrendsComponent implements OnInit {
     this.impresionsHeight = this.impresionscreenHeight + 'px';
   }
 
-  ChangeActiveCoin(id) {
-    if (this.ActiveCoin !== id ) {
-      this.ActiveCoin = id;
+  ChangeActiveCoin(i) {
+    if (this.ActiveCoin !== i ) {
+      this.ActiveCoin = i;
+      this.trendsService.CoinPriceInfo(this.ListOfCoins[this.ActiveCoin].Symbol)
+        .subscribe( priceInfo => {
+            if (priceInfo['status'] === 'True') {
+              this.Info = priceInfo['data'][this.ListOfCoins[this.ActiveCoin].Symbol]['USD'];
+            }else {
+              console.log(priceInfo);
+            }
+        });
+
       this.ListOfImpressions = [];
       this.ImpressionsListLoader = true;
-      this.Info = this.ListOfCoins[this.ActiveCoin];
       this.PredictionAddButton = true;
 
-      this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+      this.trendsService.ImpressionPosts( this.ListOfCoins[this.ActiveCoin].Symbol, this.UserInfo.data._id)
           .subscribe( posts => {
               if (posts['status'] === 'True') {
                 this.ListOfImpressions = posts['data'];
@@ -167,7 +186,7 @@ export class FeedsTrendsComponent implements OnInit {
               }
           });
 
-      this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+      this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].Symbol, this.UserInfo.data._id)
           .subscribe( data => {
               if (data['status'] === 'True') {
                 this.Prediction = data['data'];
@@ -177,7 +196,7 @@ export class FeedsTrendsComponent implements OnInit {
               }
           });
 
-      this.trendsService.ChartInfo( this.ListOfCoins[this.ActiveCoin].Code)
+      this.trendsService.ChartInfo( this.ListOfCoins[this.ActiveCoin].Symbol )
           .subscribe( posts => {
               if (posts['status'] === 'True') {
                 this.lineChartData = posts['data'].Values;
@@ -194,7 +213,7 @@ export class FeedsTrendsComponent implements OnInit {
   OpenModel() {
     const PostThreeDialogRef = this.dialog.open(PostThreeComponent, {
       disableClose: true, minWidth: '50%', position: {top: '50px'},
-       data: { type: 'Add', CoinId : this.ListOfCoins[this.ActiveCoin].CoinId } });
+       data: { type: 'Add', CoinCode : this.ListOfCoins[this.ActiveCoin].Symbol } });
     PostThreeDialogRef.afterClosed().subscribe(result => this.GoToAnalize(result));
   }
 
@@ -202,7 +221,7 @@ export class FeedsTrendsComponent implements OnInit {
     if (result !== 'Close' && result.PostText !== '') {
         const data = {'UserId': this.UserInfo.data._id,
             'PostText': result.PostText,
-            'CoinId':  this.ListOfCoins[this.ActiveCoin].CoinId,
+            'CoinCode':  this.ListOfCoins[this.ActiveCoin].Symbol,
             'PostDate':  new Date()
           };
         this.trendsService.ImpressionAdd(data).subscribe( datas => {
@@ -232,17 +251,15 @@ export class FeedsTrendsComponent implements OnInit {
   AddPrediction(value) {
     if (value !== '') {
     const data = {'UserId': this.UserInfo.data._id,
-              'CoinId': this.Info['CoinId'],
-              'CoinCode': this.Info['Code'],
-              'CoinName':  this.Info['FullName'],
+              'CoinCode': this.ListOfCoins[this.ActiveCoin].Symbol,
+              'CoinName':  this.ListOfCoins[this.ActiveCoin].FullName,
               'Value': value
             };
-
           this.PredictionAddButton = true;
           this.trendsService.PredictionAdd(data).subscribe( datas => {
             if (datas['status'] === 'True' && !datas['message']) {
 
-              this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].CoinId, this.UserInfo.data._id)
+              this.trendsService.GetPrediction( this.ListOfCoins[this.ActiveCoin].Symbol, this.UserInfo.data._id)
               .subscribe( newdata => {
                   if (newdata['status'] === 'True') {
                     this.Prediction = newdata['data'];

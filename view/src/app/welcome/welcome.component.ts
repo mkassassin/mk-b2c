@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material';
 // import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
 
-import { AuthService } from 'angular2-social-login';
+// import { AuthService } from 'angular2-social-login';
 import { FbSignupComponent } from './../popups/fb-signup/fb-signup.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class WelcomeComponent implements OnInit {
   // user: SocialUser;
 
   constructor(  public dialog: MatDialog,
-                private _auth: AuthService,
+                // private _auth: AuthService,
                 private router: Router,
                 public snackBar: MatSnackBar,
                 private Service: SigninSignupServiceService,
@@ -54,38 +54,38 @@ export class WelcomeComponent implements OnInit {
 
 
 
-  signIn(provider) {
-    this.sub = this._auth.login(provider)
-      .subscribe((data) => {
-            if ( data !== null ) {
-                if (data['email'] !== '' && data['email'] !== undefined && data['email'] !== null ) {
-                this.Service.SocialUserValidate(data['email'], data['uid'], data['provider'])
-                  .subscribe( datas => {
-                        if (datas['status'] === 'True') {
-                            this.router.navigate(['Feeds']);
-                        }else {
-                            this.Service.EmailValidate(data['email'])
-                              .subscribe( newdatas => {
-                                    if (newdatas['available'] === 'False') {
-                                    this.snackBar.open('Your ' + data['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
-                                        horizontalPosition: 'center',
-                                        duration: 3000,
-                                        verticalPosition: 'top',
-                                      });
-                                        this.ShareingService.SetActiveSinInsignUpTab('SingIn', data['email'] );
-                                        this.router.navigate(['SignInSignUp']);
-                                    }else {
-                                      localStorage.setItem('SocialLoginData', JSON.stringify(data));
-                                      this.SocialSignUp(data);
-                                    }
-                              });
-                        }
-                  });
-                }
-            }
-      });
+  // signIn(provider) {
+  //   this.sub = this._auth.login(provider)
+  //     .subscribe((data) => {
+  //           if ( data !== null ) {
+  //               if (data['email'] !== '' && data['email'] !== undefined && data['email'] !== null ) {
+  //               this.Service.SocialUserValidate(data['email'], data['uid'], data['provider'])
+  //                 .subscribe( datas => {
+  //                       if (datas['status'] === 'True') {
+  //                           this.router.navigate(['Feeds']);
+  //                       }else {
+  //                           this.Service.EmailValidate(data['email'])
+  //                             .subscribe( newdatas => {
+  //                                   if (newdatas['available'] === 'False') {
+  //                                   this.snackBar.open('Your ' + data['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
+  //                                       horizontalPosition: 'center',
+  //                                       duration: 3000,
+  //                                       verticalPosition: 'top',
+  //                                     });
+  //                                       this.ShareingService.SetActiveSinInsignUpTab('SingIn', data['email'] );
+  //                                       this.router.navigate(['SignInSignUp']);
+  //                                   }else {
+  //                                     localStorage.setItem('SocialLoginData', JSON.stringify(data));
+  //                                     this.SocialSignUp(data);
+  //                                   }
+  //                             });
+  //                       }
+  //                 });
+  //               }
+  //           }
+  //     });
 
-  }
+  // }
 
 
 

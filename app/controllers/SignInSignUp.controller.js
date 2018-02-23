@@ -8,8 +8,8 @@ var nodemailer = require('nodemailer');
 var smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-        user: "kathiraashi@gmail.com",
-        pass: "kathiraashi123"
+        user: "b2cnetworkapp@gmail.com",
+        pass: "cryptoamillion"
     }
 });
 
@@ -43,7 +43,7 @@ exports.SendFPVerifyEmail = function(req, res) {
                     res.send({ status:"False", message: "Account is Not Available." });
                 }else{
                    var rand=Math.floor((Math.random() * 100) + 54);
-                    link = "http://localhost:4200/SetNewpassword/" + data._id + "/" + rand;
+                    link = "http://www.b2c.network/SetNewpassword/" + data._id + "/" + rand;
                     mailOptions = {
                         to: req.params.email,
                         subject: "Please confirm your Email account",
