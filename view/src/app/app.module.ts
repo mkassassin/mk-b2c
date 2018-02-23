@@ -26,16 +26,32 @@ import { NglModule } from 'ng-lightning/ng-lightning';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ChartsModule } from 'ng2-charts';
 
-// import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  LinkedinLoginProvider
+} from 'ng4-social-login';
 
-// const config = new AuthServiceConfig([
-//   {
-//     id: FacebookLoginProvider.PROVIDER_ID,
-//     provider: new FacebookLoginProvider('323054561538925')
-//   }
-// ]);
+const CONFIG = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('1094825930149-bl9tg0rsan3gjhffenkcmcs093bi572v.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('202967426952150')
+  },
+  {
+    id: LinkedinLoginProvider.PROVIDER_ID,
+    provider: new LinkedinLoginProvider('814ivvgus3ol7y')
+  }
+]);
 
-// import { Angular2SocialLoginModule } from 'angular2-social-login';
+export function provideConfig() {
+  return CONFIG;
+}
 
 // live
 // const providers = {
@@ -65,9 +81,6 @@ import { ChartsModule } from 'ng2-charts';
 //       }
 //   };
 
-// export function provideConfig() {
-//   return config;
-// }
 
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
@@ -134,6 +147,8 @@ import { FollowViewAllComponent } from './popups/follow-view-all/follow-view-all
 import { TopicPageRoutingComponent } from './page-routing/topic-page-routing/topic-page-routing.component';
 import { TopicRoutingServiceService } from './service/topic-routing-service/topic-routing-service.service';
 import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
+import { SelectPeoplesComponent } from './popups/select-peoples/select-peoples.component';
+import { SelectTopicsComponent } from './popups/select-topics/select-topics.component';
 
 
 @NgModule({
@@ -188,7 +203,9 @@ import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
     EditAnswerComponent,
     FollowViewAllComponent,
     TopicPageRoutingComponent,
-    CoinFilterPipe
+    CoinFilterPipe,
+    SelectPeoplesComponent,
+    SelectTopicsComponent
   ],
   imports: [
     CommonModule,
@@ -218,8 +235,7 @@ import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
     FileUploadModule,
     NglModule.forRoot(),
     ChartsModule,
-    // SocialLoginModule,
-    // Angular2SocialLoginModule
+    SocialLoginModule
   ],
   providers: [
                 AuthGuard,
@@ -236,10 +252,10 @@ import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
                 ComponentConnectServiceService,
                 ReportAndDeleteService,
                 TopicRoutingServiceService,
-                // {
-                //   provide: AuthServiceConfig,
-                //   useFactory: provideConfig
-                // }
+                {
+                  provide: AuthServiceConfig,
+                  useFactory: provideConfig
+                }
               ],
   bootstrap: [AppComponent],
   entryComponents: [ PostOneComponent,
@@ -264,9 +280,9 @@ import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
                     EditPostTwoComponent,
                     EditCommentComponent,
                     EditAnswerComponent,
-                    FollowViewAllComponent
+                    FollowViewAllComponent,
+                    SelectPeoplesComponent,
+                    SelectTopicsComponent
                   ]
 })
 export class AppModule { }
-
-// Angular2SocialLoginModule.loadProvidersScripts(providers);

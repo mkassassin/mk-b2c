@@ -171,28 +171,26 @@
                             <button [disabled]="!formValid" type="submit" [ngClass]="{'disabled': !formValid}" class="btn-flat btn btn-cutom"> Register </button>
                           </div>
 
-                          <hr class="m-5"
-                          >
-                          <!-- <div *ngIf="SelectedCategory == ''" class="row mb-30">
+                          <hr class="m-5">
+                          <div *ngIf="SelectedCategory == ''" class="row mb-30">
                               <div class="col-sm-12 text-center">
-                                      <p class="textStyle-1 mb-0"> <small>  Or Sign Up Using </small> </p>
+                                  <p class="textStyle-1 mb-0"> <small>  Or Sign Up Using </small> </p>
                                   <div style="display:inline-flex">
-                                    <a class="linkStyle-4 facebook">
-                                      <i (click)="signIn('facebook')" class="fa fa-facebook" aria-hidden="true"></i>
+                                    <a href="#" class="linkStyle-4 facebook">
+                                        <i (click)="signInWithFB()" class="fa fa-facebook" aria-hidden="true"></i>
                                     </a>
-                                    <a href="#" class="linkStyle-4 twitter">
-                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    <!-- <a href="#" class="linkStyle-4 twitter">
+                                        <i (click)="signOut()" class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a> -->
+                                    <a href="#" class="linkStyle-4 googlePlus">
+                                        <i (click)="signInWithGoogle()"  class="fa fa-google-plus" aria-hidden="true"></i>
                                     </a>
-                                    <a class="linkStyle-4 googlePlus">
-                                        <i (click)="signIn('google')"  class="fa fa-google-plus" aria-hidden="true"></i>
-                                    </a>
-                                    <a  class="linkStyle-4 linkedin">
-                                        <i (click)="signIn('linkedin')" class="fa fa-linkedin" aria-hidden="true"></i>
+                                    <a href="#" class="linkStyle-4 linkedin">
+                                        <i (click)="signInWithLinkedIN()" class="fa fa-linkedin" aria-hidden="true"></i>
                                     </a>
                                   </div>
                               </div>
-                          </div> -->
-                          
+                          </div>
                       </form>
                     </div>
                 </p-tabPanel>
@@ -225,25 +223,25 @@
                             </form>
                             <hr class="m-5">
               
-                            <!-- <div class="row mt-20 mb-30">
+                            <div class="row mt-20 mb-30">
                                 <div class="col-sm-12 text-center">
                                         <p class="textStyle-1 mb-0"> <small>  Or Sign In Using </small> </p>
                                     <div style="display:inline-flex">
-                                      <a class="linkStyle-4 facebook">
-                                        <i (click)="signIn('facebook')" class="fa fa-facebook" aria-hidden="true"></i>
+                                      <a href="#" class="linkStyle-4 facebook">
+                                          <i (click)="signInWithFB()" class="fa fa-facebook" aria-hidden="true"></i>
                                       </a>
-                                      <a href="#" class="linkStyle-4 twitter">
-                                          <i class="fa fa-twitter" aria-hidden="true"></i>
+                                      <!-- <a href="#" class="linkStyle-4 twitter">
+                                          <i (click)="signOut()" class="fa fa-twitter" aria-hidden="true"></i>
+                                      </a> -->
+                                      <a href="#" class="linkStyle-4 googlePlus">
+                                          <i (click)="signInWithGoogle()"  class="fa fa-google-plus" aria-hidden="true"></i>
                                       </a>
-                                      <a class="linkStyle-4 googlePlus">
-                                          <i (click)="signIn('google')"  class="fa fa-google-plus" aria-hidden="true"></i>
-                                      </a>
-                                      <a class="linkStyle-4 linkedin">
-                                          <i (click)="signIn('linkedin')" class="fa fa-linkedin" aria-hidden="true"></i>
+                                      <a href="#" class="linkStyle-4 linkedin">
+                                          <i (click)="signInWithLinkedIN()" class="fa fa-linkedin" aria-hidden="true"></i>
                                       </a>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
               
                         </div>
                     </div>

@@ -67,8 +67,8 @@ export class FbSignupComponent implements OnInit {
       UserCategoryId: new FormControl('',  Validators.required),
       UserCategoryName: new FormControl('', Validators.required),
       ProviderType: new FormControl(this.data.Values.provider, Validators.required),
-      ProviderId: new FormControl(this.data.Values.uid, Validators.required),
-      UserImage: new FormControl(this.data.Values.image),
+      ProviderId: new FormControl(this.data.Values.id, Validators.required),
+      UserImage: new FormControl(this.data.Values.photoUrl),
       UserCompany: new FormControl(''),
       UserProfession: new FormControl(''),
       UserDateOfBirth: new FormControl(''),
@@ -225,21 +225,23 @@ export class FbSignupComponent implements OnInit {
     if (datas.status === 'True') {
       this.Service.FBUserValidate(datas.data.UserEmail, datas.data.ProviderId)
       .subscribe( newdatas => { this.goto(newdatas); } );
+    }else {
+      this.dialogRef.close({status: 'Error' });
     }
   }
 
   goto(datas) {
     if (datas.status === 'True') {
-        this.dialogRef.close('Success');
+        this.dialogRef.close({status: 'Success', data: datas.data });
     }else {
-      alert('error');
+      this.dialogRef.close({status: 'Error' });
     }
   }
 
 
 
   close() {
-    this.dialogRef.close('Close');
+    this.dialogRef.close({status: 'Close' });
   }
 
 }

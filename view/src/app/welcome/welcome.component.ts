@@ -6,10 +6,11 @@ import { DataSharedVarServiceService } from './../service/data-shared-var-servic
 import { SigninSignupServiceService } from './../service/signin-signup-service/signin-signup-service.service';
 import { MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material';
-// import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
-
-// import { AuthService } from 'angular2-social-login';
 import { FbSignupComponent } from './../popups/fb-signup/fb-signup.component';
+import { SelectPeoplesComponent } from './../popups/select-peoples/select-peoples.component';
+import { SelectTopicsComponent } from './../popups/select-topics/select-topics.component';
+
+import { SocialUser, AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng4-social-login';
 
 @Component({
   selector: 'app-welcome',
@@ -24,10 +25,14 @@ export class WelcomeComponent implements OnInit {
   ShowEmailAlert: Boolean = false;
 
   sub;
-  // user: SocialUser;
+
+  ActiveSocialSignUp;
+
+  private user: SocialUser;
+  private loggedIn: boolean;
 
   constructor(  public dialog: MatDialog,
-                // private _auth: AuthService,
+                private authService: AuthService,
                 private router: Router,
                 public snackBar: MatSnackBar,
                 private Service: SigninSignupServiceService,
@@ -38,56 +43,72 @@ export class WelcomeComponent implements OnInit {
     this.ShareingService.SetActiveSinInsignUpTab('', '');
     this.screenHeight = window.innerHeight;
     this.scrollHeight = this.screenHeight + 'px';
+    this.ActiveSocialSignUp = this.ShareingService.GetSocialLoginRouting();
+
+    if (this.ActiveSocialSignUp['Provider'] === 'Google') {
+      this.ShareingService.SetSocialLoginRouting('');
+      this.signInWithGoogle();
+    }else if (this.ActiveSocialSignUp['Provider'] === 'FaceBook') {
+      this.ShareingService.SetSocialLoginRouting('');
+      this.signInWithFB();
+    }else if ( this.ActiveSocialSignUp['Provider'] === 'LinkedIn' ) {
+      this.ShareingService.SetSocialLoginRouting('');
+      this.signInWithLinkedIN();
+    }else {
+      this.SocialSignInSignUp();
+    }
+
   }
 
+  SocialSignInSignUp() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
 
+      if ( this.user !== null ) {
+        if (this.user['email'] !== '' && this.user['email'] !== undefined && this.user['email'] !== null ) {
+        this.Service.SocialUserValidate(this.user['email'], this.user['id'], this.user['provider'])
+          .subscribe( datas => {
+                if (datas['status'] === 'True') {
+                    this.router.navigate(['Feeds']);
+                }else {
+                    this.Service.EmailValidate(this.user['email'])
+                      .subscribe( newdatas => {
+                            if (newdatas['available'] === 'False') {
+                            this.snackBar.open('Your ' + this.user['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
+                                horizontalPosition: 'center',
+                                duration: 3000,
+                                verticalPosition: 'top',
+                              });
+                              this.authService.signOut();
+                                this.ShareingService.SetActiveSinInsignUpTab('SingIn', this.user['email'] );
+                                this.router.navigate(['SignInSignUp']);
+                            }else {
+                              this.authService.signOut();
+                              this.SocialSignUp(this.user);
+                            }
+                      });
+                }
+          });
+        }
+      }
+    });
+  }
 
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
 
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
 
+  signInWithLinkedIN(): void {
+    this.authService.signIn(LinkedinLoginProvider.PROVIDER_ID);
+  }
 
-
-
-
-
-
-
-
-
-
-  // signIn(provider) {
-  //   this.sub = this._auth.login(provider)
-  //     .subscribe((data) => {
-  //           if ( data !== null ) {
-  //               if (data['email'] !== '' && data['email'] !== undefined && data['email'] !== null ) {
-  //               this.Service.SocialUserValidate(data['email'], data['uid'], data['provider'])
-  //                 .subscribe( datas => {
-  //                       if (datas['status'] === 'True') {
-  //                           this.router.navigate(['Feeds']);
-  //                       }else {
-  //                           this.Service.EmailValidate(data['email'])
-  //                             .subscribe( newdatas => {
-  //                                   if (newdatas['available'] === 'False') {
-  //                                   this.snackBar.open('Your ' + data['provider'] + ' E-mail Already Registerd! please Singin', ' ', {
-  //                                       horizontalPosition: 'center',
-  //                                       duration: 3000,
-  //                                       verticalPosition: 'top',
-  //                                     });
-  //                                       this.ShareingService.SetActiveSinInsignUpTab('SingIn', data['email'] );
-  //                                       this.router.navigate(['SignInSignUp']);
-  //                                   }else {
-  //                                     localStorage.setItem('SocialLoginData', JSON.stringify(data));
-  //                                     this.SocialSignUp(data);
-  //                                   }
-  //                             });
-  //                       }
-  //                 });
-  //               }
-  //           }
-  //     });
-
-  // }
-
-
+  signOut(): void {
+    this.authService.signOut();
+  }
 
   SocialSignUp(data) {
     const FbSignUpDialogRef = this.dialog.open( FbSignupComponent,
@@ -96,8 +117,34 @@ export class WelcomeComponent implements OnInit {
   }
 
   SocialSignUpComplete(result) {
-    if (result === 'Success') {
-      this.router.navigate(['Feeds']);
+    if (result.status === 'Success') {
+      this.snackBar.open('Your Account Successfully Created. ', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+
+      const SelectPeopleDialogRef = this.dialog.open( SelectPeoplesComponent,
+        { disableClose: true, minWidth: '50%', position: {top: '50px'},
+          data: { Header: 'Select Peoples', ActiveCategory: result.data.UserCategoryId  } });
+      SelectPeopleDialogRef.afterClosed().subscribe(next => {
+
+          const SelectTopicDialogRef = this.dialog.open( SelectTopicsComponent,
+            { disableClose: true, minWidth: '50%', position: {top: '50px'},
+              data: { Header: 'Select Topics'  } });
+              SelectTopicDialogRef.afterClosed().subscribe(final => {
+
+              this.router.navigate(['Feeds']);
+            });
+
+        });
+
+    }else if (result.status === 'Error') {
+      this.snackBar.open('Some Error Occurred Will Create The Account ', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
     }else {
       console.log(result);
     }

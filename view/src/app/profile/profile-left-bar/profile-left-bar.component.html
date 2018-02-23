@@ -3,7 +3,8 @@
     <!-- UserDetails -->
     <div *ngIf="!UserInfoLoading" class="userdiv" fxLayout="column" fxLayoutAlign="start center">
         <div fxFlex="120px" class="text-center">
-            <img  class="userimg" src="{{UserImageBaseUrl}}/{{UserInfo['data'].UserImage}}" alt="">
+            <img *ngIf="UserInfo['data'].UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo['data'].UserImage.toLowerCase().indexOf('https://') !== -1"  class="userimg" src="{{UserInfo['data'].UserImage}}" alt="">
+            <img *ngIf="UserInfo['data'].UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo['data'].UserImage.toLowerCase().indexOf('https://') === -1"  class="userimg" src="{{UserImageBaseUrl}}/{{UserInfo['data'].UserImage}}" alt="">
         </div>
         <div fxFlex="60px">
             <p class="username"> {{UserInfo['data'].UserName}} </p>
@@ -50,7 +51,8 @@
 
 
           <div *ngFor="let user of (UserFollowingUsers ? UserFollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
-              <img class="followimg" (click)="GotoProfile(user._id)" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
+                <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') !== -1 || user.UserImage.toLowerCase().indexOf('https://') !== -1" (click)="GotoProfile(user._id)" class="followimg" src="{{user.UserImage}}" alt="">
+                <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') === -1 || user.UserImage.toLowerCase().indexOf('https://') === -1" (click)="GotoProfile(user._id)" class="followimg" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
               <p class="followname" > <span (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </span> </p>
           </div>
       </div>
@@ -88,7 +90,8 @@
             </div>
 
           <div *ngFor="let user of (FollowingUsers ? FollowingUsers.slice(0,4): []);" class="col-sm-3 followPart ">
-              <img class="followimg" (click)="GotoProfile(user._id)" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
+                <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') !== -1 || user.UserImage.toLowerCase().indexOf('https://') !== -1" (click)="GotoProfile(user._id)" class="followimg" src="{{user.UserImage}}" alt="">
+                <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') === -1 || user.UserImage.toLowerCase().indexOf('https://') === -1" (click)="GotoProfile(user._id)" class="followimg" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
               <p class="followname" > <span (click)="GotoProfile(user._id)"> {{user.UserName | slice:0:7 }}{{ user.UserName?.length > 7 ? '...' : ' ' }} </span>  </p>
           </div>
       </div>

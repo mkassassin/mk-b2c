@@ -10,8 +10,12 @@ export interface NewPassword { UserId: String; Token: any; }
 
 export interface ProfilePage { UserId: String; Other: String; }
 
-
 export interface TopicQuestions { TopicId: String; Other: String; }
+
+export interface SocialLoginRouting { Provider: String; Other: String; }
+
+
+
 @Injectable()
 export class DataSharedVarServiceService {
 
@@ -48,5 +52,10 @@ export class DataSharedVarServiceService {
   SetTopicQuestions(TopicId, Other= null) {this.StoreTopicQuestions.TopicId = TopicId; this.StoreTopicQuestions.Other = Other; }
   GetTopicQuestions() { return this.StoreTopicQuestions; }
 
+  StoreSocialLoginRouting: SocialLoginRouting = { Provider : '', Other : '' };
+  SetSocialLoginRouting(Provider, Other= null) {
+    this.StoreSocialLoginRouting.Provider = Provider; this.StoreSocialLoginRouting.Other = Other;
+  }
+  GetSocialLoginRouting() { return this.StoreSocialLoginRouting; }
 
 }

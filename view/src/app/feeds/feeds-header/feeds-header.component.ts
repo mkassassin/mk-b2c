@@ -14,10 +14,11 @@ import { PostTwoComponent } from './../../popups/post-two/post-two.component';
 import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
-// import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login';
+import {AuthService, SocialUser} from 'ng4-social-login';
 
 import 'rxjs/add/observable/of';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+
 @Component({
   selector: 'app-feeds-header',
   templateUrl: './feeds-header.component.html',
@@ -42,8 +43,10 @@ export class FeedsHeaderComponent implements OnInit {
   selected: String;
   InputLoading: Boolean = true;
 
+  private user: SocialUser;
+
   constructor(private router: Router,
-    // private authService: AuthService,
+    private authService: AuthService,
     private searchService: SearchService,
     private ShareingService: DataSharedVarServiceService,
     private NotifyService: SigninSignupServiceService,
@@ -194,11 +197,17 @@ export class FeedsHeaderComponent implements OnInit {
   LogOut() {
     const localDataString = localStorage.getItem('currentUser');
     const localData = JSON.parse(localDataString);
-
     if (localData.data.ProviderType) {
       localStorage.removeItem('currentUser');
       localStorage.removeItem('UserToken');
-      this.router.navigate(['/']);
+      this.authService.signOut();
+      this.authService.authState.subscribe((user) => {
+        this.user = user;
+        if ( this.user === null ) {
+          this.router.navigate(['/']);
+        }
+      });
+
     }else {
      this.ShareingService.SetActiveSinInsignUpTab('SingIn', localData.data.UserEmail);
       localStorage.removeItem('currentUser');
