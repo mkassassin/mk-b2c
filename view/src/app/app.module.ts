@@ -133,6 +133,7 @@ import { EditAnswerComponent } from './popups/edit-answer/edit-answer.component'
 import { FollowViewAllComponent } from './popups/follow-view-all/follow-view-all.component';
 import { TopicPageRoutingComponent } from './page-routing/topic-page-routing/topic-page-routing.component';
 import { TopicRoutingServiceService } from './service/topic-routing-service/topic-routing-service.service';
+import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
 
 
 @NgModule({
@@ -186,7 +187,8 @@ import { TopicRoutingServiceService } from './service/topic-routing-service/topi
     EditCommentComponent,
     EditAnswerComponent,
     FollowViewAllComponent,
-    TopicPageRoutingComponent
+    TopicPageRoutingComponent,
+    CoinFilterPipe
   ],
   imports: [
     CommonModule,

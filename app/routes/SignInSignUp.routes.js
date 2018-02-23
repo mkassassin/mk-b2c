@@ -39,4 +39,4 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/UserCoinCount/:UserId', user.UserCoinCount);
 
-}
+};

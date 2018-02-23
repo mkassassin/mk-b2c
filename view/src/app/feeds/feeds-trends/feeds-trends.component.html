@@ -1,6 +1,8 @@
 <div class="Trends">
   <div fxLayout="row" fxLayoutAlign="space-between">
-      <div fxFlex="30%">
+      <div fxFlex="30%" style="position:relative">
+        <input type="text" [(ngModel)]="CoinSearch" class="coinsearch" placeholder="Search Coins...">
+        <span class="CoinsearchIncon"> <img class="icon" src="./../../../assets/images/icons/search.png"> </span>
         <p-scrollPanel  [style]="{width: '100%', height: scrollHeight }" styleClass="customscroll_1">
 
             <div *ngIf="CoinListLoader" class="col-sm-12" >
@@ -15,12 +17,12 @@
                 </div>
             </div>
 
-            <div *ngFor="let item of ListOfCoins; let i=index" (click)="ChangeActiveCoin(i)" [ngClass]="{'selected': ActiveCoin == i}" class="coinlistitem " fxLayout="row" fxLayoutAlign="start center">
+            <div *ngFor="let item of ListOfCoins | CoinFilterPipe: CoinSearch ; let i=index" (click)="ChangeActiveCoin(item.Symbol)" [ngClass]="{'selected': ActiveCoinSymbol == item.Symbol}" class="coinlistitem " fxLayout="row" fxLayoutAlign="start center">
                 <div fxFlex="45px">
                     <img class="coinlistImg" src="https://www.cryptocompare.com{{item.ImageUrl}}" alt="">
                 </div>
                 <div class="mt-10" fxFlex>
-                    <p class="coinlistname">{{item.FullName}} </p>
+                    <p class="coinlistname">{{item.CoinName}} </p>
                     <p class="coinlistamt"> {{item.Symbol}} </p>
                 </div>
             </div>

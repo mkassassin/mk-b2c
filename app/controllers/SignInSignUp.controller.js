@@ -194,13 +194,6 @@ exports.Register = function(req, res) {
 };
 
 exports.ProfileUpdate = function(req, res) {
-    if(!req.body.UserName) {
-        res.status(400).send({status:"False", message: " Name can not be Empty! " });
-    }
-    if(!req.body.UserEmail){
-        res.status(400).send({status:"False", message: " E-mail can not be Empty! " });
-    }
-
     UserModel.UserType.findOne({'_id': req.body.UserId}, {}, function(err, data) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
