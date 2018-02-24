@@ -11,7 +11,7 @@
     border-radius: 100px;
 }
 .feedsRightBar .username{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #333333;
     margin: 0px;
@@ -20,7 +20,7 @@
     font-family: 'Ubuntu', sans-serif;
 }
 .feedsRightBar .userfollowers{
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #888888;
     margin: 0px;

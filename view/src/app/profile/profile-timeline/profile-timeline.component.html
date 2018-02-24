@@ -63,6 +63,7 @@
                     <h5 class="text-left ml-20"> {{Post.PostText}}</h5>
 
                     <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                      <a href="{{Post.PostLinkInfo.url}}" target="blanck"> 
                       <div *ngIf="Post.PostLinkInfo !== ''" class="row thumpnailbox">
                         <div class="col-sm-4 thumpnailbox-left">
                             <img *ngIf="Post.PostLinkInfo.image !== ''" class="thumpnailbox-img" src="{{Post.PostLinkInfo.image}}" alt="">
@@ -71,15 +72,12 @@
                         <div class="col-sm-8 thumpnailbox-right">
                           <div class="thumpnailbox-textField">
                               <p class="thumpnailbox-header"> {{Post.PostLinkInfo.title}} </p>
-                              <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description}} </p>
+                              <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description | slice:0:170}} {{Post.PostLinkInfo.description?.length > 170 ? '...' : ' ' }} </p>
                           </div>
-                          <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
+                          <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" style="word-wrap: break-word" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
                         </div>
                       </div>
-                    </ng-container>
-      
-                    <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
-                      <p class="postLink"> <a href="{{Post.PostLink}}" target="blanck"> {{Post.PostLink}} </a> </p> 
+                      </a>
                     </ng-container>
 
 
@@ -296,6 +294,7 @@
                       <h5 class="postquestion"> {{Post.PostText}} </h5>
 
                       <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                        <a href="{{Post.PostLinkInfo.url}}" target="blanck"> 
                         <div *ngIf="Post.PostLinkInfo !== ''" class="row thumpnailbox">
                           <div class="col-sm-4 thumpnailbox-left">
                               <img *ngIf="Post.PostLinkInfo.image !== ''" class="thumpnailbox-img" src="{{Post.PostLinkInfo.image}}" alt="">
@@ -304,15 +303,12 @@
                           <div class="col-sm-8 thumpnailbox-right">
                             <div class="thumpnailbox-textField">
                                 <p class="thumpnailbox-header"> {{Post.PostLinkInfo.title}} </p>
-                                <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description}} </p>
+                                <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description | slice:0:170}} {{Post.PostLinkInfo.description?.length > 170 ? '...' : ' ' }} </p>
                             </div>
-                            <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
+                            <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" style="word-wrap: break-word" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
                           </div>
                         </div>
-                      </ng-container>
-        
-                      <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
-                        <p class="postLink"> <a href="{{Post.PostLink}}" target="blanck"> {{Post.PostLink}} </a> </p> 
+                        </a>
                       </ng-container>
 
 

@@ -153,7 +153,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   ngOnInit() {
     this.screenHeight = window.innerHeight - 155;
-    this.impresionscreenHeight = window.innerHeight - 600;
+    this.impresionscreenHeight = window.innerHeight - 570;
     this.scrollHeight = this.screenHeight + 'px';
     this.impresionsHeight = this.impresionscreenHeight + 'px';
   }

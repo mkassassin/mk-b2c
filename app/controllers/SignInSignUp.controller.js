@@ -265,7 +265,25 @@ exports.UserValidate = function(req, res) {
                     }
                 });
             }else{
-                res.send({ status:"True", message: "Sign In Successfully", data:data });
+                FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
+                    if(newerr){
+                        res.send({status:"False", Error:newerr });
+                    }else{
+                        var newArray = [];
+                            newArray.push({
+                                            _id: data._id,
+                                            UserName: data.UserName,
+                                            UserEmail: data.UserEmail,
+                                            UserCategoryId: data.UserCategoryId,
+                                            UserCategoryName: data.UserCategoryName,
+                                            UserImage: data.UserImage,
+                                            UserCompany: data.UserCompany,
+                                            UserProfession: data.UserProfession,
+                                            Followers: count
+                                        });
+                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                    }
+                });
             } 
         }
     });
@@ -359,7 +377,25 @@ exports.FBUserValidate = function(req, res) {
             if(data === null){
                 res.send({ status:"False", message: " Invalid Username and Password  " });
             }else{
-                res.send({ status:"True", data:data });
+                FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
+                    if(newerr){
+                        res.send({status:"False", Error:newerr });
+                    }else{
+                        var newArray = [];
+                            newArray.push({
+                                            _id: data._id,
+                                            UserName: data.UserName,
+                                            UserEmail: data.UserEmail,
+                                            UserCategoryId: data.UserCategoryId,
+                                            UserCategoryName: data.UserCategoryName,
+                                            UserImage: data.UserImage,
+                                            UserCompany: data.UserCompany,
+                                            UserProfession: data.UserProfession,
+                                            Followers: count
+                                        });
+                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                    }
+                });
             } 
         }
     });
@@ -373,7 +409,25 @@ exports.SocialUserValidate = function(req, res) {
             if(data === null){
                 res.send({ status:"False", message: " Invalid Username and Password  " });
             }else{
-                res.send({ status:"True", data:data });
+                FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
+                    if(newerr){
+                        res.send({status:"False", Error:newerr });
+                    }else{
+                        var newArray = [];
+                            newArray.push({
+                                            _id: data._id,
+                                            UserName: data.UserName,
+                                            UserEmail: data.UserEmail,
+                                            UserCategoryId: data.UserCategoryId,
+                                            UserCategoryName: data.UserCategoryName,
+                                            UserImage: data.UserImage,
+                                            UserCompany: data.UserCompany,
+                                            UserProfession: data.UserProfession,
+                                            Followers: count
+                                        });
+                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                    }
+                });
             } 
         }
     });
@@ -499,7 +553,7 @@ exports.GetUserInfo = function(req, res) {
                                 FollowDbId = findresult[0]._id;
                             }
                             var newArray = [];
-                                newArray.push( {
+                                newArray.push({
                                                 _id: data._id,
                                                 UserName: data.UserName,
                                                 UserEmail: data.UserEmail,
@@ -511,8 +565,7 @@ exports.GetUserInfo = function(req, res) {
                                                 Followers: count,
                                                 UserFollow: UserFollow,
                                                 FollowDbId: FollowDbId
-                                            }
-                                );
+                                            });
                             res.send({ status:"True",  data: newArray[0] });
                         }
                     });

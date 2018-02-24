@@ -9,8 +9,10 @@
         <div fxFlex="60px">
             <p class="username"> {{UserInfo.data.UserName}} </p>
             <p class="userfollowers"> {{UserInfo.data.UserCategoryName}} &nbsp; | &nbsp; {{UserInfo.data.UserProfession}} </p>
-            <p *ngIf="SowCoinCount" class="userfollowers"> Likes -  {{UserCoinInfo.HiLikes + UserCoinInfo.CommentLikes}} <img src="./../../../assets/images/icons/liked.png" style="width:16px;height:16px" alt="">
-                 &nbsp; | &nbsp; Ratings - {{UserCoinInfo.AnsRatCount + UserCoinInfo.QusRatCount}} <img src="./../../../assets/images/icons/liked.png" style="width:16px;height:16px" alt="">  </p>
+            <p *ngIf="SowCoinCount" class="userfollowers">  {{UserCoinInfo.HiLikes + UserCoinInfo.CommentLikes + UserCoinInfo.AnsRatCount + UserCoinInfo.QusRatCount }} 
+                <img src="./../../../assets/images/icons/liked.png" style="width:16px;height:16px" alt="">
+                &nbsp; | &nbsp; {{UserInfo.data.Followers}} Followers
+            </p>
         </div>
     </div>
     <!-- UserDetails End -->
