@@ -82,6 +82,8 @@ export function provideConfig() {
 //   };
 
 
+import { FacebookModule } from 'ngx-facebook';
+
 import { AuthGuard } from './guard/auth.guard';
 import { NotAuthGuard } from './guard/not-auth.guard';
 
@@ -235,7 +237,8 @@ import { SelectTopicsComponent } from './popups/select-topics/select-topics.comp
     FileUploadModule,
     NglModule.forRoot(),
     ChartsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    FacebookModule.forRoot()
   ],
   providers: [
                 AuthGuard,

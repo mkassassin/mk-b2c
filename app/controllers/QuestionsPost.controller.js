@@ -230,7 +230,7 @@ exports.Update = function(req, res) {
 
 exports.GetPostList = function (req, res) {
     var SkipCoun = 0;
-    SkipCoun = parseInt(req.params.Limit) * 10;
+    SkipCoun = parseInt(req.params.Limit);
     QuestionsPostModel.QuestionsPostType.find({'ActiveStates': 'Active'}, {}, { sort: { createdAt: -1 }, skip: SkipCoun, limit: 5 }, function (err, result) {
         if (err) {
             res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });

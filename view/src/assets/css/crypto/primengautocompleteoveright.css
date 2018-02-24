@@ -14,25 +14,25 @@
     background: #fff;
 }
 .ui-autocomplete .ui-autocomplete-input::-webkit-input-placeholder {
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important;
 }   
 .ui-autocomplete .ui-autocomplete-input:-moz-placeholder { /* Firefox 18- */
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important;
 } 
 .ui-autocomplete .ui-autocomplete-input::-moz-placeholder {  /* Firefox 19+ */
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important; 
 }    
 .ui-autocomplete .ui-autocomplete-input:-ms-input-placeholder {  
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important;

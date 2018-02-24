@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -26,6 +26,9 @@ import { TopicRoutingServiceService } from './../../service/topic-routing-servic
 })
 export class FeedsQuestionsComponent implements OnInit {
 
+  @ViewChild('mainScreen') elementView: ElementRef;
+  viewHeight: number;
+
   ImageBaseUrl: String = 'http://localhost:3000/static/images';
   VideoBaseUrl: String = 'http://localhost:3000/static/videos';
   UserImageBaseUrl: String = 'http://localhost:3000/static/users';
@@ -43,6 +46,10 @@ export class FeedsQuestionsComponent implements OnInit {
   PostsListLoading: Boolean = true;
   AnswerListLoadingIndex: Number = -1;
   AnswersViewLess: Boolean = false;
+
+  MorePostsListLoder: Boolean = false;
+  SkipCount = 0 ;
+  ScrollToDiv;
 
   TopicFilter: Boolean = false;
   TopicFilterName;
@@ -71,6 +78,7 @@ export class FeedsQuestionsComponent implements OnInit {
       this.Service.GetTopicQuestionsList(this.UserInfo.data._id, '0', this.ActiveTab['TopicId'])
         .subscribe( datas => {
             if (datas['status'] === 'True') {
+              this.SkipCount = this.SkipCount + 5;
               this.TopicFilter = true;
               this.PostsList = datas['data'];
               this.TopicFilterName = this.PostsList[0].PostTopicName;
@@ -82,10 +90,11 @@ export class FeedsQuestionsComponent implements OnInit {
             this.ShareService.SetTopicQuestions('', '');
         });
     }else {
-      this.Service.GetQuestionsList(this.UserInfo.data._id, '0')
+      this.Service.GetQuestionsList(this.UserInfo.data._id, this.SkipCount)
       .subscribe( datas => {
           if (datas['status'] === 'True') {
             this.PostsList = datas['data'];
+            this.SkipCount = this.SkipCount + 5;
             this.PostsListLoading = false;
             this.ReloadGalleryScript();
           }else {
@@ -144,6 +153,38 @@ export class FeedsQuestionsComponent implements OnInit {
           }else {
             console.log(datas);
           }
+      });
+  }
+
+  LoadMorePosts() {
+    this.MorePostsListLoder = true;
+    setTimeout(() => {
+        document.getElementById('miniLoader').scrollIntoView();
+    }, 0);
+    this.Service.GetQuestionsList(this.UserInfo.data._id, this.SkipCount)
+    .subscribe( datas => {
+        if (datas['status'] === 'True') {
+          this.SkipCount = this.SkipCount + 5;
+          this.ScrollToDiv = datas['data'][0]._id;
+          this.PostsList = [...this.PostsList, ...datas['data']];
+          const tempPostList = this.PostsList;
+          this.PostsList = [];
+          this.MorePostsListLoder = false;
+          setTimeout(() => {
+            this.PostsList = tempPostList;
+            const s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.src = './../../../assets/html5gallery/html5gallery.js';
+                this.elementRef.nativeElement.appendChild(s);
+                setTimeout(() => {
+                  const mainDiv = document.getElementById(this.ScrollToDiv);
+                  mainDiv.scrollIntoView();
+                }, 0);
+          }, 0);
+        }else {
+          console.log(datas);
+          this.MorePostsListLoder = false;
+        }
       });
   }
 

@@ -1,8 +1,10 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SlicePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
@@ -25,6 +27,9 @@ import { EditCommentComponent } from './../../popups/edit-comment/edit-comment.c
 })
 export class FeedsHighlightsComponent implements OnInit {
 
+  @ViewChild('mainScreen') elementView: ElementRef;
+  viewHeight: number;
+
   ImageBaseUrl: String = 'http://localhost:3000/static/images';
   VideoBaseUrl: String = 'http://localhost:3000/static/videos';
   UserImageBaseUrl: String = 'http://localhost:3000/static/users';
@@ -40,6 +45,9 @@ export class FeedsHighlightsComponent implements OnInit {
   ActiveComment;
   LoadingActiveComment;
   PostsListLoder: Boolean = true;
+  MorePostsListLoder: Boolean = false;
+  SkipCount = 0 ;
+  ScrollToDiv;
 
   reportPostInfo;
   reportUserId;
@@ -58,30 +66,73 @@ export class FeedsHighlightsComponent implements OnInit {
     private _componentConnectService: ComponentConnectServiceService,
     private DeleteService: ReportAndDeleteService,
     public snackBar: MatSnackBar,
+    private fb: FacebookService
   ) {
     this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
-                    this.Service.GetHighlightsList(this.UserInfo.data._id, '0')
-                    .subscribe( datas => {
-                        if (datas['status'] === 'True') {
-                          this.PostsList = datas['data'];
-                          this.PostsListLoder = false;
+    const initParams: InitParams = {
+      appId: '202967426952150',
+      xfbml: true,
+      version: 'v2.11'
+    };
 
-                          const s = document.createElement('script');
-                          s.type = 'text/javascript';
-                          s.src = './../../../assets/html5gallery/html5gallery.js';
-                          this.elementRef.nativeElement.appendChild(s);
+    fb.init(initParams);
 
-                        }else {
-                          console.log(datas);
-                          this.PostsListLoder = false;
-                        }
-                      });
 
-                      this._componentConnectService.listen().subscribe(() => {
-                        this.ReloadGalleryScript();
-                    });
+      this.Service.GetHighlightsList(this.UserInfo.data._id, this.SkipCount)
+        .subscribe( datas => {
+            if (datas['status'] === 'True') {
+              this.SkipCount = this.SkipCount + 5;
+              this.PostsList = datas['data'];
+              this.PostsListLoder = false;
+
+              const s = document.createElement('script');
+              s.type = 'text/javascript';
+              s.src = './../../../assets/html5gallery/html5gallery.js';
+              this.elementRef.nativeElement.appendChild(s);
+
+            }else {
+              console.log(datas);
+              this.PostsListLoder = false;
+            }
+          });
+
+          this._componentConnectService.listen().subscribe(() => {
+            this.ReloadGalleryScript();
+        });
    }
+
+
+
+  share() {
+    let SharePostImage = 'http://www.b2c.network/assets/images/icons/logo.png';
+    if ( this.reportPostInfo.PostImage[0] !== '' ) {
+      SharePostImage = 'http://139.59.20.129:3000/static/images/' + this.reportPostInfo.PostImage[0].ImageName;
+    }
+    const SharePostText = this.reportPostInfo.PostText;
+    let SharePostTitle = this.reportPostInfo.PostText;
+    if (SharePostText.length > 70 ) {
+      SharePostTitle = this.reportPostInfo.PostText.substring(0, 70) + '...';
+    }
+    // const ShareUrl = 'http://www.b2c.network/SharedHighlightPost/' + this.reportPostInfo._id;
+    const ShareUrl = 'http://www.b2c.network';
+    const params: UIParams = {
+      method: 'share_open_graph',
+      action_type: 'og.shares',
+      action_properties: JSON.stringify({
+          object: {
+              'og:url': ShareUrl,
+              'og:title': SharePostTitle,
+              'og:description': SharePostText,
+              'og:image': SharePostImage,
+          }
+        })
+      };
+
+    this.fb.ui(params)
+      .then((res: UIResponse) => console.log(res))
+      .catch((e: any) => console.error(e));
+  }
 
 
   ReloadGalleryScript() {
@@ -96,8 +147,41 @@ export class FeedsHighlightsComponent implements OnInit {
     }, 50);
   }
 
+
+  LoadMorePosts() {
+    this.MorePostsListLoder = true;
+    setTimeout(() => {
+        document.getElementById('miniLoader').scrollIntoView();
+    }, 0);
+    this.Service.GetHighlightsList(this.UserInfo.data._id, this.SkipCount)
+    .subscribe( datas => {
+        if (datas['status'] === 'True') {
+          this.SkipCount = this.SkipCount + 5;
+          this.ScrollToDiv = datas['data'][0]._id;
+          this.PostsList = [...this.PostsList, ...datas['data']];
+          const tempPostList = this.PostsList;
+          this.PostsList = [];
+          this.MorePostsListLoder = false;
+          setTimeout(() => {
+            this.PostsList = tempPostList;
+            const s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.src = './../../../assets/html5gallery/html5gallery.js';
+                this.elementRef.nativeElement.appendChild(s);
+                setTimeout(() => {
+                  const mainDiv = document.getElementById(this.ScrollToDiv);
+                  mainDiv.scrollIntoView();
+                }, 0);
+          }, 0);
+        }else {
+          console.log(datas);
+          this.MorePostsListLoder = false;
+        }
+      });
+  }
+
   ngOnInit() {
-    this.screenHeight = window.innerHeight - 175;
+    this.screenHeight = window.innerHeight - 190;
     this.scrollHeight = this.screenHeight + 'px';
   }
 

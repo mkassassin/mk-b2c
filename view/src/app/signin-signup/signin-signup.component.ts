@@ -26,7 +26,7 @@ export class SigninSignupComponent implements OnInit {
 
   ActiveTab: any;
   ActiveTabIndex: Number = 0 ;
-  ActiveGender: String = 'Male';
+  ActiveGender: String = 'Not Specify';
   SelectedCategory: String = '';
   UserNameAvailabel: Boolean = false;
   UserNameNotAvailabel: Boolean = false;

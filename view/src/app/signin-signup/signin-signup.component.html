@@ -109,10 +109,10 @@
                               <!-- Input Company And Profession -->
                               <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
                                 <div fxFlex="41%" [ngClass]="{ 'maxwidth-82': SelectedCategory === 'Media' || SelectedCategory === 'Company' }">
-                                  <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Industry ( Optional )">
+                                  <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Industry (Optional)">
                                 </div>
                                 <div *ngIf="SelectedCategory !== 'Media' && SelectedCategory !== 'Company' " fxFlex="41%">
-                                  <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession ( Optional )">
+                                  <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession (Optional)">
                                 </div>
                               </div>
                     
@@ -142,21 +142,21 @@
                               <!-- Input Country State And City -->
                               <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="5px">
                                 <div fxFlex="28%">
-                                    <p-autoComplete (onSelect)="setCountry($event)" [suggestions]="filteredcountries" (completeMethod)="filterCountries($event)" [field]="'name'" [minLength]="1" placeholder="Country ( Optional )" formControlName="UserCountry">
+                                    <p-autoComplete (onSelect)="setCountry($event)" [suggestions]="filteredcountries" (completeMethod)="filterCountries($event)" [field]="'name'" [minLength]="1" placeholder="Country (Optional)" formControlName="UserCountry">
                                           <ng-template let-filteredcountries pTemplate="item">
                                                   <div>{{filteredcountries['name']}}</div>
                                           </ng-template>    
                                   </p-autoComplete>
                                 </div>
                                 <div fxFlex="27%">
-                                    <p-autoComplete (onSelect)="setState($event)" [suggestions]="filteredstates" (completeMethod)="filterStates($event)" [field]="'name'" [minLength]="1" placeholder="State ( Optional )" formControlName="UserState">
+                                    <p-autoComplete (onSelect)="setState($event)" [suggestions]="filteredstates" (completeMethod)="filterStates($event)" [field]="'name'" [minLength]="1" placeholder="State (Optional)" formControlName="UserState">
                                         <ng-template let-filteredstates pTemplate="item">
                                               <div> {{filteredstates['name']}} </div>
                                         </ng-template>
                                     </p-autoComplete>
                                 </div>
                                 <div fxFlex="27%">
-                                    <p-autoComplete (onSelect)="setCity($event)" [suggestions]="filteredcities" (completeMethod)="filtercities($event)" [field]="'name'" [minLength]="1" placeholder="City ( Optional )" formControlName="UserCity">
+                                    <p-autoComplete (onSelect)="setCity($event)" [suggestions]="filteredcities" (completeMethod)="filtercities($event)" [field]="'name'" [minLength]="1" placeholder="City (Optional)" formControlName="UserCity">
                                         <ng-template let-filteredcities pTemplate="item">
                                               <div>{{filteredcities['name']}}</div>
                                         </ng-template>

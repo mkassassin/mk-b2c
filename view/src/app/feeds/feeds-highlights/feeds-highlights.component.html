@@ -1,15 +1,15 @@
 <div class="Highlights">
 
   <div *ngIf="PostsListLoder">
-      <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
-          <div fxFlex>
-              <div class="preloader-orbit-loading">
-                <div class="cssload-inner cssload-one"></div>
-                <div class="cssload-inner cssload-two"></div>
-                <div class="cssload-inner cssload-three"></div>
-              </div>
-          </div>
-      </div>
+    <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div fxFlex>
+            <div class="preloader-orbit-loading">
+              <div class="cssload-inner cssload-one"></div>
+              <div class="cssload-inner cssload-two"></div>
+              <div class="cssload-inner cssload-three"></div>
+            </div>
+        </div>
+    </div>
   </div>
 
   <div *ngIf="!PostsListLoder">
@@ -24,11 +24,11 @@
     </div>
     <!-- Highlights Header Post div  END-->
 
-    <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:30px">
+    <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:20px">
 
       <div class="postScroll mb-30">
         <!-- Highlights Post div -->
-        <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 ">
+        <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 " [attr.id]="Post._id">
           <!-- Highlights Post Info Header div -->
           <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex>
@@ -38,7 +38,7 @@
                     <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-5" fxFlex>
-                    <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
+                    <p class="postusername"> <span style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </span> </p>
                     <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
                     <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                   </div>
@@ -125,10 +125,10 @@
               </div>
             </div>
             <div fxFlex class="text-right" style="height:25px">
-              <!-- <div class="share">
-                <img src="./../../../assets/images/icons/share.png" alt="">
-                <p class="count"> 100 </p>
-              </div> -->
+              <div class="share">
+                <img style="cursor:pointer" (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="SharePost" src="./../../../assets/images/icons/share.png" alt="">
+                <!-- <p class="count"> 100 </p> -->
+              </div>
             </div>
           </div>
           <!-- Highlights Post Share Like And More  END-->
@@ -261,9 +261,26 @@
 
 
       </div>
+      
+      <p *ngIf="!MorePostsListLoder" class="text-center mb-30 LoadMore"> <span (click)="LoadMorePosts()"> Load More... </span> </p>
+
+      <div *ngIf="MorePostsListLoder" class="mb-10" id="miniLoader">
+        <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+            <div fxFlex>
+                <div class="preloader-orbit-loading" style=" width: 40px; height: 40px;">
+                  <div class="cssload-inner cssload-one" style=" width: 40px; height: 40px;"></div>
+                  <div class="cssload-inner cssload-two" style=" width: 40px; height: 40px;"></div>
+                  <div class="cssload-inner cssload-three" style=" width: 40px; height: 40px;"></div>
+                </div>
+            </div>
+        </div>
+      </div>
     </p-scrollPanel>
 
   </div>
+
+
+
 </div>
 
 
@@ -354,4 +371,19 @@
             <p class="dropd_text"> Delete </p>
         </div>
     </div>
+</mat-menu>
+
+
+
+
+<mat-menu #SharePost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+  <div class="share_drop" fxLayout="row" fxLayoutAlign="space-between center">
+      <!-- <div class="Share_drop_icon" fxFlex="50%">
+        <img class="logoDesignShare" src="./../../../assets/images/logo1.png" alt="">
+      </div> -->
+      <div class="Share_drop_icon" fxFlex>
+        <i (click)="share()" class="fa fa-facebook" aria-hidden="true"></i>
+      </div>
+  </div>
+  <div class="dropdarrow"></div>
 </mat-menu>

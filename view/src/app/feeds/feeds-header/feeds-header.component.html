@@ -150,7 +150,7 @@
                                     <span *ngIf="Notify.NotificationType == 10"> gave {{Notify.QuestionRating}} <img src="./../../../assets/images/icons/liked.png" style="width:17px; height:17px;" alt=""> for your Question in  {{Notify.QuestionTopic}}
                                             <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
-                                    <span *ngIf="Notify.NotificationType == 16"> gave {{Notify.AnswerRating}} <img src="./../../../assets/images/icons/liked.png" style="width:17px; height:17px;" alt=""> for your Answer in  “{{Notify.AnswerText}}..” 
+                                    <span *ngIf="Notify.NotificationType == 16"> gave {{Notify.AnswerRating}} <img src="./../../../assets/images/icons/liked.png" style="width:17px; height:17px;" alt=""> for your Answer in  “{{Notify.AnswerText | slice:0:12}}..” 
                                             <span (click)="OpenModelQuestionsPost(Notify.QuestionPostId); RemoveNotify(Notify._id, i)" style="position:absolute; right:3px; bottom:0px; cursor:pointer"  > View More... </span> 
                                     </span>
                                     <!-- <span *ngIf="Notify.NotificationType == 1"> Unfollow to You

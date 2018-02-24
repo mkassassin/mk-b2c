@@ -36,14 +36,14 @@
 
     <!-- Question Header Post Div  END-->
 
-    <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1">
+    <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:20px">
 
       <div class="postScroll">
 
         <!-- Question Post Div -->
-        <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList; let i = index; let j = index">
+        <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList; let i = index; let j = index" [attr.id]="Post._id">
           <!-- Question Post Info Header Div -->
-          <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+          <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between" >
             <div fxFlex>
               <div class="leftSide">
                 <div class="" fxLayout="row" fxLayoutAlign="start center">
@@ -51,7 +51,7 @@
                     <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-5" fxFlex>
-                    <p class="postusername" style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </p>
+                    <p class="postusername"> <span style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </span>  </p>
                     <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
                     <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                   </div>
@@ -289,6 +289,20 @@
         </div>
         <!-- Question Post Div END -->
 
+
+        <p *ngIf="!MorePostsListLoder" class="text-center mb-30 LoadMore"> <span (click)="LoadMorePosts()"> Load More... </span> </p>
+
+        <div *ngIf="MorePostsListLoder" class="mb-10" id="miniLoader">
+          <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+              <div fxFlex>
+                  <div class="preloader-orbit-loading" style=" width: 40px; height: 40px;">
+                    <div class="cssload-inner cssload-one" style=" width: 40px; height: 40px;"></div>
+                    <div class="cssload-inner cssload-two" style=" width: 40px; height: 40px;"></div>
+                    <div class="cssload-inner cssload-three" style=" width: 40px; height: 40px;"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
 
 
       </div>

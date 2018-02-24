@@ -231,9 +231,9 @@ exports.Update = function(req, res) {
 
 
 exports.GetPostList = function(req, res) {
-    var SkipCoun = 0;
-    SkipCoun = parseInt(req.params.Limit) * 10;
-    HighlightsPostModel.HighlightsPostType.find({'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, skip: SkipCoun, limit: 5  }, function(err, result) {
+    var SkipCount = 0;
+    SkipCount = parseInt(req.params.Limit);
+    HighlightsPostModel.HighlightsPostType.find({'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, skip: SkipCount, limit: 5  }, function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
         } else {

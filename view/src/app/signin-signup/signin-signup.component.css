@@ -122,25 +122,25 @@
     color: #333333;
 }
 .SignInSignUp .inputStyle-2::-webkit-input-placeholder {
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important;
 }   
 .SignInSignUp .inputStyle-2:-moz-placeholder { /* Firefox 18- */
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important;
 } 
 .SignInSignUp .inputStyle-2::-moz-placeholder {  /* Firefox 19+ */
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important; 
 }    
 .SignInSignUp .inputStyle-2:-ms-input-placeholder {  
-    font-size: 13px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
     color: #33333354 !important;
     font-family: unset !important;

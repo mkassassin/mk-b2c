@@ -557,3 +557,25 @@
 .postLink a{
     color: #3190e4;
 }
+
+
+
+
+
+
+
+
+
+
+.LoadMore{
+    margin-bottom: 30px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    color: #333;
+}
+.LoadMore span{
+    padding: 5px 10px;
+    background-color: #ffda00;
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+}
