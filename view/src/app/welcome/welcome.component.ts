@@ -24,6 +24,7 @@ export class WelcomeComponent implements OnInit {
   email: String = '';
   ShowEmailAlert: Boolean = false;
 
+  OpenCount;
   sub;
 
   ActiveSocialSignUp;
@@ -61,10 +62,10 @@ export class WelcomeComponent implements OnInit {
   }
 
   SocialSignInSignUp() {
+    this.OpenCount = 0;
     this.authService.authState.subscribe((user) => {
       this.user = user;
-
-      if ( this.user !== null ) {
+      if ( this.user !== null && this.OpenCount < 1 ) {
         if (this.user['email'] !== '' && this.user['email'] !== undefined && this.user['email'] !== null ) {
         this.Service.SocialUserValidate(this.user['email'], this.user['id'], this.user['provider'])
           .subscribe( datas => {
@@ -83,8 +84,11 @@ export class WelcomeComponent implements OnInit {
                                 this.ShareingService.SetActiveSinInsignUpTab('SingIn', this.user['email'] );
                                 this.router.navigate(['SignInSignUp']);
                             }else {
-                              this.authService.signOut();
-                              this.SocialSignUp(this.user);
+                              this.OpenCount = this.OpenCount + 1;
+                              if (this.OpenCount > 1) {
+                              }else {
+                                this.SocialSignUp(this.user);
+                              }
                             }
                       });
                 }
@@ -111,6 +115,8 @@ export class WelcomeComponent implements OnInit {
   }
 
   SocialSignUp(data) {
+    this.dialog.closeAll();
+    this.authService.signOut();
     const FbSignUpDialogRef = this.dialog.open( FbSignupComponent,
       { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: data['provider'], Values: data } });
       FbSignUpDialogRef.afterClosed().subscribe(result => this.SocialSignUpComplete(result));
@@ -118,6 +124,7 @@ export class WelcomeComponent implements OnInit {
 
   SocialSignUpComplete(result) {
     if (result.status === 'Success') {
+      this.dialog.closeAll();
       this.snackBar.open('Your Account Successfully Created. ', ' ', {
         horizontalPosition: 'center',
         duration: 3000,
@@ -140,13 +147,17 @@ export class WelcomeComponent implements OnInit {
         });
 
     }else if (result.status === 'Error') {
+      this.dialog.closeAll();
       this.snackBar.open('Some Error Occurred Will Create The Account ', ' ', {
         horizontalPosition: 'center',
         duration: 3000,
         verticalPosition: 'top',
       });
     }else {
-      console.log(result);
+      this.SocialSignInSignUp();
+      this.dialog.closeAll();
+      this.ShareingService.SetActiveSinInsignUpTab('SingUp', '' );
+      this.router.navigate(['SignInSignUp']);
     }
   }
 

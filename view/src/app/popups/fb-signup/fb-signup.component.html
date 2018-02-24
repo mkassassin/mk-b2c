@@ -2,20 +2,22 @@
 
   <p style="position:absolute; right:10px; top:0px;font-size:20px;cursor:pointer " (click)="close()"  > X </p>
 
+  <h4 style="text-align:center"> {{data.Values.provider}} Sing Up </h4>
+
     <form [formGroup]="RegisterForm" (ngSubmit)="submit()">
         <!-- input Name -->
         <div class="text-center">
           <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.controls.UserName.dirty &&  RegisterForm.value.UserName =='' "> Name Is Required </p>
-          <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Name is Not Availabel </p>
-          <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Name is Availabel </p>
+          <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Name is Not Available </p>
+          <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Name is Available </p>
           <input type="text" [readonly]="true" formControlName="UserName" class="inputStyle-1" (blur)="ChekUserNameAvailabel()" placeholder="Name">
         </div>
 
         <!-- input Email -->
         <div class="text-center">
           <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserEmail.dirty &&  RegisterForm.value.UserEmail =='' "> E-mail Is Required </p>
-          <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel"> E-mail is Not Availabel </p>
-          <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel"> E-mail is Availabel </p>
+          <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel"> E-mail is Not Available </p>
+          <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel"> E-mail is Available </p>
           <input type="email" [readonly]="true" formControlName="UserEmail" class="inputStyle-1" (blur)="ChekUserEmailAvailabel()" placeholder="E-mail Address">
         </div>
 
@@ -53,17 +55,17 @@
             <!-- Input Company And Profession -->
             <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
               <div fxFlex="41%">
-                <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Company">
+                <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Company ( Optional )">
               </div>
               <div fxFlex="41%">
-                <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession">
+                <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession ( Optional )">
               </div>
             </div>
   
             <!-- Input Date oF Birth And Gender -->
             <div *ngIf="SelectedCategory != 'Company' && SelectedCategory != 'Media'" class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
               <div fxFlex="41%">
-                <input type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" formControlName="UserDateOfBirth" class="inputStyle-2" placeholder="Date Of Birth">
+                <input type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" formControlName="UserDateOfBirth" class="inputStyle-2" placeholder="Date Of Birth ">
               </div>
               <div fxFlex="41%">
                 <div class="gender-select">
@@ -86,21 +88,21 @@
             <!-- Input Country State And City -->
             <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="5px">
               <div fxFlex="28%">
-                  <p-autoComplete (onSelect)="setCountry($event)" [suggestions]="filteredcountries" (completeMethod)="filterCountries($event)" [field]="'name'" [minLength]="1" placeholder="Country" formControlName="UserCountry">
+                  <p-autoComplete (onSelect)="setCountry($event)" [suggestions]="filteredcountries" (completeMethod)="filterCountries($event)" [field]="'name'" [minLength]="1" placeholder="Country ( Optional )" formControlName="UserCountry">
                         <ng-template let-filteredcountries pTemplate="item">
                                 <div>{{filteredcountries['name']}}</div>
                         </ng-template>    
                 </p-autoComplete>
               </div>
               <div fxFlex="27%">
-                  <p-autoComplete (onSelect)="setState($event)" [suggestions]="filteredstates" (completeMethod)="filterStates($event)" [field]="'name'" [minLength]="1" placeholder="State" formControlName="UserState">
+                  <p-autoComplete (onSelect)="setState($event)" [suggestions]="filteredstates" (completeMethod)="filterStates($event)" [field]="'name'" [minLength]="1" placeholder="State ( Optional ) " formControlName="UserState">
                       <ng-template let-filteredstates pTemplate="item">
                             <div> {{filteredstates['name']}} </div>
                       </ng-template>
                   </p-autoComplete>
               </div>
               <div fxFlex="27%">
-                  <p-autoComplete (onSelect)="setCity($event)" [suggestions]="filteredcities" (completeMethod)="filtercities($event)" [field]="'name'" [minLength]="1" placeholder="City" formControlName="UserCity">
+                  <p-autoComplete (onSelect)="setCity($event)" [suggestions]="filteredcities" (completeMethod)="filtercities($event)" [field]="'name'" [minLength]="1" placeholder="City ( Optional )" formControlName="UserCity">
                       <ng-template let-filteredcities pTemplate="item">
                             <div>{{filteredcities['name']}}</div>
                       </ng-template>
