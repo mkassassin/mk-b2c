@@ -172,7 +172,7 @@ export class ProfileLeftBarComponent implements OnInit {
   AllFollowingUsers() {
     const DiscoverDialogRef = this.dialog.open(
       FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
-      data: { Header: 'Following Peoples', Userid: this.UserInfo['data']._id, type: 'FollowingUsers'} }
+      data: { Header: 'Following People', Userid: this.UserInfo['data']._id, type: 'FollowingUsers'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
       if (result.status === 'GoToProfile') {
