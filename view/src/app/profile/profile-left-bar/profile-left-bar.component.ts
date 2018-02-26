@@ -110,7 +110,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
     EditProfilePic() {
       const EditProfilePicDialogRef = this.dialog.open( ProfilePictureCropperComponent,
-        {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+        {disableClose: true, minWidth: '500px', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
         EditProfilePicDialogRef.afterClosed().subscribe(result => this.postSubmit(result));
     }
 
@@ -158,7 +158,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   AllFollowingTopics() {
     const DiscoverDialogRef = this.dialog.open(
-      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      FollowViewAllComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { Header: 'Following Topics', Userid: this.UserInfo['data']._id, type: 'FollowingTopics'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
@@ -171,7 +171,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   AllFollowingUsers() {
     const DiscoverDialogRef = this.dialog.open(
-      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      FollowViewAllComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { Header: 'Following People', Userid: this.UserInfo['data']._id, type: 'FollowingUsers'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
@@ -186,7 +186,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   AllUserFollowingUsers() {
     const DiscoverDialogRef = this.dialog.open(
-      FollowViewAllComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      FollowViewAllComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { Header: 'Followed By', Userid: this.UserInfo['data']._id, type: 'UserFollowingUsers'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
@@ -206,7 +206,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   EditProfile() {
     const EditProfileDialogRef = this.dialog.open( EditProfileComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+      {disableClose: true, minWidth: '600px', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
       EditProfileDialogRef.afterClosed().subscribe( result => {
         if ( result === 'Success' ) {
           this.snackBar.open( 'Profile Successfully Updated ', '', {
@@ -235,7 +235,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   PrivacySettings() {
     const ProfilePrivacyDialogRef = this.dialog.open( ProfilePrivacyComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+      {disableClose: true, minWidth: '500px', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
       ProfilePrivacyDialogRef.afterClosed().subscribe( result => {
         if ( result === 'Success' ) {
           this.snackBar.open( ' Privacy Settings Updated ', '', {
@@ -262,7 +262,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   PasswordChange() {
     const ChangePasswordDialogRef = this.dialog.open( ChangePasswordComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
+      {disableClose: true, minWidth: '500px', position: {top: '50px'},  data: { Header: 'Form', type: 'Creat Form' } });
       ChangePasswordDialogRef.afterClosed().subscribe( result => {
         if ( result === 'Success' ) {
           this.snackBar.open( ' New Password Updated ', '', {

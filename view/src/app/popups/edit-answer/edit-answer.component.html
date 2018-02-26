@@ -1,17 +1,17 @@
-<div class="ProfilePrivacy pt-20">
+<div class="ProfilePrivacy ">
 
-  <p class="headerInfo"> Edit Answer <span style="position:absolute; right:0px; top:-24px;font-size:23px;cursor:pointer; font-weight: 900; " (click)="close()"  > X </span> </p>
+  <p class="headerInfo"> Edit Answer <span style="position:absolute; right:20px; top:-0px;font-size:23px;cursor:pointer; font-weight: 900; " (click)="close()"  > X </span> </p>
   
 
 
         <!-- input Email -->
-        <div class="text-left">
+        <div class="text-left" style="padding:0px 20px">
           Answer
           <textarea [(ngModel)]="inputValue" type="text" class="inputStyle-1" placeholder=" Comment..."> </textarea>
         </div>
 
         <hr class="mt-5 mb-5">
-        <div class="row">
+        <div class="row m-0 mb-5">
           <div class="col-sm-12 text-right">
             <button (click)="submit()"  [disabled]=" inputValue === '' " [ngClass]="{'disabled': inputValue === '' }"  type="button" class="btn-flat btn btn-cutom"> 
                <span> Submit </span> 

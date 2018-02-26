@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
+
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
+import { PostServiceService } from './../../service/post-service/post-service.service';
 import { DataSharedVarServiceService } from './../../service/data-shared-var-service/data-shared-var-service.service';
 import { ProfileSerivceService } from './../../service/profile-service/profile-serivce.service';
 import { LikeAndRatingServiceService } from './../../service/like-and-rating-service.service';
@@ -47,7 +50,6 @@ export class ProfileTimelineComponent implements OnInit {
   AnswerListLoadingIndex: Number = -1;
   AnswersViewLess: Boolean = false;
 
-
   reportPostInfo;
   reportUserId;
   reportCommentInfo;
@@ -59,6 +61,7 @@ export class ProfileTimelineComponent implements OnInit {
     private FollowService: FollowServiceService,
     private UserService: SigninSignupServiceService,
     private Service: ProfileSerivceService,
+    private PostService: PostServiceService,
     private ShareingService: DataSharedVarServiceService,
     private LikeService: LikeAndRatingServiceService,
     private commentservice: CommentAndAnswerService,
@@ -68,10 +71,17 @@ export class ProfileTimelineComponent implements OnInit {
     private _componentConnectService: ComponentConnectServiceService,
     private DeleteService: ReportAndDeleteService,
     public snackBar: MatSnackBar,
+    private fb: FacebookService
     ) {
-
         this.LoginUser = JSON.parse(localStorage.getItem('currentUser'));
         const ProfilePage =  this.ShareingService.GetProfilePage();
+
+        const initParams: InitParams = {
+          appId: '202967426952150',
+          xfbml: true,
+          version: 'v2.11'
+        };
+        fb.init(initParams);
 
         if (ProfilePage.UserId !== '') {
           this.UserId = ProfilePage.UserId;
@@ -127,6 +137,187 @@ export class ProfileTimelineComponent implements OnInit {
     this.scrollHeight = this.screenHeight + 'px';
   }
 
+
+  share() {
+    let SharePostImage = 'http://www.b2c.network/assets/images/icons/logo.png';
+    if ( this.reportPostInfo.PostImage[0] !== '' ) {
+      SharePostImage = 'http://139.59.20.129:3000/static/images/' + this.reportPostInfo.PostImage[0].ImageName;
+    }
+    const SharePostText = this.reportPostInfo.PostText;
+    let SharePostTitle = this.reportPostInfo.PostText;
+    if (SharePostText.length > 70 ) {
+      SharePostTitle = this.reportPostInfo.PostText.substring(0, 70) + '...';
+    }
+    // const ShareUrl = 'http://www.b2c.network/SharedHighlightPost/' + this.reportPostInfo._id;
+    const ShareUrl = 'http://www.b2c.network';
+    const params: UIParams = {
+      method: 'share_open_graph',
+      action_type: 'og.shares',
+      action_properties: JSON.stringify({
+          object: {
+              'og:url': ShareUrl,
+              'og:title': SharePostTitle,
+              'og:description': SharePostText,
+              'og:image': SharePostImage,
+          }
+        })
+      };
+
+    this.fb.ui(params)
+      .then((res: UIResponse) => {
+        if ( res['error_code'] !== '' && res['error_code']  ) {
+          console.log(res);
+        }else {
+          const SharePost = { 'UserId': this.LoginUser['data']._id,
+                    'PostUserId': this.reportPostInfo.UserId,
+                    'PostId':  this.reportPostInfo._id,
+                  };
+            this.PostService.HighlightsFBPostShare(SharePost).subscribe(datas => {
+              if (datas['status'] === 'True') {
+                const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+                this.PostsList[index].UserShared = true;
+                this.PostsList[index].ShareCount = this.PostsList[index].ShareCount + 1;
+                this.snackBar.open( ' Post Successfully Shared in Facebook', ' ', {
+                horizontalPosition: 'center',
+                duration: 3000,
+                verticalPosition: 'top',
+                });
+              }else {
+                console.log(datas);
+              }
+            });
+          }
+      })
+      .catch((e: any) => {
+        this.snackBar.open( 'Facebook Post Share Failed', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        console.log(e);
+      });
+  }
+
+
+  shareInternal() {
+    const SharePost = {'UserId': this.LoginUser['data']._id,
+                        'ShareUserName': this.reportPostInfo.UserName,
+                        'PostId':  this.reportPostInfo._id,
+                        'PostDate':  new Date()
+                      };
+    this.PostService.HighlightsPostShare(SharePost).subscribe(datas => {
+      const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+      this.PostsList[index].UserShared = true;
+      this.PostsList[index].ShareCount = this.PostsList[index].ShareCount + 1;
+      if (datas.status === 'True') {
+        this.snackBar.open( ' Post Successfully Shared in B2C', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      }else {
+        this.snackBar.open( 'B2C Post Share Failed', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        console.log(datas);
+      }
+    });
+  }
+
+
+  Qusshare() {
+    let SharePostImage = 'http://www.b2c.network/assets/images/icons/logo.png';
+    if ( this.reportPostInfo.PostImage[0] !== '' ) {
+      SharePostImage = 'http://139.59.20.129:3000/static/images/' + this.reportPostInfo.PostImage[0].ImageName;
+    }
+    const SharePostText = this.reportPostInfo.PostText;
+    let SharePostTitle = this.reportPostInfo.PostText;
+    if (SharePostText.length > 70 ) {
+      SharePostTitle = this.reportPostInfo.PostText.substring(0, 70) + '...';
+    }
+    // const ShareUrl = 'http://www.b2c.network/SharedHighlightPost/' + this.reportPostInfo._id;
+    const ShareUrl = 'http://www.b2c.network';
+    const params: UIParams = {
+      method: 'share_open_graph',
+      action_type: 'og.shares',
+      action_properties: JSON.stringify({
+          object: {
+              'og:url': ShareUrl,
+              'og:title': SharePostTitle,
+              'og:description': SharePostText,
+              'og:image': SharePostImage,
+          }
+        })
+      };
+
+    this.fb.ui(params)
+      .then((res: UIResponse) => {
+        if ( res['error_code'] !== '' && res['error_code'] ) {
+          console.log(res);
+        }else {
+          const SharePost = { 'UserId':  this.LoginUser['data']._id,
+                              'PostUserId': this.reportPostInfo.UserId,
+                              'PostId':  this.reportPostInfo._id,
+                            };
+          this.PostService.QuestionsFBPostShare(SharePost).subscribe(datas => {
+            if (datas['status'] === 'True') {
+              const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+              this.PostsList[index].UserShared = true;
+              this.PostsList[index].ShareCount = this.PostsList[index].ShareCount + 1;
+              this.snackBar.open( ' Post Successfully Shared in Facebook', ' ', {
+                horizontalPosition: 'center',
+                duration: 3000,
+                verticalPosition: 'top',
+              });
+            }else {
+              console.log(datas);
+            }
+          });
+        }
+      })
+      .catch((e: any) => {
+        this.snackBar.open( 'Facebook Post Share Failed', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        console.log(e);
+      });
+  }
+
+
+  QusshareInternal() {
+    const SharePost = {'UserId':  this.LoginUser['data']._id,
+                        'ShareUserName': this.reportPostInfo.UserName,
+                        'PostId':  this.reportPostInfo._id,
+                        'PostDate':  new Date()
+                      };
+    this.PostService.QuestionsPostShare(SharePost).subscribe(datas => {
+      if (datas.status === 'True') {
+        this.snackBar.open( ' Post Successfully Shared in B2C', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+        this.PostsList[index].UserShared = true;
+        this.PostsList[index].ShareCount = this.PostsList[index].ShareCount + 1;
+        this.PostsList.splice(0 , 0, datas.data);
+      }else {
+        this.snackBar.open( 'B2C Post Share Failed', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        console.log(datas);
+      }
+    });
+  }
+
+
+
   AddCommentLike(index, commentIndex) {
     const data = {'UserId': this.UserInfo['data']._id,
                 'PostId': this.PostsList[index]._id,
@@ -150,7 +341,7 @@ export class ProfileTimelineComponent implements OnInit {
     this.LikeService.CommentsUnLike(this.PostsList[index].comments[commentIndex].UserLikeId).subscribe( datas => {
           if (datas['status'] === 'True' && !datas['message']) {
             this.PostsList[index].comments[commentIndex].UserLiked = false;
-            this.PostsList[index].comments[commentIndex].LikesCount = this.PostsList[index].LikesCount - 1;
+            this.PostsList[index].comments[commentIndex].LikesCount = this.PostsList[index].comments[commentIndex].LikesCount - 1;
           }else {
             console.log(datas);
           }
@@ -445,7 +636,7 @@ export class ProfileTimelineComponent implements OnInit {
                         'ReportUserId':  this.reportUserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -456,7 +647,7 @@ export class ProfileTimelineComponent implements OnInit {
                         'PostUserId':  this.reportPostInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -468,7 +659,7 @@ export class ProfileTimelineComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportCommentInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { exactType: 'Comment', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -481,7 +672,7 @@ export class ProfileTimelineComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportAnswerInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { exactType: 'Answer', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -596,6 +787,20 @@ export class ProfileTimelineComponent implements OnInit {
                 const index = this.reportPostInfo.Answers.findIndex(x => x._id === this.reportAnswerInfo._id);
                 this.PostsList[Postindex].Answers.splice(index , 1);
                 this.PostsList[Postindex].AnswersCount = this.PostsList[Postindex].AnswersCount - 1;
+
+                if ( !this.AnswersViewLess && this.PostsList[Postindex].AnswersCount > 1 ) {
+                  const PostId = this.PostsList[Postindex]._id;
+                    this.AnswerService.GetQuestionsAnswers(PostId, this.UserInfo['data']._id).subscribe( newdatas => {
+                      if (newdatas['status'] === 'True') {
+                          let AnsData = new Array();
+                          AnsData = newdatas['data'];
+                          this.PostsList[Postindex].Answers = AnsData;
+                      }else {
+                          console.log(datas);
+                      }
+                    });
+                }
+
                 this.snackBar.open( 'Your Answer Deleted Successfully', ' ', {
                   horizontalPosition: 'center',
                   duration: 3000,
@@ -617,7 +822,7 @@ export class ProfileTimelineComponent implements OnInit {
 
   EditHighlightPost() {
     const EditPostDialogRef = this.dialog.open( EditPostOneComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportPostInfo } });
       EditPostDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList.findIndex(x => x._id === result._id);
@@ -635,7 +840,7 @@ export class ProfileTimelineComponent implements OnInit {
 
   EditComment() {
     const EditCommentDialogRef = this.dialog.open( EditCommentComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportCommentInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportCommentInfo } });
       EditCommentDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList[this.ActiveComment].comments.findIndex(x => x._id === result._id);
@@ -648,7 +853,7 @@ export class ProfileTimelineComponent implements OnInit {
 
   EditQuestionPost() {
     const EditPostDialogRef = this.dialog.open( EditPostTwoComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportPostInfo } });
       EditPostDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList.findIndex(x => x._id === result._id);
@@ -667,7 +872,7 @@ export class ProfileTimelineComponent implements OnInit {
 
   EditAnswer() {
     const EditCommentDialogRef = this.dialog.open( EditAnswerComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
       EditCommentDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const Postindex = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);

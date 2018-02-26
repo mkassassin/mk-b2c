@@ -5,6 +5,7 @@ var FollowModel = require('../models/Follow.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
 var LikeAndRating = require('../models/LikeAndRating.model.js');
 var CommentAndAnswer = require('../models/CommentAndAnswer.model.js');
+var SharePosts = require('../models/SharePost.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -45,62 +46,112 @@ exports.Timeline = function (req, res) {
                         UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
                         FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
                         LikeAndRating.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
-                        LikeAndRating.QuestionsRating.count({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
+                        LikeAndRating.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                         LikeAndRating.HighlightsLike.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         LikeAndRating.HighlightsLike.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.HighlightsComment.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         CommentAndAnswer.QuestionsAnswer.find({ 'PostId': info._id, 'ActiveStates': 'Active' }, 'AnswerText UserId Date', { limit: 2 }).exec(),
                         CommentAndAnswer.HighlightsComment.find({'UserId': req.params.UserId, 'PostId': info._id, 'ActiveStates': 'Active'},{ limit: 2 }).exec(),
+                        SharePosts.SharePost.count({'PostType': 'Highlights', PostId: info._id }).exec(),
+                        SharePosts.SharePost.find({'PostType': 'Highlights', PostId: info._id, UserId: req.params.UserId  }).exec(),
+                        SharePosts.SharePost.count({'PostType': 'Questions', PostId: info._id }).exec(),
+                        SharePosts.SharePost.find({'PostType': 'Questions', PostId: info._id, UserId: req.params.UserId  }).exec(),
                     ]).then(data => {
                         var UserData = data[0];
                         var followCount = data[1];
                         var ratingCount = data[2];
-                        var UserRating = data[3];
+                        var RatingList = data[3];
                         var LikingCount = data[4];
                         var UserLike = data[5];
                         var CommentCount = data[6];
                         var AnswerCount = data[7];
                         var Answerdata = data[8];
                         var CommantData = data[9];
+                        var HighlightsShareCount = data[10];
+                        var HighlightsShared = data[11];
+                        var QusShareCount = data[12];
+                        var QusUserShared = data[13];
     
 
                     if(info.PostTopicId){
     
                         var AnswersArray= new Array();
-    
+                        var RatingCal = 0 ;
                        return GetAnsUserData();
                         async function GetAnsUserData(){
                             for (var ansInfo of Answerdata) {
                                 await getAnswerInfo(ansInfo);
                              }
-                             var result = {
-                                 Type:'Question',
-                                _id: info._id,
-                                UserId: UserData._id,
-                                UserName: UserData.UserName,
-                                UserCategoryId: UserData.UserCategoryId,
-                                UserCategoryName: UserData.UserCategoryName,
-                                UserImage: UserData.UserImage,
-                                UserCompany: UserData.UserCompany,
-                                UserProfession: UserData.UserProfession,
-                                Followers:followCount,
-                                PostTopicId: info.PostTopicId,
-                                PostTopicName: info.PostTopicName,
-                                PostDate: info.PostDate,
-                                PostText: info.PostText ,
-                                PostLink: info.PostLink,
-                                PostLinkInfo: info.PostLinkInfo || '',
-                                PostImage: info.PostImage,
-                                PostVideo: info.PostVideo,
-                                RatingCount: ratingCount,
-                                UserRating: UserRating,
-                                AnswersCount: AnswerCount,
-                                Answers: AnswersArray,
-                            };
-                            return result;
+                             return RatingCountFonction();
+                                async function RatingCountFonction(){
+                                    for (let rateInfo of RatingList) {
+                                        await getRatingInfo(rateInfo);
+                                    }
+                                var userRated = false;
+                                var userRating = 0 ;
+                                    if(userRating.length > 0){
+                                        userRated = true;
+                                        userRating = userRating[0].Rating;  
+                                    }else{
+                                        userRated = false;
+                                        userRating = 0;
+                                    }
+                                var alreadyShared = true;
+                                    if(QusUserShared.length <= 0 ){
+                                        alreadyShared = false;
+                                    }else{
+                                        alreadyShared = true;
+                                    } 
+                                var result = {
+                                    Type:'Question',
+                                    _id: info._id,
+                                    UserId: UserData._id,
+                                    UserName: UserData.UserName,
+                                    UserCategoryId: UserData.UserCategoryId,
+                                    UserCategoryName: UserData.UserCategoryName,
+                                    UserImage: UserData.UserImage,
+                                    UserCompany: UserData.UserCompany,
+                                    UserProfession: UserData.UserProfession,
+                                    Followers:followCount,
+                                    PostTopicId: info.PostTopicId,
+                                    PostTopicName: info.PostTopicName,
+                                    PostDate: info.PostDate,
+                                    PostText: info.PostText ,
+                                    PostLink: info.PostLink,
+                                    PostLinkInfo: info.PostLinkInfo || '',
+                                    PostImage: info.PostImage,
+                                    PostVideo: info.PostVideo,
+                                    Shared: info.Shared || '',
+                                    ShareUserName: info.ShareUserName,
+                                    ShareUserId: info.ShareUserId,
+                                    SharePostId: info.SharePostId,
+                                    RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
+                                    userRated: userRated,
+                                    UserRating: userRating,
+                                    AnswersCount: AnswerCount,
+                                    ShareCount: QusShareCount,
+                                    UserShared: alreadyShared,
+                                    Answers: AnswersArray,
+                                };
+                                return result;
+                            }
                           }
                           
+                          function getRatingInfo(rateInfo){
+                            return new Promise(( resolve, reject )=>{
+                                LikeAndRating.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                    if(Rateerr) {
+                                        res.send({status:"False", Error:Rateerr });
+                                        reject(Rateerr);
+                                    } else {
+                                        RatingCal += JSON.parse(RateData.Rating);
+                                        resolve(RateData);
+                                    }
+                                });
+                            });
+                        }
+
                           function getAnswerInfo(ansInfo){
                             return new Promise(( resolve, reject ) => {
                                 UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
@@ -254,6 +305,13 @@ exports.Timeline = function (req, res) {
                             alreadyCommentuser = true;
                         }
 
+                        var alreadyShared = true;
+                            if(HighlightsShared.length <= 0 ){
+                                alreadyShared = false;
+                            }else{
+                                alreadyShared = true;
+                            } 
+
                         var newArray = [];
 
                         newArray.push( {
@@ -275,8 +333,14 @@ exports.Timeline = function (req, res) {
                                         PostLinkInfo: info.PostLinkInfo || '',
                                         PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
+                                        Shared: info.Shared || '',
+                                        ShareUserName: info.ShareUserName || '',
+                                        ShareUserId: info.ShareUserId || '',
+                                        SharePostId: info.SharePostId || '',
                                         LikesCount: LikingCount,
                                         UserLiked: UserLiked,
+                                        ShareCount: HighlightsShareCount,
+                                        UserShared: alreadyShared,
                                         UserLikeId: UserLikedId,
                                         comments: [],
                                         commentsCount : CommentCount

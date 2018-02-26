@@ -7,27 +7,27 @@
         <h5 class="m-0 posttype"> {{title}} </h5>
       </div>
       <div fxFlex class="text-left">
-          <h5 class="m-0 posttype text-right" >
+          <h5 class="m-0 mr-20 posttype text-right" >
             <span style="cursor:pointer" (click)="close()"> X </span>
           </h5>
         </div>
     </div>
   
-    <hr style="margin-top:10px;">
+    <hr style="margin-top:3px;">
   
-    <mat-dialog-content class="postbody">
-      <div class="pt-10 pb-10">
-      <textarea [(ngModel)]="PostText" class="posttext" placeholder="Write Your Opinion ..."></textarea>
+    <div style="padding:0px 15px">
+        <div class="pt-10 pb-10">
+        <textarea [(ngModel)]="PostText" class="posttext" placeholder="Write Your Opinion ..."></textarea>
 
 
-      <div fxLayout fxLayoutAlign="space-between">
-        <div fxFlex="85%">
+        <div fxLayout fxLayoutAlign="space-between">
+          <div fxFlex="85%">
+          </div>
+          <div fxFlex="15%" style="line-height:75px;">
+              <button [disabled]="PostText === ''" type="button" mat-raised-button (click)="Submit()" color="primary"> Post </button>
+          </div>
         </div>
-        <div fxFlex="15%" style="line-height:75px;">
-            <button [disabled]="PostText === ''" type="button" mat-raised-button (click)="Submit()" color="primary"> Post </button>
-        </div>
+    
       </div>
-  
     </div>
-    </mat-dialog-content>
   </div>

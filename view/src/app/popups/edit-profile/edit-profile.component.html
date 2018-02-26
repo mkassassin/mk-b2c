@@ -2,7 +2,7 @@
 
   <p class="headerInfo"> Profile Edit  <span style="position:absolute; right:10px; top:0px;font-size:20px;cursor:pointer " (click)="close()"  > X </span> </p>
 
-    <form [formGroup]="Form" (ngSubmit)="submit()">
+    <form [formGroup]="Form" (ngSubmit)="submit()" class="mb-0">
         <!-- input Name -->
         <div class="text-center">
           <p class="error alertStyle-1 m-0" *ngIf="Form.controls.UserName.dirty &&  Form.value.UserName =='' "> Name Is Required </p>

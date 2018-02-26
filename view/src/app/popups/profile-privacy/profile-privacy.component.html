@@ -1,13 +1,13 @@
-<div class="ProfilePrivacy pt-20">
+<div class="ProfilePrivacy">
 
-  <p class="headerInfo"> Privacy Settings <span style="position:absolute; right:0px; top:-24px;font-size:23px;cursor:pointer; font-weight: 900; " (click)="close()"  > X </span> </p>
+  <p class="headerInfo"> Privacy Settings <span style="position:absolute; right:15px; top:0px;font-size:23px;cursor:pointer; font-weight: 900; " (click)="close()"  > X </span> </p>
   
 
-        <div class="mt-10 mb-20" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
-            <div fxFlex="31%">
+        <div class="mt-5 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+            <div fxFlex="40%">
               <h5 class="text-right mr-20 mt-5"> Show Email </h5>
             </div>
-            <div fxFlex="41%">
+            <div fxFlex="50%">
               <div class="gender-select">
                 <div class="tick" (click)="ShowEmailSelect('EveryOne')" style="cursor:pointer">
                   <img class="ml-0" [ngClass]="{'p-8': ShowEmail != 'EveryOne' }" src="./../../assets/images/tick.png" alt=""> <p> EveryOne </p> 
@@ -19,11 +19,11 @@
             </div>
         </div>
 
-        <div class="mt-10 mb-20" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
-            <div fxFlex="31%">
+        <div class="mt-5 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+            <div fxFlex="40%">
               <h5 class="text-right mr-20 mt-5"> Show Date Of Birth </h5>
             </div>
-            <div fxFlex="41%">
+            <div fxFlex="50%">
               <div class="gender-select">
                 <div class="tick" (click)="ShowDOBSelect('EveryOne')" style="cursor:pointer">
                   <img class="ml-0" [ngClass]="{'p-8': ShowDOB != 'EveryOne' }" src="./../../assets/images/tick.png" alt=""> <p> EveryOne </p> 
@@ -36,11 +36,11 @@
         </div>
 
 
-        <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
-            <div fxFlex="31%">
+        <div class="mt-5 mb-5" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+            <div fxFlex="40%">
               <h5 class="text-right mr-20 mt-5"> Show Location </h5>
             </div>
-            <div fxFlex="41%">
+            <div fxFlex="50%">
               <div class="gender-select">
                 <div class="tick" (click)="ShowLocationSelect('EveryOne')" style="cursor:pointer">
                   <img class="ml-0" [ngClass]="{'p-8': ShowLocation != 'EveryOne' }" src="./../../assets/images/tick.png" alt=""> <p> EveryOne </p> 
@@ -52,8 +52,8 @@
             </div>
         </div>
 
-        <hr>
-        <div class="row">
+        <hr class="mb-5">
+        <div class="row m-0 mb-5">
           <div class="col-sm-12 text-right">
             <button (click)="submit()" class="btn-flat btn btn-cutom" type="button">
               <span *ngIf="updateing"> Updating... </span> <span *ngIf="!updateing"> Submit </span> </button>

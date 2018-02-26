@@ -16,6 +16,8 @@ import { ReportAndDeleteService } from './../../../service/report-and-delete-ser
 import { EditPostTwoComponent } from './../../../popups/edit-post-two/edit-post-two.component';
 import { EditAnswerComponent } from './../../../popups/edit-answer/edit-answer.component';
 
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
+
 @Component({
   selector: 'app-questions-post',
   templateUrl: './questions-post.component.html',
@@ -55,9 +57,17 @@ export class QuestionsPostComponent implements OnInit {
     private DeleteService: ReportAndDeleteService,
     public snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<QuestionsPostComponent>,
+    private fb: FacebookService,
     @Inject(MAT_DIALOG_DATA) private data: any  ) {
 
           this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+
+          const initParams: InitParams = {
+            appId: '202967426952150',
+            xfbml: true,
+            version: 'v2.11'
+          };
+          fb.init(initParams);
 
           this.Service.ViewQuestionsPost( this.UserInfo.data._id, this.data.PostId)
           .subscribe( datas => {
@@ -90,6 +100,94 @@ export class QuestionsPostComponent implements OnInit {
           s.src = './../../../assets/html5gallery/html5gallery.js';
           this.elementRef.nativeElement.appendChild(s);
     }, 50);
+  }
+
+  share() {
+    let SharePostImage = 'http://www.b2c.network/assets/images/icons/logo.png';
+    if ( this.reportPostInfo.PostImage[0] !== '' ) {
+      SharePostImage = 'http://139.59.20.129:3000/static/images/' + this.reportPostInfo.PostImage[0].ImageName;
+    }
+    const SharePostText = this.reportPostInfo.PostText;
+    let SharePostTitle = this.reportPostInfo.PostText;
+    if (SharePostText.length > 70 ) {
+      SharePostTitle = this.reportPostInfo.PostText.substring(0, 70) + '...';
+    }
+    // const ShareUrl = 'http://www.b2c.network/SharedHighlightPost/' + this.reportPostInfo._id;
+    const ShareUrl = 'http://www.b2c.network';
+    const params: UIParams = {
+      method: 'share_open_graph',
+      action_type: 'og.shares',
+      action_properties: JSON.stringify({
+          object: {
+              'og:url': ShareUrl,
+              'og:title': SharePostTitle,
+              'og:description': SharePostText,
+              'og:image': SharePostImage,
+          }
+        })
+      };
+
+    this.fb.ui(params)
+      .then((res: UIResponse) => {
+        if ( res['error_code'] !== '' && res['error_code']  ) {
+          console.log(res);
+        }else {
+          const SharePost = { 'UserId': this.UserInfo.data._id,
+                              'PostUserId': this.reportPostInfo.UserId,
+                              'PostId':  this.reportPostInfo._id,
+                            };
+          this.Service.QuestionsFBPostShare(SharePost).subscribe(datas => {
+            if (datas['status'] === 'True') {
+              const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+              this.PostsList[index].UserShared = true;
+              this.PostsList[index].ShareCount = this.PostsList[index].ShareCount + 1;
+              this.snackBar.open( ' Post Successfully Shared in Facebook', ' ', {
+                horizontalPosition: 'center',
+                duration: 3000,
+                verticalPosition: 'top',
+              });
+            }else {
+              console.log(datas);
+            }
+          });
+        }
+      })
+      .catch((e: any) => {
+        this.snackBar.open( 'Facebook Post Share Failed', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        console.log(e);
+      });
+  }
+
+
+  shareInternal() {
+    const SharePost = {'UserId': this.UserInfo.data._id,
+                        'ShareUserName': this.reportPostInfo.UserName,
+                        'PostId':  this.reportPostInfo._id,
+                        'PostDate':  new Date()
+                      };
+    this.Service.QuestionsPostShare(SharePost).subscribe(datas => {
+      if (datas.status === 'True') {
+        this.snackBar.open( ' Post Successfully Shared in B2C', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        const index = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);
+        this.PostsList[index].UserShared = true;
+        this.PostsList[index].ShareCount = this.PostsList[index].ShareCount + 1;
+      }else {
+        this.snackBar.open( 'B2C Post Share Failed', ' ', {
+          horizontalPosition: 'center',
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+        console.log(datas);
+      }
+    });
   }
 
   RatingImage(isActive: boolean) {
@@ -249,7 +347,7 @@ export class QuestionsPostComponent implements OnInit {
                         'ReportUserId':  this.reportUserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -260,7 +358,7 @@ export class QuestionsPostComponent implements OnInit {
                         'PostUserId':  this.reportPostInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -272,7 +370,7 @@ export class QuestionsPostComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportAnswerInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { exactType: 'Answer', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -321,6 +419,20 @@ export class QuestionsPostComponent implements OnInit {
                 const index = this.reportPostInfo.Answers.findIndex(x => x._id === this.reportAnswerInfo._id);
                 this.PostsList[Postindex].Answers.splice(index , 1);
                 this.PostsList[Postindex].AnswersCount = this.PostsList[Postindex].AnswersCount - 1;
+
+                if ( !this.AnswersViewLess && this.PostsList[Postindex].AnswersCount > 1 ) {
+                  const PostId = this.PostsList[Postindex]._id;
+                    this.AnswerService.GetQuestionsAnswers(PostId, this.UserInfo.data._id).subscribe( newdatas => {
+                      if (newdatas['status'] === 'True') {
+                          let AnsData = new Array();
+                          AnsData = newdatas['data'];
+                          this.PostsList[Postindex].Answers = AnsData;
+                      }else {
+                          console.log(datas);
+                      }
+                    });
+                }
+
                 this.snackBar.open( 'Your Answer Deleted Successfully', ' ', {
                   horizontalPosition: 'center',
                   duration: 3000,
@@ -342,7 +454,7 @@ export class QuestionsPostComponent implements OnInit {
 
   EditPost() {
     const EditPostDialogRef = this.dialog.open( EditPostTwoComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportPostInfo } });
       EditPostDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList.findIndex(x => x._id === result._id);
@@ -361,7 +473,7 @@ export class QuestionsPostComponent implements OnInit {
 
   EditAnswer() {
     const EditCommentDialogRef = this.dialog.open( EditAnswerComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
       EditCommentDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const Postindex = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);

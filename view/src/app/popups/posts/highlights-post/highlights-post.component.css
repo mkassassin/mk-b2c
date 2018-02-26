@@ -423,3 +423,44 @@
 .postLink a{
     color: #3190e4;
 }
+
+
+.share_drop{
+    background-color: #f3f3f3;
+    padding: 5px;
+    text-align: center;
+}
+.share_drop_icon{
+    text-align: center;
+}
+.share_drop img{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+.share_drop i{
+    font-size: 20px;
+    color: #38508E;
+    border: 2px solid #38508E;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.closePost{
+    cursor: pointer;
+    position: absolute;
+    font-size: 19px;
+    font-weight: 900;
+    margin-left: -10px;
+    margin-top: 5px;
+    border: 2px solid gray;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50px;
+    line-height: 20px;
+    background-color: #ffffff;
+    z-index: 10;
+}

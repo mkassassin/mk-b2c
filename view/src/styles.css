@@ -174,8 +174,9 @@ html, body {
 
 
 .mat-dialog-container{
-    min-width: 700px;
-    overflow: scroll;
+    padding: 0px !important;
+    /* min-width: 700px;
+    overflow: scroll; */
 }
 .cdk-global-overlay-wrapper{
     overflow: scroll;

@@ -7,16 +7,15 @@
         <h5 class="m-0 posttype"> Edit a Post <small> ( {{ActiveCategory}})</small> </h5>
       </div>
       <div fxFlex class="text-left">
-          <h5 class="m-0 posttype text-right" >
+          <h5 class="m-0 mr-20 posttype text-right" >
             <span style="cursor:pointer" (click)="close()"> X </span>
           </h5>
         </div>
     </div>
   
-    <hr style="margin-top:10px;">
+    <hr style="margin-top:3px;">
   
-    <mat-dialog-content class="postbody">
-      <form [formGroup]="PostForm" (ngSubmit)="submit()" enctype="multipart/form-data">
+      <form [formGroup]="PostForm" (ngSubmit)="submit()" enctype="multipart/form-data" style="padding:0px 15px">
           <textarea class="posttext" formControlName="PostText" placeholder="Write Something...."></textarea>
   
           <input *ngIf="LinkInputActive" class="postlink mb-20" formControlName="PostLink" placeholder="Enter Link...">
@@ -147,5 +146,4 @@
   
       </form>
   
-    </mat-dialog-content>
   </div>

@@ -5,22 +5,17 @@
 
 .headerInfo{
     text-align: center;
-    margin-top: -44px;
     font-size: 18px;
     font-weight: 600;
     font-family: 'Ubuntu', sans-serif;
     height: 50px;
     background-color: #ffda00;
     line-height: 50px;
-    margin-left: -24px;
-    margin-right: -24px;
-    margin-bottom: 40px;
 }
 
 .ProfilePrivacy{
     color: #666666;
     position: relative;
-    margin-bottom: -15px;
 }
     
     /* Index Page Header Design  */

@@ -115,21 +115,21 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenQuestionModel() {
     const PostTwoDialogRef = this.dialog.open(PostTwoComponent,
-      {disableClose: true, position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Create Form' } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Create Form' } });
     PostTwoDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
 
 
   OpenHighlightsModel() {
     const PostOneDialogRef = this.dialog.open( PostOneComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Create Form' } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { Header: 'Highlight Post One Form', type: 'Create Form' } });
     PostOneDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }
 
 
   OpenModelDiscover() {
     const DiscoverDialogRef = this.dialog.open(
-      DiscoverComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      DiscoverComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: {ActiveCategory: '01',  Header: 'Discover People'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
@@ -142,7 +142,7 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenModelDiscoverTopics() {
     const DiscoverTopicDialogRef = this.dialog.open(
-      DiscoverTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { Header: 'Discover Topics'} }
+      DiscoverTopicsComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { Header: 'Discover Topics'} }
     );
     DiscoverTopicDialogRef.afterClosed().subscribe(result => {
       if (result.status === 'GoToTopic') {
@@ -154,14 +154,14 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenModelHighlightsPost(PostId) {
     const HighlightsPostDialogRef = this.dialog.open(
-      HighlightsPostComponent, {disableClose: true, minWidth: '60%', height: '90%', position: {top: '50px'},  data: { PostId: PostId } }
+      HighlightsPostComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { PostId: PostId } }
     );
     HighlightsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }
 
   OpenModelQuestionsPost(PostId) {
     const QuestionsPostDialogRef = this.dialog.open(
-      QuestionsPostComponent, {disableClose: true, minWidth: '60%', height: '90%', position: {top: '50px'},  data: { PostId: PostId } }
+      QuestionsPostComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { PostId: PostId } }
     );
     QuestionsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }
@@ -169,7 +169,7 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenModelCreatTopic() {
     const CreatTopictDialogRef = this.dialog.open(
-      CreatTopicComponent, {disableClose: true, minWidth: '60%', height: '90%', position: {top: '50px'},  data: { PostId: '' } }
+      CreatTopicComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { PostId: '' } }
     );
     CreatTopictDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
   }

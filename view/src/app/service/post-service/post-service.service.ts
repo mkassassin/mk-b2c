@@ -27,6 +27,16 @@ export class PostServiceService {
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
+    public HighlightsPostShare(data: any) {
+        return this.http .post(API_URL + 'HighlightsPost/SharePost' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+    public HighlightsFBPostShare(data: any) {
+        return this.http .post(API_URL + 'HighlightsPost/FacebookSharePost' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
 
     public GetHighlightsList(UserId: any, Limit: any): Observable<any[]> {
         return this.http .get(API_URL + 'HighlightsPost/GetPostList/' + UserId + '/' + Limit)
@@ -49,6 +59,18 @@ export class PostServiceService {
 
     public QuestionsUpdate(data: any) {
         return this.http .post(API_URL + 'QuestionsPost/Update' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public QuestionsPostShare(data: any) {
+        return this.http .post(API_URL + 'QuestionsPost/SharePost' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public QuestionsFBPostShare(data: any) {
+        return this.http .post(API_URL + 'QuestionsPost/FacebookSharePost' , data)
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }

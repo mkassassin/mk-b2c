@@ -1,10 +1,10 @@
-<div class="bg-primary-color SignInSignUp pt-20" style="position:relative">
+<div class="bg-primary-color SignInSignUp" style="position:relative">
 
   <p style="position:absolute; right:10px; top:0px;font-size:20px;cursor:pointer " (click)="close()"  > X </p>
 
-  <h4 style="text-align:center"> {{data.Values.provider}} Sing Up </h4>
+  <h4 style="text-align:center; padding: 10px; font-size: 18px; font-family: 'Ubuntu', sans-serif; word-spacing: 5px;"> {{data.Values.provider}} Signup </h4>
 
-    <form [formGroup]="RegisterForm" (ngSubmit)="submit()">
+    <form [formGroup]="RegisterForm" (ngSubmit)="submit()" style="margin-bottom:0px">
         <!-- input Name -->
         <div class="text-center">
           <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.controls.UserName.dirty &&  RegisterForm.value.UserName =='' "> Name Is Required </p>

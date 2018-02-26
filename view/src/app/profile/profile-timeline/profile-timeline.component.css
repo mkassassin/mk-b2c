@@ -352,6 +352,27 @@
     transform: rotate(45DEG);
     z-index: -1;
 }
+.share_drop{
+    background-color: #f3f3f3;
+    padding: 5px;
+    text-align: center;
+}
+.share_drop_icon{
+    text-align: center;
+}
+.share_drop img{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+.share_drop i{
+    font-size: 20px;
+    color: #38508E;
+    border: 2px solid #38508E;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
 
 

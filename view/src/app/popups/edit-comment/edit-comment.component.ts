@@ -39,5 +39,8 @@ export class EditCommentComponent implements OnInit {
       });
 
   }
+  close() {
+    this.dialogRef.close('Close');
+  }
 
 }

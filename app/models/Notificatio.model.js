@@ -5,6 +5,8 @@ var NotificationSchema = mongoose.Schema({
     NotificationType: { type : Number , required : true },
     UserId: { type : String , required : true },
     ResponseUserId: { type : String },
+    SharedUserId: { type : String },
+    SharedUserName: { type : String },
     FollowUserId: { type : String },
     FollowTopicId: { type : String },
     HighlightPostId: { type : String },
@@ -61,6 +63,10 @@ module.exports = {
     // 14 == Impression Follow
     // 15 == Comment Like
     // 16 == Answer Rating
+
+    // 17 == Share HighlightPost For Followers Notify
+    // 18 == Share HighlightPost For Followers Notify
+
 
 
 

@@ -491,6 +491,8 @@ exports.GetNotification = function(req, res) {
                                                     UserName: FollowesData.UserName,
                                                     UserCategoryName: FollowesData.UserCategoryName,
                                                     UserImage: FollowesData.UserImage,
+                                                    SharedUserId: info.SharedUserId,
+                                                    SharedUserName: info.SharedUserName,
                                                     NotificationType: info.NotificationType,
                                                     FollowUserId: info.FollowUserId,
                                                     FollowTopicId: info.FollowTopicId,

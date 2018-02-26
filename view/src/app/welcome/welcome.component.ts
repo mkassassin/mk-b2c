@@ -118,7 +118,7 @@ export class WelcomeComponent implements OnInit {
     this.dialog.closeAll();
     this.authService.signOut();
     const FbSignUpDialogRef = this.dialog.open( FbSignupComponent,
-      { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: data['provider'], Values: data } });
+      { disableClose: true, minWidth: '600px', position: {top: '50px'},  data: { Type: data['provider'], Values: data } });
       FbSignUpDialogRef.afterClosed().subscribe(result => this.SocialSignUpComplete(result));
   }
 
@@ -132,12 +132,12 @@ export class WelcomeComponent implements OnInit {
       });
 
       const SelectPeopleDialogRef = this.dialog.open( SelectPeoplesComponent,
-        { disableClose: true, minWidth: '50%', position: {top: '50px'},
+        { disableClose: true, minWidth: '700px', position: {top: '50px'},
           data: { Header: 'Select Peoples', ActiveCategory: result.data.UserCategoryId  } });
       SelectPeopleDialogRef.afterClosed().subscribe(next => {
 
           const SelectTopicDialogRef = this.dialog.open( SelectTopicsComponent,
-            { disableClose: true, minWidth: '50%', position: {top: '50px'},
+            { disableClose: true, minWidth: '700px', position: {top: '50px'},
               data: { Header: 'Select Topics'  } });
               SelectTopicDialogRef.afterClosed().subscribe(final => {
 

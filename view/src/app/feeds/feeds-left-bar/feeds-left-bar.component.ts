@@ -124,7 +124,7 @@ export class FeedsLeftBarComponent implements OnInit {
 
   OpenModelDiscoverTopics() {
     const DiscoverTopicDialogRef = this.dialog.open(
-      DiscoverTopicsComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: { Header: 'Explore'} }
+      DiscoverTopicsComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { Header: 'Explore'} }
     );
     DiscoverTopicDialogRef.afterClosed().subscribe(result => {
         if (result.status === 'GoToTopic') {
@@ -136,7 +136,7 @@ export class FeedsLeftBarComponent implements OnInit {
 
   OpenModelDiscoverUser() {
     const DiscoverDialogRef = this.dialog.open(
-      DiscoverComponent, {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      DiscoverComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: {ActiveCategory: this.ActiveCategory,  Header: 'Connect'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {

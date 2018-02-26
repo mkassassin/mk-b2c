@@ -38,7 +38,14 @@
                     <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                   </div>
                   <div class="mt-5" fxFlex>
-                    <p class="postusername"> <span style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </span> </p>
+                    <p class="postusername"> 
+                      <span style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </span> 
+                      <small *ngIf="Post.Shared !== ''" style="color:#888888"> Shared 
+                        <span  *ngIf="Post.ShareUserId === UserInfo.data._id" style="font-size:12px;color:#333333"> Your </span> 
+                        <span *ngIf="Post.ShareUserId !== UserInfo.data._id" style="cursor:pointer; font-size:12px;color:#333333" (click)="GotoProfile(Post.ShareUserId)"> {{Post.ShareUserName}} </span> 
+                        {{Post.PostType}}
+                      </small>
+                    </p>
                     <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
                     <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
                   </div>
@@ -124,8 +131,9 @@
             </div>
             <div fxFlex class="text-right" style="height:25px">
               <div class="share">
-                <img style="cursor:pointer" (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="SharePost" src="./../../../assets/images/icons/share.png" alt="">
-                <!-- <p class="count"> 100 </p> -->
+                <img *ngIf="Post.UserShared" style="cursor:pointer" (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="SharePost" src="./../../../assets/images/icons/shared.png" alt="">
+                <img *ngIf="!Post.UserShared" style="cursor:pointer" (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="SharePost" src="./../../../assets/images/icons/share.png" alt="">
+                <p class="count"> {{Post.ShareCount}} </p>
               </div>
             </div>
           </div>
@@ -376,9 +384,9 @@
 
 <mat-menu #SharePost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
   <div class="share_drop" fxLayout="row" fxLayoutAlign="space-between center">
-      <!-- <div class="Share_drop_icon" fxFlex="50%">
-        <img class="logoDesignShare" src="./../../../assets/images/logo1.png" alt="">
-      </div> -->
+      <div class="Share_drop_icon" fxFlex="50%">
+        <img (click)="shareInternal()" class="logoDesignShare" src="./../../../assets/images/logo1.png" alt="">
+      </div>
       <div class="Share_drop_icon" fxFlex>
         <i (click)="share()" class="fa fa-facebook" aria-hidden="true"></i>
       </div>

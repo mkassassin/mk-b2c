@@ -7,10 +7,14 @@ module.exports = function(app) {
 
     app.post('/API/QuestionsPost/Update', QuestionsPost.Update);
 
+    app.post('/API/QuestionsPost/SharePost', QuestionsPost.SharePost);
+
+    app.post('/API/QuestionsPost/FacebookSharePost', QuestionsPost.FacebookSharePost);
+
     app.get('/API/QuestionsPost/GetPostList/:UserId/:Limit', QuestionsPost.GetPostList);
 
     app.get('/API/QuestionsPost/ViewPost/:UserId/:PostId', QuestionsPost.ViewPost);
 
     app.get('/API/QuestionsPost/GetTopicPostList/:UserId/:Limit/:TopicId', QuestionsPost.GetTopicPostList);
 
-}
+};

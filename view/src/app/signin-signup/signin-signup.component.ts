@@ -126,7 +126,7 @@ export class SigninSignupComponent implements OnInit {
 
     if (this.NewPasswordSet['UserId'] !== '' && this.NewPasswordSet['Token'] !== '') {
       const ForgotPasswordDialogRef = this.dialog.open( ForgotPasswordComponent,
-        { disableClose: true, minWidth: '40%', position: {top: '50px'},
+        { disableClose: true, minWidth: '500px', position: {top: '50px'},
         data: { Type: 'SetNewPassword', UserId: this.NewPasswordSet['UserId'], Token: this.NewPasswordSet['Token']  } });
         ForgotPasswordDialogRef.afterClosed().subscribe(result => {
           if ( result === 'SinginSuccess' ) {
@@ -301,12 +301,12 @@ export class SigninSignupComponent implements OnInit {
         });
 
         const SelectPeopleDialogRef = this.dialog.open( SelectPeoplesComponent,
-          { disableClose: true, minWidth: '50%', position: {top: '50px'},
+          { disableClose: true, minWidth: '700px', position: {top: '50px'},
             data: { Header: 'Select Peoples', ActiveCategory: datas['data'].UserCategoryId  } });
         SelectPeopleDialogRef.afterClosed().subscribe(next => {
 
             const SelectTopicDialogRef = this.dialog.open( SelectTopicsComponent,
-              { disableClose: true, minWidth: '50%', position: {top: '50px'},
+              { disableClose: true, minWidth: '700px', position: {top: '50px'},
                 data: { Header: 'Select Topics'  } });
                 SelectTopicDialogRef.afterClosed().subscribe(final => {
 
@@ -341,7 +341,7 @@ export class SigninSignupComponent implements OnInit {
        userEmailAdd = this.SignInForm.value.LoginUserEmail;
     }
     const ForgotPasswordDialogRef = this.dialog.open( ForgotPasswordComponent,
-      { disableClose: true, minWidth: '40%', position: {top: '50px'},  data: { Type: 'ForgotPassword', Email: userEmailAdd } });
+      { disableClose: true, minWidth: '500px', position: {top: '50px'},  data: { Type: 'ForgotPassword', Email: userEmailAdd } });
       ForgotPasswordDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 

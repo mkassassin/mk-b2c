@@ -1,6 +1,5 @@
 .postOne .postheader{
-   margin-left: -14px;
-   margin-top: -14px;
+    padding: 3px 0px
 }
 .postOne .userimg{
     width: 45px;

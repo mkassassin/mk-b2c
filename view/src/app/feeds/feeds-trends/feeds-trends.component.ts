@@ -152,8 +152,8 @@ export class FeedsTrendsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.screenHeight = window.innerHeight - 155;
-    this.impresionscreenHeight = window.innerHeight - 570;
+    this.screenHeight = window.innerHeight - 160;
+    this.impresionscreenHeight = window.innerHeight - 585;
     this.scrollHeight = this.screenHeight + 'px';
     this.impresionsHeight = this.impresionscreenHeight + 'px';
   }
@@ -211,7 +211,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   OpenModel() {
     const PostThreeDialogRef = this.dialog.open(PostThreeComponent, {
-      disableClose: true, minWidth: '50%', position: {top: '50px'},
+      disableClose: true, minWidth: '700px', position: {top: '50px'},
        data: { type: 'Add', CoinCode : this.ActiveCoinSymbol } });
     PostThreeDialogRef.afterClosed().subscribe(result => this.GoToAnalize(result));
   }
@@ -307,7 +307,7 @@ export class FeedsTrendsComponent implements OnInit {
                         'ReportUserId':  this.reportUserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -320,7 +320,7 @@ export class FeedsTrendsComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportImpressionInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'},
+      {disableClose: true, minWidth: '700px', position: {top: '50px'},
       data: { exactType: 'Opinion', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -329,7 +329,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   DeleteImpression() {
     const DeleteConfirmrDialogRef = this.dialog.open( DeleteConfirmComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, minHeight: '300px',
+      {disableClose: true, width: '350px', minHeight: '300px', position: {top: '50px'},
       data: {text: 'Are You Sure You Want To Permanently Delete This Opinion?'} });
       DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
         if (result === 'Yes' ) {
@@ -360,7 +360,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   EditImpression() {
     const EditDialogRef = this.dialog.open( PostThreeComponent,
-      {disableClose: true, minWidth: '50%', position: {top: '50px'}, data: {type: 'Edit', data: this.reportImpressionInfo } });
+      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: {type: 'Edit', data: this.reportImpressionInfo } });
       EditDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.ListOfImpressions.findIndex(x => x['_id'] === this.reportImpressionInfo._id);
