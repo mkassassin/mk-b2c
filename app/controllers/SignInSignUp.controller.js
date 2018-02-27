@@ -48,8 +48,9 @@ exports.SendFPVerifyEmail = function(req, res) {
                         to: req.params.email,
                         subject: "Please confirm your Email account",
                         html: "Hello,<br> Please Click on the link to verify your email And Reset Your Password.<br><a href=" + link + ">Click here to verify</a>"
-                    }
+                    };
                     smtpTransport.sendMail(mailOptions, function (error, response) {
+                        console.log(error, response);
                         if (error) {
                             res.send({ status:"False", Error: error,  message: "Some error occurred" });
                         } else {

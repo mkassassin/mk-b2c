@@ -70,7 +70,7 @@ export function provideConfig() {
   // local
 // const providers = {
 //   'google': {
-//         'clientId': '885069936725-0ej2kk1e7nt2fnrtbdma970l9rli75jc.apps.googleusercontent.com'
+//         'clientId': '1094825930149-bl9tg0rsan3gjhffenkcmcs093bi572v.apps.googleusercontent.com'
 //       },
 //       'linkedin': {
 //         'clientId': '814ivvgus3ol7y'

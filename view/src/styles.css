@@ -65,7 +65,7 @@ html, body {
     background: transparent;
 }
 .customscroll_1 .ui-scrollpanel-content{
-    width: 100% !important;
+    /* width: 100% !important; */
 }
 
 .customscroll_1 .ui-scrollpanel-wrapper {
