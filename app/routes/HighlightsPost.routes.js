@@ -15,4 +15,6 @@ module.exports = function(app) {
 
     app.get('/API/HighlightsPost/ViewPost/:UserId/:PostId', HighlightsPost.ViewPost);
 
+    app.get('/API/HighlightsPost/ViewSharePost/:PostId', HighlightsPost.ViewSharePost);
+
 }

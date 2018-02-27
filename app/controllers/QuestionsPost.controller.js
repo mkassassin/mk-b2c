@@ -980,6 +980,227 @@ exports.ViewPost = function (req, res) {
 
 
 
+exports.ViewSharePost = function (req, res) {
+
+    QuestionsPostModel.QuestionsPostType.find({'_id': req.params.PostId}, function (err, result) {
+        if (err) {
+            res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });
+        } else {
+            const GetUserData = (result) =>
+                Promise.all(
+                    result.map(info => getPostInfo(info) )
+                ).then( result =>{ 
+                    res.send({ status: "True", data: result }) 
+                }
+                ).catch(err => res.send({ status: "False", Error: err }));
+
+
+            const getPostInfo = info =>
+                Promise.all([
+                    UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
+                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    AnswerModel.QuestionsAnswer.find({ 'PostId': info._id }, 'AnswerText UserId Date', {sort: { createdAt: -1 }, limit: 2 }).exec(),
+                    RatingModel.QuestionsRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    SharePosts.SharePost.count({'PostType': 'Questions', PostId: info._id }).exec(),
+                ]).then(data => {
+                    var UserData = data[0];
+                    var followCount = data[1];
+                    var ratingCount = data[2];
+                    var AnswerCount = data[3];
+                    var Answerdata = data[4];
+                    var RatingList = data[5];
+                    var ShareCount = data[6];
+                    var UserShared = data[7];
+                    
+
+                    var AnswersArray= new Array();
+                    var RatingCal = 0 ;
+
+                   return GetAnsUserData();
+                    async function GetAnsUserData(){
+                        for (let ansInfo of Answerdata) {
+                            await getAnswerInfo(ansInfo);
+                        }
+                        return RatingCountFonction();
+                            async function RatingCountFonction(){
+                                for (let rateInfo of RatingList) {
+                                    await getRatingInfo(rateInfo);
+                                }
+                                    var userRated = false;
+                                    var userRating = 0 ;
+                                    var alreadyShared = false;
+                                    let result = {
+                                        _id: info._id,
+                                        UserId: UserData._id,
+                                        UserName: UserData.UserName,
+                                        UserCategoryId: UserData.UserCategoryId,
+                                        UserCategoryName: UserData.UserCategoryName,
+                                        UserImage: UserData.UserImage,
+                                        UserCompany: UserData.UserCompany,
+                                        UserProfession: UserData.UserProfession,
+                                        Followers:followCount,
+                                        PostTopicId: info.PostTopicId,
+                                        PostTopicName: info.PostTopicName,
+                                        PostDate: info.PostDate,
+                                        PostText: info.PostText ,
+                                        PostLink: info.PostLink,
+                                        PostLinkInfo: info.PostLinkInfo || '',
+                                        PostImage: info.PostImage,
+                                        PostVideo: info.PostVideo,
+                                        Shared: info.Shared || '',
+                                        ShareUserName: info.ShareUserName,
+                                        ShareUserId: info.ShareUserId,
+                                        SharePostId: info.SharePostId,
+                                        RatingCount: JSON.parse(RatingCal) / JSON.parse(ratingCount),
+                                        userRated: userRated,
+                                        userRating: userRating,
+                                        AnswersCount: AnswerCount,
+                                        ShareCount: ShareCount,
+                                        UserShared: alreadyShared,
+                                        Answers: AnswersArray,
+                                    };
+                                return result;
+                            }
+                      }
+                      
+
+                      function getRatingInfo(rateInfo){
+                        return new Promise(( resolve, reject )=>{
+                            RatingModel.QuestionsRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                if(Rateerr) {
+                                    res.send({status:"False", Error:Rateerr });
+                                    reject(Rateerr);
+                                } else {
+                                    RatingCal += JSON.parse(RateData.Rating);
+                                    resolve(RateData);
+                                }
+                            });
+                        });
+                    }
+
+
+                      function getAnswerInfo(ansInfo){
+                        return new Promise(( resolve, reject )=>{
+                            UserModel.UserType.findOne({'_id': ansInfo.UserId }, usersProjection, function(err, AnsUserData) {
+                                if(err) {
+                                    res.send({status:"False", Error:err });
+                                    reject(err);
+                                } else {
+                                    FollowModel.FollowUserType.count({'UserId': AnsUserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"False", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            RatingModel.AnswerRating.count({'AnswerId': ansInfo._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                if(NewErr){
+                                                    res.send({status:"False", Error:NewErr });
+                                                    reject(err);
+                                                }else{
+                                                    var userRated = false;
+                                                    var userRating = 0 ;
+                                                    var alreadyfollowuser = false;
+
+                                                    var AnsRatingCal = 0;
+                                                    if(NewCount > 0) {
+                                                        RatingModel.AnswerRating.find({'AnswerId': ansInfo._id , 'ActiveStates':'Active' }, function(NewErrAns, AnsRatings) {
+                                                            if(NewErrAns){
+                                                                res.send({status:"False", Error:NewErrAns });
+                                                                reject(NewErrAns);
+                                                            }else{
+                                                                AswerRatingCount();
+                                                                    async function AswerRatingCount() {
+                                                                        for (let rateInfo of AnsRatings) {
+                                                                                await getAnsRatingInfo(rateInfo);
+                                                                        }
+                                                                    var newArray = [];
+                                                                    newArray.push( {
+                                                                                    _id: ansInfo._id,
+                                                                                    UserId: AnsUserData._id,
+                                                                                    UserName: AnsUserData.UserName,
+                                                                                    UserCategoryId: AnsUserData.UserCategoryId,
+                                                                                    UserCategoryName: AnsUserData.UserCategoryName,
+                                                                                    UserImage: AnsUserData.UserImage,
+                                                                                    UserCompany: AnsUserData.UserCompany,
+                                                                                    UserProfession: AnsUserData.UserProfession,
+                                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                                    Followers: count,
+                                                                                    Date: ansInfo.Date,
+                                                                                    RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
+                                                                                    userRated: userRated,
+                                                                                    userRating: userRating,
+                                                                                    PostId: ansInfo.PostId,
+                                                                                    PostUserId: ansInfo.PostUserId ,
+                                                                                    AnswerText: ansInfo.AnswerText
+                                                                                }
+                                                                    );
+                                                                    AnswersArray.push(newArray[0]);
+                                                                    resolve(newArray[0]);
+                                                                }
+
+                                                                function getAnsRatingInfo(rateInfo){
+                                                                    return new Promise(( resolve, reject )=>{
+                                                                        RatingModel.AnswerRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                                                            if(Rateerr) {
+                                                                                res.send({status:"False", Error:Rateerr });
+                                                                                reject(Rateerr);
+                                                                            } else {
+                                                                                AnsRatingCal += JSON.parse(RateData.Rating);
+                                                                                resolve(AnsRatingCal);
+                                                                            }
+                                                                        });
+                                                                    });
+                                                                }
+
+                                                            }
+                                                        });
+                                                    }else{
+                                                        var newArray = [];
+                                                        newArray.push( {
+                                                                        _id: ansInfo._id,
+                                                                        UserId: AnsUserData._id,
+                                                                        UserName: AnsUserData.UserName,
+                                                                        UserCategoryId: AnsUserData.UserCategoryId,
+                                                                        UserCategoryName: AnsUserData.UserCategoryName,
+                                                                        UserImage: AnsUserData.UserImage,
+                                                                        UserCompany: AnsUserData.UserCompany,
+                                                                        UserProfession: AnsUserData.UserProfession,
+                                                                        AlreadyFollow: alreadyfollowuser,
+                                                                        Followers: count,
+                                                                        Date: ansInfo.Date,
+                                                                        RatingCount: 0,
+                                                                        userRated: userRated,
+                                                                        userRating: userRating,
+                                                                        PostId: ansInfo.PostId,
+                                                                        PostUserId: ansInfo.PostUserId ,
+                                                                        AnswerText: ansInfo.AnswerText
+                                                                    }
+                                                        );
+                                                        AnswersArray.push(newArray[0]);
+                                                        resolve(newArray[0]);
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+
+                }).catch(error => {
+                    console.log(error)
+                })
+
+             GetUserData(result);
+
+        }
+    });
+};
+
 
 
 

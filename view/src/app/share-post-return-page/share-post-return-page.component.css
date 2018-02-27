@@ -1,0 +1,1287 @@
+
+.SearchOptions{
+    position: absolute;
+    top: 10px;
+    height: 23px;
+}
+i.filter{
+    font-size: 23px;
+    color: #333333;
+    font-weight: 600;
+}
+.dropdown-menu.searchFilter{
+    padding: 0px;
+    min-width: 175px;
+    border-radius: 0px;
+    background-color: white;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    border: none;
+}
+.dropdown-menu.searchFilter li a{
+    padding: 5px 5px 5px 5px;
+    height: 40px;
+    display: inline-flex;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+
+.dropdown-menu.searchFilter li a:hover{
+    background: #333f4f;
+    color: #fff;
+}
+
+.dropdown-menu.searchFilter li hr{
+    margin: 0px 5px;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: #c1baba;
+}
+.dropdown-menu.searchFilter li a i{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: #ffda00;
+    line-height: 30px;
+    color: #333333;
+    border-radius: 40px;
+    margin-right: 8px;
+}
+.dropdown-menu.searchFilter li a:hover i{
+    background-color: #ffffff;
+    color: #333333;
+}
+.searchList{
+    display: inline-flex;
+    height: 45px;
+}
+.searchList img{
+    height: 35px;
+    width: 35px;
+    border-radius: 50px;
+    margin: 3px 8px 0px 8px;
+}
+.searchList p{
+   font-size: 12px;
+   font-weight: 500;
+   color: #888888;
+   font-family: 'Ubuntu', sans-serif;
+   line-height: 18px;
+   margin-bottom: 0px;
+   margin-top: 4px;
+}
+.searchList p .searchName{
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+}
+.searchList p.searchFollowers{
+    font-size: 12px;
+    font-weight: 500;
+    color: #999999;
+    font-family: 'Ubuntu', sans-serif;
+    line-height: 6px;
+    margin-bottom: 0px;
+ }
+
+
+ 
+.feedsHeader .headerLogo{
+    height: 32px;
+    margin: 5px;
+}
+
+.feedsHeader .btn-cutom{
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    font-size: 15px;
+    outline: transparent;
+    padding: 2px 15px 3px 15px;
+    border-radius: 4px;
+    line-height: 22px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.feedsHeader .btn-cutom:hover{
+    color: #fff;
+    background-color: #555555;
+    border-color: #555555;
+}
+.feedsHeader .headericon{
+    height: 27px;
+}
+
+.feedsHeader .SearchStyle{
+    width: 100%;
+    height: 34px;
+    background-color: transparent;
+    outline: transparent;
+    border: none;
+    border-bottom: 1px solid #999999b0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333 !important;
+    letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
+    padding-left: 40px;
+    padding-top: 8px;
+}
+.feedsHeader .SearchStyle:-ms-input-placeholder ,
+.feedsHeader .SearchStyle::-webkit-input-placeholder,
+.feedsHeader .SearchStyle::-moz-placeholder,
+.feedsHeader .SearchStyle:-moz-placeholder  {
+    color: #123123 !important;
+    letter-spacing: 1px;
+}
+
+.feedsHeader  .searchIncon{
+    position: absolute;
+    top: 5px;
+    right: 3px;
+}
+.feedsHeader  .searchIncon .icon{
+    height: 18px;
+}
+
+.feedsHeader .headeruserimg{
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    margin-top: -2px;
+}
+
+.feedsHeader .username{
+    font-size: 15px;
+    font-weight: 700;
+    color: #676767ba;
+    letter-spacing: 0.3px;
+}
+
+.notifyCount{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #000000;
+    line-height: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    border-radius: 50px;
+    margin-left: -9px;
+    top: 1px;
+}
+
+
+.notifylist{
+    padding: 2px 5px;
+    width: 320px;
+}
+.notifyheader .notifyheadertext {
+    margin: -8px 0px 0px 0px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    line-height: 40px;
+    padding: 0px 10px;
+    background-color: #e9eef3
+}
+.notifyheader .arrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #e9eef3;
+    top: -1px;
+    right: 25px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}
+.notifyfooter .notifyfootertext {
+    margin: 0px 0px -9px 0px;
+    font-size: 16px;
+    font-weight: 700;
+    word-spacing: 2.5px;
+    line-height: 40px;
+    background-color: #e9eef3;
+    color: #0c5ac1;
+}
+.notifylist .userImg{
+    height: 35px;
+    width: 35px;
+    border-radius: 35px;
+    margin-bottom: 2px;
+}
+.notifylist .username{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.notifylist .notifycategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+.notifylist .notifydate{
+    margin: 0px;
+    line-height: 17px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}
+
+
+.userdropd{
+    width: 200px;
+    padding: 3px 10px;
+}
+
+.userdropd .userdropd_text{
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #666666a3;
+    line-height: 40px;
+    margin: 0px;
+}
+
+.userdropd .userdropd_icon i{
+    color: #666666a3;
+    font-size: 26px;
+    margin-top: 8px;
+}
+.userdropdarrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    top: -3px;
+    right: 20px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}
+
+
+
+
+.Highlights .HighlightsPost{
+    background-color:#ffffff;
+    box-shadow: 0px 0px 5px 1px #607d8b63;
+    margin: 3px;
+    padding-bottom: 5px;
+}
+
+
+.Highlights .HighlightsPost .PostHeader{
+    padding: 0px 10px;
+}
+.Highlights .HighlightsPost .leftSide .postuserImg{
+    height: 35px;
+    width: 35px;
+    margin-top: 0px;
+    cursor: pointer;
+    border-radius: 60px;
+}
+.Highlights .HighlightsPost .leftSide .postusername{
+    line-height: 12px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin: 0px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Highlights .HighlightsPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 13px;
+    font-size: 11px;
+    color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Highlights .HighlightsPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 14px;
+    font-size: 10px;
+    color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+.Highlights .HighlightsPost .rightSide .postaction{
+    line-height: 10px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Highlights .HighlightsPost .rightSide .postaction i{
+    height: 11px;
+    line-height: 11px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
+}
+.Highlights .HighlightsPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 10px;
+    margin-top: -4px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Highlights .HighlightsPost .rightSide .posttopic{
+    margin: 0px;
+    line-height: 14px;
+    color: #9c9a9a;
+    letter-spacing: 0.6px;
+    font-size: 11px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.Highlights .HighlightsPost .postLikes .like{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .HighlightsPost .postLikes {
+    padding: 3px 15px;
+}
+.Highlights .HighlightsPost .postLikes .like img{
+    width: 25px;
+    height: 25px;
+}
+.Highlights .HighlightsPost .postLikes .like .count{
+    line-height: 25px;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .HighlightsPost .postLikes .chat{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .HighlightsPost .postLikes .chat img{
+    width: 25px;
+    height: 25px;
+}
+.Highlights .HighlightsPost .postLikes .chat .count{
+    line-height: 25px;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .HighlightsPost .postLikes .share{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .HighlightsPost .postLikes .share img{
+    width: 25px;
+    height: 25px;
+}
+.Highlights .HighlightsPost .postLikes .share .count{
+    line-height: 25px;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+
+.Highlights .HighlightsPost .postchat {
+    padding: 0px;
+    padding-top: 5px;
+}
+
+.Highlights .HighlightsPost .postchat .chatUserImg img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+}
+
+.Highlights .HighlightsPost .postchat .chatInput input{
+    width: 100%;
+    height: 32px;
+    outline: transparent;
+    border: 1px solid #333f4f3b;
+    padding: 0px 10px;
+    font-size: 12px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #333333;
+}
+
+.Highlights .HighlightsPost .postchat .chatsend i{
+    font-size: 26px;
+    color: #333333;
+    transform: rotate(-35deg);
+    cursor: pointer;
+}
+
+
+.scrolldiv{
+    overflow-Y: auto;
+    overflow-x: hidden;
+}
+
+
+
+
+.Highlights .commentPost{
+    background-color: #ffffff;
+    box-shadow: 0px 0px 3px 1px #607d8b63;
+    margin:4px 10px 15px 10px;
+    padding: 2px;
+}
+
+.Highlights .commentPost .commentbody .commenttext{
+    font-size: 15px;
+    color: gray;
+    margin: 2px 10px;
+    word-spacing: 2.5px;
+    line-height: 20px;
+}
+.Highlights .commentPost .PostHeader{
+    padding: 0px 2px;
+}
+.Highlights .commentPost .leftSide .postuserImg{
+    height: 33px;
+    width: 33px;
+    border-radius: 35px;
+}
+.Highlights .commentPost .leftSide .postusername{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    /* font-weight: 600; */
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.Highlights .commentPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+.Highlights .commentPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+
+.Highlights .commentPost .rightSide .postaction{
+    line-height: 5px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Highlights .commentPost .rightSide .postaction i{
+    height: 11px;
+    line-height: 11px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    cursor: pointer;
+    font-size: 25px;
+}
+.Highlights .commentPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 16px;
+    margin-top: -4px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}
+.Highlights .commentPost .postLikesLevel2 {
+    padding: 2px 15px;
+}
+.Highlights .commentPost .postLikesLevel2 .like{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+
+.Highlights .commentPost .postLikesLevel2 .like img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .like .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .commentPost .postLikesLevel2 .chat{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .commentPost .postLikesLevel2 .chat img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .chat .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Highlights .commentPost .postLikesLevel2 .share{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Highlights .commentPost .postLikesLevel2 .share img{
+    width: 20px;
+    height: 20px;
+}
+.Highlights .commentPost .postLikesLevel2 .share .count{
+    line-height: 20px;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+
+
+
+.viewAll{
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #999999;
+    letter-spacing: 0.6px;
+    margin-right: 5px;
+    padding-bottom: 3px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+.html5gallery-container-0{
+    background:  #ffffff !important;
+}
+
+.DisplayNone{
+    display: none !important;
+}
+
+
+
+
+
+
+
+
+
+.dropd{
+    width: 150px;
+    padding: 3px 5px;
+    background-color: #f3f3f3;
+}
+
+.dropd .dropd_text{
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #666666a3;
+    line-height: 33px;
+    margin: 0px;
+}
+
+.dropd .dropd_icon i{
+    color: #666666a3;
+    font-size: 23px;
+    margin-top: 6px;
+}
+.dropdarrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #f3f3f3;
+    top: -3px;
+    left: 15px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.thumpnailbox{
+    margin: 0px 15px;
+    background-color: #f3f3f38a;
+    box-shadow: 0px 0px 5px 1px #3333332e;
+    padding: 2px;
+}
+.thumpnailbox-left{
+    padding: 0px;
+}
+.thumpnailbox-img{
+    height: 130px;
+}
+.thumpnailbox-right{
+    padding: 0px;
+    text-align: left;
+    padding-left: 10px;
+}
+.thumpnailbox-textField{
+    height: 90px;
+    overflow: hidden;
+}
+.thumpnailbox-header{
+    text-align: left;
+    font-size: 15px;
+    margin: 0px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+.thumpnailbox-decription{
+    text-align: left;
+    font-size: 13px;
+    margin: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #888888;
+    line-height: 18px;
+}
+.thumpnailbox-link{
+    text-align: left;
+    font-size: 13px;
+    margin: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #114d72;
+    line-height: 17px;
+}
+.thumpnailbox-link a{
+    color: #3190e4;
+}
+.postLink{
+    text-align: left;
+    margin: 10px 5px 0px 15px;
+    font-size: 13px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #114d72;
+    line-height: 17px;
+}
+.postLink a{
+    color: #3190e4;
+}
+
+
+.share_drop{
+    background-color: #f3f3f3;
+    padding: 5px;
+    text-align: center;
+}
+.share_drop_icon{
+    text-align: center;
+}
+.share_drop img{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+.share_drop i{
+    font-size: 20px;
+    color: #38508E;
+    border: 2px solid #38508E;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.closePost{
+    cursor: pointer;
+    position: absolute;
+    font-size: 19px;
+    font-weight: 900;
+    margin-left: -10px;
+    margin-top: 5px;
+    border: 2px solid gray;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50px;
+    line-height: 20px;
+    background-color: #ffffff;
+    z-index: 10;
+}
+
+.Questions .QuestionPost{
+    background-color:#ffffff;
+    box-shadow: 0px 0px 5px 1px #607d8b63;
+    margin: 3px;
+    padding-bottom: 5px;
+}
+
+
+.Questions .QuestionPost .PostHeader{
+    padding: 0px 10px;
+}
+.Questions .QuestionPost .leftSide .postuserImg{
+    height: 35px;
+    width: 35px;
+    margin-top: 0px;
+    cursor: pointer;
+    border-radius: 60px;
+}
+.Questions .QuestionPost .leftSide .postusername{
+    line-height: 12px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin: 0px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Questions .QuestionPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 13px;
+    font-size: 11px;
+    color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Questions .QuestionPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 14px;
+    font-size: 10px;
+    color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.Questions .QuestionPost .rightSide .postaction{
+    line-height: 10px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Questions .QuestionPost .rightSide .postaction i{
+    height: 11px;
+    line-height: 11px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
+}
+.Questions .QuestionPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 10px;
+    margin-top: -4px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Questions .QuestionPost .rightSide .posttopic{
+    margin: 0px;
+    line-height: 14px;
+    color: #9c9a9a;
+    letter-spacing: 0.6px;
+    font-size: 11px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+
+
+
+
+
+.Questions .QuestionPost .postquestion{
+    margin: 0px;
+    margin-left: 10px;
+    color: #666666e6;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0px;
+    word-spacing: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+
+
+
+
+.Questions .QuestionPost .postLikes .like{
+    display: inline-flex;
+    margin-top: 0px;
+}
+.Questions .QuestionPost .postLikes {
+    padding: 3px 15px;
+}
+.Questions .QuestionPost .postLikes .like img{
+    width: 25px;
+    height: 25px;
+}
+.Questions .QuestionPost .postLikes .like .count{
+    line-height: 30px;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Questions .QuestionPost .postLikes .write{
+    display: inline-flex;
+    margin-right: 15px;
+    color: #666666; 
+    cursor: pointer;
+}
+.Questions .QuestionPost .postLikes .write.answerd{
+    color: #ffda00;
+}
+.Questions .QuestionPost .postLikes .write i{
+    transform: rotate(-90DEG);
+    font-size: 23px;
+}
+.Questions .QuestionPost .postLikes .write p{
+    margin-left: 0px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    margin: 0px 5px;
+    line-height: 25px;
+}
+.Questions .QuestionPost .postLikes .chat{
+    display: inline-flex;
+    margin-top: 0px;
+}
+.Questions .QuestionPost .postLikes .chat .answer{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    margin: 0px 5px;
+    line-height: 25px;
+    color: #555555;
+}
+.Questions .QuestionPost .postLikes .chat .count{
+    line-height: 25px;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 0px;
+    color: #666666cf;
+}
+.Questions .QuestionPost .postLikes .share{
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.Questions .QuestionPost .postLikes .share img{
+    width: 25px;
+    height: 25px;
+}
+.Questions .QuestionPost .postLikes .share .count{
+    line-height: 25px;
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+
+.Questions .QuestionPost .postchat {
+    padding: 0px;
+    padding-top: 5px;
+}
+
+.Questions .QuestionPost .postchat .chatUserImg img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+}
+
+.Questions .QuestionPost .postchat .chatInput input{
+    width: 100%;
+    height: 32px;
+    outline: transparent;
+    border: 1px solid #333f4f3b;
+    padding: 0px 10px;
+    font-size: 12px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #333333;
+}
+
+.Questions .QuestionPost .postchat .chatsend i{
+    font-size: 26px;
+    color: #333333;
+    transform: rotate(-35deg);
+    cursor: pointer;
+}
+
+
+
+
+
+
+.scrolldiv{
+    overflow-Y: auto;
+    overflow-x: hidden;
+}
+
+.Questions .postmain .postquestion {
+    margin: 5px 0px 10px 5px
+}
+.Questions .postAnswer {
+    margin: 0px 10px 10px 5%;
+    background-color: #ffffff;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+}
+.Questions .PostAnsHeader{
+    height: 38px;
+}
+.Questions .PostAnsHeader .postansuserImg{
+    width: 35px;
+    height: 35px;
+    border-radius: 40px;
+}
+.Questions .PostAnsHeader .postansusername{
+    line-height: 14px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin: 0px;
+    /* font-weight: 600; */
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Questions .PostAnsHeader .postansaction{
+    line-height: 10px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Questions .PostAnsHeader .postansaction i{
+    height: 15px;
+    line-height: 15px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-size: 27px;
+}
+.Questions .PostAnsHeader .postansdate{
+    margin: 0px;
+    line-height: 18px;
+    margin-top: -4px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}
+
+
+.Questions .PostAnsHeader .postansfollowes{
+    margin: 0px;
+    line-height: 16px;
+    font-size: 11px;
+    color: #9c9a9a;
+    font-family: 'Ubuntu', sans-serif;
+}
+.Questions .PostAnsHeader .postansuserinfo{
+    height: 38px;
+    margin: 0px 0px 0px 5px;
+}
+.Questions .postAnswer .postAns{
+    padding: 5px 5px 0px 10px;
+}
+.Questions .postAnswer .postAns .postAnsText{
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    word-spacing: 2.5px;
+    color: #9c9a9a;
+    line-height: 20px;
+}
+.Questions .postAnswer .postLikesLevel2 .like{
+    display: inline-flex;
+    margin-top: 0px;
+}
+.Questions .postAnswer .postLikesLevel2 {
+    padding: 0px 15px 6px 15px;
+    margin-top: -4px;
+}
+.Questions .postAnswer .postLikesLevel2 .like img{
+    width: 20px;
+    height: 20px;
+}
+.Questions .postAnswer .postLikesLevel2 .like .count{
+    line-height: 30px;
+    font-size: 11px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin: 0px 5px;
+    color: #666666cf;
+}
+.Questions .postmain .readmore{    
+    font-size: 13px;
+    margin: 0px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    line-height: 30px;
+    color: #999999;
+}
+
+.share_drop{
+    background-color: #f3f3f3;
+    padding: 5px;
+    text-align: center;
+}
+.share_drop_icon{
+    text-align: center;
+}
+.share_drop img{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+.share_drop i{
+    font-size: 20px;
+    color: #38508E;
+    border: 2px solid #38508E;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.Questions .commentPost{
+    background-color: #e9eef378;
+    box-shadow: 0px 0px 3px 1px #607d8b63;
+    margin:4px 10px 15px 10px;
+    padding: 4px;
+}
+
+.Questions .commentPost .commentbody .commenttext{
+    font-size: 15px;
+    color: gray;
+    margin: 2px 10px;
+    word-spacing: 2.5px;
+    line-height: 20px;
+}
+.Questions .commentPost .PostHeader{
+    padding: 0px 2px;
+}
+.Questions .commentPost .leftSide .postuserImg{
+    height: 35px;
+    width: 35px;
+    border-radius: 35px;
+}
+.Questions .commentPost .leftSide .postusername{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 13px;
+    /* font-weight: 600; */
+    color: #827f7f;
+    letter-spacing: 0.5px;
+}
+.Questions .commentPost .leftSide .postusercategory{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+.Questions .commentPost .leftSide .postuserfollowers{
+    margin: 0px;
+    line-height: 17px;
+    font-size: 12px;
+    color: #9c9a9a;
+}
+
+.Questions .commentPost .rightSide .postaction{
+    line-height: 10px;
+    font-size: 24px;
+    margin: 0px;
+    color: gray;
+}
+.Questions .commentPost .rightSide .postdate{
+    margin: 0px;
+    line-height: 18px;
+    margin-top: 5px;
+    color: #9c9a9a;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+}
+
+
+
+.viewAll{
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #999999;
+    letter-spacing: 0.6px;
+    margin-right: 5px;
+    padding-bottom: 3px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.rating{
+    display: inline-flex;
+}
+.rating img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 1px;
+}
+
+
+
+.dropd{
+    width: 150px;
+    padding: 3px 5px;
+    background-color: #f3f3f3;
+}
+.dropd .dropd_text{
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #666666a3;
+    line-height: 33px;
+    margin: 0px;
+}
+
+.dropd .dropd_icon i{
+    color: #666666a3;
+    font-size: 23px;
+    margin-top: 6px;
+}
+.dropdarrow{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #f3f3f3;
+    top: -3px;
+    left: 15px;
+    transform: rotate(45DEG);
+    z-index: -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.thumpnailbox{
+    margin: 0px 15px;
+    background-color: #f3f3f38a;
+    box-shadow: 0px 0px 5px 1px #3333332e;
+    padding: 2px;
+}
+.thumpnailbox-left{
+    padding: 0px;
+}
+.thumpnailbox-img{
+    height: 130px;
+}
+.thumpnailbox-right{
+    padding: 0px;
+    text-align: left;
+    padding-left: 10px;
+}
+.thumpnailbox-textField{
+    height: 90px;
+    overflow: hidden;
+}
+.thumpnailbox-header{
+    text-align: left;
+    font-size: 15px;
+    margin: 0px;
+    font-weight: 600;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.4px;
+}
+.thumpnailbox-decription{
+    text-align: left;
+    font-size: 13px;
+    margin: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #888888;
+    line-height: 18px;
+}
+.thumpnailbox-link{
+    text-align: left;
+    font-size: 13px;
+    margin: 0px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #114d72;
+    line-height: 17px;
+}
+.thumpnailbox-link a{
+    color: #3190e4;
+}
+.postLink{
+    text-align: left;
+    margin: 10px 5px 0px 15px;
+    font-size: 13px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #114d72;
+    line-height: 17px;
+}
+.postLink a{
+    color: #3190e4;
+}
+
+.closePost{
+    cursor: pointer;
+    position: absolute;
+    font-size: 19px;
+    font-weight: 900;
+    margin-left: -10px;
+    margin-top: 5px;
+    border: 2px solid gray;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50px;
+    line-height: 20px;
+    background-color: #ffffff;
+    z-index: 10;
+}

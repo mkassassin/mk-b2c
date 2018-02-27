@@ -15,6 +15,8 @@ module.exports = function(app) {
 
     app.get('/API/QuestionsPost/ViewPost/:UserId/:PostId', QuestionsPost.ViewPost);
 
+    app.get('/API/QuestionsPost/ViewSharePost/:PostId', QuestionsPost.ViewSharePost);
+
     app.get('/API/QuestionsPost/GetTopicPostList/:UserId/:Limit/:TopicId', QuestionsPost.GetTopicPostList);
 
 };

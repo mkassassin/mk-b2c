@@ -112,8 +112,7 @@ export class FeedsHighlightsComponent implements OnInit {
     if (SharePostText.length > 70 ) {
       SharePostTitle = this.reportPostInfo.PostText.substring(0, 70) + '...';
     }
-    // const ShareUrl = 'http://www.b2c.network/SharedHighlightPost/' + this.reportPostInfo._id;
-    const ShareUrl = 'http://www.b2c.network';
+    const ShareUrl = 'http://www.b2c.network/SharedPost/' + this.reportPostInfo._id + '/t_1';
     const params: UIParams = {
       method: 'share_open_graph',
       action_type: 'og.shares',

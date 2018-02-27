@@ -14,48 +14,64 @@ export interface TopicQuestions { TopicId: String; Other: String; }
 
 export interface SocialLoginRouting { Provider: String; Other: String; }
 
-
+export interface SharePostRouting { PostId: String; PostType: String; }
 
 @Injectable()
 export class DataSharedVarServiceService {
 
-  constructor() { }
 
   StoreSingUpType: SingUpType = { Type: '', Values : '' };
+  StoreReturnUrl: ReturnUrl = { Url : '', Id : '' };
+  StoreActiveSinInsignUpTab: ActiveSinInsignUpTab = { ActiveTab : '', Email : '' };
+  StoreProfilePage: ProfilePage = { UserId : '', Other : '' };
+  StoreNewPassword: NewPassword = { UserId : '', Token : '' };
+  StoreTopicQuestions: TopicQuestions = { TopicId : '', Other : '' };
+  StoreSocialLoginRouting: SocialLoginRouting = { Provider : '', Other : '' };
+  StoreSharePost: SharePostRouting = { PostId : '', PostType : '' };
+
+  constructor() { }
+
   SetSingUpType(Type, Values = null) {this.StoreSingUpType.Type = Type; this.StoreSingUpType.Values = Values; }
   GetSingUpType() { return this.StoreSingUpType; }
 
 
-  StoreReturnUrl: ReturnUrl = { Url : '', Id : '' };
   SetReturnUrl(Url, Id= null) {this.StoreReturnUrl.Url = Url; this.StoreReturnUrl.Id = Id; }
   GetReturnUrl() { return this.StoreReturnUrl; }
 
 
-  StoreActiveSinInsignUpTab: ActiveSinInsignUpTab = { ActiveTab : '', Email : '' };
   SetActiveSinInsignUpTab(str, email= null) {this.StoreActiveSinInsignUpTab.ActiveTab = str; this.StoreActiveSinInsignUpTab.Email = email; }
   GetActiveSinInsignUpTab() { return this.StoreActiveSinInsignUpTab; }
 
 
-  StoreProfilePage: ProfilePage = { UserId : '', Other : '' };
   SetProfilePage(UserId, Other= null) {this.StoreProfilePage.UserId = UserId; this.StoreProfilePage.Other = Other; }
   GetProfilePage() { return this.StoreProfilePage; }
 
 
 
-  StoreNewPassword: NewPassword = { UserId : '', Token : '' };
   SetNewPassword(UserId, Token) {this.StoreNewPassword.UserId = UserId; this.StoreNewPassword.Token = Token; }
   GetNewPassword() { return this.StoreNewPassword; }
 
 
 
-  StoreTopicQuestions: TopicQuestions = { TopicId : '', Other : '' };
   SetTopicQuestions(TopicId, Other= null) {this.StoreTopicQuestions.TopicId = TopicId; this.StoreTopicQuestions.Other = Other; }
   GetTopicQuestions() { return this.StoreTopicQuestions; }
 
-  StoreSocialLoginRouting: SocialLoginRouting = { Provider : '', Other : '' };
+
+
   SetSocialLoginRouting(Provider, Other= null) {
     this.StoreSocialLoginRouting.Provider = Provider; this.StoreSocialLoginRouting.Other = Other;
   }
   GetSocialLoginRouting() { return this.StoreSocialLoginRouting; }
+
+
+
+
+  SetSharePost(PostId, PostType) {
+    this.StoreSharePost.PostId = PostId; this.StoreSharePost.PostType = PostType;
+  }
+  GetSharePost() { return this.StoreSharePost; }
+
+
+
 
 }

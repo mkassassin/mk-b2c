@@ -15,7 +15,7 @@ import { TermsComponent } from './terms/terms.component';
 import { PolicyComponent } from './policy/policy.component';
 import { SetNewpasswordComponent } from './page-routing/set-newpassword/set-newpassword.component';
 import { TopicPageRoutingComponent } from './page-routing/topic-page-routing/topic-page-routing.component';
-
+import { SharePostReturnPageComponent } from './share-post-return-page/share-post-return-page.component';
 
 const appRoutes: Routes = [
     { path: '',
@@ -59,6 +59,12 @@ const appRoutes: Routes = [
             animation: { value: 'privacy', }
         },
         canActivate: [NotAuthGuard]
+    },
+    { path: 'SharedPost/:PostId/:PostType',
+        component: SharePostReturnPageComponent,
+        data: {
+            animation: { value: 'SharedPost', }
+        }
     },
     { path: 'Feeds',
         component: FeedsMainComponent,

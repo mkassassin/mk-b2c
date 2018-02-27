@@ -1,0 +1,166 @@
+<div class="SignInSignUp">
+          <!-- action Tabs  -->
+          <div class="tabStyleSignUpPage">
+              <p-tabView [activeIndex]="ActiveTabIndex" (onChange)="onTabChange($event)">
+          
+                  <p-tabPanel header="Sign Up">
+                      <div class="bg-primary-color">
+                        <form class="mb-0" [formGroup]="RegisterForm" (ngSubmit)="submit()">
+                            <!-- input Name -->
+                            <div class="text-center">
+                              <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.controls.UserName.dirty &&  RegisterForm.value.UserName =='' "> Name Is Required </p>
+                              <p class="error alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameNotAvailabel"> Not Available </p>
+                              <p class="textgreen alertStyle-1 m-0" *ngIf="RegisterForm.value.UserName !='' && UserNameAvailabel"> Available </p>
+                              <input type="text" formControlName="UserName" class="inputStyle-1" (blur)="ChekUserNameAvailabel()" placeholder="Name">
+                            </div>
+                  
+                            <!-- input Email -->
+                            <div class="text-center">
+                              <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserEmail.dirty &&  RegisterForm.value.UserEmail =='' "> E-mail Is Required </p>
+                              <p class="error alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailNotAvailabel">  Not Available </p>
+                              <p class="textgreen alertStyle-1 " *ngIf="RegisterForm.value.UserEmail !='' && UserEmailAvailabel">  Available </p>
+                              <input type="email" formControlName="UserEmail" class="inputStyle-1" (blur)="ChekUserEmailAvailabel()" placeholder="E-mail Address">
+                            </div>
+                  
+                            <!-- input Password -->
+                            <div class="text-center">
+                              <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserPassword.dirty &&  RegisterForm.value.UserPassword =='' "> Password Is Required </p>
+                              <p class="error alertStyle-1" *ngIf="RegisterForm.controls.UserPassword.dirty &&  RegisterForm.value.UserPassword !='' &&  RegisterForm.value.UserPassword.length <= '5' "> Password Length Minimum 6 Characters  </p>
+                              <input type="password" formControlName="UserPassword" class="inputStyle-1" (blur)="checkFormValidation()" placeholder="Password">
+                            </div>
+                  
+                            <!-- Topic Selection -->
+                            <div class="mt-10 mb-30" fxLayout fxLayoutAlign="space-between" style="width:84%;margin-left:8%">
+                              <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Enthusiast'}">
+                                <img (click)="CategorySelect('Enthusiast','01')" src="./../../assets/images/icons/category1.png" alt="">
+                                <span class="catName"> Enthusiast </span>
+                                <!-- <div class="catSelect" *ngIf="SelectedCategory == 'Enthusiast'"><img src="./../../assets/images/tick.png" alt=""></div> -->
+                              </div>
+                              <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Investor'}">
+                                <img (click)="CategorySelect('Investor','02')" src="./../../assets/images/icons/category2.png" alt="">
+                                <span class="catName"> Investor </span>
+                              </div>
+                              <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Expert'}">
+                                <img (click)="CategorySelect('Expert','03')" src="./../../assets/images/icons/category3.png" alt="">
+                                <span class="catName"> Expert </span>
+                              </div>
+                              <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Media'}">
+                                <img (click)="CategorySelect('Media','04')" src="./../../assets/images/icons/category4.png" alt="">
+                                <span class="catName"> Media </span>
+                              </div>
+                              <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Blogger'}">
+                                <img (click)="CategorySelect('Blogger','05')" src="./../../assets/images/icons/category5.png" alt="">
+                                <span class="catName"> Blogger </span>
+                              </div>
+                              <div class="cat-img-item" [ngClass]="{'selected': SelectedCategory == 'Company'}">
+                                <img (click)="CategorySelect('Company','06')" src="./../../assets/images/icons/category6.png" alt="">
+                                <span class="catName"> Company </span>
+                              </div>
+                            </div>
+                  
+                            <div *ngIf="SelectedCategory != ''">
+                                <!-- Input Company And Profession -->
+                                <div class="mt-40 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+                                  <div fxFlex="41%" [ngClass]="{ 'maxwidth-82': SelectedCategory === 'Media' || SelectedCategory === 'Company' }">
+                                    <input type="text" formControlName="UserCompany" class="inputStyle-2" placeholder="Industry (Optional)">
+                                  </div>
+                                  <div *ngIf="SelectedCategory !== 'Media' && SelectedCategory !== 'Company' " fxFlex="41%">
+                                    <input type="text" formControlName="UserProfession" class="inputStyle-2" placeholder="Profession (Optional)">
+                                  </div>
+                                </div>
+                      
+                                <!-- Input Date oF Birth And Gender -->
+                                <div *ngIf="SelectedCategory != 'Company' && SelectedCategory != 'Media'" class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="10px">
+                                  <div fxFlex="27%">
+                                    <input type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="bsConfig" formControlName="UserDateOfBirth" class="inputStyle-2" placeholder="Date Of Birth">
+                                  </div>
+                                  <div fxFlex="55%">
+                                    <div class="gender-select">
+                                      <div class="tick" (click)="genderSelect('Male')" style="cursor:pointer">
+                                        <img class="ml-0" [ngClass]="{ 'p-10': ActiveGender != 'Male' }" src="./../../assets/images/tick.png" alt=""> <p> Male </p> 
+                                      </div>
+                                      <div class="tick " (click)="genderSelect('Female')" style="cursor:pointer">
+                                        <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Female' }" src="./../../assets/images/tick.png" alt=""> <p> Female </p>  
+                                      </div>
+                                      <div class="tick" (click)="genderSelect('Not Specify')" style="cursor:pointer">
+                                        <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Not Specify' }" src="./../../assets/images/tick.png" alt=""> <p> Not Specify  </p> 
+                                      </div>
+                                      <div class="tick" (click)="genderSelect('Others')" style="cursor:pointer">
+                                        <img class="p-10" [ngClass]="{ 'p-10': ActiveGender != 'Others' }" src="./../../assets/images/tick.png" alt=""> <p> Other </p> 
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                      
+                                <!-- Input Country State And City -->
+                                <div class="mt-10 mb-10" fxLayout fxLayoutAlign="center" fxLayoutGap="5px">
+                                  <div fxFlex="28%">
+                                      <p-autoComplete (onSelect)="setCountry($event)" [suggestions]="filteredcountries" (completeMethod)="filterCountries($event)" [field]="'name'" [minLength]="1" placeholder="Country (Optional)" formControlName="UserCountry">
+                                            <ng-template let-filteredcountries pTemplate="item">
+                                                    <div>{{filteredcountries['name']}}</div>
+                                            </ng-template>    
+                                    </p-autoComplete>
+                                  </div>
+                                  <div fxFlex="27%">
+                                      <p-autoComplete (onSelect)="setState($event)" [suggestions]="filteredstates" (completeMethod)="filterStates($event)" [field]="'name'" [minLength]="1" placeholder="State (Optional)" formControlName="UserState">
+                                          <ng-template let-filteredstates pTemplate="item">
+                                                <div> {{filteredstates['name']}} </div>
+                                          </ng-template>
+                                      </p-autoComplete>
+                                  </div>
+                                  <div fxFlex="27%">
+                                      <p-autoComplete (onSelect)="setCity($event)" [suggestions]="filteredcities" (completeMethod)="filtercities($event)" [field]="'name'" [minLength]="1" placeholder="City (Optional)" formControlName="UserCity">
+                                          <ng-template let-filteredcities pTemplate="item">
+                                                <div>{{filteredcities['name']}}</div>
+                                          </ng-template>
+                                      </p-autoComplete>
+                                  </div>
+                                </div>
+                            </div>
+                  
+                            <!--  Submit Button -->
+                            <div class="text-center mt-10 pb-10">
+                                <p class="textStyle-3 mb-5"> <small> By signing up, you agree to the <span routerLink="/terms" style="cursor:pointer;text-decoration: underline;"> terms </span> and <span routerLink="/privacy" style="cursor:pointer; text-decoration: underline;"> privacy policy </span> . </small> </p>
+                              <button [disabled]="!formValid" type="submit" [ngClass]="{'disabled': !formValid}" class="btn-flat btn btn-cutom"> Register </button>
+                            </div>
+
+                        </form>
+                      </div>
+                  </p-tabPanel>
+  
+                  <p-tabPanel header="Sign In">
+                      <div class="bg-primary-color">
+                          <div fxLayout="column" fxLayoutAlign="start" style="height:100%">
+                              <form [formGroup]="SignInForm" (ngSubmit)="LoginFormsubmit()">
+                                <!-- input Email -->
+                              <div class="text-center">
+                                <p class="error alertStyle-1" *ngIf="SignInForm.controls.LoginUserEmail.dirty &&  SignInForm.value.LoginUserEmail =='' "> E-mail Is Required </p>
+                                <input type="email" formControlName="LoginUserEmail" class="inputStyle-1" placeholder="E-mail Address">
+                              </div>
+                    
+                              <!-- input Password -->
+                              <div class="text-center">
+                                <p class="error alertStyle-1" *ngIf="SignInForm.controls.LoginUserPassword.dirty && SignInForm.value.LoginUserPassword =='' "> Password Is Required </p>
+                                <input type="password" formControlName="LoginUserPassword" class="inputStyle-1" placeholder="Password">
+                              </div>
+                
+                              <!--  Submit Button -->
+                              <div class="text-center mt-10 mb-10">
+                                  <button  [disabled]="SignInForm.value.LoginUserEmail =='' || SignInForm.value.LoginUserPassword ==''" type="submit" [ngClass]="{'disabled': SignInForm.value.LoginUserEmail =='' || SignInForm.value.LoginUserPassword =='' }" class="btn-flat btn btn-cutom"> Sign In </button>
+                              </div>
+                
+                              <div class="col-sm-12 text-center">
+                                  <p (click)="ForgotPassword()" class="textStyle-1 text-white" style="cursor:pointer"> Forgot Password !!  </p>
+                              </div>
+                            
+                              </form>
+
+                          </div>
+                      </div>
+                  </p-tabPanel>
+  
+              </p-tabView>
+          </div>
+  
+  </div>
+  

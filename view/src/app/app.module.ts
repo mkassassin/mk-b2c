@@ -56,7 +56,7 @@ export function provideConfig() {
 // live
 // const providers = {
 //   'google': {
-//         'clientId': '1094825930149-ng8c24eb830qmcutfebpb9u47d1f0cq9.apps.googleusercontent.com'
+//         'clientId': '1094825930149-n7ec4je3dtpgrdm0msovsvt2kavfgbfv.apps.googleusercontent.com'
 //       },
 //       'linkedin': {
 //         'clientId': '814ivvgus3ol7y'
@@ -151,6 +151,8 @@ import { TopicRoutingServiceService } from './service/topic-routing-service/topi
 import { CoinFilterPipe } from './Pipes/Coin-filter-pipe';
 import { SelectPeoplesComponent } from './popups/select-peoples/select-peoples.component';
 import { SelectTopicsComponent } from './popups/select-topics/select-topics.component';
+import { SharePostReturnPageComponent } from './share-post-return-page/share-post-return-page.component';
+import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-signup/share-return-singin-signup.component';
 
 
 @NgModule({
@@ -207,7 +209,9 @@ import { SelectTopicsComponent } from './popups/select-topics/select-topics.comp
     TopicPageRoutingComponent,
     CoinFilterPipe,
     SelectPeoplesComponent,
-    SelectTopicsComponent
+    SelectTopicsComponent,
+    SharePostReturnPageComponent,
+    ShareReturnSinginSignupComponent
   ],
   imports: [
     CommonModule,
@@ -285,7 +289,8 @@ import { SelectTopicsComponent } from './popups/select-topics/select-topics.comp
                     EditAnswerComponent,
                     FollowViewAllComponent,
                     SelectPeoplesComponent,
-                    SelectTopicsComponent
+                    SelectTopicsComponent,
+                    ShareReturnSinginSignupComponent
                   ]
 })
 export class AppModule { }

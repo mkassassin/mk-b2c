@@ -42,6 +42,7 @@ export class FeedsHeaderComponent implements OnInit {
   Placeholder: String = 'Loading...';
   selected: String;
   InputLoading: Boolean = true;
+  ViewSharePost;
 
   private user: SocialUser;
 
@@ -54,6 +55,28 @@ export class FeedsHeaderComponent implements OnInit {
     private _componentConnectService: ComponentConnectServiceService) {
 
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+
+        this.ViewSharePost = this.ShareingService.GetSharePost();
+        console.log(this.ViewSharePost);
+        console.log(this.ViewSharePost['PostId']);
+        if (this.ViewSharePost['PostId'] !== '') {
+          if (this.ViewSharePost['PostType'] === 't_1') {
+              const HighlightsPostDialogRef = this.dialog.open(
+                HighlightsPostComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
+                  data: { PostId: this.ViewSharePost['PostId'] } }
+              );
+              HighlightsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
+              this.ShareingService.SetSharePost('', '');
+          }
+          if (this.ViewSharePost['PostType'] === 't_2') {
+              const QuestionsPostDialogRef = this.dialog.open(
+                QuestionsPostComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
+                  data: { PostId: this.ViewSharePost['PostId'] } }
+              );
+              QuestionsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
+              this.ShareingService.SetSharePost('', '');
+          }
+        }
 
           this.NotifyService.GetNotification(this.UserInfo.data._id)
           .subscribe( datas => {

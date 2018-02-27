@@ -13,7 +13,7 @@
       </div>  
     </div>
 
-        <div class="Questions mt-20">
+        <div class="Questions mt-20"  style="max-width:700px">
 
             <div *ngIf="PostsListLoading">
                 <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
@@ -28,7 +28,7 @@
             </div>
           
             <div *ngIf="!PostsListLoading">
-                <div class="postScroll">
+                <div class="postScroll mb-30">
           
                   <!-- Question Post Div -->
                   <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList; let i = index; let j = index">

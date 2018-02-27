@@ -1,0 +1,423 @@
+<div class="feedsMain">
+
+  <div style="height:45px;background-color: #ffffff !important; border-bottom: 3px solid #ffda00;" class="feedsHeader">
+    <div fxLayout="row" fxLayoutGap="2.5%" fxLayoutAlign="center center" >
+        <div fxFlex="19%">
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div  style="cursor:pointer">
+                    <img class="headerLogo" style="margin: 0px; height: 35px;" src="./../../../assets/images/icons/logo.png" alt="">
+                </div>
+                <div style="cursor:pointer">
+                    <img style=" width: 35px;height: 30px;"  class="headerLogo" src="./../../../assets/images/icons/highlights.png" alt="">
+                </div>
+                <div style="cursor:pointer">
+                    <img style=" width: 34px;height: 27px;"  class="headerLogo" src="./../../../assets/images/icons/question.png" alt="">
+              </div>
+            </div>  
+        </div><!-- header left -->
+
+        <div fxFlex="47%">
+            <div style="position:relative">
+                  <span class="SearchOptions" dropdown >
+                      <a>  <i class="material-icons filter">filter_list</i> </a>
+                  </span>
+
+                <input class="SearchStyle" type="text" placeholder="Search All...">
+
+                <span class="searchIncon"> <img class="icon" src="./../../../assets/images/icons/search.png" alt=""> </span>
+            </div>
+        </div><!-- header center -->
+
+        <div fxFlex="19%">
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <div fxFlex="25%" class="text-center">
+                      <img style="cursor:pointer ;height:32px" class="headericon" src="./../../../assets/images/icons/discoverpeople.png" alt="">
+                  </div>
+                <div fxFlex="25%" class="text-center">
+                    <img style="cursor:pointer ;height:32px" class="headericon" src="./../../../assets/images/icons/discovertopic.png" alt="">
+                </div>
+                <div fxFlex="25%" class="text-center"  style="line-height:50px">
+                    <img  class="headericon" style="height:25px;" src="./../../../assets/images/icons/notification.png" alt="">
+                    <span  class="notifyCount"> 0 </span>
+                </div>
+                <div fxFlex="25%" class="text-center" style="line-height:50px">
+                    <img class="headeruserimg" src="./../../../assets/images/users/userImage.png" alt="">
+                </div>
+            </div> 
+        </div><!-- header right -->
+
+    </div>
+</div> <!-- feedsHeader -->
+
+
+
+
+
+<div class="feeds pt-20" style="background-color: #f3f3f3;">
+
+  <div fxLayout="row" fxLayoutGap="2.5%" fxLayoutAlign="center start">
+      <div fxFlex="19%">
+          
+      </div>
+      <div fxFlex="47%" style="background-color:#f3f3f3;margin-top:3px;">
+
+            <div *ngIf="PostType === 't_1'" class="Highlights">
+              <div *ngIf="PostsListLoder">
+                  <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                      <div fxFlex>
+                          <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            
+              <div *ngIf="!PostsListLoder">
+            
+                <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:30px">
+            
+                  <div class="postScroll mb-30">
+                    <!-- Highlights Post div -->
+                    <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 ">
+                      <!-- Highlights Post Info Header div -->
+                      <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                        <div fxFlex>
+                          <div class="leftSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="start center">
+                              <div fxFlex="45px">
+                                <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                              </div>
+                              <div class="mt-5" fxFlex>
+                                  <p class="postusername"> 
+                                    <span style="cursor:pointer"> {{Post.UserName}} </span> 
+                                    <small *ngIf="Post.Shared !== ''" style="color:#888888"> Shared 
+                                      <span  style="cursor:pointer; font-size:12px;color:#333333" > {{Post.ShareUserName}} </span> 
+                                      {{Post.PostType}}
+                                    </small>
+                                  </p>
+                                <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
+                                <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div fxFlex="35%">
+                          <div class="rightSide">
+                            <div class="" fxLayout="row" fxLayoutAlign="end center">
+                              <div class="text-right" fxFill>
+                                <p class="postaction"> 
+                                  <i  class="material-icons">more_horiz</i>
+                                </p>
+                                <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
+                                <p class="posttopic"> {{Post.PostType}} </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Highlights Post Info Header div End -->
+                      <hr style="opacity:0.6; margin:0px 5px 5px 5px">
+                      <!-- Highlights Post -->
+                      <div class="postmain" fxLayout="row">
+                        <div fxFlex class="text-center">
+                          <h5 class="text-left ml-20"> {{Post.PostText}}</h5>
+
+                          <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                            <div *ngIf="Post.PostLinkInfo !== ''" class="row thumpnailbox">
+                              <div class="col-sm-4 thumpnailbox-left">
+                                  <img *ngIf="Post.PostLinkInfo.image !== ''" class="thumpnailbox-img" src="{{Post.PostLinkInfo.image}}" alt="">
+                                  <img *ngIf="Post.PostLinkInfo.image === ''" class="thumpnailbox-img" src="{{OtherImageBaseUrl}}/empty.jpg" alt="">
+                              </div>
+                              <div class="col-sm-8 thumpnailbox-right">
+                                <div class="thumpnailbox-textField">
+                                    <p class="thumpnailbox-header"> {{Post.PostLinkInfo.title}} </p>
+                                    <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description}} </p>
+                                </div>
+                                <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
+                              </div>
+                            </div>
+                          </ng-container>
+            
+                          <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                            <p class="postLink"> <a href="{{Post.PostLink}}" target="blanck"> {{Post.PostLink}} </a> </p> 
+                          </ng-container>
+                          
+                          <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1) ">
+                              <div style="text-align:center;padding:10px;">
+                                  <div class="html5gallery" data-padding="1" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
+                                    <ng-container *ngIf="Post.PostImage[0] !== ''">
+                                      <a *ngFor="let img of Post.PostImage" href="{{ImageBaseUrl}}/{{img.ImageName}}"><img src="{{ImageBaseUrl}}/{{img.ImageName}}"></a>
+                                    </ng-container>  
+                                    <ng-container *ngIf="Post.PostVideo[0] !== ''">
+                                      <a *ngFor="let vid of Post.PostVideo" href="{{VideoBaseUrl}}/{{vid.VideoName}}"><img src="{{OtherImageBaseUrl}}/videoSampleImg.jpg"></a>
+                                    </ng-container>
+                                    <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1">
+                                      <a href="https://www.youtube.com/embed/{{Post.PostLink | slice:-11}}"><img src="https://img.youtube.com/vi/{{Post.PostLink | slice:-11}}/0.jpg"></a>
+                                    </ng-container>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Highlights Post END -->
+                      <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+                      <!-- Highlights Post Share Like And More -->
+                      <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxFlex class="text-left" style="height:25px">
+                          <div class="like">
+                            <img src="./../../../assets/images/icons/like.png" alt="">
+                            <p class="count"> {{Post.LikesCount}}  </p>
+                          </div>
+                        </div>
+                        <div fxFlex class="text-center" style="height:25px">
+                          <div class="chat">
+                            <img src="./../../../assets/images/icons/comment.png" alt="">
+                            <p class="count"> {{Post.commentsCount}} </p>
+                          </div>
+                        </div>
+                        <div fxFlex class="text-right" style="height:25px">
+                          <div class="share">
+                              <img  style="cursor:pointer"  src="./../../../assets/images/icons/share.png" alt="">
+                              <p class="count"> {{Post.ShareCount}} </p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Highlights Post Share Like And More  END-->
+                      <!-- <hr class="m-5 mt-0"> -->
+                      <!-- Highlights Post Share Like And More -->
+                      <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxFlex="50px" class="text-left">
+                          <div class="chatUserImg text-center">
+                            <img src="./../../../assets/images/users/userImage.png" alt=""> </div>
+                        </div>
+                        <div fxFlex class="text-center">
+                          <div class="chatInput">
+                            <input #j type="text" placeholder="Post Your Comment..."> </div>
+                        </div>
+                        <div fxFlex="60px" class="text-right">
+                          <div class="chatsend text-center">
+                            <i class="material-icons">send</i>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Highlights Post Share Like And More  END-->
+                    </div>
+                    <!-- Highlights Post div END -->       
+                  </div>
+                </p-scrollPanel>
+              </div>
+            </div>  
+
+            <div *ngIf="PostType === 't_2'" class="Questions mt-20">
+
+                <div *ngIf="PostsListLoder">
+                    <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                        <div fxFlex>
+                            <div class="preloader-orbit-loading">
+                              <div class="cssload-inner cssload-one"></div>
+                              <div class="cssload-inner cssload-two"></div>
+                              <div class="cssload-inner cssload-three"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div *ngIf="!PostsListLoder">
+                    <div class="postScroll">
+              
+                      <!-- Question Post Div -->
+                      <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList; let i = index; let j = index">
+                          <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                              <div fxFlex>
+                                <div class="leftSide">
+                                  <div class="" fxLayout="row" fxLayoutAlign="start center">
+                                    <div fxFlex="45px">
+                                      <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                                    </div>
+                                    <div class="mt-5" fxFlex>
+                                      <p class="postusername"> 
+                                        <span style="cursor:pointer"> {{Post.UserName}} </span> 
+                                        <small *ngIf="Post.Shared !== ''" style="color:#888888"> Shared 
+                                          <span style="cursor:pointer; font-size:12px;color:#333333"> {{Post.ShareUserName}} </span> 
+                                            Question in  {{Post.PostTopicName}}
+                                        </small>
+                                      </p>
+                                      <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
+                                      <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div fxFlex="35%">
+                                <div class="rightSide">
+                                  <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                    <div class="text-right" fxFill>
+                                      <p  class="postaction"> 
+                                        <i class="material-icons">more_horiz</i>
+                                      </p>
+                                      <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
+                                      <p class="posttopic"> {{Post.PostTopicName}} </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Question Post Info Header Div End -->
+                            <hr style="opacity:0.6; margin:0px 5px 5px 5px">
+                            <!-- Question Post -->
+                            <div class="postmain" fxLayout="row">
+                              <div fxFlex class="text-left">
+                                <h5 class="postquestion"> {{Post.PostText}} </h5>
+    
+                                <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                                  <div *ngIf="Post.PostLinkInfo !== ''" class="row thumpnailbox">
+                                    <div class="col-sm-4 thumpnailbox-left">
+                                        <img *ngIf="Post.PostLinkInfo.image !== ''" class="thumpnailbox-img" src="{{Post.PostLinkInfo.image}}" alt="">
+                                        <img *ngIf="Post.PostLinkInfo.image === ''" class="thumpnailbox-img" src="{{OtherImageBaseUrl}}/empty.jpg" alt="">
+                                    </div>
+                                    <div class="col-sm-8 thumpnailbox-right">
+                                      <div class="thumpnailbox-textField">
+                                          <p class="thumpnailbox-header"> {{Post.PostLinkInfo.title}} </p>
+                                          <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description}} </p>
+                                      </div>
+                                      <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
+                                    </div>
+                                  </div>
+                                </ng-container>
+                  
+                                <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                                  <p class="postLink"> <a href="{{Post.PostLink}}" target="blanck"> {{Post.PostLink}} </a> </p> 
+                                </ng-container>
+    
+                                
+                                <div *ngIf=" ( Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' )  &&  Post.PostImage?.length > 0 || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1 )">
+                                    <div style="text-align:center;padding:10px;">
+                                        <div class="html5gallery" data-padding="1" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
+                                          <ng-container *ngIf="Post.PostImage[0] !== '' &&  Post.PostImage?.length > 0 ">
+                                            <a *ngFor="let img of Post.PostImage" href="{{ImageBaseUrl}}/{{img.ImageName}}"><img src="{{ImageBaseUrl}}/{{img.ImageName}}"></a>
+                                          </ng-container>  
+                                          <ng-container *ngIf="Post.PostVideo[0] !== ''">
+                                            <a *ngFor="let vid of Post.PostVideo" href="{{VideoBaseUrl}}/{{vid.VideoName}}"><img src="{{OtherImageBaseUrl}}/videoSampleImg.jpg"></a>
+                                          </ng-container>
+                                          <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1">
+                                            <a href="https://www.youtube.com/embed/{{Post.PostLink | slice:-11}}"><img src="https://img.youtube.com/vi/{{Post.PostLink | slice:-11}}/0.jpg"></a>
+                                          </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                  
+                                <div *ngFor="let Answer of Post.Answers; let k=index" class="postAnswer">
+                                  <div class="PostAnsHeader" fxLayout="row" fxLayoutAlign="space-between">
+                                    <div fxFlex>
+                                      <div class="leftSide">
+                                        <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
+                                          <div fxFlex="45px">
+                                            <img class="postansuserImg" src="{{UserImageBaseUrl}}/{{Answer.UserImage}}" alt="">
+                                          </div>
+                                          <div fxFlex>
+                                            <p class="postansusername" style="cursor:pointer">{{Answer.UserName}} </p>
+                                            <p class="postansfollowes"> {{Answer.Followers}} followers </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div fxFlex="35%">
+                                      <div class="rightSide">
+                                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                                          <div fxFlex>
+                                          </div>
+                                          <div class="text-right mr-5" fxFlex="150px">
+                                            <p class="postansaction"> 
+                                              <i class="material-icons">more_horiz</i>
+                                            </p>
+                                            <p class="postansdate"> {{Answer.Date | timeAgo}} </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <hr class="m-0" style="margin-bottom:2px !important; opacity:0.8">
+                                  <div class="postAns" fxLayout="row" fxLayoutAlign="start">
+                                    <div fxFlex>
+                                      <p class="postAnsText"> {{Answer.AnswerText}}.</p>
+                                    </div>
+                                  </div>
+                                  <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+                                  <!-- Question Post Share Like And More -->
+                                  <div class="postLikesLevel2" fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div fxFlex="40%" class="text-left" style="height:20px">
+                                      <div class="like">
+                                        <ngl-rating style="max-width:80px;" [isReadonly]="true" [(rate)]="Answer.RatingCount" [size]="x-small" class="rating" >
+                                            <ng-template nglRatingIcon let-active>
+                                              <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                                            </ng-template>
+                                        </ngl-rating>
+                                        <p class="count"> {{Answer.RatingCount | number:'1.0-2'}}  </p>
+                                      </div>
+                                    </div>
+                                    <div fxFlex="30%" class="text-center" style="height:20px">
+                                    </div>
+                                    <div fxFlex="30%" class="text-right" style="height:20px">
+                                    </div>
+                                  </div>
+                                </div>
+                  
+                  
+                                <div *ngIf="Post.AnswersCount > 2" class="text-right">
+                                  <p class="viewAll"> <span style="cursor:pointer" > View All... </span></p>
+                                </div>
+
+                              </div>
+                  
+                            </div>
+                  
+                            <!-- Question Post END -->
+                            <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+                            <!-- Question Post Share Like And More -->
+                            <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+                              <div fxFlex="40%" class="text-left" style="height:25px">
+                                <div class="like">
+                                  <ngl-rating style="max-width:100px;" [isReadonly]="true" [(rate)]="Post.RatingCount" [size]="x-small" class="rating" >
+                                      <ng-template nglRatingIcon let-active>
+                                        <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                                      </ng-template>
+                                  </ngl-rating>
+
+                                  <p class="count"> {{Post.RatingCount | number:'1.0-2'}}  </p>
+                                </div>
+                              </div>
+                              <div fxFlex="30%" class="text-center" style="height:25px">
+                                <div class="chat">
+                                  <div class="write" [ngClass]="{'answerd': Post.UserAnswered}">
+                                    <i class="material-icons">edit</i>
+                                    <p>Write</p>
+                                  </div>
+                                  <p class="count"> {{Post.AnswersCount}} </p>
+                                  <p class="answer"> Answer<span *ngIf="Post.AnswersCount > 1">s</span> </p>
+                                </div>
+                              </div>
+                              <div fxFlex="30%" class="text-right" style="height:25px">
+                                <div class="share">
+                                    <img style="cursor:pointer" src="./../../../assets/images/icons/share.png" alt="">
+                                    <p class="count"> {{Post.ShareCount}} </p>
+                                  </div>
+                              </div>
+                            </div>
+                      </div>
+                      <!-- Question Post Div END -->
+              
+                    </div>
+                </div>
+            </div>
+
+      </div>
+      <div fxFlex="19%" style="background-color:#ffffff; box-shadow:#66666678 0px 1px 8px 0px">
+          
+      </div>
+  </div>
+
+</div>
+
+</div>

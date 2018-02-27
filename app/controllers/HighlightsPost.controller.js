@@ -470,7 +470,7 @@ exports.GetPostList = function(req, res) {
                                 res.send({status:"False", Error:inerr });
                                 reject(inerr);
                             } else {
-                                FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                FollowModel.FollowUserType.count({'FollowingUserId': info.UserId }, function(newerr, count) {
                                     if(newerr){
                                         res.send({status:"False", Error:newerr });
                                         reject(newerr);
@@ -480,7 +480,7 @@ exports.GetPostList = function(req, res) {
                                                 res.send({status:"False", Error:NewErr });
                                                 reject(err);
                                             }else{
-                                                LikeAndRating.HighlightsLike.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': UserData._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                LikeAndRating.HighlightsLike.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
                                                     if(someerr){
                                                         res.send({status:"False", Error:someerr });
                                                         reject(err);
@@ -593,14 +593,12 @@ exports.GetPostList = function(req, res) {
 
 
 
-
-
 exports.ViewPost = function(req, res) {
     HighlightsPostModel.HighlightsPostType.findOne({'_id': req.params.PostId},  function(err, result) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
         } else {
-            UserModel.UserType.findOne({'_id': req.params.UserId }, usersProjection, function(err, UserData) {
+            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
                 if(err) {
                     res.send({status:"False", Error:err });
                 } else {
@@ -697,6 +695,82 @@ exports.ViewPost = function(req, res) {
                                                 }
                                             });
 
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+                    });
+                }
+            });
+        }
+    });
+                    
+};
+
+
+
+exports.ViewSharePost = function(req, res) {
+    HighlightsPostModel.HighlightsPostType.findOne({'_id': req.params.PostId},  function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+        } else {
+            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                if(err) {
+                    res.send({status:"False", Error:err });
+                } else {
+                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                        if(newerr){
+                        }else{
+                            LikeAndRating.HighlightsLike.count({'PostId': result._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                if(NewErr){
+                                    res.send({status:"False", Error:NewErr });
+                                }else{
+                                    CommentModel.HighlightsComment.count({'PostId': result._id , 'ActiveStates':'Active' }, function(commentErr, commentCount) {
+                                        if(commentErr){
+                                            res.send({status:"False", Error:commentErr });
+                                        }else{
+                                            SharePosts.SharePost.count({'PostType': 'Highlights', PostId: result._id }, function(Shareerr, Sharecount) {
+                                                if(Shareerr){
+                                                    res.send({status:"False", Error:Shareerr });
+                                                    reject(Shareerr);
+                                                }else{
+                                                    var newArray = [];
+                                                    newArray.push( {
+                                                                UserId: UserData._id,
+                                                                UserName: UserData.UserName,
+                                                                UserCategoryId: UserData.UserCategoryId,
+                                                                UserCategoryName: UserData.UserCategoryName,
+                                                                UserImage: UserData.UserImage,
+                                                                UserCompany: UserData.UserCompany,
+                                                                UserProfession: UserData.UserProfession,
+                                                                UserCommented: false,
+                                                                Followers:count,
+                                                                _id: result._id,
+                                                                PostType: result.PostType,
+                                                                PostDate: result.PostDate,
+                                                                PostText: result.PostText ,
+                                                                PostLink: result.PostLink,
+                                                                PostLinkInfo: result.PostLinkInfo || '',
+                                                                PostImage: result.PostImage,
+                                                                PostVideo: result.PostVideo,
+                                                                Shared: result.Shared || '',
+                                                                ShareUserName: result.ShareUserName || '',
+                                                                ShareUserId: result.ShareUserId || '',
+                                                                SharePostId: result.SharePostId || '',
+                                                                LikesCount: NewCount,
+                                                                UserLiked: false,
+                                                                UserLikeId: '',
+                                                                ShareCount: Sharecount,
+                                                                UserShared: false,
+                                                                comments: [],
+                                                                commentsCount : commentCount
+                                                            }
+                                                    );
+                                                    res.send({status:"True", data: newArray });
+                                                }
+                                            });
                                         }
                                     });
                                 }
