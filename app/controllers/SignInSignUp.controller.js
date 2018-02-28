@@ -6,7 +6,9 @@ var LikeAndRating = require('../models/LikeAndRating.model.js');
 var nodemailer = require('nodemailer');
 
 var smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
         user: "b2cnetworkapp@gmail.com",
         pass: "cryptoamillion"

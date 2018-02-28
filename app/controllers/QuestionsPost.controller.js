@@ -490,6 +490,7 @@ exports.GetPostList = function (req, res) {
                     var AnswersArray= new Array();
                     var RatingCal = 0 ;
 
+                    if (UserData !== null ) {
                    return GetAnsUserData();
                     async function GetAnsUserData(){
                         for (let ansInfo of Answerdata) {
@@ -552,6 +553,7 @@ exports.GetPostList = function (req, res) {
                             }
                       }
                       
+                    }
 
                       function getRatingInfo(rateInfo){
                         return new Promise(( resolve, reject )=>{
@@ -1245,7 +1247,7 @@ exports.GetTopicPostList = function (req, res) {
 
                     var AnswersArray= new Array();
                     var RatingCal = 0 ;
-
+                    if (UserData !== null ) {
                    return GetAnsUserData();
                     async function GetAnsUserData(){
                         for (let ansInfo of Answerdata) {
@@ -1305,7 +1307,7 @@ exports.GetTopicPostList = function (req, res) {
                                 return result;
                             }
                       }
-                      
+                    }
 
                       function getRatingInfo(rateInfo){
                         return new Promise(( resolve, reject )=>{

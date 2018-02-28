@@ -464,121 +464,125 @@ exports.GetPostList = function(req, res) {
                   }
                   
                   function getUserInfo(info){
-                    return new Promise(( resolve, reject )=>{
+                    return new Promise(( resolve, reject ) => {
                         UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(inerr, UserData) {
                             if(inerr) {
                                 res.send({status:"False", Error:inerr });
                                 reject(inerr);
                             } else {
-                                FollowModel.FollowUserType.count({'FollowingUserId': info.UserId }, function(newerr, count) {
-                                    if(newerr){
-                                        res.send({status:"False", Error:newerr });
-                                        reject(newerr);
-                                    }else{
-                                        LikeAndRating.HighlightsLike.count({'PostId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
-                                            if(NewErr){
-                                                res.send({status:"False", Error:NewErr });
-                                                reject(err);
-                                            }else{
-                                                LikeAndRating.HighlightsLike.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
-                                                    if(someerr){
-                                                        res.send({status:"False", Error:someerr });
-                                                        reject(err);
-                                                    }else{
-                                                        var UserLiked = false;
-                                                        var UserLikedId = '';
-                                                        if(newResult.length > 0){
-                                                                UserLiked = true;
-                                                                UserLikedId = newResult[0]._id;
+                                if (UserData !== null ) {
+                                    FollowModel.FollowUserType.count({'FollowingUserId': info.UserId }, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"False", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            LikeAndRating.HighlightsLike.count({'PostId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                if(NewErr){
+                                                    res.send({status:"False", Error:NewErr });
+                                                    reject(err);
+                                                }else{
+                                                    LikeAndRating.HighlightsLike.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                        if(someerr){
+                                                            res.send({status:"False", Error:someerr });
+                                                            reject(err);
                                                         }else{
-                                                                UserLiked = false;
-                                                                UserLikedId = '';
-                                                        }
-
-                                                        CommentModel.HighlightsComment.count({'PostId': info._id , 'ActiveStates':'Active' }, function(commentErr, commentCount) {
-                                                            if(commentErr){
-                                                                res.send({status:"False", Error:commentErr });
-                                                                reject(err);
-                                                            }else{ 
-
-                                                                CommentModel.HighlightsComment.find({'UserId':req.params.UserId, 'PostId': info._id, 'ActiveStates':'Active'}, function(nowerr, CommantData) {
-                                                                    if(nowerr){
-                                                                        res.send({status:"False", Error:nowerr });
-                                                                        reject(nowerr);
-                                                                    }else{
-                                                                        var alreadyCommentuser = true;
-                                                                        if(CommantData.length <= 0 ){
-                                                                            alreadyCommentuser = false;
-                                                                        }else{
-                                                                            alreadyCommentuser = true;
-                                                                        }                                       
-                                                                        SharePosts.SharePost.count({'PostType': 'Highlights', PostId: info._id }, function(Shareerr, Sharecount) {
-                                                                            if(Shareerr){
-                                                                                res.send({status:"False", Error:Shareerr });
-                                                                                reject(Shareerr);
-                                                                            }else{
-                                                                                SharePosts.SharePost.find({'PostType': 'Highlights', PostId: info._id, UserId: req.params.UserId }, function(Sharederr, Sharedcount) {
-                                                                                    if(Sharederr){
-                                                                                        res.send({status:"False", Error:Sharederr });
-                                                                                        reject(Sharederr);
-                                                                                    }else{
-                                                                                        var alreadyShared = true;
-                                                                                            if(Sharedcount.length <= 0 ){
-                                                                                                alreadyShared = false;
-                                                                                            }else{
-                                                                                                alreadyShared = true;
-                                                                                            } 
-
-                                                                                        var newArray = [];
-                                                                                        newArray.push( {
-                                                                                                        UserId: UserData._id,
-                                                                                                        UserName: UserData.UserName,
-                                                                                                        UserCategoryId: UserData.UserCategoryId,
-                                                                                                        UserCategoryName: UserData.UserCategoryName,
-                                                                                                        UserImage: UserData.UserImage,
-                                                                                                        UserCompany: UserData.UserCompany,
-                                                                                                        UserProfession: UserData.UserProfession,
-                                                                                                        Followers:count,
-                                                                                                        UserCommented: alreadyCommentuser,
-                                                                                                        _id: info._id,
-                                                                                                        PostType: info.PostType,
-                                                                                                        PostDate: info.PostDate,
-                                                                                                        PostText: info.PostText ,
-                                                                                                        PostLink: info.PostLink,
-                                                                                                        PostLinkInfo: info.PostLinkInfo || '',
-                                                                                                        PostImage: info.PostImage,
-                                                                                                        PostVideo: info.PostVideo,
-                                                                                                        Shared: info.Shared || '',
-                                                                                                        ShareUserName: info.ShareUserName || '',
-                                                                                                        ShareUserId: info.ShareUserId || '',
-                                                                                                        SharePostId: info.SharePostId || '',
-                                                                                                        LikesCount: NewCount,
-                                                                                                        UserLiked: UserLiked,
-                                                                                                        UserLikeId: UserLikedId,
-                                                                                                        ShareCount: Sharecount,
-                                                                                                        UserShared: alreadyShared,
-                                                                                                        comments: [],
-                                                                                                        commentsCount : commentCount
-                                                                                                    }
-                                                                                        );
-                                                                                        PostsArray.push(newArray[0]);
-                                                                                        resolve(UserData);
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                });
-
+                                                            var UserLiked = false;
+                                                            var UserLikedId = '';
+                                                            if(newResult.length > 0){
+                                                                    UserLiked = true;
+                                                                    UserLikedId = newResult[0]._id;
+                                                            }else{
+                                                                    UserLiked = false;
+                                                                    UserLikedId = '';
                                                             }
-                                                        });
-                                                    }
-                                                });
 
-                                            }
-                                        });
-                                    }
-                                });
+                                                            CommentModel.HighlightsComment.count({'PostId': info._id , 'ActiveStates':'Active' }, function(commentErr, commentCount) {
+                                                                if(commentErr){
+                                                                    res.send({status:"False", Error:commentErr });
+                                                                    reject(err);
+                                                                }else{ 
+
+                                                                    CommentModel.HighlightsComment.find({'UserId':req.params.UserId, 'PostId': info._id, 'ActiveStates':'Active'}, function(nowerr, CommantData) {
+                                                                        if(nowerr){
+                                                                            res.send({status:"False", Error:nowerr });
+                                                                            reject(nowerr);
+                                                                        }else{
+                                                                            var alreadyCommentuser = true;
+                                                                            if(CommantData.length <= 0 ){
+                                                                                alreadyCommentuser = false;
+                                                                            }else{
+                                                                                alreadyCommentuser = true;
+                                                                            }                                       
+                                                                            SharePosts.SharePost.count({'PostType': 'Highlights', PostId: info._id }, function(Shareerr, Sharecount) {
+                                                                                if(Shareerr){
+                                                                                    res.send({status:"False", Error:Shareerr });
+                                                                                    reject(Shareerr);
+                                                                                }else{
+                                                                                    SharePosts.SharePost.find({'PostType': 'Highlights', PostId: info._id, UserId: req.params.UserId }, function(Sharederr, Sharedcount) {
+                                                                                        if(Sharederr){
+                                                                                            res.send({status:"False", Error:Sharederr });
+                                                                                            reject(Sharederr);
+                                                                                        }else{
+                                                                                            var alreadyShared = true;
+                                                                                                if(Sharedcount.length <= 0 ){
+                                                                                                    alreadyShared = false;
+                                                                                                }else{
+                                                                                                    alreadyShared = true;
+                                                                                                } 
+
+                                                                                            var newArray = [];
+                                                                                            newArray.push( {
+                                                                                                            UserId: req.params.UserId,
+                                                                                                            UserName: UserData.UserName,
+                                                                                                            UserCategoryId: UserData.UserCategoryId,
+                                                                                                            UserCategoryName: UserData.UserCategoryName,
+                                                                                                            UserImage: UserData.UserImage,
+                                                                                                            UserCompany: UserData.UserCompany,
+                                                                                                            UserProfession: UserData.UserProfession,
+                                                                                                            Followers:count,
+                                                                                                            UserCommented: alreadyCommentuser,
+                                                                                                            _id: info._id,
+                                                                                                            PostType: info.PostType,
+                                                                                                            PostDate: info.PostDate,
+                                                                                                            PostText: info.PostText ,
+                                                                                                            PostLink: info.PostLink,
+                                                                                                            PostLinkInfo: info.PostLinkInfo || '',
+                                                                                                            PostImage: info.PostImage,
+                                                                                                            PostVideo: info.PostVideo,
+                                                                                                            Shared: info.Shared || '',
+                                                                                                            ShareUserName: info.ShareUserName || '',
+                                                                                                            ShareUserId: info.ShareUserId || '',
+                                                                                                            SharePostId: info.SharePostId || '',
+                                                                                                            LikesCount: NewCount,
+                                                                                                            UserLiked: UserLiked,
+                                                                                                            UserLikeId: UserLikedId,
+                                                                                                            ShareCount: Sharecount,
+                                                                                                            UserShared: alreadyShared,
+                                                                                                            comments: [],
+                                                                                                            commentsCount : commentCount
+                                                                                                        }
+                                                                                            );
+                                                                                            PostsArray.push(newArray[0]);
+                                                                                            resolve(UserData);
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+
+                                                }
+                                            });
+                                        }
+                                    });
+                                } else { 
+                                    resolve(info);
+                                }
                             }
                         });
                     });
