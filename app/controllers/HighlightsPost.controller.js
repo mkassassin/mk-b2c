@@ -532,7 +532,7 @@ exports.GetPostList = function(req, res) {
 
                                                                                             var newArray = [];
                                                                                             newArray.push( {
-                                                                                                            UserId: req.params.UserId,
+                                                                                                            UserId: UserData._id,
                                                                                                             UserName: UserData.UserName,
                                                                                                             UserCategoryId: UserData.UserCategoryId,
                                                                                                             UserCategoryName: UserData.UserCategoryName,
