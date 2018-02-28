@@ -310,7 +310,7 @@ export class FeedsQuestionsComponent implements OnInit {
 
   OpenModelQuestion() {
     const PostTwoDialogRef = this.dialog.open(PostTwoComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Create Form' } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { Header: 'Questions Post Two Form', type: 'Create Form' } });
     PostTwoDialogRef.afterClosed().subscribe(result => this.postSubmit(result));
   }
 
@@ -491,7 +491,7 @@ export class FeedsQuestionsComponent implements OnInit {
                         'ReportUserId':  this.reportUserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -502,7 +502,7 @@ export class FeedsQuestionsComponent implements OnInit {
                         'PostUserId':  this.reportPostInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -514,7 +514,7 @@ export class FeedsQuestionsComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportAnswerInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},
       data: { exactType: 'Answer', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -600,7 +600,7 @@ export class FeedsQuestionsComponent implements OnInit {
 
   EditPost() {
     const EditPostDialogRef = this.dialog.open( EditPostTwoComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
       EditPostDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList.findIndex(x => x._id === result._id);
@@ -621,7 +621,7 @@ export class FeedsQuestionsComponent implements OnInit {
 
   EditAnswer() {
     const EditCommentDialogRef = this.dialog.open( EditAnswerComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'}, data: { data: this.reportAnswerInfo } });
       EditCommentDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const Postindex = this.PostsList.findIndex(x => x._id === this.reportPostInfo._id);

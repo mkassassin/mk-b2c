@@ -376,7 +376,7 @@ export class HighlightsPostComponent implements OnInit {
                         'ReportUserId':  this.reportUserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -387,7 +387,7 @@ export class HighlightsPostComponent implements OnInit {
                         'PostUserId':  this.reportPostInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true,minWidth: '700px', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
+      {disableClose: true,maxWidth: '99%', position: {top: '50px'},  data: { type: 'Post', values: ReportPost } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -399,7 +399,7 @@ export class HighlightsPostComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportCommentInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},
       data: { exactType: 'Comment', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -475,7 +475,7 @@ export class HighlightsPostComponent implements OnInit {
 
   EditPost() {
     const EditPostDialogRef = this.dialog.open( EditPostOneComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportPostInfo } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'}, data: { data: this.reportPostInfo } });
       EditPostDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList.findIndex(x => x._id === result._id);
@@ -493,7 +493,7 @@ export class HighlightsPostComponent implements OnInit {
 
   EditComment() {
     const EditCommentDialogRef = this.dialog.open( EditCommentComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: { data: this.reportCommentInfo } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'}, data: { data: this.reportCommentInfo } });
       EditCommentDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.PostsList[this.ActiveComment].comments.findIndex(x => x._id === result._id);

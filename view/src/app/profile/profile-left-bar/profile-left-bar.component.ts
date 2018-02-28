@@ -158,7 +158,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   AllFollowingTopics() {
     const DiscoverDialogRef = this.dialog.open(
-      FollowViewAllComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
+      FollowViewAllComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
       data: { Header: 'Following Topics', Userid: this.UserInfo['data']._id, type: 'FollowingTopics'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
@@ -171,7 +171,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   AllFollowingUsers() {
     const DiscoverDialogRef = this.dialog.open(
-      FollowViewAllComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
+      FollowViewAllComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
       data: { Header: 'Following People', Userid: this.UserInfo['data']._id, type: 'FollowingUsers'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {
@@ -186,7 +186,7 @@ export class ProfileLeftBarComponent implements OnInit {
 
   AllUserFollowingUsers() {
     const DiscoverDialogRef = this.dialog.open(
-      FollowViewAllComponent, {disableClose: true, minWidth: '700px', position: {top: '50px'},
+      FollowViewAllComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
       data: { Header: 'Followed By', Userid: this.UserInfo['data']._id, type: 'UserFollowingUsers'} }
     );
     DiscoverDialogRef.afterClosed().subscribe(result => {

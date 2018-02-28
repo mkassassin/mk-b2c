@@ -301,12 +301,12 @@ export class SigninSignupComponent implements OnInit {
         });
 
         const SelectPeopleDialogRef = this.dialog.open( SelectPeoplesComponent,
-          { disableClose: true, minWidth: '700px', position: {top: '50px'},
+          { disableClose: true, maxWidth: '99%', position: {top: '50px'},
             data: { Header: 'Select Peoples', ActiveCategory: datas['data'].UserCategoryId  } });
         SelectPeopleDialogRef.afterClosed().subscribe(next => {
 
             const SelectTopicDialogRef = this.dialog.open( SelectTopicsComponent,
-              { disableClose: true, minWidth: '700px', position: {top: '50px'},
+              { disableClose: true, maxWidth: '99%', position: {top: '50px'},
                 data: { Header: 'Select Topics'  } });
                 SelectTopicDialogRef.afterClosed().subscribe(final => {
 

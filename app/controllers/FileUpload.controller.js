@@ -27,27 +27,27 @@ var ImageStore = multer.diskStorage({
         cb(null, './uploads/images');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        cb(null, Date.now());
     }
-})
+});
 
 var VideoStore = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null, './uploads/videos');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        cb(null, Date.now());
     }
-})
+});
 
 var UserStore = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null, './uploads/users');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        cb(null, Date.now());
     }
-})
+});
 
 
 var TopicsStore = multer.diskStorage({
@@ -55,9 +55,9 @@ var TopicsStore = multer.diskStorage({
         cb(null, './uploads/topics');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        cb(null, Date.now());
     }
-})
+});
 
 
 
@@ -99,7 +99,7 @@ exports.UploadImageFile = function(req, res) {
                 }
             });
         }
-    })
+    });
 };
 
 
@@ -132,7 +132,7 @@ exports.UploadVideoFile = function(req, res) {
                 }
             });
         }
-    })
+    });
 };
 
 

@@ -211,7 +211,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   OpenModel() {
     const PostThreeDialogRef = this.dialog.open(PostThreeComponent, {
-      disableClose: true, minWidth: '700px', position: {top: '50px'},
+      disableClose: true, maxWidth: '99%', position: {top: '50px'},
        data: { type: 'Add', CoinCode : this.ActiveCoinSymbol } });
     PostThreeDialogRef.afterClosed().subscribe(result => this.GoToAnalize(result));
   }
@@ -307,7 +307,7 @@ export class FeedsTrendsComponent implements OnInit {
                         'ReportUserId':  this.reportUserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportUserComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { type: 'User', values: ReportUser  } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
 
@@ -320,7 +320,7 @@ export class FeedsTrendsComponent implements OnInit {
                         'SecondLevelPostUserId': this.reportImpressionInfo.UserId
                       };
     const ReportUserDialogRef = this.dialog.open( ReportPostComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'},
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'},
       data: { exactType: 'Opinion', type: 'SecondLevelPost', values: ReportComment } });
       ReportUserDialogRef.afterClosed().subscribe(result => console.log(result));
   }
@@ -360,7 +360,7 @@ export class FeedsTrendsComponent implements OnInit {
 
   EditImpression() {
     const EditDialogRef = this.dialog.open( PostThreeComponent,
-      {disableClose: true, minWidth: '700px', position: {top: '50px'}, data: {type: 'Edit', data: this.reportImpressionInfo } });
+      {disableClose: true, maxWidth: '99%', position: {top: '50px'}, data: {type: 'Edit', data: this.reportImpressionInfo } });
       EditDialogRef.afterClosed().subscribe( result => {
         if ( result !== 'Close') {
           const index = this.ListOfImpressions.findIndex(x => x['_id'] === this.reportImpressionInfo._id);
