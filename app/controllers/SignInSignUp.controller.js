@@ -268,7 +268,7 @@ exports.UserValidate = function(req, res) {
                     }
                 });
             }else{
-                FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
+                FollowModel.FollowUserType.count({'FollowingUserId': data._id}, function(newerr, count) {
                     if(newerr){
                         res.send({status:"False", Error:newerr });
                     }else{

@@ -27,7 +27,7 @@ var ImageStore = multer.diskStorage({
         cb(null, './uploads/images');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now());
+        cb(null, Date.now() +"-"+ file.originalname);
     }
 });
 
@@ -36,7 +36,7 @@ var VideoStore = multer.diskStorage({
         cb(null, './uploads/videos');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now());
+        cb(null, Date.now() +"-"+ file.originalname);
     }
 });
 
@@ -45,7 +45,7 @@ var UserStore = multer.diskStorage({
         cb(null, './uploads/users');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now());
+        cb(null, Date.now() +"-"+ file.originalname);
     }
 });
 
@@ -55,7 +55,7 @@ var TopicsStore = multer.diskStorage({
         cb(null, './uploads/topics');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now());
+        cb(null, Date.now() +"-"+ file.originalname);
     }
 });
 
