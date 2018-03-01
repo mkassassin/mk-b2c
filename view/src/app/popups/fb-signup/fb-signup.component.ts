@@ -56,7 +56,7 @@ export class FbSignupComponent implements OnInit {
     private Service: SigninSignupServiceService,
     private dialogRef: MatDialogRef<FbSignupComponent>,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
      }
 
@@ -117,7 +117,7 @@ export class FbSignupComponent implements OnInit {
   }
 
 
-  CategorySelect(name: String, id: Number) {
+  CategorySelect(name: String, id: any) {
     this.RegisterForm.controls['UserGender'].setValue('Male');
     if (this.SelectedCategory === name) {
       this.SelectedCategory = '';

@@ -29,6 +29,7 @@ export class FeedsTrendsComponent implements OnInit {
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
 
+  CoinSearch: any;
   scrollHeight;
   impresionsHeight;
   screenHeight: number;
@@ -44,8 +45,10 @@ export class FeedsTrendsComponent implements OnInit {
   ListOfImpressions: Array<object> = new Array();
   ImpressionsListLoader: Boolean = true;
   ChartLoader: Boolean = true;
-  Info: any[] = [];
-  Prediction: any[] = [];
+  Info;
+  Prediction;
+  PredictionEmpty: Boolean = true;
+  InfoEmpty: Boolean = true;
 
   lineChartData: Array<any> = [];
   lineChartLabels: Array<any> = [];
@@ -96,6 +99,7 @@ export class FeedsTrendsComponent implements OnInit {
             .subscribe( priceInfo => {
                 if (priceInfo['status'] === 'True') {
                   this.Info = priceInfo['data'][this.ActiveCoinSymbol]['USD'];
+                  this.InfoEmpty =false;
                 }else {
                   console.log(priceInfo);
                 }
@@ -116,6 +120,7 @@ export class FeedsTrendsComponent implements OnInit {
               .subscribe( data => {
                   if (data['status'] === 'True') {
                     this.Prediction = data['data'];
+                    this.PredictionEmpty = false;
                   }else {
                     console.log(data);
                   }
@@ -165,6 +170,7 @@ export class FeedsTrendsComponent implements OnInit {
         .subscribe( priceInfo => {
             if (priceInfo['status'] === 'True') {
               this.Info = priceInfo['data'][this.ActiveCoinSymbol]['USD'];
+              this.InfoEmpty = false;
             }else {
               console.log(priceInfo);
             }
@@ -189,6 +195,7 @@ export class FeedsTrendsComponent implements OnInit {
           .subscribe( data => {
               if (data['status'] === 'True') {
                 this.Prediction = data['data'];
+                this.PredictionEmpty = false;
                 console.log(data);
               }else {
                 console.log(data);
@@ -264,6 +271,7 @@ export class FeedsTrendsComponent implements OnInit {
               .subscribe( newdata => {
                   if (newdata['status'] === 'True') {
                     this.Prediction = newdata['data'];
+                    this.PredictionEmpty = false;
                   }else {
                     console.log(newdata);
                   }

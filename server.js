@@ -26,27 +26,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(cors({
-    origin: 'http://localhost:4200'
-}));
+app.use(cors());
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
-
-app.use('/static', express.static('uploads'))
-
-// app.use(express.static(__dirname + '/view/dist/'));
-
-
-// app.get('/', (req, res) => {
-//     res.send(path.join(__dirname + '/view/dist/index.html'));
-// });
-
-app.get('/', function(req, res){
-    res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
-});
 
 require('./app/routes/Search.routes.js')(app);
 
@@ -72,6 +57,18 @@ require('./app/routes/profile.routes.js')(app);
 
 require('./app/routes/ReportAndDelete.routes.js')(app);
 
-app.listen(3000, function(){
-    console.log("Server is listening on port 3000");
+app.use('/static', express.static('uploads'))
+
+app.use(express.static(__dirname + '/view/dist/'));
+
+
+app.use(function(req, res) {
+    res.sendFile(path.join(__dirname, '/view/dist', 'index.html'));
+});
+
+
+var port = process.env.PORT || 3000;
+
+var server = app.listen(port, function(){
+  console.log('Listening on port ' + port);
 });

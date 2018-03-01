@@ -110,7 +110,7 @@
                                 <p class="postaction"> 
                                   <i  class="material-icons">more_horiz</i>
                                 </p>
-                                <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
+                                <p class="postdate"> {{Post.PostDate | date }} </p>
                                 <p class="posttopic"> {{Post.PostType}} </p>
                               </div>
                             </div>
@@ -257,7 +257,7 @@
                                       <p  class="postaction"> 
                                         <i class="material-icons">more_horiz</i>
                                       </p>
-                                      <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
+                                      <p class="postdate"> {{Post.PostDate | date }} </p>
                                       <p class="posttopic"> {{Post.PostTopicName}} </p>
                                     </div>
                                   </div>
@@ -332,7 +332,7 @@
                                             <p class="postansaction"> 
                                               <i class="material-icons">more_horiz</i>
                                             </p>
-                                            <p class="postansdate"> {{Answer.Date | timeAgo}} </p>
+                                            <p class="postansdate"> {{Answer.Date | date }} </p>
                                           </div>
                                         </div>
                                       </div>

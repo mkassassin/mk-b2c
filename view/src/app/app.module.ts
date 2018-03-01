@@ -23,6 +23,7 @@ import { MatDialogModule, MatButtonModule, MatMenuModule,
   MatExpansionModule, MatTooltipModule, MatSnackBarModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
+import { TimeAgoPipeModule } from 'time-ago-pipe/index';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ChartsModule } from 'ng2-charts';
 
@@ -102,11 +103,7 @@ import { FeedsTrendsComponent } from './feeds/feeds-trends/feeds-trends.componen
 import { FeedsHeaderComponent } from './feeds/feeds-header/feeds-header.component';
 import { ProfileMainComponent } from './profile-main/profile-main.component';
 import { ProfileLeftBarComponent } from './profile/profile-left-bar/profile-left-bar.component';
-import { ProfileRightBarComponent } from './profile/profile-right-bar/profile-right-bar.component';
 import { ProfileTimelineComponent } from './profile/profile-timeline/profile-timeline.component';
-import { ProfileFollowersComponent } from './profile/profile-followers/profile-followers.component';
-import { ProfileFollowingComponent } from './profile/profile-following/profile-following.component';
-import { ProfileSettingsComponent } from './profile/profile-settings/profile-settings.component';
 import { SigninSignupServiceService } from './service/signin-signup-service/signin-signup-service.service';
 import { DataSharedVarServiceService } from './service/data-shared-var-service/data-shared-var-service.service';
 import { PostThreeComponent } from './popups/post-three/post-three.component';
@@ -172,11 +169,7 @@ import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-s
     FeedsHeaderComponent,
     ProfileMainComponent,
     ProfileLeftBarComponent,
-    ProfileRightBarComponent,
     ProfileTimelineComponent,
-    ProfileFollowersComponent,
-    ProfileFollowingComponent,
-    ProfileSettingsComponent,
     PostThreeComponent,
     ImagePreviewDirective,
     VideoPreviewDirective,
@@ -242,7 +235,8 @@ import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-s
     NglModule.forRoot(),
     ChartsModule,
     SocialLoginModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    TimeAgoPipeModule
   ],
   providers: [
                 AuthGuard,

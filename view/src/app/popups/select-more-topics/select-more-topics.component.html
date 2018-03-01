@@ -29,7 +29,7 @@
 
             <!-- follow peoples List  -->
             <div class="row m-0">
-                <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-sm-3 p-0">
+                <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-sm-3 p-0" style="max-width:175px;">
                     <div class="text-center" style="position:relative">
                       <img class="userlistImg" (click)="SelectTopic(Topic)" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
                       <p class="userlistname">

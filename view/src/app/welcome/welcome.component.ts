@@ -202,11 +202,11 @@ export class WelcomeComponent implements OnInit {
       this.router.navigate(['SignInSignUp']);
     }
   }
-  gotoSignUp(email: string) {
+  gotoSignUp() {
     this.ShareingService.SetActiveSinInsignUpTab('SignUp');
     this.router.navigate(['SignInSignUp']);
   }
-  gotoSignIn(email: string) {
+  gotoSignIn() {
     this.ShareingService.SetActiveSinInsignUpTab('SingIn');
     this.router.navigate(['SignInSignUp']);
   }

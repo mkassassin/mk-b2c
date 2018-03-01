@@ -392,6 +392,7 @@ exports.QuestionsRatingAdd = function(req, res) {
 };
 
 exports.AnswerRatingAdd = function(req, res) {
+    console.log(req.body);
     if(!req.body.UserId) {
         res.status(400).send({status:"False", message: " UserId can not be Empty! "});
     }

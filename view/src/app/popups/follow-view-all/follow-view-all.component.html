@@ -4,7 +4,7 @@
     <div fxFlex="100%" class="DiscoverLefBar">
       <div class="box-2">
         <div class="row m-0">
-          <div class="col-sm-12 p-0">
+          <div class="col-sm-12 col-xs-12 p-0">
             <p class="followheader"> {{Header}} <span style="cursor:pointer; position:absolute; right:10px; font-size:20px" (click)="close()"> X </span> </p>
           </div>
         </div>
@@ -26,7 +26,7 @@
 
 
             <div *ngIf="data.type === 'FollowingTopics'" class="row m-0 DiscoverTopics">
-              <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-sm-3 p-0">
+              <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-xs-3 col-sm-3 p-0" style="max-width:175px"> 
                   <div class="text-center" style="position:relative">
                     <img class="userlistImg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
                     <p class="userlistname">
@@ -43,7 +43,7 @@
 
 
             <div *ngIf="data.type !== 'FollowingTopics'" class="row m-0 DiscoverPeoples" style="max-width: 900px;">
-                <div class="col-sm-4 mt-20 max-width-300" *ngFor="let user of DiscoverPeoples; let j=index" fxLayout="row" fxLayoutAlign="space-evenly">
+                <div class="col-xs-4 col-sm-4 mt-20 max-width-300" *ngFor="let user of DiscoverPeoples; let j=index" fxLayout="row" fxLayoutAlign="space-evenly">
                   <div fxFlex="55px" class="text-center">
                     <img class="userlistImg" (click)="GotoProfile(user.UserId)" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
                   </div>
