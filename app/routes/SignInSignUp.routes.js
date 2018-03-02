@@ -30,6 +30,10 @@ module.exports = function(app) {
     app.get('/API/SigninSignup/SocialUserValidate/:email/:uid/:type', user.SocialUserValidate);
 
     app.get('/API/SigninSignup/GetNotification/:UserId', user.GetNotification);
+    
+    app.get('/API/SigninSignup/GetNotificationCount/:UserId', user.GetNotificationCount);
+
+    app.get('/API/SigninSignup/GetMobileNotification/:UserId', user.GetMobileNotification);
 
     app.get('/API/SigninSignup/RemoveNotification/:NotifyId', user.RemoveNotification);
 

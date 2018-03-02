@@ -181,6 +181,7 @@ export class WelcomeComponent implements OnInit {
 
   gotoNext(email: string) {
     if (email.length >= 6 ) {
+      this.email = email;
       this.Service.EmailValidate(email).subscribe( datas => { this.gotoAnalyze(datas); } );
     }else {
       this.ShowEmailAlert = true;

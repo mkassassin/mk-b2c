@@ -27,7 +27,8 @@ var ImageStore = multer.diskStorage({
         cb(null, './uploads/images');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        var ext = file.originalname.substring(file.originalname.indexOf('.'));
+        cb(null, Date.now() + ext);
     }
 });
 
@@ -36,7 +37,8 @@ var VideoStore = multer.diskStorage({
         cb(null, './uploads/videos');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        var ext = file.originalname.substring(file.originalname.indexOf('.'));
+        cb(null, Date.now() + ext);
     }
 });
 
@@ -45,7 +47,8 @@ var UserStore = multer.diskStorage({
         cb(null, './uploads/users');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        var ext = file.originalname.substring(file.originalname.indexOf('.'));
+        cb(null, Date.now() + ext);
     }
 });
 
@@ -55,7 +58,8 @@ var TopicsStore = multer.diskStorage({
         cb(null, './uploads/topics');
     },
     filename:function(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname);
+        var ext = file.originalname.substring(file.originalname.indexOf('.'));
+        cb(null, Date.now() + ext);
     }
 });
 
@@ -71,6 +75,7 @@ var CreateTopic = multer({storage:TopicsStore}).single('file');
 
 
 exports.UploadImageFile = function(req, res) {
+    console.log('1');
     ImageUpload(req, res, function(uploaderr){
         if(uploaderr){
             res.status(500).send({status:"False", Error:uploaderr});
@@ -82,22 +87,25 @@ exports.UploadImageFile = function(req, res) {
                 res.status(400).send({status:"False", message: " File can not be Empty! "});
             }
 
-
-        
-            var varImageFile = new FileUploadModel.ImageFile({
-                    UserId:  req.body.UserId,
-                    FileName: req.file.filename,
-                    ActiveStates: 'Active',
-            });
-        
-            varImageFile.save(function(err, result) {
-                if(err) {
-                    res.status(500).send({status:"False", message: "Some error occurred while Upload The File.", Error : err});
-                    
-                } else {
-                    res.send({status:"True", data: result });
-                }
-            });
+            if ( req.body.UserId && req.file.filename ) {
+            
+                var varImageFile = new FileUploadModel.ImageFile({
+                        UserId:  req.body.UserId,
+                        FileName: req.file.filename,
+                        ActiveStates: 'Active',
+                });
+            
+                varImageFile.save(function(err, result) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while Upload The File.", Error : err});
+                        
+                    } else {
+                        res.send({status:"True", data: result });
+                    }
+                });
+            }else{
+                res.status(400).send({status:"False", message: " Some Error Occurred "});
+            }
         }
     });
 };
@@ -116,21 +124,25 @@ exports.UploadVideoFile = function(req, res) {
             if(!req.file.filename){
                 res.status(400).send({status:"False", message: " File can not be Empty! "});
             }
-        
-            var varVideoFile = new FileUploadModel.VideoFile({
-                    UserId:  req.body.UserId,
-                    FileName: req.file.filename,
-                    ActiveStates: 'Active',
-            });
-        
-            varVideoFile.save(function(err, result) {
-                if(err) {
-                    res.status(500).send({status:"False", message: "Some error occurred while Upload The File.", Error : err});
-                    
-                } else {
-                    res.send({status:"True", data: result });
-                }
-            });
+            
+            if ( req.body.UserId && req.file.filename ) {
+                var varVideoFile = new FileUploadModel.VideoFile({
+                        UserId:  req.body.UserId,
+                        FileName: req.file.filename,
+                        ActiveStates: 'Active',
+                });
+            
+                varVideoFile.save(function(err, result) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while Upload The File.", Error : err});
+                        
+                    } else {
+                        res.send({status:"True", data: result });
+                    }
+                });
+            }else{
+                res.status(400).send({status:"False", message: " Some Error Occurred "});
+            }
         }
     });
 };
@@ -141,7 +153,7 @@ exports.UploadVideoFile = function(req, res) {
 
 exports.ProfileUpdate = function(req, res) {
     ProfileUpload(req, res, function(uploaderr){
-        
+      
         if(uploaderr){
             res.status(500).send({status:"False", Error:uploaderr});
         }else{
@@ -152,20 +164,24 @@ exports.ProfileUpdate = function(req, res) {
                 res.status(400).send({status:"False", message: " File can not be Empty! "});
             }
 
-            UserModel.UserType.findOne({'_id': req.body.UserId}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
-                if(err) {
-                    res.status(500).send({status:"False", message: "Some error occurred while User Find."});
-                } else {
-                    data.UserImage = req.file.filename;
-                    data.save(function (newerr, newresult) {
-                        if (newerr){
-                            res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Image ."});
-                        }else{
-                            res.send({status:"True", data: newresult });
-                        }
-                    });
-                }
-            });
+            if ( req.body.UserId && req.file.filename ) {
+                UserModel.UserType.findOne({'_id': req.body.UserId}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while User Find."});
+                    } else {
+                        data.UserImage = req.file.filename;
+                        data.save(function (newerr, newresult) {
+                            if (newerr){
+                                res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Image ."});
+                            }else{
+                                res.send({status:"True", data: newresult });
+                            }
+                        });
+                    }
+                });
+            }else{
+                res.status(400).send({status:"False", message: " Some Error Occurred "});
+            }
         }
     });
 };

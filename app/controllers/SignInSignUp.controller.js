@@ -3,7 +3,14 @@ var NotificationModel = require('../models/Notificatio.model.js');
 var FollowModel = require('../models/Follow.model.js');
 var LikeAndRating = require('../models/LikeAndRating.model.js');
 
+var LoginInfoModel = require('../models/LoginInfo.model.js');
+
+var moment = require("moment");
 var nodemailer = require('nodemailer');
+
+var ipapi = require('ipapi.co');
+var parser = require('ua-parser-js');
+
 
 var smtpTransport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -35,6 +42,7 @@ var rand,mailOptions,host,link;
     ShowDOB: false,
     ShowLocation: false
 };
+
 
 exports.SendFPVerifyEmail = function(req, res) {
         UserModel.UserType.findOne({'UserEmail': req.params.email.toLowerCase()}, function(err, data) {
@@ -272,19 +280,41 @@ exports.UserValidate = function(req, res) {
                     if(newerr){
                         res.send({status:"False", Error:newerr });
                     }else{
-                        var newArray = [];
-                            newArray.push({
-                                            _id: data._id,
-                                            UserName: data.UserName,
-                                            UserEmail: data.UserEmail,
-                                            UserCategoryId: data.UserCategoryId,
-                                            UserCategoryName: data.UserCategoryName,
-                                            UserImage: data.UserImage,
-                                            UserCompany: data.UserCompany,
-                                            UserProfession: data.UserProfession,
-                                            Followers: count
-                                        });
-                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                        var IpInfo = '';
+                        var DeviceInfo = '';
+                        ipapi.location(function(res) {   
+                             IpInfo = res;
+                             DeviceInfo = parser(req.headers['user-agent']);
+                            gotonext(); 
+                        });
+                        function gotonext() {
+                            var varLoginInfo = new LoginInfoModel.LoginInfo({
+                                UserId:  data._id,
+                                IpInfo: IpInfo,
+                                DeviceInfo: DeviceInfo,
+                                UtcTime: new Date(),
+                                ActiveStates: 'Active'
+                            });
+                            varLoginInfo.save(function(Newerr, Newresult) {
+                                if(Newerr) {
+                                    res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while creating the Account."});            
+                                } else {
+                                    var newArray = [];
+                                    newArray.push({
+                                                    _id: data._id,
+                                                    UserName: data.UserName,
+                                                    UserEmail: data.UserEmail,
+                                                    UserCategoryId: data.UserCategoryId,
+                                                    UserCategoryName: data.UserCategoryName,
+                                                    UserImage: data.UserImage,
+                                                    UserCompany: data.UserCompany,
+                                                    UserProfession: data.UserProfession,
+                                                    Followers: count
+                                                });
+                                    res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                                }
+                            });
+                        }
                     }
                 });
             } 
@@ -384,19 +414,41 @@ exports.FBUserValidate = function(req, res) {
                     if(newerr){
                         res.send({status:"False", Error:newerr });
                     }else{
-                        var newArray = [];
-                            newArray.push({
-                                            _id: data._id,
-                                            UserName: data.UserName,
-                                            UserEmail: data.UserEmail,
-                                            UserCategoryId: data.UserCategoryId,
-                                            UserCategoryName: data.UserCategoryName,
-                                            UserImage: data.UserImage,
-                                            UserCompany: data.UserCompany,
-                                            UserProfession: data.UserProfession,
-                                            Followers: count
-                                        });
-                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                        var IpInfo = '';
+                        var DeviceInfo = '';
+                        ipapi.location(function(res) {   
+                             IpInfo = res;
+                             DeviceInfo = parser(req.headers['user-agent']);
+                            gotonext(); 
+                        });
+                        function gotonext() {
+                            var varLoginInfo = new LoginInfoModel.LoginInfo({
+                                UserId:  data._id,
+                                IpInfo: IpInfo,
+                                DeviceInfo: DeviceInfo,
+                                UtcTime: new Date(),
+                                ActiveStates: 'Active'
+                            });
+                            varLoginInfo.save(function(Newerr, Newresult) {
+                                if(Newerr) {
+                                    res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while creating the Account."});            
+                                } else {
+                                    var newArray = [];
+                                    newArray.push({
+                                                    _id: data._id,
+                                                    UserName: data.UserName,
+                                                    UserEmail: data.UserEmail,
+                                                    UserCategoryId: data.UserCategoryId,
+                                                    UserCategoryName: data.UserCategoryName,
+                                                    UserImage: data.UserImage,
+                                                    UserCompany: data.UserCompany,
+                                                    UserProfession: data.UserProfession,
+                                                    Followers: count
+                                                });
+                                    res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                                }
+                            });
+                        }
                     }
                 });
             } 
@@ -416,27 +468,48 @@ exports.SocialUserValidate = function(req, res) {
                     if(newerr){
                         res.send({status:"False", Error:newerr });
                     }else{
-                        var newArray = [];
-                            newArray.push({
-                                            _id: data._id,
-                                            UserName: data.UserName,
-                                            UserEmail: data.UserEmail,
-                                            UserCategoryId: data.UserCategoryId,
-                                            UserCategoryName: data.UserCategoryName,
-                                            UserImage: data.UserImage,
-                                            UserCompany: data.UserCompany,
-                                            UserProfession: data.UserProfession,
-                                            Followers: count
-                                        });
-                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                        var IpInfo = '';
+                        var DeviceInfo = '';
+                        ipapi.location(function(res) {   
+                             IpInfo = res;
+                             DeviceInfo = parser(req.headers['user-agent']);
+                            gotonext(); 
+                        });
+                        function gotonext() {
+                            var varLoginInfo = new LoginInfoModel.LoginInfo({
+                                UserId:  data._id,
+                                IpInfo: IpInfo,
+                                DeviceInfo: DeviceInfo,
+                                UtcTime: new Date(),
+                                ActiveStates: 'Active'
+                            });
+                            varLoginInfo.save(function(Newerr, Newresult) {
+                                if(Newerr) {
+                                    res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while creating the Account."});            
+                                } else {
+                                    var newArray = [];
+                                    newArray.push({
+                                                    _id: data._id,
+                                                    UserName: data.UserName,
+                                                    UserEmail: data.UserEmail,
+                                                    UserCategoryId: data.UserCategoryId,
+                                                    UserCategoryName: data.UserCategoryName,
+                                                    UserImage: data.UserImage,
+                                                    UserCompany: data.UserCompany,
+                                                    UserProfession: data.UserProfession,
+                                                    ProviderType: data.ProviderType,
+                                                    Followers: count
+                                                });
+                                    res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                                }
+                            });
+                        }
                     }
                 });
             } 
         }
     });
 };
-
-
 
 exports.MobileUserValidate= function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase(), 'UserPassword': req.body.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
@@ -526,6 +599,286 @@ exports.GetNotification = function(req, res) {
                                     NotificationsArray.push(newArray[0]);
                                     resolve(FollowesData);
                                     
+                                }
+                            });
+                        });
+                      };
+            
+                }else{
+                res.send({status:"True", message:'Unread Notifications Empty.' });
+                }
+            }
+        });
+};
+
+exports.GetNotificationCount = function(req, res) {
+    if(!req.params.UserId){
+        res.status(500).send({status:"False", message: " User Id Is Missing!"});
+    }
+    NotificationModel.Notification.find({'ResponseUserId': req.params.UserId, 'Viewed': 0 }, { }, { sort:{createdAt : -1} }, function(err, result) {
+            if(err) {
+                res.status(500).send({status:"False", Error:err, message: "Follow User DB Error"});
+            } else {
+                res.send({status:"True", count: result.length });
+            }
+        });
+};
+
+exports.GetMobileNotification = function(req, res) {
+    if(!req.params.UserId){
+        res.status(500).send({status:"False", message: " User Id Is Missing!"});
+    }
+    NotificationModel.Notification.find({'ResponseUserId': req.params.UserId, 'Viewed': 0 }, { }, { sort:{createdAt : -1} }, function(err, result) {
+            if(err) {
+                res.status(500).send({status:"False", Error:err, message: "Follow User DB Error"});
+            } else {
+                if(result.length > 0){
+                    var NotificationsArray = new Array();
+                    GetUserData();
+                    async function GetUserData(){
+                        for (let info of result) {
+                            await getUserInfo(info);
+                         }
+                        res.send({status:"True", data: NotificationsArray });
+                      }
+                      
+                      function getUserInfo(info){
+                        return new Promise(( resolve, reject )=>{
+                            UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, FollowesData) {
+                                if(err) {
+                                    res.send({status:"False", Error:err });
+                                    reject(err);
+                                } else {
+                                    
+                                         var newArray = [];
+                                    if (info.NotificationType === 0 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Followed You ',
+                                                    RedirectId: FollowesData._id,
+                                                    RedirectType: 1,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 5 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' posted a ' + info.HighlightPostType,
+                                                    RedirectId: info.HighlightPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 8 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Shared Your '+ info.HighlightPostType,
+                                                    RedirectId: info.HighlightPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 17 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Share the '+  info.SharedUserName + ' ' + info.HighlightPostType,
+                                                    RedirectId: info.HighlightPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 6 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName + ' Gave a ',
+                                                    ShowSecondImage: true,
+                                                    ThirdText: ' to your ' + info.HighlightPostType,
+                                                    RedirectId: info.HighlightPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 15 ) {
+                                        var cmstr = info.CommentText;
+                                        var cmtext = cmstr.slice(0, 15);
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName + ' Gave a ',
+                                                    ShowSecondImage: true,
+                                                    ThirdText: ' to your Comment “' + cmtext + '...”',
+                                                    RedirectId: info.HighlightPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 7 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Commented on your ' + info.HighlightPostType,
+                                                    RedirectId: info.HighlightPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 9 ) {
+                                        var Qsstr = info.QuestionText;
+                                        var Qstext = Qsstr.slice(0, 15);
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Asked “' + Qstext + '...” in ' + info.QuestionTopic,
+                                                    RedirectId: info.QuestionPostId,
+                                                    RedirectType: 3,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 12 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Shared your Question in ' + info.QuestionTopic,
+                                                    RedirectId: info.QuestionPostId,
+                                                    RedirectType: 3,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 18 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Shared a Question i ' + info.QuestionTopic,
+                                                    RedirectId: info.QuestionPostId,
+                                                    RedirectType: 3,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 11 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName,
+                                                    ShowSecondImage: false,
+                                                    ThirdText: ' Answered your Question in ' + info.QuestionTopic,
+                                                    RedirectId: info.QuestionPostId,
+                                                    RedirectType: 3,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 10 ) {
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName + ' Gave ' + info.QuestionRating + ' ',
+                                                    ShowSecondImage: true,
+                                                    ThirdText: ' for your Question in ' + info.QuestionTopic,
+                                                    RedirectId: info.QuestionPostId,
+                                                    RedirectType: 3,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                    if (info.NotificationType === 16 ) {
+                                        var Anstr = info.AnswerText;
+                                        var Antext = Anstr.slice(0, 15);
+                                        newArray.push({
+                                                    _id: info._id,
+                                                    NotificationType: info.NotificationType,
+                                                    UserId: FollowesData._id,
+                                                    UserImage: FollowesData.UserImage,
+                                                    FirstText: FollowesData.UserName + ' Gave ' + info.AnswerRating + ' ',
+                                                    ShowSecondImage: true,
+                                                    ThirdText: ' for your Answer in  “' + Antext + '...” ',
+                                                    RedirectId: info.QuestionPostId,
+                                                    RedirectType: 2,
+                                                    NotificationDate: moment(info.createdAt).fromNow()
+                                                    }
+                                        );
+                                        NotificationsArray.push(newArray[0]);
+                                        resolve(newArray[0]);
+                                    }
+                                  
                                 }
                             });
                         });

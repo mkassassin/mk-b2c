@@ -223,7 +223,7 @@ export class FbSignupComponent implements OnInit {
 
   FormSubmitStatus(datas) {
     if (datas.status === 'True') {
-      this.Service.FBUserValidate(datas.data.UserEmail, datas.data.ProviderId)
+      this.Service.SocialUserValidate(datas.data.UserEmail, datas.data.ProviderId, datas.data.ProviderType)
       .subscribe( newdatas => { this.goto(newdatas); } );
     }else {
       this.dialogRef.close({status: 'Error' });

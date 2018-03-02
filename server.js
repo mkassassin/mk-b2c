@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var path = require('path');
 var axios = require("axios");
+var parser = require('ua-parser-js');
 
 var dbConfig = require('./app/config/database.config.js');
 var mongoose = require('mongoose');
@@ -57,15 +58,22 @@ require('./app/routes/profile.routes.js')(app);
 
 require('./app/routes/ReportAndDelete.routes.js')(app);
 
-app.use('/static', express.static('uploads'))
+app.use('/static', express.static('uploads'));
+
+// app.get('*', function(req, res, next){
+//     var DeviceInfo = parser(req.headers['user-agent']);
+//     if(DeviceInfo.os.name === 'Andorid') {
+//         res.redirect(301, 'https://www.google.com' );
+//     } else {
+//         next();
+//     }
+// });
 
 app.use(express.static(__dirname + '/view/dist/'));
 
-
 app.use(function(req, res) {
-    res.sendFile(path.join(__dirname, '/view/dist', 'index.html'));
+     res.sendFile(path.join(__dirname, '/view/dist', 'index.html'));
 });
-
 
 var port = process.env.PORT || 3000;
 
