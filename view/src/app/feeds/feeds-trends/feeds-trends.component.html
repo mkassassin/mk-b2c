@@ -87,7 +87,7 @@
                             <h5 class="preHeader"> B2C Network Prediction </h5>
                             <p class="accuracyPercent"> predicted by {{Prediction.UsersCount}} Users </p>
                             <p *ngIf="Prediction.UserDone === true" class="ourPrediction">Your Prediction  $:{{Prediction.UserPrediction}} </p>
-                            <p *ngIf="PredictionAddButton && !Prediction.UserDone === false " (click)="PredictionAddButton = false" class="PredictionButton"> + Add  Your Prediction </p>
+                            <p *ngIf="PredictionAddButton && Prediction.UserDone === false " (click)="PredictionAddButton = false" class="PredictionButton"> + Add  Your Prediction </p>
                         </div>
                         
                         <div class="calValue"> <label style="font-size:20px"> $ <input type="text" readonly="true" value="{{Prediction.Prediction}}"> </label>  </div>
@@ -96,14 +96,14 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!Prediction.UserDone === false && !PredictionAddButton" class="col-sm-12"> 
+                <div *ngIf="Prediction.UserDone === false && !PredictionAddButton" class="col-sm-12"> 
                     <div style="display:inline-flex; width:100% ">
                         <div class="AddPrediction">
                             <p> + Add  Your Prediction </p>
                         </div>
                         <div class="PredictionInput"> <input value="{{Prediction.UserPrediction}}" [readonly]="Prediction.UserDone" type="number" #predictionInput type="text"> </div>
                         <div class="PredictionSend">
-                            <img *ngIf="!Prediction.UserDone === false" (click)="AddPrediction(predictionInput.value); predictionInput.value =''" src="./../../../assets/images/icons/arrow.png" alt="">
+                            <img *ngIf="Prediction.UserDone === false" (click)="AddPrediction(predictionInput.value); predictionInput.value =''" src="./../../../assets/images/icons/arrow.png" alt="">
                         </div>
                     </div>
                 </div>

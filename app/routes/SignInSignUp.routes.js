@@ -37,7 +37,7 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/RemoveNotification/:NotifyId', user.RemoveNotification);
 
-    app.post('/API/SigninSignup/UserValidate', user.MobileUserValidate);
+    app.post('/API/SigninSignup/AndroidUserValidate', user.AndroidUserValidate);
 
     app.get('/API/SigninSignup/GetUserInfo/:UserId/:LoginUserId', user.GetUserInfo);
 

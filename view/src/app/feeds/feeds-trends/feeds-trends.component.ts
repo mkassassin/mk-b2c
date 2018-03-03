@@ -46,7 +46,7 @@ export class FeedsTrendsComponent implements OnInit {
   ImpressionsListLoader: Boolean = true;
   ChartLoader: Boolean = true;
   Info;
-  Prediction;
+  Prediction: object;
   PredictionEmpty: Boolean = true;
   InfoEmpty: Boolean = true;
 

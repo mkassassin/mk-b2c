@@ -8,6 +8,7 @@ var LoginInfoModel = require('../models/LoginInfo.model.js');
 var moment = require("moment");
 var nodemailer = require('nodemailer');
 
+var get_ip = require('ipware')().get_ip;
 var ipapi = require('ipapi.co');
 var parser = require('ua-parser-js');
 
@@ -285,6 +286,7 @@ exports.UserValidate = function(req, res) {
                         ipapi.location(function(res) {   
                              IpInfo = res;
                              DeviceInfo = parser(req.headers['user-agent']);
+                             IpInfo = get_ip(req);
                             gotonext(); 
                         });
                         function gotonext() {
@@ -511,7 +513,7 @@ exports.SocialUserValidate = function(req, res) {
     });
 };
 
-exports.MobileUserValidate= function(req, res) {
+exports.AndroidUserValidate= function(req, res) {
     UserModel.UserType.findOne({'UserEmail': req.body.email.toLowerCase(), 'UserPassword': req.body.password}, "_id UserName UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
         if(err) {
             res.status(500).send({status:"False", message: "Some error occurred while User Validate."});
@@ -529,8 +531,82 @@ exports.MobileUserValidate= function(req, res) {
                     }
                 });
             }else{
-                res.send({ status:"True", message: "Sign In Successfully", data:data });
-            } 
+                FollowModel.FollowUserType.count({'FollowingUserId': data._id}, function(newerr, count) {
+                    if(newerr){
+                        res.send({status:"False", Error:newerr });
+                    }else{
+                        var IpInfo = '';
+                        var DeviceInfo = '';
+                        ipapi.location(function(res) {   
+                             IpInfo = res;
+                             DeviceInfo = parser(req.headers['user-agent']);
+                            gotonext(); 
+                        });
+                        function gotonext() {
+                            var varLoginInfo = new LoginInfoModel.LoginInfo({
+                                UserId:  data._id,
+                                IpInfo: IpInfo,
+                                DeviceInfo: DeviceInfo,
+                                UtcTime: new Date(),
+                                ActiveStates: 'Active'
+                            });
+                            varLoginInfo.save(function(Newerr, Newresult) {
+                                if(Newerr) {
+                                    res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while creating the Account."});            
+                                } else {
+                                    LoginInfoModel.AndroidAppInfo.findOne({'UserId': data._id, 'ActiveStates': 'Active'}, "_id UserId FirebaseToken DeviceInfo UtcTime ", function(olderr, olddata) {
+                                        if(olderr) {
+                                            res.status(500).send({status:"False", Error: olderr, message: "Some error occurred while User Validate."});
+                                        } else {
+                                            if(olddata === null){
+                                                var varAndroidAppInfo = new LoginInfoModel.AndroidAppInfo({
+                                                    UserId:  data._id,
+                                                    FirebaseToken: req.body.FirebaseToken,
+                                                    DeviceInfo: DeviceInfo,
+                                                    UtcTime: new Date(),
+                                                    ActiveStates: 'Active'
+                                                });
+                                                varAndroidAppInfo.save(function(apperr, appresult) {
+                                                    if(apperr) {
+                                                        res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
+                                                    } else {
+                                                        SendReturnOutput();
+                                                    }
+                                                });
+                                            }else{
+                                                olddata.FirebaseToken = req.body.FirebaseToken,
+                                                olddata.save(function(apperr, appresult) {
+                                                    if(apperr) {
+                                                        res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
+                                                    } else {
+                                                        SendReturnOutput();
+                                                    }
+                                                });
+
+                                            }
+                                            function SendReturnOutput() {
+                                                var newArray = [];
+                                                newArray.push({
+                                                                _id: data._id,
+                                                                UserName: data.UserName,
+                                                                UserEmail: data.UserEmail,
+                                                                UserCategoryId: data.UserCategoryId,
+                                                                UserCategoryName: data.UserCategoryName,
+                                                                UserImage: data.UserImage,
+                                                                UserCompany: data.UserCompany,
+                                                                UserProfession: data.UserProfession,
+                                                                Followers: count
+                                                            });
+                                                res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+            }  
         }
     });
 };

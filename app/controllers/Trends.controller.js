@@ -250,8 +250,6 @@ exports.PredictionAdd = function(req, res) {
         res.status(400).send({status:"False", message: " Prediction Value can not be Empty! "});
     }
 
-    console.log(new Date());
-
     var varPrediction = new PredictionModel.Prediction({
             CoinId: req.body.CoinId || '',
             CoinCode: req.body.CoinCode,
@@ -313,7 +311,7 @@ exports.GetPrediction = function(req, res) {
                                                         UsersCount: count,
                                                         UserDone: UserRated,
                                                         UserPrediction: UserValue,
-                                                        Date: new Date
+                                                        Date: new Date()
                                                     } );
                                     res.send({status:"True", data: newArray[0] });
                                 }
