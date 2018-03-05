@@ -85,6 +85,7 @@ exports.ImpressionAdd = function(req, res) {
                                             AlreadyFollow: false,
                                             Followers: count,
                                             PostDate: result.PostDate,
+                                            timeAgo: moment(result.updatedAt).fromNow(),
                                             PostText: result.PostText
                                         }
                             );
@@ -181,6 +182,7 @@ exports.ImpressionPosts = function(req, res) {
                                                                     _id: info._id,
                                                                     PostText: info.PostText,
                                                                     PostDate: info.PostDate,
+                                                                    timeAgo: moment(info.updatedAt).fromNow(),
                                                                     CoinCode: req.params.CoinCode,
                                                                 }
                                                     );

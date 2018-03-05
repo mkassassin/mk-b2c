@@ -6,6 +6,8 @@ var RatingModel = require('../models/LikeAndRating.model.js');
 var AnswerModel = require('../models/CommentAndAnswer.model.js');
 var SharePosts = require('../models/SharePost.model.js');
 
+var moment = require("moment");
+
 var axios = require("axios");
 
 
@@ -102,6 +104,7 @@ exports.Submit = function(req, res) {
                                                 PostTopicId: result.PostTopicId,
                                                 PostTopicName: result.PostTopicName,
                                                 PostDate: result.PostDate,
+                                                timeAgo: moment(result.updatedAt).fromNow(),
                                                 PostText: result.PostText ,
                                                 PostLink: result.PostLink,
                                                 PostLinkInfo: result.PostLinkInfo || '',
@@ -340,6 +343,7 @@ exports.SharePost = function(req, res) {
                                                             PostTopicId: result.PostTopicId,
                                                             PostTopicName: result.PostTopicName,
                                                             PostDate: result.PostDate,
+                                                            timeAgo: moment(result.updatedAt).fromNow(),
                                                             PostText: result.PostText ,
                                                             PostLink: result.PostLink,
                                                             PostLinkInfo: result.PostLinkInfo || '',
@@ -532,6 +536,7 @@ exports.GetPostList = function (req, res) {
                                         PostTopicId: info.PostTopicId,
                                         PostTopicName: info.PostTopicName,
                                         PostDate: info.PostDate,
+                                        timeAgo: moment(info.updatedAt).fromNow(),
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
                                         PostLinkInfo: info.PostLinkInfo || '',
@@ -639,6 +644,7 @@ exports.GetPostList = function (req, res) {
                                                                                                     AlreadyFollow: alreadyfollowuser,
                                                                                                     Followers: count,
                                                                                                     Date: ansInfo.Date,
+                                                                                                    timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                                     RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                                     userRated: userRated,
                                                                                                     userRating: userRating,
@@ -681,6 +687,7 @@ exports.GetPostList = function (req, res) {
                                                                                         AlreadyFollow: alreadyfollowuser,
                                                                                         Followers: count,
                                                                                         Date: ansInfo.Date,
+                                                                                        timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                         RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                         userRated: userRated,
                                                                                         userRating: userRating,
@@ -797,6 +804,7 @@ exports.ViewPost = function (req, res) {
                                         PostTopicId: info.PostTopicId,
                                         PostTopicName: info.PostTopicName,
                                         PostDate: info.PostDate,
+                                        timeAgo: moment(info.updatedAt).fromNow(),
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
                                         PostLinkInfo: info.PostLinkInfo || '',
@@ -1046,6 +1054,7 @@ exports.ViewSharePost = function (req, res) {
                                         PostTopicId: info.PostTopicId,
                                         PostTopicName: info.PostTopicName,
                                         PostDate: info.PostDate,
+                                        timeAgo: moment(info.updatedAt).fromNow(),
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
                                         PostLinkInfo: info.PostLinkInfo || '',
@@ -1287,6 +1296,7 @@ exports.GetTopicPostList = function (req, res) {
                                         PostTopicId: info.PostTopicId,
                                         PostTopicName: info.PostTopicName,
                                         PostDate: info.PostDate,
+                                        timeAgo: moment(info.updatedAt).fromNow(),
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
                                         PostLinkInfo: info.PostLinkInfo || '',

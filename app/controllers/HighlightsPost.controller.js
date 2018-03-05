@@ -6,6 +6,7 @@ var CommentModel = require('../models/CommentAndAnswer.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
 var SharePosts = require('../models/SharePost.model.js');
 var axios = require("axios");
+var moment = require("moment");
 
 
 var usersProjection = { 
@@ -98,6 +99,7 @@ exports.Submit = function(req, res) {
                                                 Followers: count,
                                                 PostType: result.PostType,
                                                 PostDate: result.PostDate,
+                                                timeAgo: moment(result.updatedAt).fromNow(),
                                                 PostText: result.PostText ,
                                                 PostLink: result.PostLink,
                                                 PostLinkInfo: result.PostLinkInfo || '',
@@ -334,6 +336,7 @@ exports.SharePost = function(req, res) {
                                                             Followers: count,
                                                             PostType: result.PostType,
                                                             PostDate: result.PostDate,
+                                                            timeAgo: moment(result.updatedAt).fromNow(),
                                                             PostText: result.PostText ,
                                                             PostLink: result.PostLink,
                                                             PostLinkInfo: result.PostLinkInfo || '',
@@ -544,6 +547,7 @@ exports.GetPostList = function(req, res) {
                                                                                                             _id: info._id,
                                                                                                             PostType: info.PostType,
                                                                                                             PostDate: info.PostDate,
+                                                                                                            timeAgo: moment(info.updatedAt).fromNow(),
                                                                                                             PostText: info.PostText ,
                                                                                                             PostLink: info.PostLink,
                                                                                                             PostLinkInfo: info.PostLinkInfo || '',
@@ -671,6 +675,7 @@ exports.ViewPost = function(req, res) {
                                                                                             _id: result._id,
                                                                                             PostType: result.PostType,
                                                                                             PostDate: result.PostDate,
+                                                                                            timeAgo: moment(result.updatedAt).fromNow(),
                                                                                             PostText: result.PostText ,
                                                                                             PostLink: result.PostLink,
                                                                                             PostLinkInfo: result.PostLinkInfo || '',
@@ -754,6 +759,7 @@ exports.ViewSharePost = function(req, res) {
                                                                 _id: result._id,
                                                                 PostType: result.PostType,
                                                                 PostDate: result.PostDate,
+                                                                timeAgo: moment(result.updatedAt).fromNow(),
                                                                 PostText: result.PostText ,
                                                                 PostLink: result.PostLink,
                                                                 PostLinkInfo: result.PostLinkInfo || '',

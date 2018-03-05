@@ -6,6 +6,8 @@ var LikeAndRating = require('../models/LikeAndRating.model.js');
 var HighlightsPostModel = require('../models/HighlightsPost.model.js');
 var QuestionsPostModel = require('../models/QuestionsPost.model.js');
 
+var moment = require("moment");
+
 var usersProjection = { 
     __v: false,
     UserEmail: false,
@@ -94,6 +96,7 @@ exports.HighlightsCommentAdd = function(req, res) {
                                                                 UserCommented: true,
                                                                 Followers: count,
                                                                 Date: result.Date,
+                                                                timeAgo: moment(result.updatedAt).fromNow(),
                                                                 PostId: result.PostId,
                                                                 PostUserId: result.PostUserId ,
                                                                 CommentText: result.CommentText
@@ -118,6 +121,7 @@ exports.HighlightsCommentAdd = function(req, res) {
                                                     UserCommented: true,
                                                     Followers: count,
                                                     Date: result.Date,
+                                                    timeAgo: moment(result.updatedAt).fromNow(),
                                                     PostId: result.PostId,
                                                     PostUserId: result.PostUserId ,
                                                     CommentText: result.CommentText
@@ -234,6 +238,7 @@ exports.GetHighlightsComments = function(req, res) {
                                                                                     _id: info._id,
                                                                                     CommentText: info.CommentText,
                                                                                     Date: info.Date,
+                                                                                    timeAgo: moment(info.updatedAt).fromNow(),
                                                                                     PostId: req.params.PostId,
                                                                                 }
                                                                     );
@@ -338,6 +343,7 @@ exports.GetHighlightsAllComments = function(req, res) {
                                                                                     _id: info._id,
                                                                                     CommentText: info.CommentText,
                                                                                     Date: info.Date,
+                                                                                    timeAgo: moment(info.updatedAt).fromNow(),
                                                                                     PostId: req.params.PostId,
                                                                                 }
                                                                     );
@@ -444,6 +450,7 @@ exports.QuestionsAnswerAdd = function(req, res) {
                                                                 AlreadyFollow: true,
                                                                 Followers: count,
                                                                 Date: result.Date,
+                                                                timeAgo: moment(result.updatedAt).fromNow(),
                                                                 RatingCount: 0,
                                                                 userRated: false,
                                                                 userRating: 0,
@@ -600,6 +607,7 @@ exports.GetQuestionsAnswers = function(req, res) {
                                                                                                 AlreadyFollow: alreadyfollowuser,
                                                                                                 Followers: count,
                                                                                                 Date: ansInfo.Date,
+                                                                                                timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                                 RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                                 userRated: userRated,
                                                                                                 userRating: userRating,
@@ -642,6 +650,7 @@ exports.GetQuestionsAnswers = function(req, res) {
                                                                                     AlreadyFollow: alreadyfollowuser,
                                                                                     Followers: count,
                                                                                     Date: ansInfo.Date,
+                                                                                    timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                     RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                     userRated: userRated,
                                                                                     userRating: userRating,
@@ -758,6 +767,7 @@ exports.GetQuestionsAllAnswers = function(req, res) {
                                                                                                 AlreadyFollow: alreadyfollowuser,
                                                                                                 Followers: count,
                                                                                                 Date: ansInfo.Date,
+                                                                                                timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                                 RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                                 userRated: userRated,
                                                                                                 userRating: userRating,
@@ -800,6 +810,7 @@ exports.GetQuestionsAllAnswers = function(req, res) {
                                                                                     AlreadyFollow: alreadyfollowuser,
                                                                                     Followers: count,
                                                                                     Date: ansInfo.Date,
+                                                                                    timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                     RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                     userRated: userRated,
                                                                                     userRating: userRating,

@@ -7,6 +7,8 @@ var LikeAndRating = require('../models/LikeAndRating.model.js');
 var CommentAndAnswer = require('../models/CommentAndAnswer.model.js');
 var SharePosts = require('../models/SharePost.model.js');
 
+var moment = require("moment");
+
 var usersProjection = { 
     __v: false,
     UserEmail: false,
@@ -117,6 +119,7 @@ exports.Timeline = function (req, res) {
                                     PostTopicId: info.PostTopicId,
                                     PostTopicName: info.PostTopicName,
                                     PostDate: info.PostDate,
+                                    timeAgo: moment(info.updatedAt).fromNow(),
                                     PostText: info.PostText ,
                                     PostLink: info.PostLink,
                                     PostLinkInfo: info.PostLinkInfo || '',
@@ -221,6 +224,7 @@ exports.Timeline = function (req, res) {
                                                                                                         AlreadyFollow: alreadyfollowuser,
                                                                                                         Followers: count,
                                                                                                         Date: ansInfo.Date,
+                                                                                                        timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                                         RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                                         userRated: userRated,
                                                                                                         userRating: userRating,
@@ -263,6 +267,7 @@ exports.Timeline = function (req, res) {
                                                                                             AlreadyFollow: alreadyfollowuser,
                                                                                             Followers: count,
                                                                                             Date: ansInfo.Date,
+                                                                                            timeAgo: moment(ansInfo.updatedAt).fromNow(),
                                                                                             RatingCount: JSON.parse(AnsRatingCal) / JSON.parse(NewCount),
                                                                                             userRated: userRated,
                                                                                             userRating: userRating,
@@ -330,6 +335,7 @@ exports.Timeline = function (req, res) {
                                         PostDate: info.PostDate,
                                         PostText: info.PostText ,
                                         PostLink: info.PostLink,
+                                        timeAgo: moment(info.updatedAt).fromNow(),
                                         PostLinkInfo: info.PostLinkInfo || '',
                                         PostImage: info.PostImage,
                                         PostVideo: info.PostVideo,
