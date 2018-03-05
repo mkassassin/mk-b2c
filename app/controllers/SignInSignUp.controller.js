@@ -6,24 +6,15 @@ var LikeAndRating = require('../models/LikeAndRating.model.js');
 var LoginInfoModel = require('../models/LoginInfo.model.js');
 
 var moment = require("moment");
-var nodemailer = require('nodemailer');
 
 var get_ip = require('ipware')().get_ip;
 var ipapi = require('ipapi.co');
 var parser = require('ua-parser-js');
 
+var api_key = 'key-ac9f1b05506f5cbd321895d52e67d5ee';
+var domain = 'mg.b2c.network';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
-var smtpTransport = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: "b2cnetworkapp@gmail.com",
-        pass: "cryptoamillion"
-    }
-});
-
-var rand,mailOptions,host,link;
   var usersProjection = {
     __v: false,
     UserEmail: false,
@@ -53,15 +44,17 @@ exports.SendFPVerifyEmail = function(req, res) {
                 if(data === null){
                     res.send({ status:"False", message: "Account is Not Available." });
                 }else{
+                    
                    var rand=Math.floor((Math.random() * 100) + 54);
-                    link = "http://www.b2c.network/SetNewpassword/" + data._id + "/" + rand;
-                    mailOptions = {
+                    var link = "http://www.b2c.network/SetNewpassword/" + data._id + "/" + rand;
+                    var SendData = {
+                        from: 'B2C Network <b2cnetworkapp@gmail.com>',
                         to: req.params.email,
-                        subject: "Please confirm your Email account",
-                        html: "Hello,<br> Please Click on the link to verify your email And Reset Your Password.<br><a href=" + link + ">Click here to verify</a>"
-                    };
-                    smtpTransport.sendMail(mailOptions, function (error, response) {
-                        console.log(error, response);
+                        subject: 'E-mail Verification',
+                        html: '<div style="background-color:#f6f6f6;font-size:14px;height:100%;line-height:1.6;margin:0;padding:0;width:100%" bgcolor="#f6f6f6" height="100%" width="100%"><table style="background-color:#f6f6f6;border-collapse:separate;border-spacing:0;box-sizing:border-box;width:100%" width="100%" bgcolor="#f6f6f6"><tbody><tr><td style="box-sizing:border-box;display:block;font-size:14px;font-weight:normal;margin:0 auto;max-width:500px;padding:10px;text-align:center;width:auto" valign="top" align="center" width="auto"><div style="background-color:#dedede; box-sizing:border-box;display:block;margin:0 auto;max-width:500px;padding:10px;text-align:left" align="left"><table style="background:#fff;border:1px solid #e9e9e9;border-collapse:separate;border-radius:3px;border-spacing:0;box-sizing:border-box;width:100%"><tbody><tr><td style="box-sizing:border-box;font-size:14px;font-weight:normal;margin:0;padding:30px;vertical-align:top" valign="top"><table style="border-collapse:separate;border-spacing:0;box-sizing:border-box;width:100%" width="100%"><tbody><tr style="font-family: sans-serif; line-height:20px" ><td style="box-sizing:border-box;font-size:14px;font-weight:normal;margin:0;vertical-align:top" valign="top"><img src="http://www.b2c.network/assets/images/logo.png" style="width:15%; margin-left:42.5%" alt="B2C Logo"><p style="font-size:14px;">Hi there,</p><p style="font-size:14px;"> To complete the email verification process, Please click the link below then Reset Your Password .</p><table style="border-collapse:separate;border-spacing:0;box-sizing:border-box;margin-bottom:15px;width:auto" width="auto"><tbody><tr><td style="background-color:#ffda00;box-shadow: 0 1px 8px 0 hsla(0,0%,40%,.47);" valign="top" bgcolor="#ffda00" align="center"><a href="'+ link +'"  data-saferedirecturl="'+ link +'" style="background-color:#ffda00 ;box-sizing:border-box;color:#333333;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:12px 25px;text-decoration:none;text-transform:capitalize;cursor:pointer" bgcolor="#ffda00" target="_blank"> Verify Your E-mail</a></td></tr></tbody></table><p style="font-size:14px;font-weight:normal;margin:0;margin-bottom:15px;padding:0">Thanks, B2C Network Team</p></td></tr></tbody></table></td></tr></tbody></table></div></td></tr></tbody></table></div>'
+                      };
+                       
+                      mailgun.messages().send(SendData, function (error, body) {
                         if (error) {
                             res.send({ status:"False", Error: error,  message: "Some error occurred" });
                         } else {
@@ -70,7 +63,7 @@ exports.SendFPVerifyEmail = function(req, res) {
                                 if (newerr){
                                     res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UserEmailVerifyToken ."});
                                 }else{
-                                    res.send({ status:"True", data:response });
+                                    res.send({ status:"True", data:body });
                                 }
                             });
                         }
@@ -283,12 +276,15 @@ exports.UserValidate = function(req, res) {
                     }else{
                         var IpInfo = '';
                         var DeviceInfo = '';
-                        ipapi.location(function(res) {   
-                             IpInfo = res;
-                             DeviceInfo = parser(req.headers['user-agent']);
-                             IpInfo = get_ip(req);
-                            gotonext(); 
-                        });
+                        var callback = function(res){
+                            IpInfo = res;
+                            DeviceInfo = parser(req.headers['user-agent']);
+                           gotonext(); 
+                        };
+                        var req_ip = get_ip(req);
+                        var ip = req_ip.clientIp;
+                        ip = ip.split(':');
+                        ipapi.location(callback, ip[ip.length - 1]);
                         function gotonext() {
                             var varLoginInfo = new LoginInfoModel.LoginInfo({
                                 UserId:  data._id,
@@ -418,11 +414,15 @@ exports.FBUserValidate = function(req, res) {
                     }else{
                         var IpInfo = '';
                         var DeviceInfo = '';
-                        ipapi.location(function(res) {   
-                             IpInfo = res;
-                             DeviceInfo = parser(req.headers['user-agent']);
-                            gotonext(); 
-                        });
+                        var callback = function(res){
+                            IpInfo = res;
+                            DeviceInfo = parser(req.headers['user-agent']);
+                           gotonext(); 
+                        };
+                        var req_ip = get_ip(req);
+                        var ip = req_ip.clientIp;
+                        ip = ip.split(':');
+                        ipapi.location(callback, ip[ip.length - 1]);
                         function gotonext() {
                             var varLoginInfo = new LoginInfoModel.LoginInfo({
                                 UserId:  data._id,
@@ -472,11 +472,15 @@ exports.SocialUserValidate = function(req, res) {
                     }else{
                         var IpInfo = '';
                         var DeviceInfo = '';
-                        ipapi.location(function(res) {   
-                             IpInfo = res;
-                             DeviceInfo = parser(req.headers['user-agent']);
-                            gotonext(); 
-                        });
+                        var callback = function(res){
+                            IpInfo = res;
+                            DeviceInfo = parser(req.headers['user-agent']);
+                           gotonext(); 
+                        };
+                        var req_ip = get_ip(req);
+                        var ip = req_ip.clientIp;
+                        ip = ip.split(':');
+                        ipapi.location(callback, ip[ip.length - 1]);
                         function gotonext() {
                             var varLoginInfo = new LoginInfoModel.LoginInfo({
                                 UserId:  data._id,
@@ -813,8 +817,11 @@ exports.GetMobileNotification = function(req, res) {
                                         resolve(newArray[0]);
                                     }
                                     if (info.NotificationType === 15 ) {
-                                        var cmstr = info.CommentText;
-                                        var cmtext = cmstr.slice(0, 15);
+                                        var cmtext = '';
+                                        if(info.AnswerText){
+                                            var cmstr = info.CommentText;
+                                            cmtext = cmstr.slice(0, 15);
+                                        }
                                         newArray.push({
                                                     _id: info._id,
                                                     NotificationType: info.NotificationType,
@@ -849,8 +856,11 @@ exports.GetMobileNotification = function(req, res) {
                                         resolve(newArray[0]);
                                     }
                                     if (info.NotificationType === 9 ) {
-                                        var Qsstr = info.QuestionText;
-                                        var Qstext = Qsstr.slice(0, 15);
+                                        var Qstext = '';
+                                        if(info.QuestionText){
+                                            var Qsstr = info.QuestionText;
+                                            Qstext = Qsstr.slice(0, 15);
+                                        }
                                         newArray.push({
                                                     _id: info._id,
                                                     NotificationType: info.NotificationType,
@@ -936,8 +946,11 @@ exports.GetMobileNotification = function(req, res) {
                                         resolve(newArray[0]);
                                     }
                                     if (info.NotificationType === 16 ) {
-                                        var Anstr = info.AnswerText;
-                                        var Antext = Anstr.slice(0, 15);
+                                        var Antext = '';
+                                        if(info.AnswerText){
+                                            var Anstr = info.AnswerText;
+                                            Antext = Anstr.slice(0, 15);
+                                        }
                                         newArray.push({
                                                     _id: info._id,
                                                     NotificationType: info.NotificationType,
