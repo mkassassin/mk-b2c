@@ -39,6 +39,8 @@ module.exports = function(app) {
 
     app.post('/API/SigninSignup/AndroidUserValidate', user.AndroidUserValidate);
 
+    app.get('/API/SigninSignup/AndroidUserSignOut/:UserId', user.AndroidUserSignOut);
+
     app.get('/API/SigninSignup/GetUserInfo/:UserId/:LoginUserId', user.GetUserInfo);
 
     app.get('/API/SigninSignup/UserCoinCount/:UserId', user.UserCoinCount);

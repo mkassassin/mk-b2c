@@ -102,7 +102,7 @@ export class SharePostReturnPageComponent implements OnInit {
 
   gotoSignIn() {
     const SelectTopicDialogRef = this.dialog.open( ShareReturnSinginSignupComponent,
-      { disableClose: true, minWidth: '550px', position: {top: '50px'},
+      { disableClose: true, position: {top: '50px'},
         data: { Header: 'Select Topics'  } });
         SelectTopicDialogRef.afterClosed().subscribe(final => {
           if (final === 'Success') {

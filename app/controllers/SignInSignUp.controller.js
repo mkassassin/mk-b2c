@@ -615,6 +615,27 @@ exports.AndroidUserValidate= function(req, res) {
     });
 };
 
+exports.AndroidUserSignOut= function(req, res) {
+    LoginInfoModel.AndroidAppInfo.findOne({'UserId':req.params.UserId, 'ActiveStates': 'Active'}, "_id ActiveStates UserId UtcTime ", function(olderr, olddata) {
+        if(olderr) {
+            res.status(500).send({status:"False", Error: olderr, message: "Some error occurred while User Validate."});
+        } else {
+            if(olddata === null){
+                res.send({status:"False", message: "Signout Failed"});
+            }else{
+                olddata.ActiveStates = 'Inactice';
+                olddata.save(function(apperr, appresult) {
+                    if(apperr) {
+                        res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
+                    } else {
+                        res.send({status:"True", message: " Signed out "});
+                    }
+                });
+            }
+        }
+    });
+};
+
 exports.GetNotification = function(req, res) {
     if(!req.params.UserId){
         res.status(500).send({status:"False", message: " User Id Is Missing!"});

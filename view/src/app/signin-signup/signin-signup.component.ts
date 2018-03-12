@@ -130,6 +130,11 @@ export class SigninSignupComponent implements OnInit {
         data: { Type: 'SetNewPassword', UserId: this.NewPasswordSet['UserId'], Token: this.NewPasswordSet['Token']  } });
         ForgotPasswordDialogRef.afterClosed().subscribe(result => {
           if ( result === 'SinginSuccess' ) {
+            this.snackBar.open('Password has been successfully changed. ', ' ', {
+              horizontalPosition: 'center',
+              duration: 3000,
+              verticalPosition: 'top',
+            });
             this.router.navigate(['Feeds']);
           } else {
             this.ActiveTabIndex = 1;

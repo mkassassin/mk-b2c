@@ -32,7 +32,7 @@ export class DiscoverComponent implements OnInit {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
         this.ActiveCategory = this.data.ActiveCategory;
         this.Header = this.data.Header;
-        this.Service.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
+        this.Service.AllUnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
         .subscribe( userdatas =>  {
           if (userdatas['status'] === 'True') {
             this.DiscoverPeoples = userdatas['data'];
@@ -69,7 +69,7 @@ export class DiscoverComponent implements OnInit {
       this.LoadingPeoples = true;
       this.DiscoverPeoples = [];
       this.ActiveCategory = id;
-      this.Service.UnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
+      this.Service.AllUnFollowingUsers(this.UserInfo.data._id, this.ActiveCategory)
       .subscribe( userdatas =>  {
             if (userdatas['status'] === 'True') {
               this.DiscoverPeoples = userdatas['data'];

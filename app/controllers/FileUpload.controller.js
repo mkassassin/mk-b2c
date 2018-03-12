@@ -75,7 +75,6 @@ var CreateTopic = multer({storage:TopicsStore}).single('file');
 
 
 exports.UploadImageFile = function(req, res) {
-    console.log('1');
     ImageUpload(req, res, function(uploaderr){
         if(uploaderr){
             res.status(500).send({status:"False", Error:uploaderr});

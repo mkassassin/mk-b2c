@@ -78,12 +78,10 @@ exports.ReportPost = function(req, res) {
 };
 
 exports.ReportPostValidate = function(req, res) {
-    console.log(req.body);
     ReportModel.ReportPost.find({'UserId': req.body.UserId, 'PostType': req.body.PostType, 'PostId': req.body.PostId, 'ActiveStates': 'Active' }, function(err, data) {
             if(err) {
                 res.status(500).send({status:"False", Error:err,  message: "Some error occurred while Validate Report Post."});
             } else {
-                console.log(data);
                 if(data.length > 0 ){
                     res.send({ status:"True", ValidReport: "False", data: data });
                 }else{

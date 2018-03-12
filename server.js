@@ -86,8 +86,7 @@ require('./app/routes/ReportAndDelete.routes.js')(app);
 app.use('/static', express.static('uploads'));
 
 app.get('/SendMessages', function(req, res){
-  var registrationToken = [ 'eqwsrJC2aik:APA91bFLudqcEaT52pW89lqkqDZcfvE55Jax5XDYsjjJHrBn0p2NCSl6H8VVTa_gcUCy1kqHf6veIOjqyai64beTi5n71PtEoDBrojkXbWbVA842Y5keEaVYl7_d8qYywjXsNGbLOcnH',
-                          'f1YeyYbgUHo:APA91bEiATqH8dp_NMtU-L-kxMFeGXbEsEgUbO1duGKHxpeNpNtj2uBpmjaRNI2jZe4G_1uOontVXi-TgnCgulsh4ZxF8xhrmrsggZnxOyLEoGpqnx5yt-bUd8h9tLOAk4CchFTbq63b'];
+  var registrationToken = 'fJrhOSiioCs:APA91bFxRHA8BGiTx-JyhoHuLXA6CuueDWh6wNodI9S3NNC0UNgjuGTzHVB1xikPX6ZuhhZM8iXcOiQC-GUvMLC0seETxwl5KAyj09E-uGBzcse4al4zygZ7cmL3BVGXlozOsA2VPt7g';
 
     var payload = {
         notification: {
@@ -106,9 +105,11 @@ app.get('/SendMessages', function(req, res){
       admin.messaging().sendToDevice(registrationToken, payload, options)
         .then(function(response) {
           console.log('Successfully sent message:', response);
+          res.send(response);
         })
         .catch(function(error) {
           console.log('Error sending message:', error);
+          res.send(error);
         });
 });
 
