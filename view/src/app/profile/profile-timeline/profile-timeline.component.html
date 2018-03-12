@@ -28,8 +28,8 @@
                     <div class="leftSide">
                       <div class="" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                            <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="">
-                            <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                            <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="" class="postuserImg" >
+                            <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="" class="postuserImg" >
                         </div>
                         <div class="mt-5" fxFlex>
                             <p class="postusername"> 
@@ -184,8 +184,8 @@
                           <div class="leftSide">
                             <div class="" fxLayout="row" fxLayoutAlign="start center">
                               <div fxFlex="45px">
-                                <img class="postuserImg" *ngIf="comment.UserImage.toLowerCase().indexOf('http://') !== -1 || comment.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{comment.UserImage}}" alt="">
-                                <img class="postuserImg" *ngIf="comment.UserImage.toLowerCase().indexOf('http://') === -1 || comment.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{comment.UserImage}}" alt="">
+                                <img *ngIf="comment.UserImage.toLowerCase().indexOf('http://') !== -1 || comment.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{comment.UserImage}}" alt="" class="postuserImg">
+                                <img *ngIf="comment.UserImage.toLowerCase().indexOf('http://') === -1 || comment.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{comment.UserImage}}" alt="" class="postuserImg">
                               </div>
                               <div fxFlex>
                                 <p class="postusercategory">
@@ -271,8 +271,8 @@
                       <div class="leftSide">
                         <div class="" fxLayout="row" fxLayoutAlign="start center">
                           <div fxFlex="45px">
-                            <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="">
-                            <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                            <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="" class="postuserImg" >
+                            <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="" class="postuserImg" >
                           </div>
                           <div class="mt-5" fxFlex>
                               <p class="postusername"> 
@@ -374,8 +374,8 @@
                             <div class="leftSide">
                               <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
                                 <div fxFlex="45px">
-                                    <img class="postansuserImg" *ngIf="Answer.UserImage.toLowerCase().indexOf('http://') !== -1 || Answer.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Answer.UserImage}}" alt="">
-                                    <img class="postansuserImg" *ngIf="Answer.UserImage.toLowerCase().indexOf('http://') === -1 || Answer.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Answer.UserImage}}" alt="">
+                                    <img *ngIf="Answer.UserImage.toLowerCase().indexOf('http://') !== -1 || Answer.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Answer.UserImage}}" alt="" class="postansuserImg">
+                                    <img *ngIf="Answer.UserImage.toLowerCase().indexOf('http://') === -1 || Answer.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Answer.UserImage}}" alt="" class="postansuserImg">
                                 </div>
                                 <div fxFlex>
                                   <p class="postansusername" style="cursor:pointer" (click)="GotoProfile(Answer.UserId)">{{Answer.UserName}} </p>
@@ -502,8 +502,8 @@
                   <div *ngIf="ActiveAnswerInput == i" class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
                     <div fxFlex="60px" class="text-left">
                       <div class="chatUserImg text-center">
-                          <img class="postansuserImg" *ngIf="LoginUser.data.UserImage.toLowerCase().indexOf('http://') !== -1 || LoginUser.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{LoginUser.data.UserImage}}" alt="">
-                          <img class="postansuserImg" *ngIf="LoginUser.data.UserImage.toLowerCase().indexOf('http://') === -1 || LoginUser.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{LoginUser.data.UserImage}}" alt="">
+                          <img *ngIf="LoginUser.data.UserImage.toLowerCase().indexOf('http://') !== -1 || LoginUser.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{LoginUser.data.UserImage}}" alt="" class="postansuserImg">
+                          <img *ngIf="LoginUser.data.UserImage.toLowerCase().indexOf('http://') === -1 || LoginUser.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{LoginUser.data.UserImage}}" alt="" class="postansuserImg">
                       </div>
                     </div>
                     <div fxFlex class="text-center">

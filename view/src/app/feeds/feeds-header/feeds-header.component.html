@@ -86,8 +86,8 @@
                       <span *ngIf="NotificationList?.length > 0" class="notifyCount">  {{NotificationList?.length}} </span>
                   </div>
                   <div fxFlex="25%" class="text-center" [matMenuTriggerFor]="userView" style="line-height:50px">
-                      <img class="headeruserimg" *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt="">
-                      <img class="headeruserimg" *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="">
+                      <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt="" class="headeruserimg">
+                      <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="" class="headeruserimg">
                   </div>
               </div> 
           </div><!-- header right -->
@@ -124,8 +124,8 @@
                 <div class="notifylist" *ngFor="let Notify of NotificationList; let i=index">
                     <div style="position:relative" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="45px">
-                            <img (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg" *ngIf="Notify.UserImage.toLowerCase().indexOf('http://') !== -1 || Notify.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Notify.UserImage}}" alt="">
-                            <img (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg" *ngIf="Notify.UserImage.toLowerCase().indexOf('http://') === -1 || Notify.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Notify.UserImage}}" alt="">
+                            <img *ngIf="Notify.UserImage.toLowerCase().indexOf('http://') !== -1 || Notify.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Notify.UserImage}}" alt="" (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg" >
+                            <img *ngIf="Notify.UserImage.toLowerCase().indexOf('http://') === -1 || Notify.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Notify.UserImage}}" alt="" (click)="GotoProfile(Notify.UserId); RemoveNotify(Notify._id, i)" class="userImg">
                         </div>
                         <div class="mt-10" fxFlex>
                             <p class="notifycategory"> <span class="username"> {{Notify.UserName}}  </span>

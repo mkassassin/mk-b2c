@@ -45,8 +45,8 @@
             <div *ngIf="data.type !== 'FollowingTopics'" class="row m-0 DiscoverPeoples" style="max-width: 900px;">
                 <div class="col-xs-4 col-sm-4 mt-20 max-width-300" *ngFor="let user of DiscoverPeoples; let j=index" fxLayout="row" fxLayoutAlign="space-evenly">
                   <div fxFlex="55px" class="text-center">
-                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" *ngIf="user.UserImage.toLowerCase().indexOf('http://') !== -1 || user.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{user.UserImage}}" alt="">
-                    <img class="userlistImg" (click)="GotoProfile(user.UserId)" *ngIf="user.UserImage.toLowerCase().indexOf('http://') === -1 || user.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt="">
+                    <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') !== -1 || user.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{user.UserImage}}" alt=""  class="userlistImg" (click)="GotoProfile(user.UserId)">
+                    <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') === -1 || user.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{user.UserImage}}" alt=""  class="userlistImg" (click)="GotoProfile(user.UserId)">
                   </div>
                   <div fxFlex>
                     <p class="userlistname">

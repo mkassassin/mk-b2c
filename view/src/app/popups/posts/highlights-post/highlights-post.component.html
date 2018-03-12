@@ -40,8 +40,8 @@
                         <div class="leftSide">
                           <div class="" fxLayout="row" fxLayoutAlign="start center">
                             <div fxFlex="45px">
-                              <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="">
-                              <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                              <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="" class="postuserImg" >
+                              <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="" class="postuserImg" >
                             </div>
                             <div class="mt-5" fxFlex>
                                 <p class="postusername"> 
@@ -153,6 +153,7 @@
                         <div class="chatUserImg text-center">
                             <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt="">
                             <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="">
+                        </div>
                       </div>
                       <div fxFlex class="text-center">
                         <div class="chatInput">
@@ -196,8 +197,8 @@
                               <div class="leftSide">
                                 <div class="" fxLayout="row" fxLayoutAlign="start center">
                                   <div fxFlex="45px">
-                                      <img class="postuserImg" *ngIf="comment.UserImage.toLowerCase().indexOf('http://') !== -1 || comment.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{comment.UserImage}}" alt="">
-                                      <img class="postuserImg" *ngIf="comment.UserImage.toLowerCase().indexOf('http://') === -1 || comment.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{comment.UserImage}}" alt="">
+                                      <img *ngIf="comment.UserImage.toLowerCase().indexOf('http://') !== -1 || comment.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{comment.UserImage}}" alt="" class="postuserImg">
+                                      <img *ngIf="comment.UserImage.toLowerCase().indexOf('http://') === -1 || comment.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{comment.UserImage}}" alt="" class="postuserImg">
                                   </div>
                                   <div fxFlex>
                                     <p class="postusercategory">
