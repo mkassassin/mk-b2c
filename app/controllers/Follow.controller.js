@@ -79,26 +79,11 @@ exports.UnFollowUser = function(req, res) {
                 res.status(500).send({status:"False", Error:err, message: "Follow User DB Error"});
             } else {
                 if(result !== null){
-                    var varNotification = new NotificationModel.Notification({
-                        UserId:  result.UserId,
-                        ResponseUserId: result.FollowingUserId,
-                        FollowUserId: result.FollowingUserId,
-                        NotificationType: 1,
-                        Viewed: 0,
-                        NotificationDate: new Date
-                    });
-
-                    varNotification.save(function(Nofifyerr, Notifydata) {
-                        if(Nofifyerr) {
-                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                    FollowModel.FollowUserType.remove({_id: req.params.FollowUserDBid}, function(Removeerr, Removeresult) {
+                        if(Removeerr) {
+                            res.status(500).send({status:"False", Error:Removeerr, message: "Could not Delete UserFollow Info"});
                         } else {
-                            FollowModel.FollowUserType.remove({_id: req.params.FollowUserDBid}, function(Removeerr, Removeresult) {
-                                if(Removeerr) {
-                                    res.status(500).send({status:"False", Error:Removeerr, message: "Could not Delete UserFollow Info"});
-                                } else {
-                                    res.send({ status:"True", data: Removeresult, message: "User Follow Info Deleted Successfully!"})
-                                }
-                            });
+                            res.send({ status:"True", data: Removeresult, message: "User Follow Info Deleted Successfully!"})
                         }
                     });
                 }else{
@@ -534,25 +519,11 @@ exports.UnFollowTopic = function(req, res) {
             res.status(500).send({status:"False", Error:err, message: "Follow Topic DB Error"});
         } else {
             if(result !== null){
-                var varNotification = new NotificationModel.Notification({
-                    UserId:  result.UserId,
-                    FollowTopicId: result.FollowingTopicId,
-                    NotificationType: 4,
-                    Viewed: 0,
-                    NotificationDate: new Date
-                });
-
-                varNotification.save(function(Nofifyerr, Notifydata) {
-                    if(Nofifyerr) {
-                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                FollowModel.FollowTopicType.remove({_id: req.params.FollowTopicDBid}, function(Removeerr, Removeresult) {
+                    if(Removeerr) {
+                        res.status(500).send({status:"False", Error:Removeerr, message: "Could not Delete TopicFollow Info"});
                     } else {
-                        FollowModel.FollowTopicType.remove({_id: req.params.FollowTopicDBid}, function(Removeerr, Removeresult) {
-                            if(Removeerr) {
-                                res.status(500).send({status:"False", Error:Removeerr, message: "Could not Delete TopicFollow Info"});
-                            } else {
-                                res.send({ status:"True", data: Removeresult, message: "Topic Follow Info Deleted Successfully!"})
-                            }
-                        });
+                        res.send({ status:"True", data: Removeresult, message: "Topic Follow Info Deleted Successfully!"})
                     }
                 });
             }else{

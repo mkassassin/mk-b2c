@@ -87,7 +87,8 @@
                           <div class="leftSide">
                             <div class="" fxLayout="row" fxLayoutAlign="start center">
                               <div fxFlex="45px">
-                                <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                                  <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="">
+                                  <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                               </div>
                               <div class="mt-5" fxFlex>
                                   <p class="postusername"> 
@@ -234,7 +235,8 @@
                                 <div class="leftSide">
                                   <div class="" fxLayout="row" fxLayoutAlign="start center">
                                     <div fxFlex="45px">
-                                      <img class="postuserImg" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
+                                        <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="">
+                                        <img class="postuserImg" *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="">
                                     </div>
                                     <div class="mt-5" fxFlex>
                                       <p class="postusername"> 
@@ -314,7 +316,8 @@
                                       <div class="leftSide">
                                         <div class="postansuserinfo" fxLayout="row" fxLayoutAlign="start center">
                                           <div fxFlex="45px">
-                                            <img class="postansuserImg" src="{{UserImageBaseUrl}}/{{Answer.UserImage}}" alt="">
+                                              <img class="postansuserImg" *ngIf="Answer.UserImage.toLowerCase().indexOf('http://') !== -1 || Answer.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Answer.UserImage}}" alt="">
+                                              <img class="postansuserImg" *ngIf="Answer.UserImage.toLowerCase().indexOf('http://') === -1 || Answer.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Answer.UserImage}}" alt="">
                                           </div>
                                           <div fxFlex>
                                             <p class="postansusername" style="cursor:pointer">{{Answer.UserName}} </p>

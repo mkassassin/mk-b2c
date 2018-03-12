@@ -161,7 +161,8 @@
                                     <div class="leftSide">
                                         <div class="" fxLayout="row" fxLayoutAlign="start center">
                                             <div fxFlex="45px">
-                                                <img class="postuserImg" src="{{UserImageBaseUrl}}/{{item.UserImage}}" alt="">
+                                                <img class="postuserImg" *ngIf="item.UserImage.toLowerCase().indexOf('http://') !== -1 || item.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{item.UserImage}}" alt="">
+                                                <img class="postuserImg" *ngIf="item.UserImage.toLowerCase().indexOf('http://') === -1 || item.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{item.UserImage}}" alt="">
                                             </div>
                                             <div class="mt-10" fxFlex>
                                                 <p class="postusercategory"> <span class="postusername" style="cursor:pointer" (click)="GotoProfile(item.UserId)" > {{item.UserName}},  </span> {{item.UserCategoryName}}  &nbsp; | &nbsp; {{item.UserProfession | slice:0:15 }}{{ item.UserProfession?.length > 15 ? '...' : ' ' }} </p>

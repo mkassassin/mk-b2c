@@ -1,7 +1,8 @@
 <div class="postTwo" style="min-width:700px">
     <div class="postheader" fxLayout="row" fxLayoutAlign="start" >
       <div fxFlex="65px" class="text-center">
-        <img class="userimg" src="{{UserImageBaseUrl}}/{{this.UserInfo.data.UserImage}}" alt="">
+          <img class="userimg" *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt="">
+          <img class="userimg" *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="">
       </div>
       <div fxFlex class="text-left">
         <h5 class="m-0 posttype"> {{title}} </h5>
