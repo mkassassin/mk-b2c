@@ -24,10 +24,22 @@ var UserTypeSchema = mongoose.Schema({
     { timestamps: true }
 );
 
+var ScheduleSchema = mongoose.Schema({
+    DateTime: { type : String , required : true },
+    ScheduleType: { type : String , required : true },
+    Error: { type : Array },
+    ErrorStage: { type : String },
+    Success: { type : Array }
+    }, 
+    { timestamps: true }
+);
 
 var varUserType = mongoose.model('UserType', UserTypeSchema, 'Users');
 
+var varScheduleHistory = mongoose.model('ScheduleHistory', ScheduleSchema, 'ScheduleHistory');
+
 
 module.exports = {
-    UserType : varUserType
+    UserType : varUserType,
+    ScheduleHistory : varScheduleHistory,
 };

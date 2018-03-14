@@ -567,6 +567,7 @@ exports.AndroidUserValidate= function(req, res) {
                                                     UserId:  data._id,
                                                     FirebaseToken: req.body.FirebaseToken,
                                                     DeviceInfo: DeviceInfo,
+                                                    LastPushNotify: null,
                                                     UtcTime: new Date(),
                                                     ActiveStates: 'Active'
                                                 });
@@ -579,6 +580,7 @@ exports.AndroidUserValidate= function(req, res) {
                                                 });
                                             }else{
                                                 olddata.FirebaseToken = req.body.FirebaseToken,
+                                                olddata.LastPushNotify = null,
                                                 olddata.save(function(apperr, appresult) {
                                                     if(apperr) {
                                                         res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            

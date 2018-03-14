@@ -5,6 +5,8 @@ module.exports = function(app) {
 
     app.post('/API/QuestionsPost/Submit', QuestionsPost.Submit);
 
+    app.post('/API/QuestionsPost/AndroidSubmit', QuestionsPost.AndroidSubmit);
+
     app.post('/API/QuestionsPost/Update', QuestionsPost.Update);
 
     app.post('/API/QuestionsPost/SharePost', QuestionsPost.SharePost);

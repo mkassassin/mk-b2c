@@ -13,6 +13,7 @@ var mongoose = require('mongoose');
     var AndroidAppInfoSchema = mongoose.Schema({
         UserId: { type : String },
         FirebaseToken: { type : Object },
+        LastPushNotify: { type: Date },
         DeviceInfo: { type : Object },
         UtcTime: { type: Date },
         ActiveStates: String

@@ -208,6 +208,19 @@ exports.AndroidSubmit = function(req, res) {
     }
 
     function gotonext() {
+
+        var Image = '';
+        var Video = '';
+        if( (req.body.PostImage).length > 0 && req.body.PostImage !== ''){
+             Image = JSON.parse(req.body.PostImage);
+        }else{
+             Image = '';
+        }
+        if( (req.body.PostVideo).length > 0 && req.body.PostVideo !== '' ){
+            Video = JSON.parse(req.body.PostVideo);
+       }else{
+            Video = '';
+       }
         var varHighlightsPostType = new HighlightsPostModel.HighlightsPostType({
             UserId: req.body.UserId,
             PostType: req.body.PostType,
@@ -215,8 +228,8 @@ exports.AndroidSubmit = function(req, res) {
             PostText: req.body.PostText || '',
             PostLink: req.body.PostLink || '',
             PostLinkInfo: LinkInfo,
-            PostImage: JSON.parse(req.body.PostImage) || '',
-            PostVideo: JSON.parse(req.body.PostVideo) || '',
+            PostImage: Image,
+            PostVideo: Video,
             ActiveStates: 'Active'
         });
 

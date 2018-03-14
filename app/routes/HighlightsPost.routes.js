@@ -5,6 +5,8 @@ module.exports = function(app) {
 
     app.post('/API/HighlightsPost/Submit', HighlightsPost.Submit);
 
+    app.post('/API/HighlightsPost/AndroidSubmit', HighlightsPost.AndroidSubmit);
+
     app.post('/API/HighlightsPost/Update', HighlightsPost.Update);
 
     app.post('/API/HighlightsPost/SharePost', HighlightsPost.SharePost);
