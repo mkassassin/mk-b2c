@@ -581,6 +581,7 @@ exports.AndroidUserValidate= function(req, res) {
                                             }else{
                                                 olddata.FirebaseToken = req.body.FirebaseToken,
                                                 olddata.LastPushNotify = null,
+                                                olddata.ActiveStates = 'Active',
                                                 olddata.save(function(apperr, appresult) {
                                                     if(apperr) {
                                                         res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
@@ -626,6 +627,7 @@ exports.AndroidUserSignOut= function(req, res) {
                 res.send({status:"False", message: "Signout Failed"});
             }else{
                 olddata.ActiveStates = 'Inactice';
+                olddata.FirebaseToken = '',
                 olddata.save(function(apperr, appresult) {
                     if(apperr) {
                         res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
