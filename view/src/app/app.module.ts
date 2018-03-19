@@ -23,7 +23,6 @@ import { MatDialogModule, MatButtonModule, MatMenuModule,
   MatExpansionModule, MatTooltipModule, MatSnackBarModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
-import { TimeAgoPipeModule } from 'time-ago-pipe/index';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ChartsModule } from 'ng2-charts';
 
@@ -54,7 +53,7 @@ export function provideConfig() {
   return CONFIG;
 }
 
-// live
+  // live
 // const providers = {
 //   'google': {
 //         'clientId': '1094825930149-n7ec4je3dtpgrdm0msovsvt2kavfgbfv.apps.googleusercontent.com'
@@ -235,8 +234,7 @@ import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-s
     NglModule.forRoot(),
     ChartsModule,
     SocialLoginModule,
-    FacebookModule.forRoot(),
-    TimeAgoPipeModule
+    FacebookModule.forRoot()
   ],
   providers: [
                 AuthGuard,

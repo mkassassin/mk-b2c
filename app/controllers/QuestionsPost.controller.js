@@ -634,7 +634,7 @@ exports.GetPostList = function (req, res) {
             const getPostInfo = info =>
                 Promise.all([
                     UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
-                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    FollowModel.FollowUserType.count({ 'FollowingUserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
@@ -906,7 +906,7 @@ exports.ViewPost = function (req, res) {
             const getPostInfo = info =>
                 Promise.all([
                     UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
-                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    FollowModel.FollowUserType.count({ 'FollowingUserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
@@ -1171,7 +1171,7 @@ exports.ViewSharePost = function (req, res) {
             const getPostInfo = info =>
                 Promise.all([
                     UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
-                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    FollowModel.FollowUserType.count({ 'FollowingUserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.find({ 'PostId': info._id }, 'AnswerText UserId Date', {sort: { createdAt: -1 }, limit: 2 }).exec(),
@@ -1397,7 +1397,7 @@ exports.GetTopicPostList = function (req, res) {
             const getPostInfo = info =>
                 Promise.all([
                     UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
-                    FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                    FollowModel.FollowUserType.count({ 'FollowingUserId': info.UserId }).exec(),
                     RatingModel.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                     RatingModel.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                     AnswerModel.QuestionsAnswer.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),

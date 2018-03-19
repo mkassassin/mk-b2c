@@ -46,7 +46,7 @@ exports.Timeline = function (req, res) {
                 var getPostInfo = info =>
                     Promise.all([
                         UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
-                        FollowModel.FollowUserType.count({ 'UserId': info.UserId }).exec(),
+                        FollowModel.FollowUserType.count({ 'FollowingUserId': info.UserId }).exec(),
                         LikeAndRating.QuestionsRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
                         LikeAndRating.QuestionsRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
                         LikeAndRating.HighlightsLike.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
