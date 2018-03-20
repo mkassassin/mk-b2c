@@ -57,12 +57,10 @@ export class FeedsHeaderComponent implements OnInit {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
         this.ViewSharePost = this.ShareingService.GetSharePost();
-        console.log(this.ViewSharePost);
-        console.log(this.ViewSharePost['PostId']);
         if (this.ViewSharePost['PostId'] !== '') {
           if (this.ViewSharePost['PostType'] === 't_1') {
               const HighlightsPostDialogRef = this.dialog.open(
-                HighlightsPostComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
+                HighlightsPostComponent, { maxWidth: '99%', position: {top: '50px'},
                   data: { PostId: this.ViewSharePost['PostId'] } }
               );
               HighlightsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
@@ -70,7 +68,7 @@ export class FeedsHeaderComponent implements OnInit {
           }
           if (this.ViewSharePost['PostType'] === 't_2') {
               const QuestionsPostDialogRef = this.dialog.open(
-                QuestionsPostComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
+                QuestionsPostComponent, { maxWidth: '99%', position: {top: '50px'},
                   data: { PostId: this.ViewSharePost['PostId'] } }
               );
               QuestionsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
@@ -177,14 +175,14 @@ export class FeedsHeaderComponent implements OnInit {
 
   OpenModelHighlightsPost(PostId) {
     const HighlightsPostDialogRef = this.dialog.open(
-      HighlightsPostComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { PostId: PostId } }
+      HighlightsPostComponent, { maxWidth: '99%', position: {top: '50px'},  data: { PostId: PostId } }
     );
     HighlightsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }
 
   OpenModelQuestionsPost(PostId) {
     const QuestionsPostDialogRef = this.dialog.open(
-      QuestionsPostComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { PostId: PostId } }
+      QuestionsPostComponent, { maxWidth: '99%', position: {top: '50px'},  data: { PostId: PostId } }
     );
     QuestionsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }

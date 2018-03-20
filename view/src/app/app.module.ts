@@ -23,6 +23,7 @@ import { MatDialogModule, MatButtonModule, MatMenuModule,
   MatExpansionModule, MatTooltipModule, MatSnackBarModule } from '@angular/material';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NglModule } from 'ng-lightning/ng-lightning';
+// import { TimeAgoPipeModule } from 'time-ago-pipe/index';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { ChartsModule } from 'ng2-charts';
 
@@ -37,11 +38,11 @@ import {
 const CONFIG = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('1094825930149-bl9tg0rsan3gjhffenkcmcs093bi572v.apps.googleusercontent.com')
+    provider: new GoogleLoginProvider('1094825930149-n7ec4je3dtpgrdm0msovsvt2kavfgbfv.apps.googleusercontent.com')
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('202967426952150')
+    provider: new FacebookLoginProvider('323054561538925')
   },
   {
     id: LinkedinLoginProvider.PROVIDER_ID,
@@ -234,7 +235,8 @@ import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-s
     NglModule.forRoot(),
     ChartsModule,
     SocialLoginModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    // TimeAgoPipeModule
   ],
   providers: [
                 AuthGuard,

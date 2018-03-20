@@ -34,12 +34,21 @@ var ScheduleSchema = mongoose.Schema({
     { timestamps: true }
 );
 
+var AndroidVersionSchema = mongoose.Schema({
+    DateTime: { type : String , },
+    Version: { type : Number , },
+    }, 
+    { timestamps: true }
+);
+
 var varUserType = mongoose.model('UserType', UserTypeSchema, 'Users');
 
 var varScheduleHistory = mongoose.model('ScheduleHistory', ScheduleSchema, 'ScheduleHistory');
 
+var varAndroidVersion = mongoose.model('AndroidVersion', AndroidVersionSchema, 'AndroidVersion');
 
 module.exports = {
     UserType : varUserType,
     ScheduleHistory : varScheduleHistory,
+    AndroidVersion : varAndroidVersion
 };

@@ -45,4 +45,10 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/UserCoinCount/:UserId', user.UserCoinCount);
 
+    app.get('/API/SigninSignup/AndroidVersionSubmit/:Version', user.AndroidVersionSubmit);
+
+    app.get('/API/SigninSignup/AndroidVersionUpdate/:Version', user.AndroidVersionUpdate);
+
+    app.get('/API/SigninSignup/AndroidVersionGet/', user.AndroidVersionGet);
+
 };

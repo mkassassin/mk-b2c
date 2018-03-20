@@ -9,6 +9,8 @@ module.exports = function(app) {
 
     app.post('/API/QuestionsPost/Update', QuestionsPost.Update);
 
+    app.post('/API/QuestionsPost/AndroidUpdate', QuestionsPost.AndroidUpdate);
+
     app.post('/API/QuestionsPost/SharePost', QuestionsPost.SharePost);
 
     app.post('/API/QuestionsPost/FacebookSharePost', QuestionsPost.FacebookSharePost);
