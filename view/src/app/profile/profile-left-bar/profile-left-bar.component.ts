@@ -30,9 +30,11 @@ export class ProfileLeftBarComponent implements OnInit {
   FollowingUsers: any[];
   FollowingTopics: any[];
   UserFollowingUsers: any[];
+  YourTopics: any[];
   LoderOne: Boolean = true;
   LoderTwo: Boolean = true;
   LoderThree: Boolean = true;
+  LoderFour: Boolean = true;
   UserId;
   LoginUser: Boolean = true;
   LoginUserFollow: Boolean = false;
@@ -102,6 +104,17 @@ export class ProfileLeftBarComponent implements OnInit {
               this.LoderOne = false ;
             }else {
               this.LoderOne = false ;
+            }
+        });
+
+        this.FollowService.YourTopics(this.UserId)
+        .subscribe( topicdatas => {
+            if (topicdatas['status'] === 'True') {
+              this.LoderFour = false;
+              this.YourTopics = topicdatas['data'];
+            }else {
+              this.LoderFour = false;
+              console.log(topicdatas);
             }
         });
 
@@ -182,7 +195,18 @@ export class ProfileLeftBarComponent implements OnInit {
     });
   }
 
-
+  AllYourTopics() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
+      data: { Header: 'Your Topics', Userid: this.UserInfo['data']._id, type: 'AllUserTopics'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToTopic') {
+        this.ShareingService.SetTopicQuestions(result.topicId);
+        this.router.navigate(['TopicPage']);
+      }
+    });
+  }
 
   AllUserFollowingUsers() {
     const DiscoverDialogRef = this.dialog.open(

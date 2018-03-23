@@ -80,7 +80,7 @@ export class FeedsHighlightsComponent implements OnInit {
       this.Service.GetHighlightsList(this.UserInfo.data._id, this.SkipCount)
         .subscribe( datas => {
             if (datas['status'] === 'True') {
-              this.SkipCount = this.SkipCount + 5;
+              this.SkipCount = this.SkipCount + 15;
               this.PostsList = datas['data'];
               this.PostsListLoder = false;
 
@@ -226,7 +226,7 @@ export class FeedsHighlightsComponent implements OnInit {
     this.Service.GetHighlightsList(this.UserInfo.data._id, this.SkipCount)
     .subscribe( datas => {
         if (datas['status'] === 'True') {
-          this.SkipCount = this.SkipCount + 5;
+          this.SkipCount = this.SkipCount + 15;
           this.ScrollToDiv = datas['data'][0]._id;
           this.PostsList = [...this.PostsList, ...datas['data']];
           const tempPostList = this.PostsList;

@@ -36,14 +36,13 @@
     color: #333333;
     font-family: 'Ubuntu', sans-serif;
     /* border-bottom: 1px solid #ffda00; */
-    margin: 10px 5px 0px 5px;
+    margin: 0px 5px 0px 5px;
     letter-spacing: 0.4px;
 }
 
-
 .ProfilrLeftBar .listFlexDiv{
     display: inline-flex;
-    padding: 10px 20px 0px 20px;
+    padding: 0px 20px 0px 20px;
 }
 
 .ProfilrLeftBar .followPart{

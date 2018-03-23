@@ -100,6 +100,10 @@
                   <img (click)="ActiveTopicSelect(i)" src="{{TopicImageBaseUrl}}/{{item.TopicImage}}" alt="">
                   <p> {{item.TopicName}} </p>
                 </div>
+                <div class="cat-img-item">
+                  <i style="font-size:40px;cursor: pointer;" (click)="OpenModelCreatTopic(i)" class="material-icons">add_circle_outline</i>
+                  <p style="width: 66px;line-height: 5px;"> Creat Topic </p>
+                </div>
                 <div *ngIf="Topics?.length > 6">
                     <p (click)="OpenModelMoreTopics()" class="viewall"> View All...</p>
                 </div>

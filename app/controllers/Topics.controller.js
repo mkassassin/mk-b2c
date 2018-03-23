@@ -7,9 +7,11 @@ exports.Register = function(req, res) {
     }
 
     var varTopicsType = new TopicsModel.TopicsType({
-            TopicName:  req.body.TopicName,
+            UserId: req.body.UserId,
+            TopicName: req.body.TopicName,
             TopicDescription: req.body.TopicDescription || "",
-            TopicImage:req.body.TopicImage || "topicImage.png"
+            TopicImage: req.body.TopicImage,
+            Date: new Date()
     });
 
      
@@ -37,7 +39,5 @@ exports.NameValidate = function(req, res) {
             }
         });
 };
-
-
 
 // 5a883a1e4c1cd65a5a1d19ec7011bb4a8ee7426a5cdcb

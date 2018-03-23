@@ -105,4 +105,10 @@ export class PostServiceService {
         .catch(this.handleError);
     }
 
+    public TopicNameValidate(Name: any): Observable<any[]> {
+        return this.http .get(API_URL + 'Topic/NameValidate/' + Name)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

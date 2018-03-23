@@ -17,6 +17,8 @@ import { ReportAndDeleteService } from './../../service/report-and-delete-servic
 import { EditPostTwoComponent } from './../../popups/edit-post-two/edit-post-two.component';
 import { EditAnswerComponent } from './../../popups/edit-answer/edit-answer.component';
 
+import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
+
 import { TopicRoutingServiceService } from './../../service/topic-routing-service/topic-routing-service.service';
 
 import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
@@ -88,7 +90,7 @@ export class FeedsQuestionsComponent implements OnInit {
       this.Service.GetTopicQuestionsList(this.UserInfo.data._id, '0', this.ActiveTab['TopicId'])
         .subscribe( datas => {
             if (datas['status'] === 'True') {
-              this.SkipCount = this.SkipCount + 5;
+              this.SkipCount = this.SkipCount + 15;
               this.TopicFilter = true;
               this.PostsList = datas['data'];
               this.TopicFilterName = this.PostsList[0].PostTopicName;
@@ -104,7 +106,7 @@ export class FeedsQuestionsComponent implements OnInit {
       .subscribe( datas => {
           if (datas['status'] === 'True') {
             this.PostsList = datas['data'];
-            this.SkipCount = this.SkipCount + 5;
+            this.SkipCount = this.SkipCount + 15;
             this.PostsListLoading = false;
             this.ReloadGalleryScript();
           }else {
@@ -278,7 +280,7 @@ export class FeedsQuestionsComponent implements OnInit {
     this.Service.GetQuestionsList(this.UserInfo.data._id, this.SkipCount)
     .subscribe( datas => {
         if (datas['status'] === 'True') {
-          this.SkipCount = this.SkipCount + 5;
+          this.SkipCount = this.SkipCount + 15;
           this.ScrollToDiv = datas['data'][0]._id;
           this.PostsList = [...this.PostsList, ...datas['data']];
           const tempPostList = this.PostsList;
@@ -317,7 +319,11 @@ export class FeedsQuestionsComponent implements OnInit {
   postSubmit(result) {
     console.log(result);
     if (result === 'Close') {
-      console.log('Post Not Submit Properly');
+      this.snackBar.open( 'Question Post Form Closed', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
     }else {
       this.PostsList.splice(0 , 0, result);
       const tempPostList = this.PostsList;
@@ -328,10 +334,38 @@ export class FeedsQuestionsComponent implements OnInit {
             s.type = 'text/javascript';
             s.src = './../../../assets/html5gallery/html5gallery.js';
             this.elementRef.nativeElement.appendChild(s);
+            this.snackBar.open( 'Your New Question Posted Successfully', ' ', {
+              horizontalPosition: 'center',
+              duration: 3000,
+              verticalPosition: 'top',
+            });
       }, 50);
     }
   }
 
+
+  OpenModelCreatTopic() {
+    const CreatTopictDialogRef = this.dialog.open(
+      CreatTopicComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { PostId: '' } }
+    );
+    CreatTopictDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+  }
+
+  DiscoverClose(result) {
+    if (result === 'Created') {
+      this.snackBar.open( 'Your New Topic Successfully Created', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+    }else {
+      this.snackBar.open( 'Topic Creat Form Closed', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+    }
+  }
 
   RatingImage(isActive: boolean) {
     return `assets/images/icons/like${isActive ? 'd' : ''}.png`;

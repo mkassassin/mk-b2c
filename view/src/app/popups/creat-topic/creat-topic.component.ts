@@ -15,10 +15,14 @@ const uriImage = 'http://localhost:3000/API/FileUpload/CreateTopic';
 })
 export class CreatTopicComponent implements OnInit {
 
+  UserImageBaseUrl: String = 'http://localhost:3000/static/users';
 
   UserInfo;
-  TopicName;
+  TopicName = '';
   TopicDescription;
+  ErrorValue: Boolean = false;
+  ShowSubmit: Boolean = false;
+  ErrorText = '';
 
   ImageUploadErrorMessage: string;
   ImageAllowedType = ['image/png', 'image/jpg', 'image/jpeg'];
@@ -41,9 +45,10 @@ export class CreatTopicComponent implements OnInit {
         this.Imageuploader.onBuildItemForm = (fileItem, form) => {
           form.append('TopicName', this.TopicName);
           form.append('TopicDescription', this.TopicDescription);
-
+          form.append('UserId', this.UserInfo.data._id);
           return {fileItem, form};
         };
+
         this.Imageuploader.onAfterAddingFile = f => {
           if (this.Imageuploader.queue.length > 1) {
             this.Imageuploader.removeFromQueue(this.Imageuploader.queue[0]);
@@ -66,7 +71,6 @@ export class CreatTopicComponent implements OnInit {
         };
 
         this.Imageuploader.onCompleteItem = (item: any, response: any, status: any, headers: any ) => {
-          console.log(JSON.parse(response));
           if (JSON.parse(response).status === 'True') {
             this.dialogRef.close('Created');
           }else {
@@ -75,6 +79,39 @@ export class CreatTopicComponent implements OnInit {
         };
 
      }
+
+    SubmitData() {
+      this.ShowSubmit = true;
+      if (this.TopicName !== '' && (this.Imageuploader.queue).length > 0) {
+        this.Service.TopicNameValidate(this.TopicName).subscribe( datas => {
+          const data: any = datas;
+          if ( data.status === 'True' && data.available === 'True' ) {
+            this.ShowSubmit = true;
+            this.ErrorValue = false;
+            this.ErrorText = '';
+            this.Imageuploader.queue[0].upload();
+          }else if ( data.status === 'True' && data.available === 'False' ) {
+            this.ShowSubmit = false;
+            this.ErrorValue = true;
+            this.ErrorText = 'Topic Name is Already Registerd';
+          }else {
+            this.ShowSubmit = false;
+            this.ErrorValue = true;
+            this.ErrorText = 'Some Error Occurred Please Try Again';
+          }
+         } );
+
+
+      }else if ( this.TopicName === '') {
+        this.ShowSubmit = false;
+        this.ErrorValue = true;
+        this.ErrorText = 'Topic Name is Required';
+      }else {
+        this.ShowSubmit = false;
+        this.ErrorValue = true;
+        this.ErrorText = 'Topic Image is Required';
+      }
+    }
 
     close() {
       this.dialogRef.close('Close');

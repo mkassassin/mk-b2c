@@ -150,6 +150,7 @@ import { SelectPeoplesComponent } from './popups/select-peoples/select-peoples.c
 import { SelectTopicsComponent } from './popups/select-topics/select-topics.component';
 import { SharePostReturnPageComponent } from './share-post-return-page/share-post-return-page.component';
 import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-signup/share-return-singin-signup.component';
+import { DiscoverMainComponent } from './discover-main/discover-main.component';
 
 
 @NgModule({
@@ -204,7 +205,8 @@ import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-s
     SelectPeoplesComponent,
     SelectTopicsComponent,
     SharePostReturnPageComponent,
-    ShareReturnSinginSignupComponent
+    ShareReturnSinginSignupComponent,
+    DiscoverMainComponent
   ],
   imports: [
     CommonModule,

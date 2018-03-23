@@ -2,6 +2,8 @@ var FileUploadModel = require('../models/FileUpload.model.js');
 var multer = require('multer');
 var UserModel = require('../models/SignInSignUp.model.js');
 var TopicsModel = require('../models/Topics.model.js');
+var NotificationModel = require('../models/Notificatio.model.js');
+var FollowModel = require('../models/Follow.model.js');
 
 var usersProjection = { 
     __v: false,
@@ -196,11 +198,13 @@ exports.ProfileUpdate = function(req, res) {
 
 exports.CreateTopic = function(req, res) {
     CreateTopic(req, res, function(uploaderr){
-        
         if(uploaderr){
             res.status(500).send({status:"False", Error:uploaderr});
         }else{
             if(!req.body.TopicName) {
+                res.status(400).send({status:"False", message: "Topic Name can not be Empty! "});
+            }
+            if(!req.body.UserId) {
                 res.status(400).send({status:"False", message: " User Id can not be Empty! "});
             }
             if(!req.file.filename){
@@ -208,20 +212,54 @@ exports.CreateTopic = function(req, res) {
             }
 
             var varTopicsType = new TopicsModel.TopicsType({
+                UserId: req.body.UserId,
                 TopicName:  req.body.TopicName,
                 TopicDescription: req.body.TopicDescription || "",
-                TopicImage: req.file.filename || "topicImage.png"
+                TopicImage: req.file.filename,
+                Date: new Date()
             });
-        
             
             varTopicsType.save(function(err, result) {
                 if(err) {
-                    res.status(500).send({status:"False", Error: err, message: "Some error occurred while creating the Topic."});
-                    
+                    res.status(500).send({status:"False", Error: err, message: "Some error occurred while creating the Topic."}); 
                 } else {
-                    res.send({status:"True", data: result });
+
+                    var varNotification = new NotificationModel.Notification({
+                        UserId:  req.body.UserId,
+                        FollowTopicId: result._id,
+                        NotificationType: 3,
+                        Viewed: 0,
+                        NotificationDate: new Date()
+                });
+
+                    var varFollowTopicType = new FollowModel.FollowTopicType({
+                        UserId:  req.body.UserId,
+                        FollowingTopicId: result._id,
+                        ActiveStates: 'Active',
+                });
+
+                FollowModel.FollowTopicType.find({UserId:req.body.UserId, FollowingTopicId:req.body.FollowingTopicId }, function(errnew, resultnew) {
+                    if(errnew) {
+                        res.status(500).send({status:"False", Error:errnew,  message: "Some error occurred while Follow The Topic "});
+                    } else {
+                            varFollowTopicType.save(function(Newerr, data) {
+                                if(Newerr) {
+                                    res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while Follow The Topic."});
+                                    
+                                } else {
+                                    varNotification.save(function(Nofifyerr, Notifydata) {
+                                        if(Nofifyerr) {
+                                            res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});   
+                                        } else {
+                                            res.send({status:"True", data: result });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
-    });
+    });   
 };

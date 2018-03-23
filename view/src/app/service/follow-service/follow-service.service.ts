@@ -81,6 +81,14 @@ export class FollowServiceService {
         .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
     }
 
+    public YourTopics(Id: any): Observable<any[]>  {
+        return this.http.get(API_URL + 'YourTopics/' + Id)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+    public AllYourTopics(Id: any): Observable<any[]>  {
+        return this.http.get(API_URL + 'AllYourTopics/' + Id)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
 
 
 }

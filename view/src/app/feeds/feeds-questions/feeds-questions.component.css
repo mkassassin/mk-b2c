@@ -4,9 +4,12 @@
     background-color: #ffffff;
     margin: 0px 3px 5px 3px;
     box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    display:inline
 }
 
-.Questions .headerPost .leftArea{    
+.Questions .headerPost .leftArea{
+    width: 60%;
+    float: left;
     padding: 0px 10px;
     line-height: 50px;
     font-size: 17px;
@@ -14,9 +17,29 @@
     color: #333333;
     letter-spacing: 0.5px;
     font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
 }
 .Questions .headerPost .leftArea i{    
     font-size: 19px;
+    padding: 0px 10px;
+}
+
+.Questions .headerPost .rightArea{
+    width: 175px;
+    float: right;
+    padding: 0px 0px;
+    line-height: 50px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    font-family: 'Ubuntu', sans-serif;
+    display: inline-flex;
+    background-color: #e8e8e8;
+    cursor: pointer;
+}
+.Questions .headerPost .rightArea i{    
+    line-height: 50px;
     padding: 0px 10px;
 }
 

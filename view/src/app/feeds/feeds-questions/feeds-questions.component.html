@@ -16,9 +16,12 @@
 
     <!-- Question Header Post Div -->
     <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
-      <div fxFill (click)="OpenModelQuestion()">
-        <div class="leftArea">
+      <div fxFill>
+        <div (click)="OpenModelQuestion()" class="leftArea">
           <i class="fa fa-file-text" aria-hidden="true"></i> Ask a Question?...
+        </div>
+        <div (click)="OpenModelCreatTopic()" class="rightArea">
+          <i class="material-icons">add_circle_outline</i> Add New Topic
         </div>
       </div>
     </div>
@@ -41,7 +44,7 @@
       <div class="postScroll">
 
         <!-- Question Post Div -->
-        <div class="QuestionPost mt-15"  *ngFor="let Post of PostsList; let i = index; let j = index" [attr.id]="Post._id">
+        <div *ngFor="let Post of PostsList; let i = index; let j = index" class="QuestionPost mt-15" [attr.id]="Post._id">
           <!-- Question Post Info Header Div -->
           <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between" >
             <div fxFlex>

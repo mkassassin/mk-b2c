@@ -140,6 +140,47 @@
       </div>
     </div>
 
+    <!-- your topics -->
+    <div class="row ">
+        <div class="col-sm-12">
+            <p class="headerstyle"> Your Topics </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 listFlexDiv">
+            <div *ngIf="LoderFour" class="col-sm-12" >
+                <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngIf="YourTopics?.length <= 0 && !LoderFour" class="col-sm-12" >
+                <br>
+                    <h5 class="userlistname"> Your Topics is Empty!</h5>
+                <br>
+            </div>
+
+        <div *ngFor="let yourTopic of (YourTopics ? YourTopics.slice(0,4): []);" class="col-sm-3 followPart ">
+            <img class="followimg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{yourTopic.TopicImage}}" alt="">
+            <p class="followname"> <span (click)="GotoTopic(yourTopic._id)">  {{yourTopic.TopicName | slice:0:7 }}{{ yourTopic.TopicName?.length > 7 ? '...' : ' ' }}  </span></p>
+        </div>
+        
+        </div>
+    </div>
+    <div *ngIf="YourTopics?.length > 4" class="row">
+        <div class="col-sm-12 text-right">
+            <p class="viewAll"> <span (click)="AllYourTopics()" > View All... </span>  </p>
+        </div>
+    </div>
+    <!-- your topics End  -->
+
+
     <div class="row m-0" *ngIf="LoginUser">
         <div class="col-xs-4 settingsButton">
             <p (click)="PrivacySettings()"> Privacy Settings </p>

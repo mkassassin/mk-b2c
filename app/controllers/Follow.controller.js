@@ -479,7 +479,7 @@ exports.FollowTopic = function(req, res) {
             FollowTopicId: req.body.FollowingTopicId,
             NotificationType: 3,
             Viewed: 0,
-            NotificationDate: new Date
+            NotificationDate: new Date()
     });
 
     FollowModel.FollowTopicType.find({UserId:req.body.UserId, FollowingTopicId:req.body.FollowingTopicId }, function(err, result) {
@@ -854,6 +854,101 @@ exports.DiscoverTopics = function(req, res) {
         
             }else{
             res.send({status:"True", message:'No Un Followeing Topics In This User', data:result});
+            }
+        }
+    });
+};
+
+
+exports.YourTopics = function(req, res) {
+    TopicsModel.TopicsType.find({'UserId': req.params.UserId}, {}, { limit: 5 }, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Un Followed Topics."});
+        } else { 
+            if(result.length > 0){
+                var YourTopicsArray = new Array();
+                var Listcount = 0;
+                GetUnFollowesData();
+                async function GetUnFollowesData(){ 
+                    for (let info of result) {
+                        await getData(info);
+                     }
+                    res.send({status:"True", data: YourTopicsArray });
+                }
+                  
+                function getData(info){
+                    return new Promise(( resolve, reject )=>{
+                        FollowModel.FollowTopicType.count({'FollowingTopicId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                            if(newerr){
+                                res.send({status:"Fale", Error:newerr });
+                                reject(newerr);
+                            }else{
+                                var newArray = [];
+                                newArray.push( {
+                                                _id: info._id,
+                                                TopicName: info.TopicName,
+                                                TopicImage: info.TopicImage,
+                                                Followers:count
+                                            }
+                                );
+                                Listcount++;
+                                YourTopicsArray.push(newArray[0]);
+                                resolve(count);
+                            }
+                        });
+
+                    });
+                };
+        
+            }else{
+            res.send({status:"True", message:'Your Topics Is Empty'});
+            }
+        }
+    });
+};
+
+exports.AllYourTopics = function(req, res) {
+    TopicsModel.TopicsType.find({'UserId': req.params.UserId}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Find Un Followed Topics."});
+        } else { 
+            if(result.length > 0){
+                var YourTopicsArray = new Array();
+                var Listcount = 0;
+                GetUnFollowesData();
+                async function GetUnFollowesData(){ 
+                    for (let info of result) {
+                        await getData(info);
+                     }
+                    res.send({status:"True", data: YourTopicsArray });
+                }
+                  
+                function getData(info){
+                    return new Promise(( resolve, reject )=>{
+                        FollowModel.FollowTopicType.count({'FollowingTopicId': info._id , 'ActiveStates': 'Active' }, function(newerr, count) {
+                            if(newerr){
+                                res.send({status:"Fale", Error:newerr });
+                                reject(newerr);
+                            }else{
+                                var newArray = [];
+                                newArray.push( {
+                                                _id: info._id,
+                                                TopicName: info.TopicName,
+                                                TopicImage: info.TopicImage,
+                                                Followers:count
+                                            }
+                                );
+                                Listcount++;
+                                YourTopicsArray.push(newArray[0]);
+                                resolve(count);
+                            }
+                        });
+
+                    });
+                };
+        
+            }else{
+            res.send({status:"True", message:'Your Topics Is Empty'});
             }
         }
     });

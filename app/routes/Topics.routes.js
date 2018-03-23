@@ -7,5 +7,4 @@ module.exports = function(app) {
 
     app.get('/API/Topic/NameValidate/:name', topic.NameValidate);
 
-
 }

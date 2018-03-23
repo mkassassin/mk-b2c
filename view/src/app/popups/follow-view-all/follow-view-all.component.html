@@ -25,7 +25,7 @@
             </div>
 
 
-            <div *ngIf="data.type === 'FollowingTopics'" class="row m-0 DiscoverTopics">
+            <div *ngIf="data.type === 'FollowingTopics' || data.type === 'AllUserTopics' " class="row m-0 DiscoverTopics" style="max-width:700px">
               <div *ngFor="let Topic of DiscoverTopics; let j=index" class="mt-10 mb-20 col-xs-3 col-sm-3 p-0" style="max-width:175px"> 
                   <div class="text-center" style="position:relative">
                     <img class="userlistImg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
@@ -38,11 +38,11 @@
                       <i class="material-icons" (click)="followTopic(Topic._id)">add_circle</i>
                     </span> -->
                   </div>
-                </div>
-          </div>
+              </div>
+            </div>
 
 
-            <div *ngIf="data.type !== 'FollowingTopics'" class="row m-0 DiscoverPeoples" style="max-width: 900px;">
+            <div *ngIf="data.type !== 'FollowingTopics' && data.type !== 'AllUserTopics'" class="row m-0 DiscoverPeoples" style="max-width: 900px;">
                 <div class="col-xs-4 col-sm-4 mt-20 max-width-300" *ngFor="let user of DiscoverPeoples; let j=index" fxLayout="row" fxLayoutAlign="space-evenly">
                   <div fxFlex="55px" class="text-center">
                     <img *ngIf="user.UserImage.toLowerCase().indexOf('http://') !== -1 || user.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{user.UserImage}}" alt=""  class="userlistImg" (click)="GotoProfile(user.UserId)">

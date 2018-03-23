@@ -1,5 +1,5 @@
 <div class="feedsRightBar">
-
+<!-- <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1"> -->
     <!-- UserDetails -->
     <div class="userdiv" fxLayout="column" fxLayoutAlign="start center">
         <div fxFlex="120px" class="text-center">
@@ -9,7 +9,7 @@
         <div fxFlex="60px">
             <p class="username"> {{UserInfo.data.UserName}} </p>
             <p class="userfollowers"> {{UserInfo.data.UserCategoryName}} &nbsp; | &nbsp; {{UserInfo.data.UserProfession}} </p>
-            <p *ngIf="SowCoinCount" class="userfollowers">  {{UserCoinInfo.HiLikes + UserCoinInfo.CommentLikes + UserCoinInfo.AnsRatCount + UserCoinInfo.QusRatCount }} 
+            <p *ngIf="SowCoinCount" class="userfollowers">  {{UserCoinInfo.HiLikes + UserCoinInfo.CommentLikes + UserCoinInfo.AnsRatCount + UserCoinInfo.QusRatCount | number:'1.0-2' }} 
                 <img src="./../../../assets/images/icons/liked.png" style="width:16px;height:16px" alt="">
                 &nbsp; | &nbsp; {{UserInfo.data.Followers}} Followers
             </p>
@@ -150,4 +150,46 @@
     
     <!-- Followers End  -->
 
+    
+    <!-- your topics -->
+    <div class="row ">
+        <div class="col-sm-12">
+            <p class="headerstyle"> Your Topics </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 listFlexDiv">
+            <div *ngIf="LoderFour" class="col-sm-12" >
+                <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <div fxFlex>
+                        <div class="preloader-orbit-loading">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngIf="YourTopics?.length <= 0 && !LoderFour" class="col-sm-12" >
+                <br>
+                    <h5 class="userlistname"> Your Topics is Empty!</h5>
+                <br>
+            </div>
+
+            <div *ngFor="let yourTopic of (YourTopics ? YourTopics.slice(0,4): []);" class="col-xs-3 followPart ">
+                <img class="followimg" (click)="GotoTopic(Topic._id)" src="{{TopicImageBaseUrl}}/{{yourTopic.TopicImage}}" alt="">
+                <p class="followname"> <span (click)="GotoTopic(yourTopic._id)">  {{yourTopic.TopicName | slice:0:7 }}{{ yourTopic.TopicName?.length > 7 ? '...' : ' ' }}  </span></p>
+            </div>
+        
+        </div>
+    </div>
+    <div *ngIf="YourTopics?.length > 4" class="row">
+        <div class="col-sm-12 text-right">
+            <p class="viewAll"> <span (click)="AllYourTopics()" > View All... </span>  </p>
+        </div>
+    </div>
+      
+    <!-- your topics End  -->
+    <!-- </p-scrollPanel> -->
 </div>

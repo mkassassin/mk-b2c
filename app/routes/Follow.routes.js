@@ -27,4 +27,7 @@ module.exports = function(app) {
     app.get('/API/Follow/AllUnFollowingTopics/:UserId', controller.AllUnFollowingTopics);
 
     app.get('/API/Follow/DiscoverTopics/:UserId', controller.DiscoverTopics);
+
+    app.get('/API/Follow/YourTopics/:UserId', controller.YourTopics);
+    app.get('/API/Follow/AllYourTopics/:UserId', controller.AllYourTopics);
 }

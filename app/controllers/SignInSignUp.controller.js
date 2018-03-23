@@ -157,6 +157,8 @@ exports.PrivacyUpdate = function(req, res) {
 };
 
 exports.Register = function(req, res) {
+    console.log(req.body);
+    
     if(!req.body.UserName) {
         res.status(400).send({status:"False", message: " Name can not be Empty! "});
     }
@@ -165,37 +167,42 @@ exports.Register = function(req, res) {
     }
     if(!req.body.UserCategoryId || !req.body.UserCategoryName ){
         res.status(400).send({status:"False", message: " Select Any One Category "});
+    }else{
+
+        console.log('valid');
+        var varUserType = new UserModel.UserType({
+                UserName:  req.body.UserName,
+                UserEmail: req.body.UserEmail,
+                UserPassword: req.body.UserPassword,
+                UserCategoryId:req.body.UserCategoryId,
+                UserCategoryName:req.body.UserCategoryName,
+                UserImage:req.body.UserImage || "userImage.png",
+                ProviderType: req.body.ProviderType || 'Normal',
+                ProviderId: req.body.ProviderId || '',
+                UserCompany:req.body.UserCompany || "",
+                UserProfession:req.body.UserProfession || "",
+                UserDateOfBirth:req.body.UserDateOfBirth || "",
+                UserGender:req.body.UserGender || "",
+                UserCountry:req.body.UserCountry || "",
+                UserState:req.body.UserState || "",
+                UserCity:req.body.UserCity || "",
+                ShowEmail: 'EveryOne',
+                ShowDOB: 'EveryOne',
+                ShowLocation: 'EveryOne'
+        });
+
+
+        varUserType.save(function(err, result) {
+            if(err) {
+                console.log(err);
+                
+                res.status(500).send({status:"False", Error:err, message: "Some error occurred while creating the Account."});            
+            } else {
+                console.log('success');
+                res.send({status:"True", data: result });
+            }
+        });
     }
-
-    var varUserType = new UserModel.UserType({
-            UserName:  req.body.UserName,
-            UserEmail: req.body.UserEmail,
-            UserPassword: req.body.UserPassword,
-            UserCategoryId:req.body.UserCategoryId,
-            UserCategoryName:req.body.UserCategoryName,
-            UserImage:req.body.UserImage || "userImage.png",
-            ProviderType: req.body.ProviderType || 'Normal',
-            ProviderId: req.body.ProviderId || '',
-            UserCompany:req.body.UserCompany || "",
-            UserProfession:req.body.UserProfession || "",
-            UserDateOfBirth:req.body.UserDateOfBirth || "",
-            UserGender:req.body.UserGender || "",
-            UserCountry:req.body.UserCountry || "",
-            UserState:req.body.UserState || "",
-            UserCity:req.body.UserCity || "",
-            ShowEmail: 'EveryOne',
-            ShowDOB: 'EveryOne',
-            ShowLocation: 'EveryOne'
-    });
-
-
-    varUserType.save(function(err, result) {
-        if(err) {
-            res.status(500).send({status:"False", Error:err, message: "Some error occurred while creating the Account."});            
-        } else {
-            res.send({status:"True", data: result });
-        }
-    });
 };
 
 exports.ProfileUpdate = function(req, res) {
@@ -456,6 +463,124 @@ exports.FBUserValidate = function(req, res) {
             } 
         }
     });
+};
+
+exports.AndroidSocialUserValidate = function(req, res) {
+
+    if(!req.body.UserEmail){
+        res.status(500).send({status:"False", message: " User Email Is Missing!"});
+    }else if(!req.body.ProviderType) {
+        res.status(500).send({status:"False", message: " Provider Type Missing!"});
+    }else if(!req.body.ProviderId){
+        res.status(500).send({status:"False", message: " Provider Id Is Missing!"});
+    }else if(!req.body.FirebaseToken){
+        res.status(500).send({status:"False", message: " Firebase Token Is Missing!"});
+    }else{
+
+    UserModel.UserType.findOne({'ProviderType': req.body.ProviderType, 'UserEmail': req.body.UserEmail.toLowerCase(), 'ProviderId': req.body.ProviderId}, "_id UserName ProviderType UserEmail UserCategoryId UserCategoryName UserImage UserProfession UserCompany", function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while User Validate."});
+        } else {
+            if(data === null){
+                UserModel.UserType.find({ 'UserEmail': req.body.UserEmail.toLowerCase()}, {}, function(checkerr, checkdata) {
+                    if(checkerr) {
+                        res.send({status:"False", Error:checkerr });
+                    }else{
+                        if(checkdata.length > 0){
+                            res.send({ status:"False", message: " Email Alredy Registerd ",  type: checkdata[0].ProviderType   });
+                        }else{
+                            res.send({ status:"False", message: " Please Signup  " });
+                        }
+                    }
+                });
+            }else{
+                FollowModel.FollowUserType.count({'UserId': data._id}, function(newerr, count) {
+                    if(newerr){
+                        res.send({status:"False", Error:newerr });
+                    }else{
+                        var IpInfo = '';
+                        var DeviceInfo = '';
+                        var callback = function(res){
+                            IpInfo = res;
+                            DeviceInfo = parser(req.headers['user-agent']);
+                           gotonext(); 
+                        };
+                        var req_ip = get_ip(req);
+                        var ip = req_ip.clientIp;
+                        ip = ip.split(':');
+                        ipapi.location(callback, ip[ip.length - 1]);
+                        function gotonext() {
+                            var varLoginInfo = new LoginInfoModel.LoginInfo({
+                                UserId:  data._id,
+                                IpInfo: IpInfo,
+                                DeviceInfo: DeviceInfo,
+                                UtcTime: new Date(),
+                                ActiveStates: 'Active'
+                            });
+                            varLoginInfo.save(function(Newerr, Newresult) {
+                                if(Newerr) {
+                                    res.status(500).send({status:"False", Error:Newerr, message: "Some error occurred while creating the Account."});            
+                                } else {
+                                    LoginInfoModel.AndroidAppInfo.findOne({'UserId': data._id, 'ActiveStates': 'Active'}, "_id UserId FirebaseToken DeviceInfo UtcTime ", function(olderr, olddata) {
+                                        if(olderr) {
+                                            res.status(500).send({status:"False", Error: olderr, message: "Some error occurred while User Validate."});
+                                        } else {
+                                            if(olddata === null){
+                                                var varAndroidAppInfo = new LoginInfoModel.AndroidAppInfo({
+                                                    UserId:  data._id,
+                                                    FirebaseToken: req.body.FirebaseToken,
+                                                    DeviceInfo: DeviceInfo,
+                                                    LastPushNotify: null,
+                                                    UtcTime: new Date(),
+                                                    ActiveStates: 'Active'
+                                                });
+                                                varAndroidAppInfo.save(function(apperr, appresult) {
+                                                    if(apperr) {
+                                                        res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
+                                                    } else {
+                                                        SendReturnOutput();
+                                                    }
+                                                });
+                                            }else{
+                                                olddata.FirebaseToken = req.body.FirebaseToken,
+                                                olddata.LastPushNotify = null,
+                                                olddata.ActiveStates = 'Active',
+                                                olddata.save(function(apperr, appresult) {
+                                                    if(apperr) {
+                                                        res.status(500).send({status:"False", Error:apperr, message: "Some error occurred while creating the Account."});            
+                                                    } else {
+                                                        SendReturnOutput();
+                                                    }
+                                                });
+
+                                            }
+                                    var newArray = [];
+                                    function SendReturnOutput() {
+                                        newArray.push({
+                                                        _id: data._id,
+                                                        UserName: data.UserName,
+                                                        UserEmail: data.UserEmail,
+                                                        UserCategoryId: data.UserCategoryId,
+                                                        UserCategoryName: data.UserCategoryName,
+                                                        UserImage: data.UserImage,
+                                                        UserCompany: data.UserCompany,
+                                                        UserProfession: data.UserProfession,
+                                                        ProviderType: data.ProviderType,
+                                                        Followers: count
+                                                    });
+                                        res.send({ status:"True", message: "Sign In Successfully", data: newArray[0] });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+            } 
+        }
+    });
+    }
 };
 
 exports.SocialUserValidate = function(req, res) {

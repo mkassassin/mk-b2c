@@ -29,7 +29,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(cors());
+app.use(cors(
+    { origin: 'http://localhost:4200'}
+));
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,10 +76,14 @@ app.use('/static', express.static('uploads'));
 //     }
 // });
 
-app.use(express.static(__dirname + '/view/dist/'));
+// app.use(express.static(__dirname + '/view/dist/'));
 
-app.use(function(req, res) {
-     res.sendFile(path.join(__dirname, '/view/dist', 'index.html'));
+// app.use(function(req, res) {
+//      res.sendFile(path.join(__dirname, '/view/dist', 'index.html'));
+// });
+
+app.get('*', function(req, res, next){
+    res.send('This is Server Side Page');
 });
 
 var port = process.env.PORT || 3000;

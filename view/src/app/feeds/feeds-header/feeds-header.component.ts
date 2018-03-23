@@ -11,7 +11,6 @@ import { HighlightsPostComponent } from './../../popups/posts/highlights-post/hi
 import { QuestionsPostComponent } from './../../popups/posts/questions-post/questions-post.component';
 import { PostOneComponent } from './../../popups/post-one/post-one.component';
 import { PostTwoComponent } from './../../popups/post-two/post-two.component';
-import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
 import { ComponentConnectServiceService } from './../../service/component-connect-service.service';
 
 import {AuthService, SocialUser} from 'ng4-social-login';
@@ -187,13 +186,6 @@ export class FeedsHeaderComponent implements OnInit {
     QuestionsPostDialogRef.afterClosed().subscribe(result => this.ReloadGalleryScript());
   }
 
-
-  OpenModelCreatTopic() {
-    const CreatTopictDialogRef = this.dialog.open(
-      CreatTopicComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { PostId: '' } }
-    );
-    CreatTopictDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
-  }
 
   ReloadGalleryScript() {
     this._componentConnectService.OnLoadGallery();

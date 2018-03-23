@@ -5,8 +5,10 @@ import { SelectMoreTopicsComponent } from './../../popups/select-more-topics/sel
 import { PostServiceService } from './../../service/post-service/post-service.service';
 import { FollowServiceService } from './../../service/follow-service/follow-service.service';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
+import { MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
+
+import { CreatTopicComponent } from './../../popups/creat-topic/creat-topic.component';
 
 const uriImage = 'http://localhost:3000/API/FileUpload/UploadImage';
 
@@ -64,6 +66,7 @@ export class PostTwoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<PostTwoComponent>,
     public dialog: MatDialog,
+    public snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) private data: any ) {
         this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -88,7 +91,6 @@ export class PostTwoComponent implements OnInit {
               alert(this.ImageUploadErrorMessage);
             };
             this.Imageuploader.onCompleteItem = (item: any, response: any, status: any, headers: any ) => {
-              console.log(JSON.parse(response));
               if (JSON.parse(response).status === 'True') {
                 item.formData.push(JSON.parse(response).data);
               }
@@ -116,7 +118,6 @@ export class PostTwoComponent implements OnInit {
             };
 
             this.Videouploader.onCompleteItem = (item: any, response: any, status: any, headers: any ) => {
-              console.log(JSON.parse(response));
               if  (JSON.parse(response).status === 'True') {
                 item.formData.push(JSON.parse(response).data);
               }
@@ -148,10 +149,13 @@ export class PostTwoComponent implements OnInit {
 
   SelectMoreTopicClose(result) {
     if (result === 'Close') {
-      console.log('Selected Empty');
+      this.snackBar.open( 'Following Topics Closed', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
     }else {
       const selectedindex = this.Topics.findIndex(topic => topic._id === result._id);
-      console.log(selectedindex);
       if (selectedindex >= 0 &&  selectedindex < 6 ) {
         this.ActiveTopicSelect(selectedindex);
       }else {
@@ -164,8 +168,28 @@ export class PostTwoComponent implements OnInit {
     }
   }
 
-  checking(item) {
-    console.log(this.Videouploader);
+  OpenModelCreatTopic() {
+    const CreatTopictDialogRef = this.dialog.open(
+      CreatTopicComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},  data: { PostId: '' } }
+    );
+    CreatTopictDialogRef.afterClosed().subscribe(result => this.DiscoverClose(result));
+  }
+
+  DiscoverClose(result) {
+    if (result === 'Created') {
+      this.FolowService.FollowingTopics(this.UserInfo.data._id).subscribe(results => this.Topics = results['data'] );
+      this.snackBar.open( 'Your New Topic Successfully Created', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+    }else {
+      this.snackBar.open( 'Topic Creat Form Closed', ' ', {
+        horizontalPosition: 'center',
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+    }
   }
 
   ActiveTopicSelect(index: number) {

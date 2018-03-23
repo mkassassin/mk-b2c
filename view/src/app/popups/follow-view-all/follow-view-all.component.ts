@@ -69,6 +69,18 @@ export class FollowViewAllComponent implements OnInit {
             }
           });
         }
+        if ( this.data.type === 'AllUserTopics' ) {
+          this.Service.AllYourTopics(this.data.Userid)
+          .subscribe( datas =>  {
+            if (datas['status'] === 'True') {
+              this.DiscoverTopics = datas['data'];
+              this.Loader = false;
+            }else {
+              this.Loader = false;
+              console.log(datas);
+            }
+          });
+        }
 
 
       }

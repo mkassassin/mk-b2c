@@ -25,13 +25,18 @@ export class FeedsRightBarComponent implements OnInit {
   TopicImageBaseUrl: String = 'http://localhost:3000/static/topics';
   OtherImageBaseUrl: String = 'http://localhost:3000/static/others';
 
+
+  scrollHeight;
+  screenHeight: number;
   UserInfo: any;
   FollowingUsers: any[];
   FollowingTopics: any[];
   UserFollowingUsers: any[];
+  YourTopics: any[];
   LoderOne: Boolean = true;
   LoderTwo: Boolean = true;
   LoderThree: Boolean = true;
+  LoderFour: Boolean = true;
 
   UserCoinInfo: any[];
   SowCoinCount: Boolean = false;
@@ -88,11 +93,24 @@ export class FeedsRightBarComponent implements OnInit {
                     }
                 });
 
+                this.FollowService.YourTopics(this.UserInfo.data._id)
+                .subscribe( topicdatas => {
+                    if (topicdatas['status'] === 'True') {
+                      this.LoderFour = false;
+                      this.YourTopics = topicdatas['data'];
+                    }else {
+                      this.LoderFour = false;
+                      console.log(topicdatas);
+                    }
+                });
+
             }
 
 
 
   ngOnInit() {
+    this.screenHeight = window.innerHeight - 70;
+    this.scrollHeight = this.screenHeight + 'px';
   }
 
 
@@ -149,6 +167,19 @@ export class FeedsRightBarComponent implements OnInit {
       if (result.status === 'GoToProfile') {
         console.log('Go to Profile Page');
         this.GotoProfile(result.Id);
+      }
+    });
+  }
+
+  AllYourTopics() {
+    const DiscoverDialogRef = this.dialog.open(
+      FollowViewAllComponent, {disableClose: true, maxWidth: '99%', position: {top: '50px'},
+      data: { Header: 'Your Topics', Userid: this.UserInfo.data._id, type: 'AllUserTopics'} }
+    );
+    DiscoverDialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'GoToTopic') {
+        this.ShareService.SetTopicQuestions(result.topicId);
+        this._topicRoutingService.TopicRouting();
       }
     });
   }

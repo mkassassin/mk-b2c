@@ -1,31 +1,55 @@
-<div class="row m-0 " style="min-width:700px">
-  <div class="col-sm-6">
-    <div class="row StyleInput">
-      <div class="col-sm-12">
-        <label>Topic Image </label>
-          <input id="imguploadinput" type="file" ng2FileSelect [uploader]="Imageuploader" >
-      </div>
-      <div class="col-sm-12">
-        <label> Topic Image </label>
-          <input [(ngModel)]="TopicName" type="text" placeholder="Enter Topic Name" >
-      </div>
-      <div class="col-sm-12">
-        <label> Topic Description </label>
-          <textarea [(ngModel)]="TopicDescription" placeholder="Enter Topic Description"></textarea>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-      <img *ngIf="(Imageuploader.queue)?.length > 0" imgPreview [image]="Imageuploader.queue[0]?._file" style="max-width:400px; max-height:400px" />
-  </div>
-</div>
 
-<hr>
-<div class="row m-0">
-    <div class="col-sm-6 text-left">
-        <button class="ml-40" mat-raised-button class="btn-custom" type="button" (click)="close()"> Cancel </button>
+
+<div class="postTwo" style="min-width:700px">
+  <div class="postheader" fxLayout="row" fxLayoutAlign="start" >
+    <div fxFlex="65px" class="text-center">
+        <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt="" class="userimg">
+        <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="" class="userimg">
     </div>
-    <div class="col-sm-6 text-right">
-        <button mat-raised-button class="btn-custom" color="primary" type="button" (click)="Imageuploader.queue[0]?.upload()"> Submit </button>
+    <div fxFlex class="text-left">
+      <h5 class="m-0 posttype"> Create a Topic</h5>
     </div>
+    <div fxFlex class="text-left">
+        <h5 class="m-0 mr-20 posttype text-right" >
+          <span style="cursor:pointer" (click)="close()"> X </span>
+        </h5>
+      </div>
+  </div>
+
+  <hr style="margin-top:3px;">
+  <div style="padding:0px 20px;">
+
+      <div style="width:100%;text-align:center"> 
+        <img *ngIf="(Imageuploader.queue)?.length > 0" imgPreview [image]="Imageuploader.queue[0]?._file" style="height:200px;width:200px;border-radius:50%" />
+      </div>
+
+      <div>
+        <label style="font-family: 'Ubuntu', sans-serif;margin: 0px;"> Topic Name </label>
+        <input  class="postlink mb-20" [(ngModel)]="TopicName" type="text" placeholder="Enter Topic Name" >
+      </div>
+
+      <div> 
+        <label style="font-family: 'Ubuntu', sans-serif;margin: 0px;">Topic Image </label>
+        <input  class="postlink mb-20" id="imguploadinput" type="file" ng2FileSelect [uploader]="Imageuploader" placeholder="Enter Link...">
+      </div>
+      
+      <div>
+        <label style="font-family: 'Ubuntu', sans-serif;margin: 0px;"> Topic Description </label>
+        <textarea class="posttext" [(ngModel)]="TopicDescription" placeholder="Enter Topic Description"></textarea>
+      </div>
+
+      <hr>
+
+      <p *ngIf="ErrorValue" style="color:red;text-align:  center;font-family: 'Ubuntu', sans-serif;margin: 0px;"> {{ ErrorText }} </p>
+        <div fxLayout fxLayoutAlign="space-between">
+          <div fxFlex="85%">
+
+          </div>
+          <div fxFlex="15%" style="margin-bottom:15px;">
+              <button type="button" (click)="SubmitData()" mat-raised-button color="primary"> Create </button>
+          </div>
+        </div>
+
+    </div>
+
 </div>
