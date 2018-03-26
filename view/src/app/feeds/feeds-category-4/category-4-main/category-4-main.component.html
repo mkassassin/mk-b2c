@@ -1,0 +1,174 @@
+
+<div>
+  <div>
+      <div *ngIf="ActiveCategory === ''"> <!-- ___________________ ' ' ___________________________ -->
+        <ng-container *ngIf="TopicsListView">
+            <div class="CategoriesList" fxLayout="row" fxLayoutAlign="space-evenly start">
+                <div class="text-center" fxFlex>
+                    <img (click)="ActiveCategorySelect('01')" class="CatImg" src="./../../../assets/images/icons/discover/Company.png"
+                    alt="">
+                    <p class="CatName">
+                        <span (click)="ActiveCategorySelect('01')"> Companies </span>
+                    </p>
+                </div>
+                <div class="text-center" fxFlex>
+                    <img (click)="ActiveCategorySelect('02')" class="CatImg" src="./../../../assets/images/icons/discover/PressRelease.png"
+                    alt="">
+                    <p class="CatName">
+                        <span (click)="ActiveCategorySelect('02')"> Press Release </span>
+                    </p>
+                </div>
+                <div class="text-center" fxFlex>
+                    <img (click)="ActiveCategorySelect('03')" class="CatImg" src="./../../../assets/images/icons/discover/Ico.png" alt="">
+                    <p class="CatName">
+                        <span (click)="ActiveCategorySelect('03')"> ICOs </span>
+                    </p>
+                </div>
+                <div class="text-center" fxFlex>
+                    <img (click)="ActiveCategorySelect('04')" class="CatImg" src="./../../../assets/images/icons/discover/Regulations.png"
+                    alt="">
+                    <p class="CatName">
+                        <span (click)="ActiveCategorySelect('04')"> Regulations </span>
+                    </p>
+                </div>
+                <div class="text-center" fxFlex>
+                    <img (click)="ActiveCategorySelect('05')" class="CatImg" src="./../../../assets/images/icons/discover/Courses.png"
+                    alt="">
+                    <p class="CatName">
+                        <span (click)="ActiveCategorySelect('05')"> Courses </span>
+                    </p>
+                </div>
+                <div class="text-center" fxFlex>
+                    <img (click)="ActiveCategorySelect('06')" class="CatImg" src="./../../../assets/images/icons/discover/Jobs.png" alt="">
+                    <p class="CatName">
+                        <span (click)="ActiveCategorySelect('06')"> Jobs </span>
+                    </p>
+                </div>
+                <div class="text-center" fxFlex="175px">
+                    <div class="rightArea" (click)="OpenModelCreatTopic()">
+                        <i class="material-icons">add_circle_outline</i> Add New Topic
+                    </div>
+                </div>
+            </div>    
+
+            <app-category-4-topics (gotoTopic)="gotoTopicView($event)" [ListOfTopics]="TopicsList" ></app-category-4-topics>
+        </ng-container>
+
+        <ng-container *ngIf="TopicView">
+            <app-category-4-topic-view (gotoTopicList)="gotoTopics($event)" [TopicInfo]="TopicData" ></app-category-4-topic-view>
+        </ng-container>
+
+      </div>
+
+      <div *ngIf="ActiveCategory === '01'"> <!-- ___________________01___________________________ -->
+
+          <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
+              <div fxFill>
+                  <div class="leftArea">
+                      <img src="./../../../assets/images/icons/discover/Company.png" alt="" style="height: 40px;margin: 5px 5px 0px 0px;"> 
+                      <p>  Add a Company Portfolio... </p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-sm-6">
+                  <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+                  <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="ActiveCategorySelect('')" > Go Back </span> </p>
+              </div>
+              <div class="col-sm-6 text-right">
+                  <p style="cursor:pointer;margin-right: 10px;margin-top: 0px;margin-bottom: 3px; font-size:12px;color:#888; cursor: pointer;" > Add a sponsored company portfolio </p>
+              </div>
+          </div>
+
+          <div style="background-color:#ffffff;height: 100%; width: 100%;
+          text-align: center;font-size: 29px;line-height: 415px;font-family: 'Ubuntu', sans-serif"> 
+                  Coming Soon 
+          </div>
+      </div>
+      <div *ngIf="ActiveCategory === '02'"> <!-- ___________________02___________________________ -->
+
+          <div class="headerPost" fxLayout="row" fxLayoutAlign="space-evenly">
+              <div fxFill>
+                  <div class="leftArea">
+                      <img src="./../../../assets/images/icons/discover/PressRelease.png" alt="" style="height: 40px;margin: 5px 5px 0px 0px;"> 
+                      <p> Add a Press Release... </p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-sm-6">
+                  <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+                  <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="ActiveCategorySelect('')" > Go Back </span> </p>
+              </div>
+              <div class="col-sm-6 text-right">
+                  <p style="cursor:pointer;margin-right: 10px;margin-top: 0px;margin-bottom: 3px; font-size:12px;color:#888; cursor: pointer;" > Add a sponsored Press Release </p>
+              </div>
+          </div>
+
+          <div style="background-color:#ffffff;height: 100%; width: 100%;
+          text-align: center;font-size: 29px;line-height: 415px;font-family: 'Ubuntu', sans-serif"> 
+                  Coming Soon 
+          </div>
+      </div>
+       <div *ngIf="ActiveCategory === '03'"> <!-- ___________________03___________________________ -->
+
+          <div class="row">
+              <div class="col-sm-6">
+                  <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+                  <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="ActiveCategorySelect('')" > Go Back </span> </p>
+              </div>
+              <div class="col-sm-6 text-right">
+                  <p style="cursor:pointer;margin-right: 10px;margin-top: 0px;margin-bottom: 3px; font-size:12px;color:#888; cursor: pointer;" > Add a sponsored ICO </p>
+              </div>
+          </div>
+
+          <div style="background-color:#ffffff;height: 100%; width: 100%;
+          text-align: center;font-size: 29px;line-height: 415px;font-family: 'Ubuntu', sans-serif"> 
+                  Coming Soon 
+          </div>
+      </div>
+      <div *ngIf="ActiveCategory === '04'"> <!-- ___________________04___________________________ -->
+
+          <div class="row">
+              <div class="col-sm-6">
+                  <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+                  <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="ActiveCategorySelect('')" > Go Back </span> </p>
+              </div>
+          </div>
+
+          <div style="background-color:#ffffff;height: 100%; width: 100%;
+          text-align: center;font-size: 29px;line-height: 415px;font-family: 'Ubuntu', sans-serif"> 
+                  Coming Soon 
+          </div>
+      </div>
+      <div *ngIf="ActiveCategory === '05'"> <!-- ___________________05___________________________ -->
+          <div class="row">
+              <div class="col-sm-6">
+                  <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+                  <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="ActiveCategorySelect('')" > Go Back </span> </p>
+              </div>
+          </div>
+
+          <div style="background-color:#ffffff;height: 100%; width: 100%;
+          text-align: center;font-size: 29px;line-height: 415px;font-family: 'Ubuntu', sans-serif"> 
+                  Coming Soon 
+          </div>
+      </div>
+      <div *ngIf="ActiveCategory === '06'"> <!-- ___________________06___________________________ -->
+          <div class="row">
+              <div class="col-sm-6">
+                  <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+                  <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="ActiveCategorySelect('')" > Go Back </span> </p>
+              </div>
+          </div>
+
+          <div style="background-color:#ffffff;height: 100%; width: 100%;
+          text-align: center;font-size: 29px;line-height: 415px;font-family: 'Ubuntu', sans-serif"> 
+                  Coming Soon 
+          </div>
+      </div>
+  </div>
+</div>
+    

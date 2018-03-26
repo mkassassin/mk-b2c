@@ -41,7 +41,6 @@ export class FeedsHighlightsComponent implements OnInit {
   anotherHeight: number;
   UserInfo;
   PostsList: any;
-  TimeOut: Boolean = true;
   ActiveComment;
   LoadingActiveComment;
   PostsListLoder: Boolean = true;

@@ -1,0 +1,454 @@
+<div class="headerPost" (click)="OpenModelCreatTopic()" fxLayout="row" fxLayoutAlign="space-evenly">
+    <div fxFill>
+        <div class="leftArea">
+            <i class="fa fa-plus-circle"></i>
+            <p>  Add New Topic... </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <p style="margin-left: 5px;margin-top: 0px;margin-bottom: 3px;font-family: 'Ubuntu', sans-serif; font-size:12px;color:#888">
+        <span style="font-size: 14px;font-weight: 600;letter-spacing: 0.5px;color:#555; cursor: pointer;"  (click)="goBack()" > Go Back </span> </p>
+    </div>
+</div>
+
+<div class="TopicInfo" style="padding:3px">
+    <div fxLayout="row" fxLayoutAlign="space-evenly start">
+        <div class="text-center" fxFlex="200px">
+            <img src="{{Category4TopicImageBaseUrl}}/{{TopicInfo.TopicImage}}" alt="" style="width:200px; max-height:100px">
+            <h5 class="TopicName"> {{TopicInfo.TopicName}} </h5>
+            <div class="TopicCategories "  fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div class="text-center" fxFlex >
+                <img *ngIf="ActiveTopicCategory !== 'Snippet'" (click)="ChangeActiveTopicCategory('Snippet')" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/snippets.png" alt="">
+                <img *ngIf="ActiveTopicCategory === 'Snippet'" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/snippets_select.png" alt="">
+            </div>
+            <div class="text-center" fxFlex>
+                <img *ngIf="ActiveTopicCategory !== 'Video'" (click)="ChangeActiveTopicCategory('Video')" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/video.png" alt="">
+                <img *ngIf="ActiveTopicCategory === 'Video'" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/video_select.png" alt="">
+            </div>
+            <div class="text-center" fxFlex >
+                <img *ngIf="ActiveTopicCategory !== 'Article'" (click)="ChangeActiveTopicCategory('Article')" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/article.png" alt="">
+                <img *ngIf="ActiveTopicCategory === 'Article'" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/article_select.png" alt="">
+            </div>
+            <div class="text-center" fxFlex>
+                <img *ngIf="ActiveTopicCategory !== 'Document'" (click)="ChangeActiveTopicCategory('Document')" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/docs.png" alt="">
+                <img *ngIf="ActiveTopicCategory === 'Document'" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/docs_select.png" alt="">
+            </div>
+            </div>
+        </div>
+        <div class="text-center" fxFlex>
+            <p class="TopicDescription"> <span> Description </span> &emsp; &emsp; {{TopicInfo.TopicDescription}} </p>
+            <div class="postCount" style="margin: 3px 10px;" fxLayout="row" fxLayoutAlign="space-evenly start" >
+                <p fxFlex="25%" class="m-0 text-left ml-5"> <b> {{TopicInfo.SnippetCount}} </b> Snippets </p>
+                <p fxFlex="25%" class="m-0 text-left ml-5"> <b> {{TopicInfo.VideoCount}} </b> Videos </p>
+                <p fxFlex="25%" class="m-0 text-left ml-5"> <b> {{TopicInfo.ArticleCount}} </b> Article </p>
+                <p fxFlex="25%" class="m-0 text-left ml-5"> <b> {{TopicInfo.DocumentCount}} </b> Documents </p>
+            </div>
+
+            <div style="text-align:right;margin-right:10px;">
+                <div class="AddPost" (click)="AddNewPost()">
+                    <i class="fa fa-plus"></i>
+                    <p> Add {{ActiveTopicCategory}}... </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="Highlights">
+
+    <div *ngIf="PostsListLoder">
+      <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+          <div fxFlex>
+              <div class="preloader-orbit-loading">
+                <div class="cssload-inner cssload-one"></div>
+                <div class="cssload-inner cssload-two"></div>
+                <div class="cssload-inner cssload-three"></div>
+              </div>
+          </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!PostsListLoder">
+  
+      <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:20px">
+  
+        <div class="postScroll mb-30">
+          <!-- Highlights Post div -->
+          <div *ngFor="let Post of PostsList; let i=index; let j=index" class="HighlightsPost mt-15 " [attr.id]="Post._id">
+            <!-- Highlights Post Info Header div -->
+            <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+              <div fxFlex>
+                <div class="leftSide">
+                  <div class="" fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex="45px">
+                      <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') !== -1 || Post.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{Post.UserImage}}" alt="" class="postuserImg" >
+                      <img *ngIf="Post.UserImage.toLowerCase().indexOf('http://') === -1 || Post.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{Post.UserImage}}" alt="" class="postuserImg" >
+                    </div>
+                    <div class="mt-5" fxFlex>
+                      <p class="postusername"> 
+                        <span style="cursor:pointer" (click)="GotoProfile(Post.UserId)"> {{Post.UserName}} </span> 
+                        <small *ngIf="Post.Shared !== ''" style="color:#888888"> Shared 
+                          <span  *ngIf="Post.ShareUserId === UserInfo.data._id" style="font-size:12px;color:#333333"> Your </span> 
+                          <span *ngIf="Post.ShareUserId !== UserInfo.data._id" style="cursor:pointer; font-size:12px;color:#333333" (click)="GotoProfile(Post.ShareUserId)"> {{Post.ShareUserName}} </span> 
+                          {{Post.PostType}}
+                        </small>
+                      </p>
+                      <p class="postusercategory"> {{Post.UserCategoryName}}, {{Post.UserProfession}} @ {{Post.UserCompany}} </p>
+                      <p class="postuserfollowers"> {{Post.Followers}} Followers </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="35%">
+                <div class="rightSide">
+                  <div class="" fxLayout="row" fxLayoutAlign="end center">
+                    <div class="text-right" fxFill>
+                      <p *ngIf="Post.UserId === UserInfo.data._id" class="postaction"> 
+                        <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportHighlightPostUser" class="material-icons">more_horiz</i>
+                      </p>
+                      <p *ngIf="Post.UserId !== UserInfo.data._id" class="postaction"> 
+                        <i (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="ReportHighlightPost" class="material-icons">more_horiz</i>
+                      </p>
+                      <p class="postdate"> {{Post.PostDate | timeAgo }} </p>
+                      <p class="posttopic"> {{Post.PostType}} </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Highlights Post Info Header div End -->
+            <hr style="opacity:0.6; margin:0px 5px 5px 5px">
+            <!-- Highlights Post -->
+            <div class="postmain" fxLayout="row">
+              <div fxFlex class="text-center">
+                <h5 class="text-left ml-20"> {{Post.PostText}} </h5>
+  
+                <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') === -1 && Post.PostLink.indexOf('https://youtu') === -1 && Post.PostLink.indexOf('https://www.youtube') === -1">
+                  <a href="{{Post.PostLinkInfo.url}}" target="blanck"> 
+                  <div *ngIf="Post.PostLinkInfo !== ''" class="row thumpnailbox">
+                    <div class="col-sm-4 thumpnailbox-left">
+                        <img *ngIf="Post.PostLinkInfo.image !== ''" class="thumpnailbox-img" src="{{Post.PostLinkInfo.image}}" alt="">
+                        <img *ngIf="Post.PostLinkInfo.image === ''" class="thumpnailbox-img" src="{{OtherImageBaseUrl}}/empty.jpg" alt="">
+                    </div>
+                    <div class="col-sm-8 thumpnailbox-right">
+                      <div class="thumpnailbox-textField">
+                          <p class="thumpnailbox-header"> {{Post.PostLinkInfo.title}} </p>
+                          <p class="thumpnailbox-decription"> {{Post.PostLinkInfo.description | slice:0:170}} {{Post.PostLinkInfo.description?.length > 170 ? '...' : ' ' }} </p>
+                      </div>
+                      <p class="thumpnailbox-link"> <a href="{{Post.PostLinkInfo.url}}" style="word-wrap: break-word" target="blanck"> {{Post.PostLinkInfo.url}}  </a> </p>
+                    </div>
+                  </div>
+                  </a>
+                </ng-container>
+  
+                <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1) ">
+                    <div style="text-align:center;padding:10px;">
+                        <div class="html5gallery" data-padding="1" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
+                          <ng-container *ngIf="Post.PostImage[0] !== ''">
+                            <a *ngFor="let img of Post.PostImage" href="{{ImageBaseUrl}}/{{img.ImageName}}"><img src="{{ImageBaseUrl}}/{{img.ImageName}}"></a>
+                          </ng-container>  
+                          <ng-container *ngIf="Post.PostVideo[0] !== ''">
+                            <a *ngFor="let vid of Post.PostVideo" href="{{VideoBaseUrl}}/{{vid.VideoName}}"><img src="{{OtherImageBaseUrl}}/videoSampleImg.jpg"></a>
+                          </ng-container>
+                          <ng-container *ngIf="Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1">
+                            <a href="https://www.youtube.com/embed/{{Post.PostLink | slice:-11}}"><img src="https://img.youtube.com/vi/{{Post.PostLink | slice:-11}}/0.jpg"></a>
+                          </ng-container>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- Highlights Post END -->
+            <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+            <!-- Highlights Post Share Like And More -->
+            <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxFlex class="text-left" style="height:25px">
+                <div class="like">
+                  <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="./../../../assets/images/icons/like.png" alt="">
+                  <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="./../../../assets/images/icons/liked.png" alt="">
+                  <p class="count"> {{Post.LikesCount}} <small *ngIf="Post.UserLiked" > <small> (You Also) </small> </small> </p>
+                </div>
+              </div>
+              <div fxFlex class="text-center" style="height:25px">
+                <div class="chat" (click)="ChangeActiveComment(i)">
+                  <img *ngIf="Post.UserCommented" src="./../../../assets/images/icons/commented.png" alt="">
+                  <img *ngIf="!Post.UserCommented" src="./../../../assets/images/icons/comment.png" alt="">
+                  <p class="count"> {{Post.commentsCount}} </p>
+                </div>
+              </div>
+              <div fxFlex class="text-right" style="height:25px">
+                <div class="share">
+                  <img *ngIf="Post.UserShared" style="cursor:pointer" (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="SharePost" src="./../../../assets/images/icons/shared.png" alt="">
+                  <img *ngIf="!Post.UserShared" style="cursor:pointer" (click)="TriggerPostInfo(i)" [matMenuTriggerFor]="SharePost" src="./../../../assets/images/icons/share.png" alt="">
+                  <p class="count"> {{Post.ShareCount}} </p>
+                </div>
+              </div>
+            </div>
+            <!-- Highlights Post Share Like And More  END-->
+            <!-- <hr class="m-5 mt-0"> -->
+            <!-- Highlights Post Share Like And More -->
+            <div class="postchat" fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxFlex="50px" class="text-left">
+                <div class="chatUserImg text-center">
+                  <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt="">
+                  <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt="">
+                 </div>
+              </div>
+              <div fxFlex class="text-center">
+                <div class="chatInput">
+                  <input #j type="text" placeholder="Post Your Comment..."> </div>
+              </div>
+              <div fxFlex="60px" class="text-right">
+                <div class="chatsend text-center">
+                  <i (click)="SubmitComment(j.value, i); j.value='' " class="material-icons">send</i>
+                </div>
+              </div>
+            </div>
+            <!-- Highlights Post Share Like And More  END-->
+  
+  
+            <div *ngIf="LoadingActiveComment == i">
+              <div style="height:220px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <div fxFlex>
+                      <div class="preloader-orbit-loading">
+                        <div class="cssload-inner cssload-one"></div>
+                        <div class="cssload-inner cssload-two"></div>
+                        <div class="cssload-inner cssload-three"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            
+            <div *ngIf="ActiveComment == i && LoadingActiveComment != i && Post.comments == undefined">
+              <div style="height:60px" fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <div fxFlex>
+                      <h5 style="line-height:60px; text-align:center"> No Comment Found!...</h5>
+                  </div>
+              </div>
+          </div>
+  
+            <!-- Highlights Post Comments-->
+            <div *ngIf="ActiveComment == i" class="Comments mt-20">
+              <div *ngFor="let comment of Post.comments; let k=index" class="commentPost">
+                <div class="commentinfo">
+                  <div class="PostHeader" fxLayout="row" fxLayoutAlign="space-between">
+                    <div fxFlex>
+                      <div class="leftSide">
+                        <div class="" fxLayout="row" fxLayoutAlign="start center">
+                          <div fxFlex="45px">
+                              <img *ngIf="comment.UserImage.toLowerCase().indexOf('http://') !== -1 || comment.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{comment.UserImage}}" alt="" class="postuserImg">
+                              <img *ngIf="comment.UserImage.toLowerCase().indexOf('http://') === -1 || comment.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{comment.UserImage}}" alt="" class="postuserImg">
+                          </div>
+                          <div fxFlex>
+                            <p class="postusercategory">
+                              <span class="postusername" style="cursor:pointer" (click)="GotoProfile(comment.UserId)"> {{ comment.UserName }}, </span> {{comment.UserCategoryName}} &nbsp; | &nbsp; {{comment.UserProfession | slice:0:7 }}{{ comment.UserProfession?.length > 7 ? '...' : ' ' }}</p>
+                            <p class="postuserfollowers"> {{ comment.Followers }} Followers </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="25%">
+                      <div class="rightSide">
+                        <div class="" fxLayout="row" fxLayoutAlign="end center">
+                          <div class="text-right" fxFlex>
+                            <p *ngIf="comment.UserId === UserInfo.data._id" class="postaction"> 
+                              <i (click)="TriggercommentInfo(k)" [matMenuTriggerFor]="ReportHighlightCommentUser" class="material-icons">more_horiz</i>
+                            </p>
+                            <p *ngIf="comment.UserId !== UserInfo.data._id" class="postaction"> 
+                              <i (click)="TriggercommentInfo(k)" [matMenuTriggerFor]="ReportHighlightComment" class="material-icons">more_horiz</i>
+                            </p>
+                            <p class="postdate"> {{comment.Date | timeAgo}} </p>
+                            <p  *ngIf="!comment.AlreadyFollow" style=" line-height:10px;font-weight:500;margin-top:0px;margin-bottom:3px" class="postdate" >
+                              <span (click)="FollowUser(comment.UserId, i, k)" style="cursor:pointer"> Follow </span> </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="m-0">
+                <div class="commentbody">
+                  <p class="commenttext"> {{comment.CommentText}} </p>
+                </div>
+                <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+                <!-- Highlights Post Share Like And More -->
+                <div class="postLikesLevel2" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div fxFlex class="text-left" style="height:20px">
+                    <div class="like">
+                      <img *ngIf="!comment.UserLiked" (click)="AddCommentLike(i, k)" src="./../../../assets/images/icons/like.png" alt="">
+                      <img *ngIf="comment.UserLiked" (click)="RemoveCommentLike(i, k)" src="./../../../assets/images/icons/liked.png" alt="">
+                      <p class="count"> {{comment.LikesCount}} <small *ngIf="comment.UserLiked" > <small> (You Also) </small> </small> </p>
+                    </div>
+                  </div>
+                  <div fxFlex class="text-center" style="height:20px">
+                    <!-- <div class="chat" (click)="ChangeActiveComment(i)">
+                      <img *ngIf="Post.UserCommented" src="./../../../assets/images/icons/commented.png" alt="">
+                      <img *ngIf="!Post.UserCommented" src="./../../../assets/images/icons/comment.png" alt="">
+                      <p class="count"> {{Post.commentsCount}} </p>
+                    </div> -->
+                  </div>
+                  <div fxFlex class="text-right" style="height:20px">
+                    <!-- <div class="share">
+                      <img src="./../../../assets/images/icons/share.png" alt="">
+                      <p class="count"> 100 </p>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="Post.commentsCount > 2 && !CommentViewLess && LoadingActiveComment != i" class="row">
+                <div class="col-sm-12">
+                  <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ViewAllComments(i)">  View All... </span></p>
+                </div>
+              </div>
+  
+              <div *ngIf="CommentViewLess && LoadingActiveComment != i" class="row">
+                <div class="col-sm-12">
+                  <p class="viewAll text-right"> <span style="cursor:pointer" (click)="ChangeActiveComment(i)"> Hide Comments </span> </p>
+                </div>
+              </div>
+  
+            </div>
+            <!-- Highlights Post Comments END-->
+  
+  
+          </div>
+          <!-- Highlights Post div END -->
+  
+  
+        </div>
+        
+        <p *ngIf="!MorePostsListLoder" class="text-center mb-30 LoadMore"> <span (click)="LoadMorePosts()"> Load More... </span> </p>
+  
+        <div *ngIf="MorePostsListLoder" class="mb-10" id="miniLoader">
+          <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
+              <div fxFlex>
+                  <div class="preloader-orbit-loading" style=" width: 40px; height: 40px;">
+                    <div class="cssload-inner cssload-one" style=" width: 40px; height: 40px;"></div>
+                    <div class="cssload-inner cssload-two" style=" width: 40px; height: 40px;"></div>
+                    <div class="cssload-inner cssload-three" style=" width: 40px; height: 40px;"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </p-scrollPanel>
+  
+    </div>
+  
+  
+  
+  </div>
+  
+  
+  <mat-menu #ReportHighlightPost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+      <div (click)="ReportPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">announcement</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text">Report Post </p>
+          </div>
+      </div>
+      <div class="dropdarrow"></div>
+      <hr class="m-0">
+      <div (click)="ReportUser()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">report</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text"> Report User </p>
+          </div>
+      </div>
+  </mat-menu>
+  
+  
+  <mat-menu #ReportHighlightPostUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+      <div (click)="EditPost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">border_color</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text">Edit </p>
+          </div>
+      </div>
+      <div class="dropdarrow"></div>
+      <hr class="m-0">
+      <div (click)="DeletePost()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">delete_forever</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text"> Delete </p>
+          </div>
+      </div>
+  </mat-menu>
+  
+  
+  
+  
+  <mat-menu #ReportHighlightComment="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+      <div (click)="ReportComment()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">announcement</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text">Report Comment </p>
+          </div>
+      </div>
+      <div class="dropdarrow"></div>
+      <hr class="m-0">
+      <div (click)="ReportUser()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">report</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text"> Report User </p>
+          </div>
+      </div>
+  </mat-menu>
+  
+  
+  <mat-menu #ReportHighlightCommentUser="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+      <div (click)="EditComment()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">border_color</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text">Edit </p>
+          </div>
+      </div>
+      <div class="dropdarrow"></div>
+      <hr class="m-0">
+      <div (click)="DeleteComment()" style="cursor:pointer" class="dropd" fxLayout="row" fxLayoutAlign="space-between  center">
+          <div class="dropd_icon" fxFlex="30px">
+              <i class="material-icons">delete_forever</i>
+          </div>
+          <div fxFlex>
+              <p class="dropd_text"> Delete </p>
+          </div>
+      </div>
+  </mat-menu>
+  
+  
+  
+  
+  <mat-menu #SharePost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
+    <div class="share_drop" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="Share_drop_icon" fxFlex="50%">
+          <img (click)="shareInternal()" class="logoDesignShare" src="./../../../assets/images/logo1.png" alt="">
+        </div>
+        <div class="Share_drop_icon" fxFlex>
+          <i (click)="share()" class="fa fa-facebook" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div class="dropdarrow"></div>
+  </mat-menu>

@@ -1,0 +1,65 @@
+.CategoriesList{
+    background-color: #fff;
+    margin-bottom: 15px;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+    padding-top: 3px;
+}
+.CategoriesList .CatImg{
+    height: 33px;
+    width: 33px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.CategoriesList .CatName{
+    text-align: center;
+    text-align: center;
+    font-weight: 500;
+    font-size: 11px;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+    margin: 0px;
+}
+.headerPost{
+    height: 50px;
+    background-color: #ffffff;
+    margin: 0px 3px 5px 3px;
+    box-shadow: rgba(102, 102, 102, 0.47) 0px 1px 8px 0px;
+}
+.headerPost .leftArea{    
+    padding: 0px 10px;
+    line-height: 50px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    font-family: 'Ubuntu', sans-serif;
+    display: inline-flex;
+}
+.headerPost .leftArea i{    
+    font-size: 30px;
+    padding: 0px 10px;
+    line-height: 45px
+}
+
+.rightArea{
+    width: 175px;
+    float: right;
+    padding: 0px 0px;
+    line-height: 54px;
+    margin-top: -3px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333333;
+    letter-spacing: 0.5px;
+    font-family: 'Ubuntu', sans-serif;
+    display: inline-flex;
+    background-color: #e8e8e8;
+    cursor: pointer;
+}
+.rightArea i{    
+    line-height: 54px;
+    padding: 0px 10px;
+    font-size: 28px;
+}
+

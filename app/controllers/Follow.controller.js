@@ -169,12 +169,13 @@ exports.AllFollowingUsers = function(req, res) {
                   
                   function getfollowData(info){
                     return new Promise(( resolve, reject )=>{
+                        console.log(info.FollowingUserId);
                         UserModel.UserType.findOne({'_id': info.FollowingUserId }, usersProjection, function(err, FollowesData) {
                             if(err) {
                                 res.send({status:"Fale", Error:err });
                                 reject(err);
                             } else {
-                                if(FollowesData.length !== null){
+                                if(FollowesData !== null){
                                     FollowModel.FollowUserType.count({'FollowingUserId': FollowesData._id , 'ActiveStates': 'Active' }, function(newerr, count) {
                                         if(newerr){
                                             res.send({status:"Fale", Error:newerr });

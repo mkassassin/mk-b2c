@@ -150,7 +150,12 @@ import { SelectPeoplesComponent } from './popups/select-peoples/select-peoples.c
 import { SelectTopicsComponent } from './popups/select-topics/select-topics.component';
 import { SharePostReturnPageComponent } from './share-post-return-page/share-post-return-page.component';
 import { ShareReturnSinginSignupComponent } from './popups/share-return-singin-signup/share-return-singin-signup.component';
-import { DiscoverMainComponent } from './discover-main/discover-main.component';
+import { Category4TopicsComponent } from './feeds/feeds-category-4/category-4-topics/category-4-topics.component';
+import { Category4MainComponent } from './feeds/feeds-category-4/category-4-main/category-4-main.component';
+import { Category4CreateTopicComponent } from './popups/category-4-create-topic/category-4-create-topic.component';
+import { Category4ServiceService } from './service/category-4-service/category-4-service.service';
+import { Category4TopicViewComponent } from './feeds/feeds-category-4/category-4-topic-view/category-4-topic-view.component';
+import { Category4TopicPostComponent } from './popups/category-4-topic-post/category-4-topic-post.component';
 
 
 @NgModule({
@@ -206,7 +211,11 @@ import { DiscoverMainComponent } from './discover-main/discover-main.component';
     SelectTopicsComponent,
     SharePostReturnPageComponent,
     ShareReturnSinginSignupComponent,
-    DiscoverMainComponent
+    Category4TopicsComponent,
+    Category4MainComponent,
+    Category4CreateTopicComponent,
+    Category4TopicViewComponent,
+    Category4TopicPostComponent,
   ],
   imports: [
     CommonModule,
@@ -255,6 +264,7 @@ import { DiscoverMainComponent } from './discover-main/discover-main.component';
                 ComponentConnectServiceService,
                 ReportAndDeleteService,
                 TopicRoutingServiceService,
+                Category4ServiceService,
                 {
                   provide: AuthServiceConfig,
                   useFactory: provideConfig
@@ -286,7 +296,9 @@ import { DiscoverMainComponent } from './discover-main/discover-main.component';
                     FollowViewAllComponent,
                     SelectPeoplesComponent,
                     SelectTopicsComponent,
-                    ShareReturnSinginSignupComponent
+                    ShareReturnSinginSignupComponent,
+                    Category4CreateTopicComponent,
+                    Category4TopicPostComponent
                   ]
 })
 export class AppModule { }

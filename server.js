@@ -64,6 +64,8 @@ require('./app/routes/profile.routes.js')(app);
 
 require('./app/routes/ReportAndDelete.routes.js')(app);
 
+require('./app/routes/Category4Topics.routes.js')(app);
+
 app.use('/static', express.static('uploads'));
 
 

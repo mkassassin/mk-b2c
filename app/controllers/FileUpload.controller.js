@@ -44,6 +44,16 @@ var VideoStore = multer.diskStorage({
     }
 });
 
+var DocumentStore = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null, './uploads/documents');
+    },
+    filename:function(req, file, cb){
+        var ext = file.originalname.substring(file.originalname.indexOf('.'));
+        cb(null, Date.now() + ext);
+    }
+});
+
 var UserStore = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null, './uploads/users');
@@ -70,6 +80,8 @@ var TopicsStore = multer.diskStorage({
 var ImageUpload = multer({storage:ImageStore}).single('file');
 
 var VideoUpload = multer({storage:VideoStore}).single('file');
+
+var DocumentUpload = multer({storage:DocumentStore}).single('file');
 
 var ProfileUpload = multer({storage:UserStore}).single('file');
 
@@ -147,6 +159,44 @@ exports.UploadVideoFile = function(req, res) {
         }
     });
 };
+
+
+
+
+exports.UploadDocumetFile = function(req, res) {
+    DocumentUpload(req, res, function(err){
+        if(err){
+            res.status(500).send({status:"False", Error:err});
+        }else{
+            if(!req.body.UserId) {
+                res.status(400).send({status:"False", message: " User Id can not be Empty! "});
+            }
+            if(!req.file.filename){
+                res.status(400).send({status:"False", message: " File can not be Empty! "});
+            }
+            
+            if ( req.body.UserId && req.file.filename ) {
+                var varDocumentFile = new FileUploadModel.DocumentFile({
+                        UserId:  req.body.UserId,
+                        FileName: req.file.filename,
+                        ActiveStates: 'Active',
+                });
+            
+                varDocumentFile.save(function(err, result) {
+                    if(err) {
+                        res.status(500).send({status:"False", message: "Some error occurred while Upload The File.", Error : err});
+                        
+                    } else {
+                        res.send({status:"True", data: result });
+                    }
+                });
+            }else{
+                res.status(400).send({status:"False", message: " Some Error Occurred "});
+            }
+        }
+    });
+};
+
 
 
 

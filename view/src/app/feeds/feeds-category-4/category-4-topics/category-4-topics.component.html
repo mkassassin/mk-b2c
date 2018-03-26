@@ -1,0 +1,43 @@
+
+<div class="Category4TopicsList">
+    <div class="TopicsList" style="position: relative;">
+
+            
+
+        <div *ngFor="let Topic of ListOfTopics; let i =index" class="TopicCard">
+            <div class="TopicCardBox" >
+                <div class="TopicBGimg" >
+                    <img src="{{Category4TopicImageBaseUrl}}/{{Topic.TopicImage}}" alt="">
+                </div>
+                <h5 class="TopicName"> {{Topic.TopicName}} </h5>
+                <div class="TopicInfonew p-5" style="width:100%" fxLayout="row" fxLayoutAlign="space-evenly start">
+                    <div class="text-center" fxFlex="25%" style="display: inline-flex;">
+                        <img class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/snippets.png" alt="">
+                        <p class="TopicInfoCatCount">
+                            <span> {{Topic.SnippetCount}} </span>
+                        </p>
+                    </div>
+                    <div class="text-center" fxFlex="25%" style="display: inline-flex;">
+                        <img class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/video.png" alt="">
+                        <p class="TopicInfoCatCount">
+                            <span> {{Topic.VideoCount}} </span>
+                        </p>
+                    </div>
+                    <div class="text-center" fxFlex="25%" style="display: inline-flex;">
+                        <img class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/article.png" alt="">
+                        <p class="TopicInfoCatCount">
+                            <span> {{Topic.ArticleCount}} </span>
+                        </p>
+                    </div>
+                    <div class="text-center" fxFlex="25%" style="display: inline-flex;">
+                        <img class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/docs.png" alt="">
+                        <p class="TopicInfoCatCount">
+                            <span> {{Topic.DocumentCount}} </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div (click)="viewTopic(i)" class="overlayPanel"> View <b> {{Topic.TopicName}} </b> </div>
+        </div>
+    </div>
+</div>

@@ -157,8 +157,6 @@ exports.PrivacyUpdate = function(req, res) {
 };
 
 exports.Register = function(req, res) {
-    console.log(req.body);
-    
     if(!req.body.UserName) {
         res.status(400).send({status:"False", message: " Name can not be Empty! "});
     }
@@ -169,7 +167,6 @@ exports.Register = function(req, res) {
         res.status(400).send({status:"False", message: " Select Any One Category "});
     }else{
 
-        console.log('valid');
         var varUserType = new UserModel.UserType({
                 UserName:  req.body.UserName,
                 UserEmail: req.body.UserEmail,
@@ -194,11 +191,8 @@ exports.Register = function(req, res) {
 
         varUserType.save(function(err, result) {
             if(err) {
-                console.log(err);
-                
                 res.status(500).send({status:"False", Error:err, message: "Some error occurred while creating the Account."});            
             } else {
-                console.log('success');
                 res.send({status:"True", data: result });
             }
         });
