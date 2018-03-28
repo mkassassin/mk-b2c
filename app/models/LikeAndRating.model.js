@@ -57,6 +57,17 @@ var Category4TopicPostRatingSchema = mongoose.Schema({
     { timestamps: true }
 );
 
+var Category4TopicCommentLikeSchema = mongoose.Schema({
+    UserId: { type : String , required : true },
+    PostId: { type : String , required : true },
+    CommentId: { type : String , required : true },
+    CommentUserId: { type : String , required : true },
+    Date: { type : String , required : true },
+    ActiveStates: String
+    }, 
+    { timestamps: true }
+);
+
 var varHighlightsLike = mongoose.model('HighlightsLike', HighlightsLikeSchema, 'HighlightsLike');
 var varCommentLike = mongoose.model('CommentLike', CommentLikeSchema, 'CommentLike');
 
@@ -65,10 +76,14 @@ var varAnswerRating= mongoose.model('AnswerRating', AnswerRatingSchema, 'AnswerR
 
 var varCategory4TopicPostRating = mongoose.model('Category4TopicPostRating', Category4TopicPostRatingSchema, 'Category4TopicPostRating');
 
+var varCategory4TopicCommentLike = mongoose.model('Category4TopicCommentLike', Category4TopicCommentLikeSchema, 'Category4TopicCommentLike');
+
+
 module.exports = {
     HighlightsLike : varHighlightsLike,
     CommentLike : varCommentLike,
     QuestionsRating : varQuestionsRating,
     AnswerRating : varAnswerRating,
-    Category4TopicPostRating : varCategory4TopicPostRating
+    Category4TopicPostRating : varCategory4TopicPostRating,
+    Category4TopicCommentLike : varCategory4TopicCommentLike
 };

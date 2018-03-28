@@ -17,4 +17,8 @@ module.exports = function(app) {
 
     app.post('/API/LikeAndRating/Category4TopicPostRatingAdd', Countroll.Category4TopicPostRatingAdd);
 
+    app.post('/API/LikeAndRating/Category4TopicCommentsLikeAdd', Countroll.Category4TopicCommentsLikeAdd);
+
+    app.get('/API/LikeAndRating/Category4TopicCommentsUnLike/:LikeId', Countroll.Category4TopicCommentsUnLike);
+
 };

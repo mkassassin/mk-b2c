@@ -63,4 +63,17 @@ export class LikeAndRatingServiceService {
         .catch(this.handleError);
     }
 
+
+    public Category4TopicCommentsLikeAdd(data: any) {
+        return this.http .post(API_URL + 'Category4TopicCommentsLikeAdd' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public Category4TopicCommentsUnLike(LikeId: any): Observable<any[]> {
+        return this.http.get(API_URL + 'Category4TopicCommentsUnLike/' + LikeId )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

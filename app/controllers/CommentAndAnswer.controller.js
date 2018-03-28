@@ -948,12 +948,12 @@ exports.Category4TopicCommentList = function(req, res) {
                                                     res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
-                                                    LikeAndRating.CommentLike.count({'CommentId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                    LikeAndRating.Category4TopicCommentLike.count({'CommentId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
                                                         if(NewErr){
                                                             res.send({status:"False", Error:NewErr });
                                                             reject(err);
                                                         }else{
-                                                            LikeAndRating.CommentLike.find({'UserId': req.params.UserId, 'CommentId': info._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                            LikeAndRating.Category4TopicCommentLike.find({'UserId': req.params.UserId, 'CommentId': info._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
                                                                 if(someerr){
                                                                     res.send({status:"False", Error:someerr });
                                                                     reject(err);
@@ -1054,12 +1054,12 @@ exports.Category4TopicAllCommentList = function(req, res) {
                                                     res.send({status:"False", Error:nowerr });
                                                     reject(nowerr);
                                                 }else{
-                                                    LikeAndRating.CommentLike.count({'CommentId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                    LikeAndRating.Category4TopicCommentLikeSchema.count({'CommentId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
                                                         if(NewErr){
                                                             res.send({status:"False", Error:NewErr });
                                                             reject(err);
                                                         }else{
-                                                            LikeAndRating.CommentLike.find({'UserId': req.params.UserId, 'CommentId': info._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                            LikeAndRating.Category4TopicCommentLikeSchema.find({'UserId': req.params.UserId, 'CommentId': info._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
                                                                 if(someerr){
                                                                     res.send({status:"False", Error:someerr });
                                                                     reject(err);

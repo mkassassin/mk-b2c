@@ -596,3 +596,84 @@ exports.Category4TopicPostRatingAdd = function(req, res) {
     });
      
 };
+
+
+
+
+exports.Category4TopicCommentsLikeAdd = function(req, res) {
+    if(!req.body.UserId) {
+        res.status(400).send({status:"False", message: " UserId can not be Empty! "});
+    }
+    if(!req.body.PostId) {
+        res.status(400).send({status:"False", message: " PostId can not be Empty! "});
+    }
+    if(!req.body.CommentId) {
+        res.status(400).send({status:"False", message: " Comment Id can not be Empty! "});
+    }
+    if(!req.body.CommentUserId) {
+        res.status(400).send({status:"False", message: " Comment UserId can not be Empty! "});
+    }
+    if(!req.body.Date) {
+        res.status(400).send({status:"False", message: " Date can not be Empty! "});
+    }
+
+    var varCategory4TopicCommentLike = new Model.Category4TopicCommentLike({
+            UserId: req.body.UserId,
+            PostId: req.body.PostId,
+            CommentId: req.body.CommentId,
+            CommentUserId: req.body.CommentUserId,
+            Date: req.body.Date,
+            ActiveStates: 'Active'
+    });
+
+    Model.Category4TopicCommentLike.find({'UserId': req.body.UserId, 'CommentId': req.body.CommentId, 'CommentUserId': req.body.CommentUserId }, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err,  message: "Some error occurred while Find Following Users ."});
+        } else {
+            if(result.length > 0){
+                if(result[0].ActiveStates == 'InActive'){
+                    result[0].ActiveStates = 'Active';
+                    result[0].save(function (newerr, newresult) {
+                        if (newerr){
+                            res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UnLike ."});
+                        }else{
+                            res.send({status:"True", data: newresult });
+                        }
+                    });
+                }else{
+                    res.send({status:"True", message:'Post Already Liked', data: result });
+                }
+            }else{
+                varCategory4TopicCommentLike.save(function(newerr, newresult) {
+                    if(newerr) {
+                        res.status(500).send({status:"False", Error: newerr, message: "Some error occurred while Like the Post."});    
+                    } else {
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        }
+    });    
+};
+
+exports.Category4TopicCommentsUnLike = function(req, res) {
+    if(!req.params.LikeId) {
+        res.status(400).send({status:"False", message: " LikeId can not be Empty! "});
+    }
+
+    Model.Category4TopicCommentLike.findById(req.params.LikeId, function (err, result) {
+        if(err){ 
+            res.status(500).send({status:"False", Error: err,  message: "Some error occurred while  UnLike ."});
+        }else{
+            result.ActiveStates = 'InActive';
+            result.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update UnLike ."});
+                }else{
+                    res.send({status:"True", data: newresult });
+                }
+            });
+        }   
+    });  
+
+};

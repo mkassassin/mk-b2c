@@ -356,35 +356,35 @@ export class Category4TopicViewComponent implements OnInit {
     }
   }
 
-  // AddCommentLike(index, commentIndex) {
-  //   const data = {'UserId': this.UserInfo.data._id,
-  //               'PostId': this.PostsList[index]._id,
-  //               'CommentId': this.PostsList[index].comments[commentIndex]._id,
-  //               'CommentUserId':  this.PostsList[index].comments[commentIndex].UserId,
-  //               'Date':  new Date(),
-  //             };
-  //   this.LikeService.CommentsLikeAdd(data).subscribe( datas => {
-  //         if (datas['status'] === 'True' && !datas['message']) {
-  //           this.PostsList[index].comments[commentIndex].UserLiked = true;
-  //           this.PostsList[index].comments[commentIndex].UserLikeId = datas['data']._id;
-  //           this.PostsList[index].comments[commentIndex].LikesCount =  this.PostsList[index].comments[commentIndex].LikesCount + 1;
-  //         }else {
-  //           console.log(datas);
-  //         }
-  //       });
-  // }
+  AddCommentLike(index, commentIndex) {
+    const data = {'UserId': this.UserInfo.data._id,
+                'PostId': this.PostsList[index]._id,
+                'CommentId': this.PostsList[index].comments[commentIndex]._id,
+                'CommentUserId':  this.PostsList[index].comments[commentIndex].UserId,
+                'Date':  new Date(),
+              };
+    this.LikeService.Category4TopicCommentsLikeAdd(data).subscribe( datas => {
+          if (datas['status'] === 'True' && !datas['message']) {
+            this.PostsList[index].comments[commentIndex].UserLiked = true;
+            this.PostsList[index].comments[commentIndex].UserLikeId = datas['data']._id;
+            this.PostsList[index].comments[commentIndex].LikesCount =  this.PostsList[index].comments[commentIndex].LikesCount + 1;
+          }else {
+            console.log(datas);
+          }
+        });
+  }
 
 
-  // RemoveCommentLike(index, commentIndex) {
-  //   this.LikeService.CommentsUnLike(this.PostsList[index].comments[commentIndex].UserLikeId).subscribe( datas => {
-  //         if (datas['status'] === 'True' && !datas['message']) {
-  //           this.PostsList[index].comments[commentIndex].UserLiked = false;
-  //           this.PostsList[index].comments[commentIndex].LikesCount = this.PostsList[index].comments[commentIndex].LikesCount - 1;
-  //         }else {
-  //           console.log(datas);
-  //         }
-  //     });
-  // }
+  RemoveCommentLike(index, commentIndex) {
+    this.LikeService.Category4TopicCommentsUnLike(this.PostsList[index].comments[commentIndex].UserLikeId).subscribe( datas => {
+          if (datas['status'] === 'True' && !datas['message']) {
+            this.PostsList[index].comments[commentIndex].UserLiked = false;
+            this.PostsList[index].comments[commentIndex].LikesCount = this.PostsList[index].comments[commentIndex].LikesCount - 1;
+          }else {
+            console.log(datas);
+          }
+      });
+  }
 
   // AddLike(index) {
   //   const data = {'UserId': this.UserInfo.data._id,
