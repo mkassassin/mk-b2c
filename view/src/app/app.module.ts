@@ -156,6 +156,8 @@ import { Category4CreateTopicComponent } from './popups/category-4-create-topic/
 import { Category4ServiceService } from './service/category-4-service/category-4-service.service';
 import { Category4TopicViewComponent } from './feeds/feeds-category-4/category-4-topic-view/category-4-topic-view.component';
 import { Category4TopicPostComponent } from './popups/category-4-topic-post/category-4-topic-post.component';
+import { EditCategory4TopicPostComponent } from './popups/edit-category-4-topic-post/edit-category-4-topic-post.component';
+import { EditCategory4TopicCommentComponent } from './popups/edit-category-4-topic-comment/edit-category-4-topic-comment.component';
 
 
 @NgModule({
@@ -216,6 +218,8 @@ import { Category4TopicPostComponent } from './popups/category-4-topic-post/cate
     Category4CreateTopicComponent,
     Category4TopicViewComponent,
     Category4TopicPostComponent,
+    EditCategory4TopicPostComponent,
+    EditCategory4TopicCommentComponent,
   ],
   imports: [
     CommonModule,
@@ -298,7 +302,9 @@ import { Category4TopicPostComponent } from './popups/category-4-topic-post/cate
                     SelectTopicsComponent,
                     ShareReturnSinginSignupComponent,
                     Category4CreateTopicComponent,
-                    Category4TopicPostComponent
+                    Category4TopicPostComponent,
+                    EditCategory4TopicPostComponent,
+                    EditCategory4TopicCommentComponent
                   ]
 })
 export class AppModule { }

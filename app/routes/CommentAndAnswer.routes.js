@@ -19,5 +19,12 @@ module.exports = function(app) {
 
     app.get('/API/CommentAndAnswer/GetQuestionsAllAnswers/:PostId/:UserId', Countroll.GetQuestionsAllAnswers);
 
+    app.post('/API/CommentAndAnswer/Category4TopicCommentAdd', Countroll.Category4TopicCommentAdd);
+
+    app.get('/API/CommentAndAnswer/Category4TopicCommentList/:PostId/:UserId', Countroll.Category4TopicCommentList);
+
+    app.get('/API/CommentAndAnswer/Category4TopicAllCommentList/:PostId/:UserId', Countroll.Category4TopicAllCommentList);
+
+    app.post('/API/CommentAndAnswer/Category4TopicCommentUpdate', Countroll.Category4TopicCommentUpdate);
 
 }

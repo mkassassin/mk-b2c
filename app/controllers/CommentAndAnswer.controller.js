@@ -5,6 +5,7 @@ var NotificationModel = require('../models/Notificatio.model.js');
 var LikeAndRating = require('../models/LikeAndRating.model.js');
 var HighlightsPostModel = require('../models/HighlightsPost.model.js');
 var QuestionsPostModel = require('../models/QuestionsPost.model.js');
+var Category4Model = require('../models/Category4.model.js');
 
 var moment = require("moment");
 
@@ -840,4 +841,312 @@ exports.GetQuestionsAllAnswers = function(req, res) {
             }
         }
     });
+};
+
+
+
+exports.Category4TopicCommentAdd = function(req, res) {
+    if(!req.body.UserId) {
+        res.status(400).send({status:"False", message: " UserId can not be Empty! "});
+    }
+    if(!req.body.PostId) {
+        res.status(400).send({status:"False", message: " PostId can not be Empty! "});
+    }
+    if(!req.body.PostUserId) {
+        res.status(400).send({status:"False", message: " PostUserId can not be Empty! "});
+    }
+    if(!req.body.CommentText) {
+        res.status(400).send({status:"False", message: " Comment can not be Empty! "});
+    }
+    if(!req.body.Date) {
+        res.status(400).send({status:"False", message: " Date can not be Empty! "});
+    }
+
+
+    var varCategory4TopicComment = new Model.Category4TopicComment({
+            UserId: req.body.UserId,
+            PostId: req.body.PostId,
+            PostUserId: req.body.PostUserId,
+            CommentText: req.body.CommentText,
+            Date: req.body.Date,
+            ActiveStates: 'Active'
+    });
+
+    varCategory4TopicComment.save(function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error: err, message: "Some error occurred while Like the Post."});
+            
+        }else {
+            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                if(err) {
+                    res.send({status:"False", Error:err });
+                } else {
+                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                        if(newerr){
+                            res.send({status:"False", Error:newerr });
+                        }else{
+                            var newArray = [];
+                                newArray.push( {
+                                                _id: result._id,
+                                                UserId: UserData._id,
+                                                UserName: UserData.UserName,
+                                                UserCategoryId: UserData.UserCategoryId,
+                                                UserCategoryName: UserData.UserCategoryName,
+                                                UserImage: UserData.UserImage,
+                                                UserCompany: UserData.UserCompany,
+                                                UserProfession: UserData.UserProfession,
+                                                UserCommented: true,
+                                                Followers: count,
+                                                Date: result.Date,
+                                                timeAgo: moment(result.updatedAt).fromNow(),
+                                                PostId: result.PostId,
+                                                PostUserId: result.PostUserId ,
+                                                CommentText: result.CommentText
+                                            }
+                                );
+                            res.send({status:"True", data: newArray[0] });
+                        }
+
+                    });
+                }
+            });
+        }
+    });
+};
+
+
+exports.Category4TopicCommentList = function(req, res) {
+    Model.Category4TopicComment.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, limit: 2}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Comments ."});
+        } else {
+            if(result.length > 0){
+                var CommentsArray = new Array();
+                GetUserData();
+                async function GetUserData(){
+                    for (let info of result) {
+                        await getUserInfo(info);
+                     }
+                    res.send({status:"True", data: CommentsArray });
+                  }
+                  
+                  function getUserInfo(info){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
+                            if(err) {
+                                res.send({status:"False", Error:err });
+                                reject(err);
+                            } else {
+                                if(UserData.length !== null){
+                                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"False", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': UserData._id}, function(nowerr, FollowesData) {
+                                                if(nowerr){
+                                                    res.send({status:"False", Error:nowerr });
+                                                    reject(nowerr);
+                                                }else{
+                                                    LikeAndRating.CommentLike.count({'CommentId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                        if(NewErr){
+                                                            res.send({status:"False", Error:NewErr });
+                                                            reject(err);
+                                                        }else{
+                                                            LikeAndRating.CommentLike.find({'UserId': req.params.UserId, 'CommentId': info._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                                if(someerr){
+                                                                    res.send({status:"False", Error:someerr });
+                                                                    reject(err);
+                                                                }else{
+                                                                        var UserLiked = false;
+                                                                        var UserLikedId = '';
+                                                                    if(newResult.length > 0){
+                                                                         UserLiked = true;
+                                                                         UserLikedId = newResult[0]._id;
+                                                                    }else{
+                                                                         UserLiked = false;
+                                                                         UserLikedId = '';
+                                                                    }
+
+                                                                    var alreadyfollowuser = true;
+                                                                    if(FollowesData.length <= 0 && req.params.UserId != UserData._id){
+                                                                        alreadyfollowuser = false;
+                                                                    }else{
+                                                                        alreadyfollowuser = true;
+                                                                    }
+                                                                    var newArray = [];
+                                                                    newArray.push( {
+                                                                                    UserId: UserData._id,
+                                                                                    UserName: UserData.UserName,
+                                                                                    UserCategoryId: UserData.UserCategoryId,
+                                                                                    UserCategoryName: UserData.UserCategoryName,
+                                                                                    UserImage: UserData.UserImage,
+                                                                                    UserCompany: UserData.UserCompany,
+                                                                                    UserProfession: UserData.UserProfession,
+                                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                                    LikesCount: NewCount,
+                                                                                    UserLiked: UserLiked,
+                                                                                    UserLikeId: UserLikedId,
+                                                                                    Followers:count,
+                                                                                    _id: info._id,
+                                                                                    CommentText: info.CommentText,
+                                                                                    Date: info.Date,
+                                                                                    timeAgo: moment(info.updatedAt).fromNow(),
+                                                                                    PostId: req.params.PostId,
+                                                                                }
+                                                                    );
+                                                                    CommentsArray.push(newArray[0]);
+                                                                    resolve(UserData);
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }else{
+                                    resolve(UserData);
+                                }
+                            }
+                        });
+                    });
+                  }
+        
+            }else{
+            res.send({status:"True", message:'No More Comments' });
+            }
+        }
+    });
+};
+
+
+exports.Category4TopicAllCommentList = function(req, res) {
+    Model.Category4TopicComment.find({'PostId': req.params.PostId, 'ActiveStates': 'Active' }, {} , {}, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Comments ."});
+        } else {
+            if(result.length > 0){
+                var CommentsArray = new Array();
+                GetUserData();
+                async function GetUserData(){
+                    for (let info of result) {
+                        await getUserInfo(info);
+                     }
+                    res.send({status:"True", data: CommentsArray });
+                  }
+                  
+                  function getUserInfo(info){
+                    return new Promise(( resolve, reject )=>{
+                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(err, UserData) {
+                            if(err) {
+                                res.send({status:"False", Error:err });
+                                reject(err);
+                            } else {
+                                if(UserData.length !== null){
+                                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"False", Error:newerr });
+                                            reject(newerr);
+                                        }else{
+                                            FollowModel.FollowUserType.find({'UserId':req.params.UserId, 'FollowingUserId': UserData._id}, function(nowerr, FollowesData) {
+                                                if(nowerr){
+                                                    res.send({status:"False", Error:nowerr });
+                                                    reject(nowerr);
+                                                }else{
+                                                    LikeAndRating.CommentLike.count({'CommentId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
+                                                        if(NewErr){
+                                                            res.send({status:"False", Error:NewErr });
+                                                            reject(err);
+                                                        }else{
+                                                            LikeAndRating.CommentLike.find({'UserId': req.params.UserId, 'CommentId': info._id, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
+                                                                if(someerr){
+                                                                    res.send({status:"False", Error:someerr });
+                                                                    reject(err);
+                                                                }else{
+                                                                        var UserLiked = false;
+                                                                        var UserLikedId = '';
+                                                                    if(newResult.length > 0){
+                                                                         UserLiked = true;
+                                                                         UserLikedId = newResult[0]._id;
+                                                                    }else{
+                                                                         UserLiked = false;
+                                                                         UserLikedId = '';
+                                                                    }
+
+                                                                    var alreadyfollowuser = true;
+                                                                    if(FollowesData.length <= 0 && req.params.UserId != UserData._id){
+                                                                        alreadyfollowuser = false;
+                                                                    }else{
+                                                                        alreadyfollowuser = true;
+                                                                    }
+                                                                    var newArray = [];
+                                                                    newArray.push( {
+                                                                                    UserId: UserData._id,
+                                                                                    UserName: UserData.UserName,
+                                                                                    UserCategoryId: UserData.UserCategoryId,
+                                                                                    UserCategoryName: UserData.UserCategoryName,
+                                                                                    UserImage: UserData.UserImage,
+                                                                                    UserCompany: UserData.UserCompany,
+                                                                                    UserProfession: UserData.UserProfession,
+                                                                                    AlreadyFollow: alreadyfollowuser,
+                                                                                    LikesCount: NewCount,
+                                                                                    UserLiked: UserLiked,
+                                                                                    UserLikeId: UserLikedId,
+                                                                                    Followers:count,
+                                                                                    _id: info._id,
+                                                                                    CommentText: info.CommentText,
+                                                                                    Date: info.Date,
+                                                                                    timeAgo: moment(info.updatedAt).fromNow(),
+                                                                                    PostId: req.params.PostId,
+                                                                                }
+                                                                    );
+                                                                    CommentsArray.push(newArray[0]);
+                                                                    resolve(UserData);
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }else{
+                                    resolve(UserData);
+                                }
+                            }
+                        });
+                    });
+                  }
+        
+            }else{
+            res.send({status:"True", message:'No More Comments' });
+            }
+        }
+    });
+};
+
+
+exports.Category4TopicCommentUpdate = function(req, res) {
+    if(!req.body._id) {
+        res.status(400).send({status:"False", message: " Post can not be Empty! "});
+    }
+    if(!req.body.CommentText) {
+        res.status(400).send({status:"False", message: " Comment Text can not be Empty! "});
+    }
+
+    Model.Category4TopicComment.findOne({'_id': req.body._id }, {},  function(err, data) {
+            if(err) {
+                res.send({status:"False", Error:err });
+            } else {
+                data.CommentText = req.body.CommentText,
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Post ."});
+                    }else{
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        });
 };

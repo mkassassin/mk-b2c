@@ -18,7 +18,7 @@ var Category4TopicPostTypeSchema = mongoose.Schema({
     PostText:{ type : String},
     PostLink:{ type : String},
     PostLinkInfo:{ type : Object},
-    PostDocumnet:{ type : Object},
+    PostDocumnet:{ type : Array},
     Shared:{ type : String},
     ShareUserName:{ type : String},
     ShareUserId:{ type : String},

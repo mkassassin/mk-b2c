@@ -217,6 +217,15 @@
     color: #666666cf;
 }
 
+.rating{
+    display: inline-flex;
+}
+.rating img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 1px;
+}
+
 .Highlights .HighlightsPost .postchat {
     padding: 0px;
     padding-top: 5px;

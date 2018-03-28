@@ -44,9 +44,6 @@ export class CommentAndAnswerService {
 
 
 
-
-
-
     public QuestionsAnswerAdd(data: any) {
         return this.http .post(API_URL + 'QuestionsAnswerAdd' , data)
         .map(response => { const datas = response.json(); return datas; })
@@ -67,4 +64,31 @@ export class CommentAndAnswerService {
         .map(response => { const datas = response.json(); return datas; })
         .catch(this.handleError);
     }
+
+
+
+    public Category4TopicCommentAdd(data: any): Observable<any[]> {
+        return this.http .post(API_URL + 'Category4TopicCommentAdd', data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public Category4TopicCommentList(PostId: any, UserId: any): Observable<any[]> {
+        return this.http .get(API_URL + 'Category4TopicCommentList/' + PostId + '/' + UserId )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public Category4TopicAllCommentList(PostId: any, UserId: any): Observable<any[]> {
+        return this.http .get(API_URL + 'Category4TopicAllCommentList/' + PostId + '/' + UserId )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public Category4TopicCommentUpdate(data: any): Observable<any[]> {
+        return this.http .post(API_URL + 'Category4TopicCommentUpdate', data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

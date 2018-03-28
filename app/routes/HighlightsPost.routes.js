@@ -21,4 +21,8 @@ module.exports = function(app) {
 
     app.get('/API/HighlightsPost/ViewSharePost/:PostId', HighlightsPost.ViewSharePost);
 
-}
+    app.post('/API/HighlightsPost/Category4TopicPostShare', HighlightsPost.Category4TopicPostShare);
+
+    
+
+};

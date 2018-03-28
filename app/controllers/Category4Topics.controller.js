@@ -223,7 +223,7 @@ exports.Category4TopicPostSubmit = function(req, res) {
                                                 PostText: result.PostText ,
                                                 PostLink: result.PostLink,
                                                 PostLinkInfo: result.PostLinkInfo || '',
-                                                PostDocumnet: result.PostDocumnet,
+                                                PostDocumnet: result.PostDocumnet || '',
                                                 PostImage: result.PostImage,
                                                 PostVideo: result.PostVideo,
                                                 Shared: result.Shared || '',
@@ -250,154 +250,198 @@ exports.Category4TopicPostSubmit = function(req, res) {
 };
 
 
+exports.Category4TopicPostUpdate = function(req, res) {
+    if(!req.body._id) {
+        res.status(400).send({status:"False", message: " Id can not be Empty! "});
+    }
+    if(!req.body.PostType) {
+        res.status(400).send({status:"False", message: " Post Type can not be Empty! "});
+    }
+    if(!req.body.PostDate) {
+        res.status(400).send({status:"False", message: " Post Date can not be Empty! "});
+    }
+
+    if(req.body.PostLink !== '') {
+        var LinkInfo = '';
+        var str = req.body.PostLink;
+        var n = str.indexOf('http://www.youtube');
+        var n1 = str.indexOf('https://www.youtube');
+        var n2 = str.indexOf('https://youtu');
+
+        if( n !== -1 || n1 !== -1 || n2 !== -1  ) {
+            gotonext();
+        }else{
+            axios.get('http://api.linkpreview.net/?key=5a883a1e4c1cd65a5a1d19ec7011bb4a8ee7426a5cdcb&q='+ req.body.PostLink )
+            .then(response => {
+                 LinkInfo = response.data;
+                gotonext();
+            })
+            .catch(error => {
+                gotonext();
+            });
+        }
+
+    }else{
+        gotonext();
+    }
+
+    function gotonext() {
+        Category4Model.Category4TopicPost.findOne({'_id': req.body._id }, {},  function(err, data) {
+            if(err) {
+                res.send({status:"False", Error:err });
+            } else {
+                data.PostDate = req.body.PostDate;
+                data.PostText = req.body.PostText || '';
+                data.PostLink = req.body.PostLink || '';
+                data.PostLinkInfo = LinkInfo;
+                data.PostDocumnet = req.body.PostDocumnet || '',
+                data.PostImage = req.body.PostImage || '';
+                data.PostVideo = req.body.PostVideo || '';
+                data.save(function (newerr, newresult) {
+                    if (newerr){
+                        res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Update Post ."});
+                    }else{
+                        res.send({status:"True", data: newresult });
+                    }
+                });
+            }
+        });
+    }
+};
+
+
 
 
 exports.Category4TopicPostList = function(req, res) {
     var SkipCount = 0;
     SkipCount = parseInt(req.params.Limit);
     Category4Model.Category4TopicPost.find({'TopicId': req.params.TopicId, 'PostType': req.params.PostType, 'ActiveStates': 'Active' }, {} , {sort:{createdAt : -1}, skip: SkipCount, limit: 15  }, function(err, result) {
-        if(err) {
-            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+        if (err) {
+            res.status(500).send({ status: "False", message: "Some error occurred while Find Following Users ." });
         } else {
-            if(result.length > 0){
-                var PostsArray = new Array();
-                GetUserData();
-                async function GetUserData(){
-                    for (let info of result) {
-                        await getUserInfo(info);
-                     }
-                    res.send({status:"True", data: PostsArray });
-                  }
-                  
-                  function getUserInfo(info){
-                    return new Promise(( resolve, reject ) => {
-                        UserModel.UserType.findOne({'_id': info.UserId }, usersProjection, function(inerr, UserData) {
-                            if(inerr) {
-                                res.send({status:"False", Error:inerr });
-                                reject(inerr);
-                            } else {
-                                if (UserData !== null ) {
-                                    FollowModel.FollowUserType.count({'FollowingUserId': info.UserId }, function(newerr, count) {
-                                        if(newerr){
-                                            res.send({status:"False", Error:newerr });
-                                            reject(newerr);
-                                        }else{
-                                            LikeAndRating.HighlightsLike.count({'PostId': info._id , 'ActiveStates':'Active' }, function(NewErr, NewCount) {
-                                                if(NewErr){
-                                                    res.send({status:"False", Error:NewErr });
-                                                    reject(err);
-                                                }else{
-                                                    LikeAndRating.HighlightsLike.find({'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates':'Active' }, {}, function(someerr, newResult) {
-                                                        if(someerr){
-                                                            res.send({status:"False", Error:someerr });
-                                                            reject(err);
-                                                        }else{
-                                                            var UserLiked = false;
-                                                            var UserLikedId = '';
-                                                            if(newResult.length > 0){
-                                                                    UserLiked = true;
-                                                                    UserLikedId = newResult[0]._id;
-                                                            }else{
-                                                                    UserLiked = false;
-                                                                    UserLikedId = '';
-                                                            }
+            const GetUserData = (result) =>
+                Promise.all(
+                    result.map(info => getPostInfo(info) )
+                ).then( result =>{ 
+                    res.send({ status: "True", data: result }) 
+                }
+                ).catch(err => res.send({ status: "False", Error: err }));
 
-                                                            CommentModel.HighlightsComment.count({'PostId': info._id , 'ActiveStates':'Active' }, function(commentErr, commentCount) {
-                                                                if(commentErr){
-                                                                    res.send({status:"False", Error:commentErr });
-                                                                    reject(err);
-                                                                }else{ 
 
-                                                                    CommentModel.HighlightsComment.find({'UserId':req.params.UserId, 'PostId': info._id, 'ActiveStates':'Active'}, function(nowerr, CommantData) {
-                                                                        if(nowerr){
-                                                                            res.send({status:"False", Error:nowerr });
-                                                                            reject(nowerr);
-                                                                        }else{
-                                                                            var alreadyCommentuser = true;
-                                                                            if(CommantData.length <= 0 ){
-                                                                                alreadyCommentuser = false;
-                                                                            }else{
-                                                                                alreadyCommentuser = true;
-                                                                            }                                       
-                                                                            SharePosts.SharePost.count({'PostType': 'Highlights', PostId: info._id }, function(Shareerr, Sharecount) {
-                                                                                if(Shareerr){
-                                                                                    res.send({status:"False", Error:Shareerr });
-                                                                                    reject(Shareerr);
-                                                                                }else{
-                                                                                    SharePosts.SharePost.find({'PostType': 'Highlights', PostId: info._id, UserId: req.params.UserId }, function(Sharederr, Sharedcount) {
-                                                                                        if(Sharederr){
-                                                                                            res.send({status:"False", Error:Sharederr });
-                                                                                            reject(Sharederr);
-                                                                                        }else{
-                                                                                            var alreadyShared = true;
-                                                                                                if(Sharedcount.length <= 0 ){
-                                                                                                    alreadyShared = false;
-                                                                                                }else{
-                                                                                                    alreadyShared = true;
-                                                                                                } 
+            const getPostInfo = info =>
+                Promise.all([
+                    UserModel.UserType.findOne({ '_id': info.UserId }, usersProjection).exec(),
+                    FollowModel.FollowUserType.count({ 'FollowingUserId': info.UserId }).exec(),
+                    LikeAndRating.Category4TopicPostRating.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    LikeAndRating.Category4TopicPostRating.find({ 'UserId': req.params.UserId, 'PostId': info._id, 'PostUserId': info.UserId, 'ActiveStates': 'Active' }).exec(),
+                    CommentModel.Category4TopicComment.count({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    CommentModel.Category4TopicComment.find({'UserId':req.params.UserId, 'PostId': info._id , 'ActiveStates':'Active' }).exec(),
+                    LikeAndRating.Category4TopicPostRating.find({ 'PostId': info._id, 'ActiveStates': 'Active' }).exec(),
+                    SharePosts.SharePost.count({'PostType': 'Highlights', 'SharePostFrom': 'Categor4TopicPost', PostId: info._id }).exec(),
+                    SharePosts.SharePost.find({'PostType': 'Highlights', 'SharePostFrom': 'Categor4TopicPost', PostId: info._id, UserId: req.params.UserId  }).exec(),
+                ]).then(data => {
+                    var UserData = data[0];
+                    var followCount = data[1];
+                    var ratingCount = data[2];
+                    var userRate = data[3];
+                    var CommentCount = data[4];
+                    var CommantData = data[5];
+                    var RatingList = data[6];
+                    var ShareCount = data[7];
+                    var UserShared = data[8];
+                    
 
-                                                                                            var newArray = [];
-                                                                                            newArray.push( {
-                                                                                                            UserId: UserData._id,
-                                                                                                            UserName: UserData.UserName,
-                                                                                                            UserCategoryId: UserData.UserCategoryId,
-                                                                                                            UserCategoryName: UserData.UserCategoryName,
-                                                                                                            UserImage: UserData.UserImage,
-                                                                                                            UserCompany: UserData.UserCompany,
-                                                                                                            UserProfession: UserData.UserProfession,
-                                                                                                            Followers:count,
-                                                                                                            UserCommented: alreadyCommentuser,
-                                                                                                            _id: info._id,
-                                                                                                            PostType: info.PostType,
-                                                                                                            PostDate: info.PostDate,
-                                                                                                            timeAgo: moment(info.updatedAt).fromNow(),
-                                                                                                            PostText: info.PostText ,
-                                                                                                            PostLink: info.PostLink,
-                                                                                                            PostLinkInfo: info.PostLinkInfo || '',
-                                                                                                            PostImage: info.PostImage,
-                                                                                                            PostVideo: info.PostVideo,
-                                                                                                            Shared: info.Shared || '',
-                                                                                                            ShareUserName: info.ShareUserName || '',
-                                                                                                            ShareUserId: info.ShareUserId || '',
-                                                                                                            SharePostId: info.SharePostId || '',
-                                                                                                            LikesCount: NewCount,
-                                                                                                            UserLiked: UserLiked,
-                                                                                                            UserLikeId: UserLikedId,
-                                                                                                            ShareCount: Sharecount,
-                                                                                                            UserShared: alreadyShared,
-                                                                                                            comments: [],
-                                                                                                            commentsCount : commentCount
-                                                                                                        }
-                                                                                            );
-                                                                                            PostsArray.push(newArray[0]);
-                                                                                            resolve(UserData);
-                                                                                        }
-                                                                                    });
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    });
+                    var RatingCal = 0 ;
 
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-
-                                                }
-                                            });
-                                        }
-                                    });
-                                } else { 
-                                    resolve(info);
+                    if (UserData !== null ) {
+                        return RatingCountFonction();
+                            async function RatingCountFonction(){
+                                for (let rateInfo of RatingList) {
+                                    await getRatingInfo(rateInfo);
                                 }
+                                    var userRated = false;
+                                    var userRating = 0 ;
+                                        if(userRate.length > 0){
+                                            userRated = true;
+                                            userRating = userRate[0].Rating;
+                                            
+                                        }else{
+                                            userRated = false;
+                                            userRating = 0;
+                                        }
+
+                                    var alreadyCommentuser = true;
+                                        if(CommantData.length <= 0 ){
+                                            alreadyCommentuser = false;
+                                        }else{
+                                            alreadyCommentuser = true;
+                                        }  
+
+                                    var alreadyShared = true;
+                                        if(UserShared.length <= 0 ){
+                                            alreadyShared = false;
+                                        }else{
+                                            alreadyShared = true;
+                                        } 
+
+                                    var result = {
+                                        _id: info._id,
+                                        UserId: UserData._id,
+                                        UserName: UserData.UserName,
+                                        UserCategoryId: UserData.UserCategoryId,
+                                        UserCategoryName: UserData.UserCategoryName,
+                                        UserImage: UserData.UserImage,
+                                        UserCompany: UserData.UserCompany,
+                                        UserProfession: UserData.UserProfession,
+                                        Followers:followCount,
+                                        PostType: info.PostType,
+                                        PostDate: info.PostDate,
+                                        PostText: info.PostText ,
+                                        PostLink: info.PostLink,
+                                        PostDocumnet: info.PostDocumnet,
+                                        PostLinkInfo: info.PostLinkInfo || '',
+                                        PostImage: info.PostImage,
+                                        PostVideo: info.PostVideo,
+                                        Shared: info.Shared || '',
+                                        ShareUserName: info.ShareUserName,
+                                        ShareUserId: info.ShareUserId,
+                                        SharePostId: info.SharePostId,
+                                        RatingCount: JSON.parse(RatingCal),
+                                        userRated: userRated,
+                                        userRating: userRating,
+                                        UserCommented: alreadyCommentuser,
+                                        comments: [],
+                                        commentsCount : CommentCount,
+                                        ShareCount: ShareCount,
+                                        UserShared: alreadyShared,
+                                    };
+                                return result;
                             }
+                      }
+                      
+
+                      function getRatingInfo(rateInfo){
+                        return new Promise(( resolve, reject ) => {
+                            LikeAndRating.Category4TopicPostRating.findOne({ '_id': rateInfo._id}, function(Rateerr, RateData) {
+                                if(Rateerr) {
+                                    res.send({status:"False", Error:Rateerr });
+                                    reject(Rateerr);
+                                } else {
+                                    RatingCal += JSON.parse(RateData.Rating);
+                                    resolve(RateData);
+                                }
+                            });
                         });
-                    });
-                  };
-        
-            }else{
-            res.send({status:"True", message:'No More Posts' });
-            }
+                    }
+
+                }).catch(error => {
+                    console.log(error);
+                });
+
+             GetUserData(result);
+
         }
     });
 };
+
+

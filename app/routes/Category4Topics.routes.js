@@ -10,5 +10,8 @@ module.exports = function(app) {
 
     app.post('/API/Category4Topics/Category4TopicPostSubmit', controller.Category4TopicPostSubmit);
 
-    app.get('/API/Category4Topics/Category4TopicPostList/:TopicId/:PostType/:Limit', controller.Category4TopicPostList);
+    app.get('/API/Category4Topics/Category4TopicPostList/:TopicId/:PostType/:UserId/:Limit', controller.Category4TopicPostList);
+
+    app.post('/API/Category4Topics/Category4TopicPostUpdate', controller.Category4TopicPostUpdate);
+
 };

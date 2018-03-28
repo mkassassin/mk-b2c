@@ -7,6 +7,7 @@ var SharePostSchema = mongoose.Schema({
     PostType: { type : String, required : true },
     PostId: { type : String, required : true},
     PostUserId: { type : String, required : true},
+    SharePostFrom: String ,
     Date: { type : String , required : true },
     ActiveStates: String
     }, 

@@ -56,4 +56,11 @@ export class LikeAndRatingServiceService {
         .catch(this.handleError);
     }
 
+
+    public Category4TopicPostRatingAdd(data: any) {
+        return this.http .post(API_URL + 'Category4TopicPostRatingAdd' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

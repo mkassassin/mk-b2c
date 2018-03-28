@@ -111,4 +111,13 @@ export class PostServiceService {
         .catch(this.handleError);
     }
 
+
+
+
+    public Category4TopicPostHighlightsShare(data: any) {
+        return this.http .post(API_URL + 'HighlightsPost/Category4TopicPostShare' , data)
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

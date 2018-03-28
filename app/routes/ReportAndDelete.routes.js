@@ -24,4 +24,9 @@ module.exports = function(app) {
     app.post('/API/ReportAndDelete/DeleteAnswer', ReportAndDelete.DeleteAnswer);
 
     app.post('/API/ReportAndDelete/DeleteImpression', ReportAndDelete.DeleteImpression);
+
+    app.post('/API/ReportAndDelete/DeleteCategory4TopicPost', ReportAndDelete.DeleteCategory4TopicPost);
+
+    app.post('/API/ReportAndDelete/DeleteCategory4TopicComment', ReportAndDelete.DeleteCategory4TopicComment);
+    
 };

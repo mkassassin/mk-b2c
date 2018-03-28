@@ -1,0 +1,150 @@
+<div class="postOne" style="min-width:700px">
+  <div class="postheader" fxLayout="row" fxLayoutAlign="start" >
+    <div fxFlex="65px" class="text-center">
+        <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') !== -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') !== -1"  src="{{UserInfo.data.UserImage}}" alt=""  class="userimg">
+        <img *ngIf="UserInfo.data.UserImage.toLowerCase().indexOf('http://') === -1 || UserInfo.data.UserImage.toLowerCase().indexOf('https://') === -1" src="{{UserImageBaseUrl}}/{{UserInfo.data.UserImage}}" alt=""  class="userimg">
+    </div>
+    <div fxFlex class="text-left">
+      <h5 class="m-0 posttype"> Add New Post in <small> ( {{ActiveCategory}})</small></h5>
+    </div>
+    <div fxFlex class="text-left">
+        <h5 class="m-0 mr-20 posttype text-right" >
+          <span style="cursor:pointer" (click)="close()"> X </span>
+        </h5>
+      </div>
+  </div>
+
+  <hr style="margin-top:3px;">
+
+    <form [formGroup]="PostForm" (ngSubmit)="submit()" enctype="multipart/form-data" style="padding:0px 15px">
+
+        <ng-container *ngIf="ActiveCategory === 'Snippet'">
+            <textarea (ngModelChange)="SnippetValidate($event)" class="posttext" formControlName="PostText" placeholder="Write Something...."></textarea>
+        </ng-container>
+        <textarea *ngIf="ActiveCategory !== 'Snippet'" class="posttext" formControlName="PostText" placeholder="Write Something...."></textarea>
+
+        <input *ngIf="LinkInputActive" class="postlink mb-20" formControlName="PostLink" placeholder="Enter Link...">
+
+        <div *ngIf="DocumentInputActive" class="FileUploadeStyle">
+          <input #myInput *ngIf="OldDoucumentList?.length === 0" type="file" class="postlink mb-20" ng2FileSelect [uploader]='Fileuploader'>
+          <ng-container *ngIf="Fileuploader.queue[0]">
+           <span *ngIf="!Fileuploader.queue[0].isUploaded && Fileuploader.queue[0].progress === 0" (click)="Fileuploader.queue[0].upload()" class="upload"> Upload </span>
+           <span *ngIf="Fileuploader.queue[0].isUploaded && Fileuploader.queue[0].progress !== 100" class="uploading"> Uploading... </span>
+           <span *ngIf="Fileuploader.queue[0].isUploaded && Fileuploader.queue[0].progress === 100" (click)="Fileuploader.queue[0].remove(); myInputVariable.nativeElement.value = ''" class="remove"> Remove </span>
+          </ng-container>
+          <ng-container *ngIf="OldDoucumentList?.length !== 0">
+            <p> 
+              <b> Document </b> <br>  
+              <a href="{{DocumentsBaseUrl}}/{{OldDoucumentList[0].DocumentName}}" target="blanck" style="color:#9b9b9b"> 
+                {{DocumentsBaseUrl}}/{{OldDoucumentList[0].DocumentName}} 
+              </a> 
+              <span (click)="removeDoc()" class="remove"> X </span>
+            </p>
+           </ng-container>
+        </div>
+
+        <div *ngIf="ImageInputActive" class="imgUpload mb-20" id="hide">
+          <div style="display:inline-flex;">
+            <label for="imguploadinput">
+                <input id="imguploadinput" type="file" multiple ng2FileSelect [uploader]='Imageuploader'>
+                <span> <i class="material-icons">add</i>  <span> Select Image </span> </span>
+            </label>
+            <ul class="ImgselectedList">
+              <li *ngFor="let item of Imageuploader.queue">
+                <div class="selectedImg">
+                  <img src="" imgPreview [image]="item?._file" />
+                  <div class="imgname"> {{item.file.rawFile.name}} </div>
+                  <div class="imgprog"> {{item.progress}}% </div>
+                  <div *ngIf="!item.isUploaded" (click)="item.remove()" class="clearbutton"> <i class="material-icons">clear</i> </div>
+                  <div *ngIf="item.isUploaded && item.progress == 100" class="donebutton" > <i class="material-icons">done</i> </div>
+                  <button *ngIf="!item.isUploaded" class="upload" [disabled]="item.isUploaded && item.progress != 100" type="button" (click)="item.upload()"> 
+                      <span *ngIf="item.isUploaded && item.progress !== 100" > Uploading... </span>
+                      <span *ngIf="!item.isUploaded && item.progress === 0" > Upload </span>
+                   </button> 
+                  <button *ngIf="item.isUploaded && item.progress === 100" class="remove" type="button" (click)="item.remove()"> Remove </button>
+                </div>
+              </li>
+              <ng-container *ngIf="OldImageList?.length !== 0">
+                <li *ngFor="let item of OldImageList; let i=index">
+                    <div class="selectedImg">
+                        <img src="{{ImageBaseUrl}}/{{item.ImageName}}" />
+                      <div  class="donebutton"> <i class="material-icons">done</i> </div>
+                      <button class="remove" type="button" (click)="removeImg(i)"> Remove </button>
+                    </div>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+
+
+        <div *ngIf="VideoInputActive" class="vidUpload" id="hide">
+        <div style="display:inline-flex;">
+          <label for="viduploadinput">
+              <input id="viduploadinput" type="file" multiple ng2FileSelect [uploader]='Videouploader'>
+              <span><i class="material-icons">add</i> <span> Select Video </span></span>
+          </label>
+          <ul class="vidselectedList">
+            <li *ngFor="let item of Videouploader.queue">
+              <div class="selectedvid">
+                  <video width="210px" height="130px" src="" videoPreview [video]="item?._file"></video>
+                  <div class="vidname"> {{item.file.rawFile.name}} </div>
+                  <div class="vidprog"> {{item.progress}}% </div>
+                  <div *ngIf="!item.isUploaded" (click)="item.remove()" class="clearbutton"> <i class="material-icons">clear</i> </div>
+                  <div *ngIf="item.isUploaded && item.progress == 100" class="donebutton" > <i class="material-icons">done</i> </div>
+                  <button *ngIf="!item.isUploaded" class="upload" [disabled]="item.isUploaded && item.progress != 100" type="button" (click)="item.upload()"> 
+                      <span *ngIf="item.isUploaded && item.progress != 100" > Uploading... </span>
+                      <span *ngIf="!item.isUploaded && item.progress == 0" > Upload </span>
+                   </button> 
+                  <button *ngIf="item.isUploaded && item.progress == 100" class="remove" type="button" (click)="item.remove()"> Remove </button>
+                </div>
+            </li>
+            <ng-container *ngIf="OldVideosList?.length !== 0">
+              <li *ngFor="let item of OldVideosList; let j=index">
+                  <div class="selectedvid">
+                    <video preload="metadata" width="210px" height="130px">
+                      <source src="{{VideoBaseUrl}}/{{item.VideoName}}" type="video/{{item.VideoName | slice:-3}}">
+                    </video>
+                    <div  class="donebutton"> <i class="material-icons">done</i> </div>
+                    <button class="remove" type="button" (click)="removeVid(j)"> Remove </button>
+                  </div>
+              </li>
+          </ng-container>
+          </ul>
+        </div>
+      </div>
+        
+
+        
+
+
+
+
+
+        <div class="postaddon mt-5" fxLayout="row" fxLayoutAlign="start" >
+          <div *ngIf="ActiveCategory === 'Article'" fxFlex="50px" class="text-center postaddon_icon">
+              <i (click)="ImageInputActiveToggle()" class="material-icons">burst_mode</i>
+          </div>
+          <div *ngIf="ActiveCategory === 'Video'" fxFlex="50px" class="text-center postaddon_icon">
+              <i (click)="VideoInputActiveToggle()" class="material-icons" style="transform:rotate(90deg)">local_movies</i>
+          </div>
+          <div *ngIf="ActiveCategory !== 'Snippet'" fxFlex="50px" class="text-center postaddon_icon">
+              <i (click)="LinkInputActiveToggle()" class="material-icons">insert_link</i>
+          </div>
+          <div *ngIf="ActiveCategory === 'Document'" fxFlex="50px" class="text-center postaddon_icon">
+              <i (click)="DocumentActiveToggle()" class="material-icons">attachment</i>
+        </div>
+        </div>
+
+        <div fxLayout fxLayoutAlign="space-between">
+          <div fxFlex="75%">
+              
+          </div>
+          <div fxFlex="15%" style="line-height:75px;">
+              <button type="submit" mat-raised-button color="primary"> Post </button>
+          </div>
+        </div>
+
+    </form>
+
+</div>

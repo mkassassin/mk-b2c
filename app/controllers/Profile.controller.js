@@ -343,6 +343,7 @@ exports.Timeline = function (req, res) {
                                         ShareUserName: info.ShareUserName || '',
                                         ShareUserId: info.ShareUserId || '',
                                         SharePostId: info.SharePostId || '',
+                                        SharePostFrom: info.SharePostFrom || 'Highlights',
                                         LikesCount: LikingCount,
                                         UserLiked: UserLiked,
                                         ShareCount: HighlightsShareCount,

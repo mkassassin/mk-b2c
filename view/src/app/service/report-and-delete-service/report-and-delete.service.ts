@@ -83,4 +83,16 @@ export class ReportAndDeleteService {
         .catch(this.handleError);
     }
 
+    public DeleteCategory4TopicPost(data: any) {
+        return this.http.post(API_URL + 'DeleteCategory4TopicPost', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
+    public DeleteCategory4TopicComment(data: any) {
+        return this.http.post(API_URL + 'DeleteCategory4TopicComment', data )
+        .map(response => { const datas = response.json(); return datas; })
+        .catch(this.handleError);
+    }
+
 }

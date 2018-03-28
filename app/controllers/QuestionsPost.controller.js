@@ -492,6 +492,7 @@ exports.FacebookSharePost = function(req, res) {
             PostType: 'Questions',
             PostId: req.body.PostId,
             PostUserId: req.body.UserId,
+            SharePostFrom: 'Questions',
             Date: new Date(),
             ActiveStates: 'Active'
         });
@@ -552,6 +553,7 @@ exports.SharePost = function(req, res) {
                         PostType: 'Questions',
                         PostId: req.body.PostId,
                         PostUserId: Postresult.UserId,
+                        SharePostFrom: 'Questions',
                         Date: new Date(),
                         ActiveStates: 'Active'
                     });

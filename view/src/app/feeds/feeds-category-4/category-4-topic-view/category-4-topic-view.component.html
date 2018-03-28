@@ -20,7 +20,7 @@
             <img src="{{Category4TopicImageBaseUrl}}/{{TopicInfo.TopicImage}}" alt="" style="width:200px; max-height:100px">
             <h5 class="TopicName"> {{TopicInfo.TopicName}} </h5>
             <div class="TopicCategories "  fxLayout="row" fxLayoutAlign="space-evenly start">
-            <div class="text-center" fxFlex >
+            <div class="text-center" fxFlex>
                 <img *ngIf="ActiveTopicCategory !== 'Snippet'" (click)="ChangeActiveTopicCategory('Snippet')" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/snippets.png" alt="">
                 <img *ngIf="ActiveTopicCategory === 'Snippet'" class="TopicInfoCatImg" src="./../../../assets/images/icons/discover/snippets_select.png" alt="">
             </div>
@@ -79,7 +79,7 @@
   
     <div *ngIf="!PostsListLoder">
   
-      <p-scrollPanel style="width:100%;" [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:20px">
+      <p-scrollPanel [style]="{height: scrollHeight }" styleClass="customscroll_1" style="margin-bottom:20px">
   
         <div class="postScroll mb-30">
           <!-- Highlights Post div -->
@@ -151,7 +151,7 @@
                 </ng-container>
   
                 <div *ngIf="Post.PostImage[0] !== '' || Post.PostVideo[0] !== '' || ( Post.PostLink !== '' && Post.PostLink.indexOf('http://www.youtube') !== -1 || Post.PostLink.indexOf('https://youtu') !== -1 || Post.PostLink.indexOf('https://www.youtube') !== -1) ">
-                    <div style="text-align:center;padding:10px;">
+                    <div style="text-align:center;padding:2px;" style="position: relative">
                         <div class="html5gallery" data-padding="1" data-skin="horizontal" data-shownumbering="true" data-numberingformat="%NUM / %TOTAL " data-width="600" data-height="350" data-responsive="true" data-resizemode="fill">
                           <ng-container *ngIf="Post.PostImage[0] !== ''">
                             <a *ngFor="let img of Post.PostImage" href="{{ImageBaseUrl}}/{{img.ImageName}}"><img src="{{ImageBaseUrl}}/{{img.ImageName}}"></a>
@@ -171,11 +171,19 @@
             <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
             <!-- Highlights Post Share Like And More -->
             <div class="postLikes" fxLayout="row" fxLayoutAlign="space-between center">
-              <div fxFlex class="text-left" style="height:25px">
+              <div fxFlex="40%" class="text-left" style="height:25px">
                 <div class="like">
-                  <img *ngIf="!Post.UserLiked" (click)="AddLike(i)" src="./../../../assets/images/icons/like.png" alt="">
-                  <img *ngIf="Post.UserLiked" (click)="RemoveLike(i)" src="./../../../assets/images/icons/liked.png" alt="">
-                  <p class="count"> {{Post.LikesCount}} <small *ngIf="Post.UserLiked" > <small> (You Also) </small> </small> </p>
+                  <ngl-rating style="max-width:100px;" *ngIf="Post.userRated" [isReadonly]="true" [(rate)]="Post.userRating" [size]="x-small" class="rating" >
+                      <ng-template nglRatingIcon let-active>
+                        <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                      </ng-template>
+                  </ngl-rating>
+                  <ngl-rating style="max-width:100px;cursor:pointer" *ngIf="!Post.userRated" [isReadonly]="false" [(rate)]="Post.userRating" (click)="rateChanging(i)" [size]="x-small" class="rating" >
+                      <ng-template nglRatingIcon let-active>
+                        <ngl-avatar class="ratingpart" [src]="RatingImage(active)" type="circle"></ngl-avatar>
+                      </ng-template>
+                  </ngl-rating>
+                  <p class="count"> {{Post.RatingCount | number:'1.0-2'}} <small *ngIf="Post.userRated" > <span style="font-size:11px"> (Your Rating {{Post.userRating}})</span> </small> </p>
                 </div>
               </div>
               <div fxFlex class="text-center" style="height:25px">
@@ -279,8 +287,8 @@
                 <div class="commentbody">
                   <p class="commenttext"> {{comment.CommentText}} </p>
                 </div>
-                <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
-                <!-- Highlights Post Share Like And More -->
+                <!-- <hr class="m-5" style="margin-bottom:2px !important; opacity:0.8">
+
                 <div class="postLikesLevel2" fxLayout="row" fxLayoutAlign="space-between center">
                   <div fxFlex class="text-left" style="height:20px">
                     <div class="like">
@@ -290,19 +298,20 @@
                     </div>
                   </div>
                   <div fxFlex class="text-center" style="height:20px">
-                    <!-- <div class="chat" (click)="ChangeActiveComment(i)">
+                    <div class="chat" (click)="ChangeActiveComment(i)">
                       <img *ngIf="Post.UserCommented" src="./../../../assets/images/icons/commented.png" alt="">
                       <img *ngIf="!Post.UserCommented" src="./../../../assets/images/icons/comment.png" alt="">
                       <p class="count"> {{Post.commentsCount}} </p>
-                    </div> -->
+                    </div>
                   </div>
                   <div fxFlex class="text-right" style="height:20px">
-                    <!-- <div class="share">
+                    <div class="share">
                       <img src="./../../../assets/images/icons/share.png" alt="">
                       <p class="count"> 100 </p>
-                    </div> -->
+                    </div>
                   </div>
-                </div>
+                </div> -->
+
               </div>
   
               <div *ngIf="Post.commentsCount > 2 && !CommentViewLess && LoadingActiveComment != i" class="row">
@@ -327,7 +336,11 @@
   
         </div>
         
-        <p *ngIf="!MorePostsListLoder" class="text-center mb-30 LoadMore"> <span (click)="LoadMorePosts()"> Load More... </span> </p>
+        <p *ngIf="!MorePostsListLoder && !noMorePosts && PostsList?.length > 0" class="text-center mb-30 LoadMore"> <span (click)="LoadMorePosts()"> Load More... </span> </p>
+
+        <p *ngIf="noMorePosts && PostsList?.length > 0" class="text-center mb-30 LoadMore"  > <span style="cursor: default;font-size: 17px;"> No More Posts... </span> </p>
+
+        <p *ngIf="PostsList?.length <= 0" class="text-center mb-30 LoadMore"> <span style="cursor: default;font-size: 20px; background-color: transparent;" > Posts are Empty ... </span> </p>
   
         <div *ngIf="MorePostsListLoder" class="mb-10" id="miniLoader">
           <div style="height:100px" fxLayout="row" fxLayoutAlign="space-evenly center">
@@ -443,12 +456,12 @@
   
   <mat-menu #SharePost="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false" class="MatMenuReportView" >   
     <div class="share_drop" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="Share_drop_icon" fxFlex="50%">
+        <div class="Share_drop_icon" fxFlex>
           <img (click)="shareInternal()" class="logoDesignShare" src="./../../../assets/images/logo1.png" alt="">
         </div>
-        <div class="Share_drop_icon" fxFlex>
+        <!-- <div class="Share_drop_icon" fxFlex>
           <i (click)="share()" class="fa fa-facebook" aria-hidden="true"></i>
-        </div>
+        </div> -->
     </div>
     <div class="dropdarrow"></div>
   </mat-menu>

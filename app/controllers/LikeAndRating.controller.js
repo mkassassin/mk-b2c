@@ -514,3 +514,85 @@ exports.AnswerRatingAdd = function(req, res) {
     });
      
 };
+
+
+exports.Category4TopicPostRatingAdd = function(req, res) {
+    if(!req.body.UserId) {
+        res.status(400).send({status:"False", message: " UserId can not be Empty! "});
+    }
+    if(!req.body.PostId) {
+        res.status(400).send({status:"False", message: " PostId can not be Empty! "});
+    }
+    if(!req.body.PostUserId) {
+        res.status(400).send({status:"False", message: " PostUserId can not be Empty! "});
+    }
+    if(!req.body.Date) {
+        res.status(400).send({status:"False", message: " Date can not be Empty! "});
+    }
+    if(!req.body.Rating) {
+        res.status(400).send({status:"False", message: " Rating can not be Empty! "});
+    }
+
+    var varCategory4TopicPostRating = new Model.Category4TopicPostRating({
+            UserId: req.body.UserId,
+            PostId: req.body.PostId,
+            PostUserId: req.body.PostUserId,
+            Rating:req.body.Rating,
+            Date: req.body.Date,
+            ActiveStates: 'Active'
+    });
+
+    Model.Category4TopicPostRating.find({'UserId': req.body.UserId , 'PostId': req.body.PostId, 'PostUserId': req.body.PostUserId }, function(err, result) {
+        if(err) {
+            res.status(500).send({status:"False", Error:err, message: "Some error occurred while Find Following Users ."});
+        } else {
+            if(result.length > 0){
+                res.send({status:"True", message:'Post Already Rated', data: result });
+            }else{
+                varCategory4TopicPostRating.save(function(newerr, newresult) {
+                    if(newerr) {
+                        res.status(500).send({status:"False", Error: newerr, message: "Some error occurred while Rate the Post."});
+                    } else {
+                        Model.Category4TopicPostRating.find({ 'PostId': req.body.PostId, 'ActiveStates': 'Active' }, function(FindErr, FindRates){   
+                            if(FindErr) {
+                                res.status(500).send({status:"False", Error: FindErr, message: "Some error occurred while Rate the Post."});
+                            } else {
+                                var RatingCal = 0 ;
+
+                                const GetUserData = (FindRates) => 
+                                    Promise.all( FindRates.map(rateinfo => getPostInfo(rateinfo) ) )
+                                        .then( RatingResult => {
+                                            var returnRating = JSON.parse(RatingCal);
+                                            var newArray = [];
+                                                newArray.push( {
+                                                                PostId: newresult.PostId,
+                                                                PostUserId: newresult.PostUserId,
+                                                                Rating:newresult.Rating,
+                                                                UserId:newresult.UserId,
+                                                                _id:newresult._id,
+                                                                OverallRating:returnRating
+                                                            }
+                                                );
+                                                res.send({status:"True", data: newArray[0]});
+                                        })
+                                        .catch(someerr => res.send({ status: "False", Error: someerr }));
+
+                                        const getPostInfo = rateinfo =>
+                                            Promise.all([
+                                                Model.Category4TopicPostRating.findOne({ '_id': rateinfo._id}).exec(),
+                                            ]).then(data => {
+                                                RatingCal += JSON.parse(data[0].Rating);
+                                                return data;
+                                            }).catch(error => {
+                                                console.log(error);
+                                            });
+                                GetUserData(FindRates);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    });
+     
+};

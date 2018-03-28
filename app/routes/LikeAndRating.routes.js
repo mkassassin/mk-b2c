@@ -15,4 +15,6 @@ module.exports = function(app) {
 
     app.post('/API/LikeAndRating/AnswerRatingAdd', Countroll.AnswerRatingAdd);
 
+    app.post('/API/LikeAndRating/Category4TopicPostRatingAdd', Countroll.Category4TopicPostRatingAdd);
+
 };

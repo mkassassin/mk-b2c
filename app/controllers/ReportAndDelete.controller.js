@@ -4,6 +4,7 @@ var NotificationModel = require('../models/Notificatio.model.js');
 var QuestionsPostModel = require('../models/QuestionsPost.model.js');
 var CommentAndAnswerModel = require('../models/CommentAndAnswer.model.js');
 var TrendsModel = require('../models/Trends.model.js');
+var Category4Model = require('../models/Category4.model.js');
 
 exports.ReportUser = function(req, res) {
     if(!req.body.UserId) {  res.status(400).send({status:"False", message: " UserId can not be Empty! "}); }
@@ -367,6 +368,42 @@ exports.DeleteImpression = function(req, res) {
                     res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Post."});
                 }else {
                     res.send({status:"True", message:'Impression Successfully Deleted' });
+                }
+            });
+        }
+    });
+};
+
+
+exports.DeleteCategory4TopicPost = function(req, res) {
+    Category4Model.Category4TopicPost.findOne({'_id': req.body.PostId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Post Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Post."});
+                }else{
+                    res.send({status:"True", message:'Post Successfully Deleted' });
+                }
+            });
+        }
+    });
+};
+
+
+exports.DeleteCategory4TopicComment = function(req, res) {
+    CommentAndAnswerModel.Category4TopicComment.findOne({'_id': req.body.CommentId, 'UserId': req.body.UserId}, function(err, data) {
+        if(err) {
+            res.status(500).send({status:"False", message: "Some error occurred while Comment Find."});
+        } else {
+            data.ActiveStates = 'Inactive';
+            data.save(function (newerr, newresult) {
+                if (newerr){
+                    res.status(500).send({status:"False", Error: newerr,  message: "Some error occurred while Delete Comment."});
+                }else{
+                    res.send({status:"True", message:'Comment Successfully Deleted' });
                 }
             });
         }

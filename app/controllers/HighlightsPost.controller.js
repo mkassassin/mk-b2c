@@ -5,6 +5,7 @@ var LikeAndRating = require('../models/LikeAndRating.model.js');
 var CommentModel = require('../models/CommentAndAnswer.model.js');
 var NotificationModel = require('../models/Notificatio.model.js');
 var SharePosts = require('../models/SharePost.model.js');
+var Category4Model = require('../models/Category4.model.js');
 var axios = require("axios");
 var moment = require("moment");
 
@@ -109,6 +110,7 @@ exports.Submit = function(req, res) {
                                                 ShareUserName: result.ShareUserName || '',
                                                 ShareUserId: result.ShareUserId || '',
                                                 SharePostId: result.SharePostId || '',
+                                                SharePostFrom: result.SharePostFrom || 'Highlights',
                                                 LikesCount: 0,
                                                 UserLiked: false,
                                                 UserLikeId: '',
@@ -269,6 +271,7 @@ exports.AndroidSubmit = function(req, res) {
                                                 ShareUserName: result.ShareUserName || '',
                                                 ShareUserId: result.ShareUserId || '',
                                                 SharePostId: result.SharePostId || '',
+                                                SharePostFrom:result.SharePostFrom || 'Highlights',
                                                 LikesCount: 0,
                                                 UserLiked: false,
                                                 UserLikeId: '',
@@ -479,6 +482,7 @@ exports.FacebookSharePost = function(req, res) {
             PostType: 'Highlights',
             PostId: req.body.PostId,
             PostUserId: req.body.UserId,
+            SharePostFrom: 'Highlights',
             Date: new Date(),
             ActiveStates: 'Active'
         });
@@ -524,6 +528,7 @@ exports.SharePost = function(req, res) {
                 ShareUserName: req.body.ShareUserName,
                 ShareUserId: Postresult.UserId,
                 SharePostId: req.body.PostId,
+                SharePostFrom: req.body.PostFrom || 'Highlights',
                 ActiveStates: 'Active'
             });
 
@@ -540,6 +545,7 @@ exports.SharePost = function(req, res) {
                         PostType: 'Highlights',
                         PostId: req.body.PostId,
                         PostUserId: Postresult.UserId,
+                        SharePostFrom: 'Highlights',
                         Date: new Date(),
                         ActiveStates: 'Active'
                     });
@@ -578,6 +584,7 @@ exports.SharePost = function(req, res) {
                                                             ShareUserName: result.ShareUserName || '',
                                                             ShareUserId: result.ShareUserId || '',
                                                             SharePostId: result.SharePostId || '',
+                                                            SharePostFrom:result.SharePostFrom || 'Highlights',
                                                             LikesCount: 0,
                                                             UserLiked: false,
                                                             UserLikeId: '',
@@ -673,6 +680,188 @@ exports.SharePost = function(req, res) {
 };
 
 
+
+exports.Category4TopicPostShare = function(req, res) {
+    if(!req.body.ShareUserName) {
+        res.status(400).send({status:"False", message: " User Name can not be Empty! "});
+    }
+    if(!req.body.UserId) {
+        res.status(400).send({status:"False", message: " User Id can not be Empty! "});
+    }
+    if(!req.body.PostId) {
+        res.status(400).send({status:"False", message: " Post Id can not be Empty! "});
+    }
+    if(!req.body.PostDate) {
+        res.status(400).send({status:"False", message: " PostDate can not be Empty! "});
+    }
+
+    Category4Model.Category4TopicPost.findOne({'_id': req.body.PostId},  function(Posterr, Postresult) {
+        if(Posterr) {
+            res.status(500).send({status:"False", message: "Some error occurred while Find Following Users ."});
+        } else {
+            var varHighlightsPostType = new HighlightsPostModel.HighlightsPostType({
+                UserId: req.body.UserId,
+                PostType: Postresult.PostType,
+                PostDate: req.body.PostDate,
+                PostText: Postresult.PostText,
+                PostLink: Postresult.PostLink,
+                PostLinkInfo: Postresult.PostLinkInfo,
+                PostImage: Postresult.PostImage,
+                PostVideo: Postresult.PostVideo,
+                Shared: 'True',
+                ShareUserName: req.body.ShareUserName,
+                ShareUserId: Postresult.UserId,
+                SharePostId: req.body.PostId,
+                SharePostFrom: 'Categor4TopicPost',
+                ActiveStates: 'Active'
+            });
+
+        
+            varHighlightsPostType.save(function(err, result) {
+                if(err) {
+                    res.status(500).send({status:"False", Error: err, message: "Some error occurred while Submit The Post."});    
+                } else {
+                    
+                    var varSharePost = new SharePosts.SharePost({
+                        ShareType: 'B2C',
+                        UserId: req.body.UserId,
+                        NewPostId: result._id,
+                        PostType: 'Highlights',
+                        PostId: req.body.PostId,
+                        PostUserId: Postresult.UserId,
+                        SharePostFrom: 'Categor4TopicPost',
+                        Date: new Date(),
+                        ActiveStates: 'Active'
+                    });
+                    varSharePost.save(function(Shareerr, Shareresult) {
+                        if(Shareerr) {
+                            res.status(500).send({status:"False", Error: Shareerr, message: "Some error occurred while Submit The Post."});    
+                        } else {
+                            UserModel.UserType.findOne({'_id': result.UserId }, usersProjection, function(err, UserData) {
+                                if(err) {
+                                    res.send({status:"False", Error:err });
+                                } else {
+                                    FollowModel.FollowUserType.count({'FollowingUserId': UserData._id}, function(newerr, count) {
+                                        if(newerr){
+                                            res.send({status:"False", Error:newerr });
+                                        }else{
+                                            var newArray = [];
+                                            newArray.push( {
+                                                            _id: result._id,
+                                                            UserId: UserData._id,
+                                                            UserName: UserData.UserName,
+                                                            UserCategoryId: UserData.UserCategoryId,
+                                                            UserCategoryName: UserData.UserCategoryName,
+                                                            UserImage: UserData.UserImage,
+                                                            UserCompany: UserData.UserCompany,
+                                                            UserProfession: UserData.UserProfession,
+                                                            Followers: count,
+                                                            PostType: result.PostType,
+                                                            PostDate: result.PostDate,
+                                                            timeAgo: moment(result.updatedAt).fromNow(),
+                                                            PostText: result.PostText ,
+                                                            PostLink: result.PostLink,
+                                                            PostLinkInfo: result.PostLinkInfo || '',
+                                                            PostImage: result.PostImage,
+                                                            PostVideo: result.PostVideo,
+                                                            Shared: result.Shared || '',
+                                                            ShareUserName: result.ShareUserName || '',
+                                                            ShareUserId: result.ShareUserId || '',
+                                                            SharePostId: result.SharePostId || '',
+                                                            SharePostFrom: result.SharePostFrom || 'Highlights',
+                                                            LikesCount: 0,
+                                                            UserLiked: false,
+                                                            UserLikeId: '',
+                                                            ShareCount: 0,
+                                                            UserShared: false,
+                                                            comments: [],
+                                                            commentsCount: 0,
+                                                        }
+                                            );
+
+                                            if (req.body.UserId !==  Postresult.UserId) {
+                                                ShareNotify();
+                                            }else {
+                                                res.send({status:"True", data: newArray[0] });
+                                            }
+                                            function ShareNotify() {
+                                                var varNotification = new NotificationModel.Notification({
+                                                    UserId:  req.body.UserId,
+                                                    HighlightPostId: result._id,
+                                                    HighlightPostType: result.PostType,
+                                                    ResponseUserId: Postresult.UserId,
+                                                    NotificationType: 8,
+                                                    Viewed: 0,
+                                                    NotificationDate: new Date()
+                                                });
+                                                varNotification.save(function(ShareNofifyerr, ShareNotify) {
+                                                    if(ShareNofifyerr) {
+                                                        res.status(500).send({status:"False", Error:ShareNofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                                        reject(ShareNofifyerr);
+                                                    } else {
+                                                        if(count > 0){
+                                                            FollwersNotify();
+                                                        }else{
+                                                            res.send({status:"True", data: newArray[0] });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                            function FollwersNotify() {
+                                                FollowModel.FollowUserType.find({'FollowingUserId': UserData._id},  function(someerr, followUsers) {
+                                                    if(someerr){
+                                                        res.send({status:"False", Error:someerr });
+                                                    }else{
+                                                        SetNofifiction();
+                                                        async function SetNofifiction(){
+                                                            for (let info of followUsers) {
+                                                                await SetNotify(info);
+                                                            }
+                                                            res.send({status:"True", data:newArray[0] });
+                                                        }
+
+                                                        function SetNotify(info){
+                                                            return new Promise(( resolve, reject ) => {
+                                                                if (Postresult.UserId !== info.UserId ) { 
+                                                                var varNotification = new NotificationModel.Notification({
+                                                                    UserId:  req.body.UserId,
+                                                                    HighlightPostId: result._id,
+                                                                    HighlightPostType: result.PostType,
+                                                                    SharedUserId: Postresult.UserId,
+                                                                    SharedUserName: req.body.ShareUserName,
+                                                                    ResponseUserId: info.UserId,
+                                                                    NotificationType: 17,
+                                                                    Viewed: 0,
+                                                                    NotificationDate: new Date()
+                                                                });
+                                                                varNotification.save(function(Nofifyerr, Notifydata) {
+                                                                    if(Nofifyerr) {
+                                                                        res.status(500).send({status:"False", Error:Nofifyerr, message: "Some error occurred while Topic Follow Notification Add ."});
+                                                                        reject(Nofifyerr);
+                                                                    } else {
+                                                                    resolve(Notifydata);
+                                                                    }
+                                                                });
+                                                             }else{
+                                                                resolve(info);
+                                                             }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+        }
+    });
+};
 
 
 
@@ -789,6 +978,7 @@ exports.GetPostList = function(req, res) {
                                                                                                             ShareUserName: info.ShareUserName || '',
                                                                                                             ShareUserId: info.ShareUserId || '',
                                                                                                             SharePostId: info.SharePostId || '',
+                                                                                                            SharePostFrom:result.SharePostFrom || 'Highlights',
                                                                                                             LikesCount: NewCount,
                                                                                                             UserLiked: UserLiked,
                                                                                                             UserLikeId: UserLikedId,
@@ -917,6 +1107,7 @@ exports.ViewPost = function(req, res) {
                                                                                             ShareUserName: result.ShareUserName || '',
                                                                                             ShareUserId: result.ShareUserId || '',
                                                                                             SharePostId: result.SharePostId || '',
+                                                                                            SharePostFrom: result.SharePostFrom || 'Highlights',
                                                                                             LikesCount: NewCount,
                                                                                             UserLiked: UserLiked,
                                                                                             UserLikeId: UserLikedId,
@@ -1001,6 +1192,7 @@ exports.ViewSharePost = function(req, res) {
                                                                 ShareUserName: result.ShareUserName || '',
                                                                 ShareUserId: result.ShareUserId || '',
                                                                 SharePostId: result.SharePostId || '',
+                                                                SharePostFrom: result.SharePostFrom || 'Highlights',
                                                                 LikesCount: NewCount,
                                                                 UserLiked: false,
                                                                 UserLikeId: '',

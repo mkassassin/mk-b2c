@@ -11,6 +11,7 @@ var HighlightsPostTypeSchema = mongoose.Schema({
     ShareUserName:{ type : String},
     ShareUserId:{ type : String},
     SharePostId:{ type : String},
+    SharePostFrom:{ type : String},
     PostImage: Array,
     PostVideo: Array,
     ActiveStates: String
