@@ -72,7 +72,7 @@ app.use('/static', express.static('uploads'));
 // app.get('*', function(req, res, next){
 //     var DeviceInfo = parser(req.headers['user-agent']);
 //     if(DeviceInfo.os.name === 'Andorid') {
-//         res.redirect(301, 'https://www.google.com' );
+//         res.redirect(301, 'https://play.google.com/store/apps/details?id=com.b2c.network.a' );
 //     } else {
 //         next();
 //     }

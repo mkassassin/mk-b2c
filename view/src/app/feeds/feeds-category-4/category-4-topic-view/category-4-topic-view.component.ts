@@ -666,7 +666,7 @@ export class Category4TopicViewComponent implements OnInit {
 
 
 
-  goBack(TopicIndex) {
+  goBack() {
     this.gotoTopicList.next();
   }
 
