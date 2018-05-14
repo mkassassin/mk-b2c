@@ -36,9 +36,8 @@ exports.Submit = function(req, res) {
     }
 
 
-
+    var LinkInfo = '';
     if(req.body.PostLink && req.body.PostLink !== '') {
-        var LinkInfo = '';
         var str = req.body.PostLink;
         var n = str.indexOf('http://www.youtube');
         var n1 = str.indexOf('https://www.youtube');

@@ -955,8 +955,8 @@ exports.GetPostList = function (req, res) {
 
 
                 }).catch(error => {
-                    console.log(error)
-                })
+                    console.log(error);
+                });
 
              GetUserData(result);
 
