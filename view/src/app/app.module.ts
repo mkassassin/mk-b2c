@@ -158,6 +158,7 @@ import { Category4TopicViewComponent } from './feeds/feeds-category-4/category-4
 import { Category4TopicPostComponent } from './popups/category-4-topic-post/category-4-topic-post.component';
 import { EditCategory4TopicPostComponent } from './popups/edit-category-4-topic-post/edit-category-4-topic-post.component';
 import { EditCategory4TopicCommentComponent } from './popups/edit-category-4-topic-comment/edit-category-4-topic-comment.component';
+import { AlertPrivacyUpdateComponent } from './popups/alert-privacy-update/alert-privacy-update.component';
 
 
 @NgModule({
@@ -220,6 +221,7 @@ import { EditCategory4TopicCommentComponent } from './popups/edit-category-4-top
     Category4TopicPostComponent,
     EditCategory4TopicPostComponent,
     EditCategory4TopicCommentComponent,
+    AlertPrivacyUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -304,7 +306,8 @@ import { EditCategory4TopicCommentComponent } from './popups/edit-category-4-top
                     Category4CreateTopicComponent,
                     Category4TopicPostComponent,
                     EditCategory4TopicPostComponent,
-                    EditCategory4TopicCommentComponent
+                    EditCategory4TopicCommentComponent,
+                    AlertPrivacyUpdateComponent
                   ]
 })
 export class AppModule { }

@@ -19,7 +19,8 @@ var UserTypeSchema = mongoose.Schema({
     UserCity:Array,
     ShowEmail:String,
     ShowDOB:String,
-    ShowLocation:String
+    ShowLocation:String,
+    Privacy_Update_Checked:String
     }, 
     { timestamps: true }
 );

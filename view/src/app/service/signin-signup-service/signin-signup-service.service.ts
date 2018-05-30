@@ -80,6 +80,15 @@ export class SigninSignupServiceService {
         .catch(this.handleError);
     }
 
+    public Privacy_Update_Check(User_Id: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'Privacy_Update_Check/' + User_Id)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+    public Privacy_Update_Agree(User_Id: any): Observable<any[]>  {
+        return this.http .get(API_URL + 'Privacy_Update_Agree/' + User_Id)
+        .map(response => { const datas = response.json(); return datas; }) .catch(this.handleError);
+    }
+
     public SendFPVerifyEmail(email: any) {
         return this.http .get(API_URL + 'SendFPVerifyEmail/' + email)
         .map(response => { const datas = response.json(); return datas; })

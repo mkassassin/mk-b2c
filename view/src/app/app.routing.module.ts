@@ -57,8 +57,7 @@ const appRoutes: Routes = [
         component: PolicyComponent,
         data: {
             animation: { value: 'privacy', }
-        },
-        canActivate: [NotAuthGuard]
+        }
     },
     { path: 'SharedPost/:PostId/:PostType',
         component: SharePostReturnPageComponent,

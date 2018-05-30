@@ -11,6 +11,10 @@ module.exports = function(app) {
 
     app.get('/API/SigninSignup/UserValidate/:email/:password', user.UserValidate);
 
+    app.get('/API/SigninSignup/Privacy_Update_Check/:User_Id', user.Privacy_Update_Check);
+    app.get('/API/SigninSignup/Privacy_Update_Agree/:User_Id', user.Privacy_Update_Agree);
+
+
     app.get('/API/SigninSignup/UserInfo/:UserId', user.UserInfo);
 
     app.post('/API/SigninSignup/ProfileUpdate', user.ProfileUpdate);

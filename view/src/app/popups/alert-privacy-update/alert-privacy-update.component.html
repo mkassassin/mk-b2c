@@ -1,0 +1,36 @@
+<div class="Discover">
+  <div fxLayout="row" fxLayoutAlign="space-evenly start">
+
+    <div fxFlex="100%" class="DiscoverLefBar">
+      <div class="box-2">
+        <div class="row m-0">
+          <div class="col-sm-12 p-0">
+            <p class="followheader"> New Privacy Update </p>
+          </div>
+          <h5 style="width:100%; line-height:25px" class="text-center m-20"> 
+            <p style="padding: 10px;"> We have updated our privacy policy recently. You can find the details of the updated policy 
+              “<a href="http://b2c.network/privacy" style="color: #0066ff; font-weight: 600;" target="blanck">here</a>”. 
+              <br>
+              Please agree after reading to continue using our services
+              <br> 
+            </p> 
+          </h5>
+        </div>
+
+        <hr class="m-5">
+        <div class="row m-0 mb-10">
+          <div class="col-sm-6 text-center">
+              <button mat-button (click)="onClickNo()" > Disagree </button>
+          </div>
+          <div class="col-sm-6 text-center">
+              <button mat-button style="background-color: #ffda00;color: #484848" (click)="onClickYes()" cdkFocusInitial > Agree </button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- follow people  -->
+    </div>
+  </div>
+
+
+</div>

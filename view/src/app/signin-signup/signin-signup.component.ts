@@ -15,6 +15,8 @@ import { ForgotPasswordComponent } from './../popups/forgot-password/forgot-pass
 import { SelectPeoplesComponent } from './../popups/select-peoples/select-peoples.component';
 import { SelectTopicsComponent } from './../popups/select-topics/select-topics.component';
 
+import { AlertPrivacyUpdateComponent } from './../popups/alert-privacy-update/alert-privacy-update.component';
+
 @Component({
   selector: 'app-signin-signup',
   templateUrl: './signin-signup.component.html',
@@ -36,6 +38,8 @@ export class SigninSignupComponent implements OnInit {
   LoginformValid: Boolean = false;
   SignUpType: any;
   NewPasswordSet: any;
+
+  UserInfo;
 
   countries: any[]= [{'name': 'Country One', 'code': '01'},
                     {'name': 'Country Two', 'code': '02'}];
@@ -135,7 +139,7 @@ export class SigninSignupComponent implements OnInit {
               duration: 3000,
               verticalPosition: 'top',
             });
-            this.router.navigate(['Feeds']);
+            this.GotoFeed();
           } else {
             this.ActiveTabIndex = 1;
           }
@@ -314,8 +318,7 @@ export class SigninSignupComponent implements OnInit {
               { disableClose: true, maxWidth: '99%', position: {top: '50px'},
                 data: { Header: 'Select Topics'  } });
                 SelectTopicDialogRef.afterClosed().subscribe(final => {
-
-                this.router.navigate(['Feeds']);
+                  this.GotoFeed();
               });
 
           });
@@ -330,13 +333,41 @@ export class SigninSignupComponent implements OnInit {
     this.Service.UserValidate(this.SignInForm.value.LoginUserEmail, this.SignInForm.value.LoginUserPassword)
     .subscribe( datas => {
       if (datas['status'] === 'True') {
-        this.router.navigate(['Feeds']);
+        this.GotoFeed();
       }else {
         alert(datas['message']);
       }
      } );
   }
 
+
+  GotoFeed() {
+    this.UserInfo = JSON.parse(localStorage.getItem('currentUser'));
+    this.Service.Privacy_Update_Check(this.UserInfo.data._id)
+    .subscribe( datas => {
+      if (datas['Status'] === 'True' && datas['Output'] === 'True' && datas['Response'] === 'Success') {
+        this.router.navigate(['Feeds']);
+      }else {
+        const DeleteConfirmrDialogRef = this.dialog.open( AlertPrivacyUpdateComponent,
+          {disableClose: true, width: '450px', minHeight: '300px', data: { text: ''  } });
+          DeleteConfirmrDialogRef.afterClosed().subscribe( result => {
+            if (result === 'Yes' ) {
+              this.Service.Privacy_Update_Agree(this.UserInfo.data._id)
+              .subscribe( datas_new => {
+                if (datas_new['Status'] === 'True' && datas_new['Output'] === 'True') {
+                  this.router.navigate(['Feeds']);
+                }else {
+                  this.router.navigate(['Feeds']);
+                }
+              });
+            } else {
+              localStorage.removeItem('currentUser');
+              localStorage.removeItem('UserToken');
+            }
+          });
+      }
+     });
+  }
 
 
 

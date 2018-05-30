@@ -321,6 +321,59 @@ exports.UserValidate = function(req, res) {
     });
 };
 
+
+
+// ---------------------------------------------------------------------- User Info ---------------------------------------------------------------
+exports.Privacy_Update_Check = function(req, res) {
+    if(!req.params.User_Id || req.params.User_Id === '' ) {
+        res.status(200).send({Status:"True", Output:"False", Message: "User Id can not be empty" });
+    }else{
+        UserModel.UserType.findOne({'_id': req.params.User_Id}, { UserPassword: 0, __v: 0 }, function(err, result) {
+            if(err) {
+                res.status(500).send({ Status:"False", Error:err, Message: "User Info Find Error! " });
+            } else {
+                if (result !== null) {
+                    Status = '';
+                    if(result.Privacy_Update_Checked === 'Success' ) {
+                        Status = 'Success';
+                    }
+                    res.status(200).send({ Status:"True", Output:"True", Response: Status });
+                }else {
+                    res.status(200).send({ Status:"True", Output:"False", Message: 'Invalid User Info' });
+                }
+            }
+        });
+    }
+};
+
+
+exports.Privacy_Update_Agree = function(req, res) {
+    if(!req.params.User_Id || req.params.User_Id === '' ) {
+        res.status(200).send({Status:"True", Output:"False", Message: "User Id can not be empty" });
+    }else{
+        UserModel.UserType.findOne({'_id': req.params.User_Id}, { UserPassword: 0, __v: 0 }, function(err, result) {
+            if(err) {
+                res.status(500).send({ Status:"False", Error:err, Message: "User Info Find Error! " });
+            } else {
+                if (result !== null) {
+                    result.Privacy_Update_Checked = 'Success';
+                    result.save(function(err_1, result_1) {
+                        if(err) {
+                            res.status(500).send({Status:"False", Error:err, Message: "Some error occurred while User Info Update"});           
+                        } else {
+                            res.status(200).send({ Status:"True", Output:"True", Response: result_1, Message: 'Successfully Updated' });
+                        }
+                    });
+                }else {
+                    res.status(200).send({ Status:"True", Output:"False", Message: 'Invalid User Info' });
+                }
+            }
+        });
+    }
+};
+
+
+
 exports.UserInfo = function(req, res) {
     UserModel.UserType.findOne({'_id': req.params.UserId}, "_id UserName UserEmail UserCategoryId UserGender UserDateOfBirth UserCountry UserState UserCity UserCategoryName UserImage UserProfession UserCompany UserGender ShowEmail ShowDOB ShowLocation", function(err, data) {
         if(err) {

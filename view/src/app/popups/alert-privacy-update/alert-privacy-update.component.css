@@ -1,0 +1,62 @@
+
+
+
+.box-2{
+    background-color: #ffffff;
+}
+.DiscoverLefBar .followheader{
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 0px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #333333;
+    border-bottom: 3px solid #ffda00;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #ffda00;
+}
+.DiscoverLefBar .followPart{
+    height: 70px;
+    text-align: center;
+    padding-left: 0px;
+}
+.DiscoverLefBar .followimg{
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
+    background-color: #66666630;
+    padding: 0px;
+    border-radius: 55px;
+    cursor: pointer;
+}
+.DiscoverLefBar .followimg.selected{
+    border:5px double #333333;
+}
+.DiscoverLefBar .followname{
+    font-size: 12px;
+    margin: 0px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #333333;
+    font-family: 'Ubuntu', sans-serif;
+}
+.DiscoverLefBar .followname span{
+    cursor: pointer;
+}
+
+
+
+
+ button{
+    outline: transparent !important;
+    border: 1px solid #ececec !important;
+    height: 34px !important;
+    line-height: 34px !important;
+}
+
+
+
+.max-width-300{
+    max-width: 300px;
+}
