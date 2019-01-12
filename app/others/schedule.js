@@ -378,7 +378,6 @@ module.exports = function(app) {
                                                     return Updateerr;            
                                                     } else {
                                                         return response;
-                                                        console.log(Updateresult, response )
                                                     }
                                                 });
                                             })
